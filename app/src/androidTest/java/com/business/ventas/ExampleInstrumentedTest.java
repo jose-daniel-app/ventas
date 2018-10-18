@@ -1,4 +1,4 @@
-package com.example.jose.ventas;
+package com.business.ventas;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

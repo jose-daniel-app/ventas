@@ -1,4 +1,4 @@
-package com.example.jose.ventas;
+package com.business.ventas;
 
 import org.junit.Test;
 
