@@ -9,8 +9,21 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        /**
+         *
+         *
+         *
+         * */
+        try{
+            Thread.sleep(2000);
+        }catch (Exception e){
+
+        }
+
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
+
 }
