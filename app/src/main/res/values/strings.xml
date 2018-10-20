@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Ventas</string>
+    <string name="title_activity_referencia">ReferenciaActivity</string>
+
+    <!-- login_activity  -->
+    <string name="loginActivityCorreo">Correo</string>
+    <string name="loginActivityPassword">Password</string>
+    <string name="loginactivityIngresar">Ingresar</string>
+
 </resources>
