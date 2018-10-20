@@ -18,9 +18,9 @@
     </style>
 
     <!-- estilo para los botones -->
-    <style name="RaisedButtonDark" parent="Theme.AppCompat.Light">
-        <item name="colorButtonNormal">@color/primary_dark</item>
-        <item name="colorControlHighlight">@color/primary</item>
+    <style name="RaisedButton" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/primary</item>
+        <item name="colorControlHighlight">@color/primary_dark</item>
         <item name="android:textColor">@color/primary_text</item>
     </style>
     
