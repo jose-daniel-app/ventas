@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_light"
+    android:background="@drawable/fondo1"
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
     tools:context=".login.views.LoginActivity">
@@ -18,15 +18,20 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_marginTop="0dp"
+            android:elevation="3dp"
             android:layout_weight="0.6"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:background="@drawable/logo_prueba2"
-                android:layout_centerInParent="true"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/logobase1"
                 tools:ignore="ContentDescription" />
 
         </RelativeLayout>
@@ -35,44 +40,82 @@
             android:orientation="vertical"
             android:layout_weight="0.4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            >
 
             <!-- correo -->
             <android.support.design.widget.TextInputLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:layout_marginTop="20dp">
 
                 <android.support.design.widget.TextInputEditText
+                    android:paddingLeft="15dp"
+                    android:layout_gravity="center"
                     android:id="@+id/inputEditTextCorreo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_person_black_24dp"
                     android:hint="@string/loginActivityCorreo"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <!-- password -->
             <android.support.design.widget.TextInputLayout
-                app:passwordToggleEnabled="true"
+
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:layout_marginTop="20dp">
 
                 <android.support.design.widget.TextInputEditText
+
+                    android:paddingLeft="15dp"
                     android:id="@+id/inputEditTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/loginActivityPassword"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:drawableLeft="@drawable/ic_lock_black_24dp"
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:textAllCaps="false"
-                android:theme="@style/RaisedButton"
-                android:text="@string/loginactivityIngresar"
-                android:id="@+id/buttonIngresar"
+            <CheckBox
+                android:id="@+id/checkBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
 
+                android:text="Recordarme"
+                android:textColor="#fff"
+
+                />
+
+            <Button
+                android:id="@+id/material_buttond"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="22dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/accent"
+                android:text="Log in"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="160dp"
+                android:text="Forgot Password?"
+                android:textColor="#fff"/>
 
         </LinearLayout>
 
