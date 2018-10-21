@@ -15,13 +15,14 @@
     <color name="icons">#212121</color>
     <color name="divider">#BDBDBD</color> -->
 
-    <color name="primary">#FFC107</color>
-    <color name="primary_dark">#FFA000</color>
-    <color name="primary_light">#FFECB3</color>
-    <color name="accent">#607D8B</color>
+    <color name="primary">#009688</color>
+    <color name="primary_dark">#006064</color>
+    <color name="primary_light">#b3e5fc</color>
+    <color name="accent">#00BCD4</color>
+    <color name="accent2">#01579b</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
-    <color name="icons">#212121</color>
-    <color name="divider">#BDBDBD</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#fff</color>
 
 </resources>
