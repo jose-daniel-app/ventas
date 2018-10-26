@@ -12,15 +12,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiAdapter {
 
-    public Service getLoginService(final String correo, final String passwor){
+    public Service getLoginService(){
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
 
             @Override
             public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request newRequest  = chain.request().newBuilder()
-                        .addHeader("username", correo)
-                        .addHeader("password", passwor)
+                        .addHeader("Content-Type", "application/json")
                         .build();
                 return chain.proceed(newRequest);
             }
@@ -28,7 +27,7 @@ public class RestApiAdapter {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_ROOT)
-                .client(client)
+                //.client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

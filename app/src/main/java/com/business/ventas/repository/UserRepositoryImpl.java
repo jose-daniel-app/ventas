@@ -7,6 +7,8 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.google.gson.JsonObject;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,22 +18,21 @@ public class UserRepositoryImpl implements UserRepository {
     VentasLog log = LogFactory.createInstance().setTag(UserRepositoryImpl.class.getSimpleName());
 
     @Override
-    public void loginSesion(String correo, String password, final Respond<User> listener) {
+    public void loginSesion(final String correo, final String password, final Respond<User> listener) {
 
         RestApiAdapter restApiAdapter = new RestApiAdapter();
-        Service service = restApiAdapter.getLoginService(correo, password);
-        Call<JsonObject> call =  service.login();
+        Service service = restApiAdapter.getLoginService();
+        Call<Void> call =  service.login(new Service.User(correo,password));
 
-        call.enqueue(new Callback<JsonObject>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 log.info(response.headers().get("Authorization"));
                 listener.succes(new User());
-
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 log.error(t.getMessage(),t);
                 listener.error(t.getMessage());
             }

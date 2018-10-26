@@ -12,6 +12,13 @@ public interface LoginContract {
 
     interface Presenter {
         Presenter setView(Context context);
+        void loginSesion(String correo,String password);
+        View getView();
+    }
+
+    interface Interactor {
+        Interactor setPresenter(Presenter presenter);
+        void loginSesion(String correo,String password);
     }
 
 }

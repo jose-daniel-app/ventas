@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         log.info("se agrego el log correcta mente y de instancio el presenter");
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+        this.presenter.loginSesion("matias","12345");
         setContentView(R.layout.activity_login);
     }
 
