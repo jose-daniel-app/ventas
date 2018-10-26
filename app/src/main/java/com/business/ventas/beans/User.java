@@ -4,6 +4,7 @@ public class User {
 
     private String Correo;
     private String password;
+    private String apiKey;
 
     public String getCorreo() {
         return Correo;
@@ -19,5 +20,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }
