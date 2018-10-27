@@ -5,9 +5,6 @@ import com.business.ventas.apiRest.Service;
 import com.business.ventas.beans.User;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.google.gson.JsonObject;
-
-import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +25,9 @@ public class UserRepositoryImpl implements UserRepository {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 log.info(response.headers().get("Authorization"));
-                listener.succes(new User());
+                User user = new User();
+                user.setApiKey(response.headers().get("Authorization"));
+                listener.succes(user);
             }
 
             @Override
@@ -39,4 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
         });
 
     }
+
+
+
 }
