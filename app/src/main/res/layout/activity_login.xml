@@ -41,22 +41,26 @@
             android:layout_weight="0.4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             >
 
             <!-- correo -->
             <android.support.design.widget.TextInputLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:layout_marginTop="20dp">
+                android:layout_height="50dp"
+                android:background="@drawable/bg_textfield_rounded"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                >
 
                 <android.support.design.widget.TextInputEditText
+                    android:background="@null"
                     android:paddingLeft="15dp"
-                    android:layout_gravity="center"
                     android:id="@+id/inputEditTextCorreo"
+                    android:layout_gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_person_black_24dp"
@@ -67,21 +71,28 @@
             <!-- password -->
             <android.support.design.widget.TextInputLayout
 
-
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
-                android:layout_marginTop="20dp">
+                android:layout_height="50dp"
+                android:background="@drawable/bg_textfield_rounded"
+                android:layout_marginTop="30dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                >
 
                 <android.support.design.widget.TextInputEditText
 
+
+                    android:background="@null"
                     android:paddingLeft="15dp"
                     android:id="@+id/inputEditTextPassword"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="@string/loginActivityPassword"
                     android:inputType="textPassword"
                     android:drawableLeft="@drawable/ic_lock_black_24dp"
+
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -91,24 +102,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:clickable="true"
+
                 android:text="Recordarme"
                 android:textColor="#fff"
 
                 />
 
             <Button
-                android:id="@+id/material_buttond"
-                android:layout_width="230dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:id="@+id/button_login"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/accent"
+                android:background="@drawable/bg_button_login_rounded"
                 android:text="Log in"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="20dp" />
-
             <TextView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
