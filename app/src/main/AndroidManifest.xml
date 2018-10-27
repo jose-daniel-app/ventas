@@ -12,15 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_logo1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- login -->
         <activity
             android:name=".login.views.LoginActivity"
             android:theme="@style/SplashTheme">
+        </activity>
+
+        <!-- main -->
+        <activity
+            android:name=".login.views.MenuActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".login.views.ReferenciaActivity"
             android:label="@string/title_activity_referencia"

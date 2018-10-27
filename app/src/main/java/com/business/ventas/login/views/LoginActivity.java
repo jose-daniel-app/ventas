@@ -1,6 +1,7 @@
 package com.business.ventas.login.views;
 
 
+import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -82,9 +83,9 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onAuthStateChanged(boolean state) {
         if(state){
-            log.info("session activa");
-        }else {
-            log.info("session cerrada");
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 

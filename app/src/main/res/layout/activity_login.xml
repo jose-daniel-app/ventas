@@ -70,29 +70,23 @@
 
             <!-- password -->
             <android.support.design.widget.TextInputLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/bg_textfield_rounded"
                 android:layout_marginTop="30dp"
                 android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                >
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <android.support.design.widget.TextInputEditText
-
-
                     android:background="@null"
                     android:paddingLeft="15dp"
                     android:id="@+id/inputEditTextPassword"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:hint="@string/loginActivityPassword"
                     android:inputType="textPassword"
                     android:drawableLeft="@drawable/ic_lock_black_24dp"
-
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -103,10 +97,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
-
                 android:text="Recordarme"
                 android:textColor="#fff"
-
                 />
 
             <Button
@@ -122,8 +114,8 @@
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="20dp" />
-            <TextView
 
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
