@@ -15,8 +15,7 @@ public class AuthRepository {
 
     private static final String API_KEY_REST = "api_key_rest";
     private static AuthRepository authRepository;
-    private static SharedPreferences sharedPreferences;
-    private List<AuthStateListener> clients = new ArrayList<>();
+    private static final List<AuthStateListener> subscribers = new ArrayList<>();
 
     private AuthRepository() {
     }
@@ -29,51 +28,48 @@ public class AuthRepository {
 
 
     public void addKey(String apiKey, Context context){
-        if(sharedPreferences == null){
-            sharedPreferences = context.getSharedPreferences("ventasPreferences", context.MODE_PRIVATE);
-        }
 
-        if(getApiKeyRest() == null){
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(API_KEY_REST, apiKey);
-            editor.commit();
-        }
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.putString(API_KEY_REST, apiKey);
+        editor.commit();
         notificar(true);
     }
 
 
-    public void deleteKey(){
-        if(sharedPreferences != null){
+    public void deleteKey(Context context){
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.remove(API_KEY_REST);
             editor.commit();
             notificar(false);
-        }
-
     }
 
-    public static String getApiKeyRest(){
-        if(sharedPreferences != null){
-            return sharedPreferences.getString(API_KEY_REST,null);
+    public String getApiKeyRest(Context context){
+        if(getSharedPreferences(context) != null){
+            return getSharedPreferences(context).getString(API_KEY_REST,null);
         }
         return null;
     }
 
 
     public void addAuthStateListener(AuthStateListener authStateListener){
-        clients.add(authStateListener);
-        notificar(getApiKeyRest() != null);
+        subscribers.add(authStateListener);
+        notificar(getApiKeyRest((Context)authStateListener) != null);
     }
 
     public void removeAuthStateListener(AuthStateListener authStateListener){
-        clients.remove(authStateListener);
+        subscribers.remove(authStateListener);
     }
 
+    SharedPreferences getSharedPreferences(Context context){
+        return context.getSharedPreferences("ventasPreferences", context.MODE_PRIVATE);
+    }
 
     private void notificar(boolean state){
-        log.info("Se esta iniciando el login : " + state);
-        for (AuthStateListener listener : clients ){
-            listener.onAuthStateChanged(state);
+        for (AuthStateListener subscriber : subscribers){
+            subscriber.onAuthStateChanged(state);
         }
     }
 
