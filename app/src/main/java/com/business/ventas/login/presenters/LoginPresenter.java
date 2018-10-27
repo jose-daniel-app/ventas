@@ -18,11 +18,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void loginSesion(String correo, String password) {
-        this.interactor.loginSesion(correo,password);
-    }
-
-    @Override
     public LoginContract.View getView(){
         return view;
     }

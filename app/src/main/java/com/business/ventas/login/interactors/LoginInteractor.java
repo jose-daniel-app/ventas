@@ -13,11 +13,6 @@ import com.business.ventas.repository.UserRepository;
 public class LoginInteractor implements LoginContract.Interactor {
 
     LoginContract.Presenter presenter;
-    AuthRepository authRepository = AuthRepository.getInstance();
-
-    RepositoryFactory factory = RepositoryFactory.getFactory(RepositoryFactory.API_REST);
-    UserRepository userRepository = factory.getUserRepository();
-
 
     @Override
     public LoginContract.Interactor setPresenter(LoginContract.Presenter presenter) {
@@ -25,21 +20,4 @@ public class LoginInteractor implements LoginContract.Interactor {
         return this;
     }
 
-    @Override
-    public void loginSesion(String correo, String password) {
-
-        userRepository.loginSesion(correo, password, new UserRepository.Respond<User>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void succes(User obj) {
-                authRepository.addKey(obj.getApiKey(),(Context) presenter.getView());
-                presenter.getView().responseLoginSucces("Se inicio correctamente");
-            }
-
-            @Override
-            public void error(String cause) {
-                presenter.getView().responseLoginError(cause);
-            }
-        });
-    }
 }

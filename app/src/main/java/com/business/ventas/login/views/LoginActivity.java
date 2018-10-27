@@ -46,30 +46,24 @@ public class LoginActivity extends AppCompatActivity implements
         inputEditTextPassword = findViewById(R.id.inputEditTextPassword);
         material_buttond = findViewById(R.id.material_buttond);
         material_buttond.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
         if(R.id.material_buttond == view.getId()){
-            this.presenter.loginSesion("matias","12345");
+            auth.signInWithEmailAndPassword("matias", "12345", this, new AuthRepository.OnCompleteListener() {
+                @Override
+                public void onComplete(boolean state) {
+
+                }
+            });
         }else if(R.id.btnCerrarsesion == view.getId()){
-            auth.deleteKey(this);
+            auth.signOut(this);
         }
     }
 
     @Override
     public void showProgressBar(Boolean show) {
-
-    }
-
-    @Override
-    public void responseLoginSucces(String response) {
-
-    }
-
-    @Override
-    public void responseLoginError(String response) {
 
     }
 

@@ -3,6 +3,7 @@ package com.business.ventas.repository;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.business.ventas.beans.User;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 
@@ -13,9 +14,13 @@ public class AuthRepository {
 
     VentasLog log = LogFactory.createInstance().setTag(AuthRepository.class.getSimpleName());
 
+    RepositoryFactory _factory = RepositoryFactory.getFactory(RepositoryFactory.API_REST);
+    UserRepository _userRepository = _factory.getUserRepository();
+
     private static final String API_KEY_REST = "api_key_rest";
     private static AuthRepository authRepository;
     private static final List<AuthStateListener> subscribers = new ArrayList<>();
+
 
     private AuthRepository() {
     }
@@ -26,9 +31,22 @@ public class AuthRepository {
         return authRepository;
     }
 
+    public void signInWithEmailAndPassword(String Correo, String password, Context context, OnCompleteListener listener){
+        _userRepository.loginSesion(Correo, password, new UserRepository.Respond<User>() {
+            @Override
+            public void succes(User obj) {
+                logIn(obj.getApiKey(),context);
+                listener.onComplete(true);
+            }
 
-    public void addKey(String apiKey, Context context){
+            @Override
+            public void error(String cause) {
+                listener.onComplete(false);
+            }
+        });
+    }
 
+    public void logIn(String apiKey, Context context){
         SharedPreferences sharedPreferences = getSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
@@ -37,8 +55,7 @@ public class AuthRepository {
         notificar(true);
     }
 
-
-    public void deleteKey(Context context){
+    public void signOut(Context context){
         SharedPreferences sharedPreferences = getSharedPreferences(context);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.remove(API_KEY_REST);
@@ -52,7 +69,6 @@ public class AuthRepository {
         }
         return null;
     }
-
 
     public void addAuthStateListener(AuthStateListener authStateListener){
         subscribers.add(authStateListener);
@@ -73,9 +89,12 @@ public class AuthRepository {
         }
     }
 
-
     public interface AuthStateListener {
         public void onAuthStateChanged(boolean state);
+    }
+
+    public interface OnCompleteListener{
+         void onComplete(boolean state);
     }
 
 }
