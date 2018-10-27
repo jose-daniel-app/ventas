@@ -19,7 +19,7 @@ public class LoginActivity extends AppCompatActivity implements
         LoginContract.View, AuthRepository.AuthStateListener, View.OnClickListener {
 
     VentasLog log = LogFactory.createInstance().setTag(LoginActivity.class.getSimpleName());
-    AuthRepository auth = AuthRepository.getInstance();
+    AuthRepository auth;
     LoginContract.Presenter presenter;
 
     /*
@@ -33,9 +33,9 @@ public class LoginActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
 
         this.presenter = LoginFactory.createInstance(LoginContract.Presenter.class).setView(this);
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        auth = AuthRepository.getInstance();
         loadItems();
 
     }
@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements
         }else if(R.id.button_login == view.getId()){
             auth.signOut(this);
         }
-
 
     }
 

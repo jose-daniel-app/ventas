@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.business.ventas.R;
 import com.business.ventas.repository.AuthRepository;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
 
 
 public class MenuActivity extends AppCompatActivity implements
-        AuthRepository.AuthStateListener,  View.OnLongClickListener {
+        AuthRepository.AuthStateListener,  View.OnClickListener {
 
-    AuthRepository auth = AuthRepository.getInstance();
+    AuthRepository auth;
+    VentasLog log;
 
     /**
      * Declaraciones de Items
@@ -23,16 +27,16 @@ public class MenuActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        log  = LogFactory.createInstance().setTag(MenuActivity.class.getSimpleName());
+        auth = AuthRepository.getInstance();
         loadItems();
-
     }
 
     private void loadItems(){
         cardviewPrueba2 = findViewById(R.id.cardviewPrueba2);
-        cardviewPrueba2.setOnLongClickListener(this);
+        cardviewPrueba2.setOnClickListener(this);
     }
 
     @Override
@@ -56,11 +60,12 @@ public class MenuActivity extends AppCompatActivity implements
         }
     }
 
+
     @Override
-    public boolean onLongClick(View view) {
+    public void onClick(View view) {
         if(R.id.cardviewPrueba2 == view.getId()){
+
             auth.signOut(this);
         }
-        return false;
     }
 }

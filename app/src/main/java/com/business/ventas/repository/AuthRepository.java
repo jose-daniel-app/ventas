@@ -19,7 +19,7 @@ public class AuthRepository {
 
     private static final String API_KEY_REST = "api_key_rest";
     private static AuthRepository authRepository;
-    private static final List<AuthStateListener> subscribers = new ArrayList<>();
+    private List<AuthStateListener> subscribers = new ArrayList<>();
 
 
     private AuthRepository() {

@@ -13,20 +13,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- login -->
+        <!-- splash -->
         <activity
-            android:name=".login.views.LoginActivity"
-            android:theme="@style/SplashTheme">
-        </activity>
-
-        <!-- main -->
-        <activity
-            android:name=".login.views.MenuActivity"
+            android:name=".login.views.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- main -->
+        <activity
+            android:name=".login.views.MenuActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.views.MenuActivity" />
+        </activity>
+
+        <!-- login -->
+        <activity
+            android:name=".login.views.LoginActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.views.LoginActivity" />
         </activity>
 
         <activity
