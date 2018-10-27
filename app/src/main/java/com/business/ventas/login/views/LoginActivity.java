@@ -1,13 +1,9 @@
 package com.business.ventas.login.views;
 
-import android.arch.lifecycle.ViewModel;
-import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,7 +21,6 @@ public class LoginActivity extends AppCompatActivity implements
     AuthRepository auth = AuthRepository.getInstance();
     LoginContract.Presenter presenter;
 
-
     /*
     * Declaracion de elementos
     * */
@@ -42,42 +37,25 @@ public class LoginActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_login);
         loadItems();
 
-/*
-        button_login =(Button)findViewById(R.id.button_login);
-        button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent button_login= new Intent(LoginActivity.this,MenuActivity.class);
-                startActivity(button_login);
-
-            }
-        });*/
     }
 
     private void loadItems(){
         inputEditTextCorreo = findViewById(R.id.inputEditTextCorreo);
         inputEditTextPassword = findViewById(R.id.inputEditTextPassword);
-<<<<<<< HEAD
-        material_buttond = findViewById(R.id.material_buttond);
-        material_buttond.setOnClickListener(this);
-=======
         button_login = findViewById(R.id.button_login);
         button_login.setOnClickListener(this);
-
->>>>>>> origin/master
     }
 
     @Override
     public void onClick(View view) {
-<<<<<<< HEAD
-        if(R.id.material_buttond == view.getId()){
+        if(R.id.button_login == view.getId()){
             auth.signInWithEmailAndPassword("matias", "12345", this, new AuthRepository.OnCompleteListener() {
                 @Override
                 public void onComplete(boolean state) {
 
                 }
             });
-        }else if(R.id.btnCerrarsesion == view.getId()){
+        }else if(R.id.button_login == view.getId()){
             auth.signOut(this);
         }
 
