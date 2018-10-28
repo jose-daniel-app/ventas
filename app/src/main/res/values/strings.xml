@@ -19,4 +19,12 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="menuActivityReqerimiento">Requerimientos</string>
+    <string name="menuActivityVentas">Ventas</string>
+    <string name="menuActivityComprobante">Comprobante</string>
+
+    <!-- String for menuActivity -->
+
+
+
 </resources>

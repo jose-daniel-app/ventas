@@ -15,7 +15,7 @@
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="80dp"
             android:background="@drawable/fondo1"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
@@ -31,7 +31,7 @@
 
             <TextView
                 android:layout_width="229dp"
-                android:layout_height="64dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
@@ -43,15 +43,15 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:background="#f1f4f4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:clipToPadding="false"
             android:gravity="center"
@@ -93,7 +93,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Ventas"
+                            android:text="@string/menuActivityVentas"
                             android:textStyle="bold" />
 
                         <View
@@ -114,7 +114,6 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cardviewPrueba2"
                     android:layout_width="140dp"
                     android:layout_height="170dp"
                     android:layout_margin="10dp"
@@ -138,7 +137,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Prueba2"
+                            android:text="@string/menuActivityReqerimiento"
                             android:textStyle="bold" />
 
                         <View
@@ -192,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Prueba3"
+                            android:text="@string/menuActivityComprobante"
                             android:textStyle="bold" />
 
                         <View
@@ -213,6 +212,7 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cardviewPrueba2"
                     android:layout_width="140dp"
                     android:layout_height="170dp"
                     android:layout_margin="10dp"
@@ -236,7 +236,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Prueba4"
+                            android:text="Salir"
                             android:textStyle="bold" />
 
                         <View
@@ -258,7 +258,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -311,9 +311,9 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
-            </LinearLayout>
+            </LinearLayout> -->
 
-            <LinearLayout
+            <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -366,7 +366,7 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
-            </LinearLayout>
+            </LinearLayout> -->
 
 
         </LinearLayout>

@@ -17,9 +17,8 @@ import com.business.ventas.utils.VentasLog;
 public class MenuActivity extends AppCompatActivity implements
         AuthRepository.AuthStateListener,  View.OnClickListener {
 
-    AuthRepository auth;
-    VentasLog log;
-
+    AuthRepository auth = AuthRepository.getInstance();;
+    VentasLog log  = LogFactory.createInstance().setTag(MenuActivity.class.getSimpleName());;
     /**
      * Declaraciones de Items
      * */
@@ -29,8 +28,6 @@ public class MenuActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        log  = LogFactory.createInstance().setTag(MenuActivity.class.getSimpleName());
-        auth = AuthRepository.getInstance();
         loadItems();
     }
 
@@ -64,7 +61,6 @@ public class MenuActivity extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
         if(R.id.cardviewPrueba2 == view.getId()){
-
             auth.signOut(this);
         }
     }
