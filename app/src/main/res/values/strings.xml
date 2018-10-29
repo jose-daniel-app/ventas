@@ -24,6 +24,12 @@
     <string name="menuActivityComprobante">Comprobante</string>
     <string name="title_activity_ventas">VentasActivity</string>
 
+
+    <string name="close">Close</string>
+    <string name="open">Open</string>
+    <string name="productosActivityProducto1">Producto 1</string>
+    <string name="productosActivityProducto2">Producto 2</string>
+    <string name="productosActivityProducto3">Producto 3</string>
     <!-- String for menuActivity -->
 
 

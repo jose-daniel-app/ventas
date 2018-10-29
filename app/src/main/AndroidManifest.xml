@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.business.ventas">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_logo1"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <!-- splash -->
         <activity
@@ -38,11 +40,36 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".login.views.LoginActivity" />
         </activity>
+
+        <!-- clientes -->
+        <activity
+            android:name=".login.views.ClienteActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.views.ClienteActivity" />
+
+        </activity>
+
+        <!-- productos -->
+        <activity
+            android:name=".login.views.ProductosActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.views.ProductosActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name=".login.views.ReferenciaActivity"
             android:label="@string/title_activity_referencia"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
+        <!--<activity
             android:name=".ventas.views.VentasActivity"
             android:label="@string/title_activity_ventas"
             android:theme="@style/AppTheme">
@@ -51,7 +78,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
     </application>
 
 </manifest>
