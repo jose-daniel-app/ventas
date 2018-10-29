@@ -1,3 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- card-view-cliente -->
+    <dimen name="cardView_cliente_height">110dp</dimen>
+    <dimen name="cardView_cliente_CircleImageView_margin">10dp</dimen>
+    <dimen name="cardView_cliente_marginStart">10dp</dimen>
+
 </resources>

@@ -22,9 +22,9 @@
     <string name="menuActivityReqerimiento">Requerimientos</string>
     <string name="menuActivityVentas">Ventas</string>
     <string name="menuActivityComprobante">Comprobante</string>
+    <string name="title_activity_ventas">VentasActivity</string>
 
     <!-- String for menuActivity -->
-
 
 
 </resources>

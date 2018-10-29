@@ -23,7 +23,7 @@
         <item name="colorControlHighlight">@color/primary_dark</item>
         <item name="android:textColor">@color/primary_text</item>
     </style>
-    
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
