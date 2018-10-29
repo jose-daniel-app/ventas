@@ -17,10 +17,7 @@
         <activity
             android:name=".login.views.SplashScreenActivity"
             android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <!-- main -->
@@ -40,6 +37,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".login.views.LoginActivity" />
         </activity>
+        <!-- clientes -->
+        <activity
+            android:name=".login.views.ClienteActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.views.ClienteActivity" />
+
+
+        </activity>
+
+        <!-- productos -->
+        <activity
+            android:name=".login.views.ProductosActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.views.ProductosActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
 
         <activity
             android:name=".login.views.ReferenciaActivity"
