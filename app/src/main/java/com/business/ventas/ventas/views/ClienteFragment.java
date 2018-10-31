@@ -82,16 +82,16 @@ public class ClienteFragment extends Fragment {
 
     private void loadComponents(View view) {
 
-        productlists.add(new Cliente("Ana Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Beto Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Carlos Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("David Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Eduardo Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Fernando Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Giovanni Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Helena Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Isabel Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
-        productlists.add(new Cliente("Jose Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Ana Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Beto Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Carlos Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("David Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Eduardo Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Fernando Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Giovanni Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Helena Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Isabel Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Jose Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
 
         listaclientes = view.findViewById(R.id.listacli);
         listaclientes.setHasFixedSize(true);
