@@ -4,11 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Cliente;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +35,10 @@ public class ClienteFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    RecyclerView listaclientes;
+    List<Cliente> productlists = new ArrayList<>();
+    ClienteActivityAdapter adapter;
 
     public ClienteFragment() {
         // Required empty public constructor
@@ -72,6 +82,24 @@ public class ClienteFragment extends Fragment {
 
     private void loadComponents(View view) {
 
+        productlists.add(new Cliente("Ana Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Beto Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Carlos Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("David Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Eduardo Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Fernando Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Giovanni Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Helena Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Isabel Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+        productlists.add(new Cliente("Jose Nombre Apellido ", R.drawable.logobase1,"104593895087","SMP, urb. los cedros de naranjal"));
+
+        listaclientes = view.findViewById(R.id.listacli);
+        listaclientes.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        listaclientes.setLayoutManager(linearLayoutManager);
+
+        adapter = new ClienteActivityAdapter(productlists, getActivity());
+        listaclientes.setAdapter(adapter);
     }
 
     // TODO: Renombrar método, actualizar argumento y enganchar método en evento UI

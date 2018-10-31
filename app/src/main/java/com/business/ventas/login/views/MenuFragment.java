@@ -26,12 +26,19 @@ public class MenuFragment extends Fragment {
     VentasLog log = LogFactory.createInstance().setTag(MenuFragment.class.getSimpleName());
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    public static final int PRESS_ITEM_VENTAS = 0;
+    public static final int PRESS_ITEM_REQUER = 1;
+    public static final int PRESS_ITEM_COMPRO = 2;
+    public static final int PRESS_ITEM_SALIR = 3;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private int typeItem;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,16 +77,23 @@ public class MenuFragment extends Fragment {
         int id = view.getId();
         switch (id) {
             case R.id.menuCardViewVentas:
+                this.typeItem = PRESS_ITEM_VENTAS;
                 onButtonPressed(this);
-                log.info("card ventas");break;
+                break;
             case R.id.menuCardViewRequerimiento:
-                log.info("card req");break;
+                this.typeItem = PRESS_ITEM_REQUER;
+                onButtonPressed(this);
+                break;
             case R.id.menuCardViewComprobante:
-                log.info("card compro");break;
+                this.typeItem = PRESS_ITEM_COMPRO;
+                onButtonPressed(this);
+                break;
             case R.id.menuCardViewSalir:
-                log.info("card salir");break;
+                this.typeItem = PRESS_ITEM_SALIR;
+                onButtonPressed(this);
+                break;
             default:
-                log.info("card default");
+                log.info("entro al default");
         }
     }
 
@@ -132,6 +146,10 @@ public class MenuFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public int getPressTheItemType() {
+        return typeItem;
     }
 
     /**

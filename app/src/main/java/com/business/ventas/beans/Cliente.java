@@ -16,6 +16,13 @@ public class Cliente {
 
     }
 
+    public Cliente(String nombre, int foto, String ruc, String direccion) {
+        this.nombre = nombre;
+        this.foto = foto;
+        this.ruc = ruc;
+        this.direccion = direccion;
+    }
+
     public String getNombre() {
         return nombre;
     }

@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity
     AuthRepository auth = AuthRepository.getInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -45,8 +47,9 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
         menuFragment();
     }
 
@@ -135,10 +138,27 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Fragment faFragment) {
-        if(faFragment instanceof  MenuFragment){
+        if (faFragment instanceof MenuFragment) {
             MenuFragment fragment = castFragment(MenuFragment.class, faFragment);
-            log.info( "sin problemas");
+            executeActionMenuFragment(fragment);
         }
+    }
+
+    private void executeActionMenuFragment(MenuFragment fragment) {
+        switch (fragment.getPressTheItemType()) {
+            case MenuFragment.PRESS_ITEM_VENTAS:
+                navigationView.setCheckedItem(R.id.nav_ventas);
+                clienteFragment();
+                break;
+            case MenuFragment.PRESS_ITEM_REQUER:
+                break;
+            case MenuFragment.PRESS_ITEM_COMPRO:
+                break;
+            case MenuFragment.PRESS_ITEM_SALIR:
+                break;
+            default:
+        }
+
     }
 
     @Override
@@ -150,7 +170,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private <T> T castFragment(Class<T> clas,Fragment fragment){
-        return (T)fragment;
+    private <T> T castFragment(Class<T> clas, Fragment fragment) {
+        return (T) fragment;
     }
 }

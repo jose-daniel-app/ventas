@@ -42,13 +42,13 @@ public class ClienteActivityAdapter extends RecyclerView.Adapter<ClienteActivity
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
 
         holderview.v_nombre.setText(productlistAdap.get(position).getNombre());
+        holderview.v_ruc.setText(productlistAdap.get(position).getRuc());
+        holderview.v_direccion.setText(productlistAdap.get(position).getDireccion());
         holderview.v_foto.setImageResource(productlistAdap.get(position).getFoto());
 
         holderview.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(context, "no hay datos de " + productlistAdap.get(position).getNombre(), Toast.LENGTH_LONG).show();
-                log.info("llega al on click");
                 Intent intent = new Intent(activity, ProductosActivity.class);
                 activity.startActivity(intent);
             }
@@ -72,14 +72,19 @@ public class ClienteActivityAdapter extends RecyclerView.Adapter<ClienteActivity
     class Holderview extends RecyclerView.ViewHolder {
         ImageView v_foto;
         TextView v_nombre;
+        TextView v_ruc;
+        TextView v_direccion;
         CardView itemCarview;
+
 
         Holderview(View itemview) {
 
             super(itemview);
             itemCarview = itemview.findViewById(R.id.cardViewIdcliente);
             v_foto = (ImageView) itemview.findViewById(R.id.product_image);
-            v_nombre = (TextView) itemview.findViewById(R.id.product_title);
+            v_nombre = (TextView) itemview.findViewById(R.id.textView2);
+            v_ruc = itemview.findViewById(R.id.textView3);
+            v_direccion = itemview.findViewById(R.id.textView4);
         }
 
 
