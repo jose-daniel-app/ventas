@@ -3,11 +3,17 @@ package com.business.ventas.beans;
 public class Cliente {
     private String nombre;
     private int foto;
+    private String ruc;
+    private String direccion;
 
-    public Cliente(String nombre , int foto){
+    public Cliente(String nombre, int foto) {
 
         this.nombre = nombre;
-        this.foto=foto;
+        this.foto = foto;
+    }
+
+    public Cliente() {
+
     }
 
     public String getNombre() {
@@ -25,4 +31,21 @@ public class Cliente {
     public void setFoto(int foto) {
         this.foto = foto;
     }
+
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="inicio" />
+        <item
+            android:id="@+id/nav_ventas"
+            android:icon="@drawable/ic_menu_ventas"
+            android:title="Ventas" />
+        <item
+            android:id="@+id/nav_vouchers"
+            android:icon="@drawable/ic_menu_vouchers"
+            android:title="Comprobante" />
+        <item
+            android:id="@+id/nav_requerimiento"
+            android:icon="@drawable/ic_menu_assignment"
+            android:title="Requerimientos" />
+
+        <item
+            android:id="@+id/nav_cerrar_session"
+            android:icon="@drawable/ic_menu_exit"
+            android:title="Tools" />
+    </group>
+
+    <!--<item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item> -->
+
+</menu>

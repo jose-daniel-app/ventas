@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onAuthStateChanged(boolean state) {
         if(state){
-            Intent intent = new Intent(this, MenuActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }

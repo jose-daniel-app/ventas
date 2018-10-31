@@ -7,6 +7,10 @@
     <string name="loginActivityPassword">Password</string>
     <string name="loginactivityIngresar">Ingresar</string>
 
+    <!-- activity main -->
+    <string name="title_home">Torres</string>
+    <string name="title_ventas">Ventas</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -30,6 +34,16 @@
     <string name="productosActivityProducto1">Producto 1</string>
     <string name="productosActivityProducto2">Producto 2</string>
     <string name="productosActivityProducto3">Producto 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- String for menuActivity -->
 
 

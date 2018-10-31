@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/db_prueba" android:title="Prueba" android:icon="@drawable/ic_lock_black_24dp"></item>
-    <item android:id="@+id/db_menu" android:title="Menú" android:icon="@drawable/ic_person_black_24dp" ></item>
-    <item android:id="@+id/db_clientes" android:title="Clientes" android:icon="@drawable/ic_lock_black_24dp" android:background="@color/primary_light"></item>
-    <item android:id="@+id/db_cerrarSesion" android:title="Cerrar Sesión" android:icon="@drawable/ic_person_black_24dp"></item>
+    <item
+        android:id="@+id/db_prueba"
+        android:icon="@drawable/ic_lock_black_24dp"
+        android:title="Prueba" />
+    <item
+        android:id="@+id/db_menu"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Menú" />
+    <item
+        android:id="@+id/db_clientes"
+        android:background="@color/primary_light"
+        android:icon="@drawable/ic_lock_black_24dp"
+        android:title="Clientes" />
+    <item
+        android:id="@+id/db_cerrarSesion"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Cerrar Sesión" />
 </menu>

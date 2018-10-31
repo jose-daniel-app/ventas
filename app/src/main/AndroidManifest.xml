@@ -20,16 +20,19 @@
         <activity
             android:name=".login.views.SplashScreenActivity"
             android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- main -->
         <activity
-            android:name=".login.views.MenuActivity"
+            android:name=".login.views.MainActivity"
+            android:label="@string/title_activity_referencia"
             android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".login.views.MenuActivity" />
+
         </activity>
 
         <!-- login -->
@@ -43,42 +46,22 @@
 
         <!-- clientes -->
         <activity
-            android:name=".login.views.ClienteActivity"
+            android:name=".ventas.views.ClienteActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".login.views.ClienteActivity" />
-
+                android:value=".ventas.views.ClienteActivity" />
         </activity>
 
         <!-- productos -->
         <activity
-            android:name=".login.views.ProductosActivity"
+            android:name=".ventas.views.ProductosActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".login.views.ProductosActivity" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                android:value=".ventas.views.ProductosActivity" />
         </activity>
 
-
-        <activity
-            android:name=".login.views.ReferenciaActivity"
-            android:label="@string/title_activity_referencia"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!--<activity
-            android:name=".ventas.views.VentasActivity"
-            android:label="@string/title_activity_ventas"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
     </application>
 
 </manifest>
