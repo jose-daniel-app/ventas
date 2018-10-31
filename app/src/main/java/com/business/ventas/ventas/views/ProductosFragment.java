@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Producto;
+import com.business.ventas.login.contracts.LoginContract;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,8 +37,34 @@ public class ProductosFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+
+    RecyclerView recyclerView;
+    List<Producto> listaPro = new ArrayList<>();
+    ProductoViewAdapter adapter;
+
     public ProductosFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_productos, container, false);
+        loadComponents(view);
+        return view;
+    }
+
+    private void loadComponents(View view) {
+        recyclerView = view.findViewById(R.id.listaPro);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(mGridLayoutManager);
+
+        listaPro.add(new Producto("Queque", "sabor chocolate con chispas",R.drawable.queque));
+        listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+
+        adapter = new ProductoViewAdapter(listaPro, getActivity());
+        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -61,12 +94,6 @@ public class ProductosFragment extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_productos, container, false);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Fragment fragment) {

@@ -98,7 +98,7 @@ public class ClienteFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listaclientes.setLayoutManager(linearLayoutManager);
 
-        adapter = new ClienteActivityAdapter(productlists, getActivity());
+        adapter = new ClienteActivityAdapter(productlists,this);
         listaclientes.setAdapter(adapter);
     }
 

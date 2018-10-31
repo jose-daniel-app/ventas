@@ -53,7 +53,7 @@ public class ClienteActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listaclientes.setLayoutManager(linearLayoutManager);
 
-        adapter = new ClienteActivityAdapter(productlists, this);
+        //adapter = new ClienteActivityAdapter(productlists, this);
         listaclientes.setAdapter(adapter);
     }
 

@@ -2,7 +2,6 @@ package com.business.ventas.login.views;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,22 +9,22 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.business.ventas.R;
 import com.business.ventas.repository.AuthRepository;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.ClienteFragment;
+import com.business.ventas.ventas.views.ProductosFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MenuFragment.OnFragmentInteractionListener,
         ClienteFragment.OnFragmentInteractionListener,
+        ProductosFragment.OnFragmentInteractionListener,
         AuthRepository.AuthStateListener {
 
     AuthRepository auth = AuthRepository.getInstance();
@@ -102,12 +101,16 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_requerimiento) {
 
         } else if (id == R.id.nav_cerrar_session) {
-
+            cerrarSesion();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void cerrarSesion() {
+        auth.signOut(this);
     }
 
     private void menuFragment() {
@@ -122,6 +125,14 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(R.string.title_ventas);
         ClienteFragment clienteFragment = new ClienteFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, clienteFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    private void productoFragment() {
+        getSupportActionBar().setTitle(R.string.title_producto);
+        ProductosFragment productosFragment = new ProductosFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, productosFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
@@ -143,7 +154,22 @@ public class MainActivity extends AppCompatActivity
         if (faFragment instanceof MenuFragment) {
             MenuFragment fragment = castFragment(MenuFragment.class, faFragment);
             executeActionMenuFragment(fragment);
+        } else if (faFragment instanceof ProductosFragment) {
+            ProductosFragment fragment = castFragment(ProductosFragment.class, faFragment);
+            executeActionProductosFragment(fragment);
+        } else if (faFragment instanceof ClienteFragment) {
+            ClienteFragment fragment = castFragment(ClienteFragment.class, faFragment);
+            executeActionClienteFragment(faFragment);
         }
+
+    }
+
+    private void executeActionClienteFragment(Fragment faFragment) {
+        productoFragment();
+    }
+
+    private void executeActionProductosFragment(ProductosFragment fragment) {
+
     }
 
     private void executeActionMenuFragment(MenuFragment fragment) {
@@ -157,6 +183,7 @@ public class MainActivity extends AppCompatActivity
             case MenuFragment.PRESS_ITEM_COMPRO:
                 break;
             case MenuFragment.PRESS_ITEM_SALIR:
+                auth.signOut(this);
                 break;
             default:
         }

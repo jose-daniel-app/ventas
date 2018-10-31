@@ -23,11 +23,11 @@ public class ClienteActivityAdapter extends RecyclerView.Adapter<ClienteActivity
 
     private VentasLog log = LogFactory.createInstance().setTag(ClienteActivityAdapter.class.getSimpleName());
     private List<Cliente> productlistAdap;
-    private Activity activity;
+    private ClienteFragment fragment;
 
-    public ClienteActivityAdapter(List<Cliente> productlist, Activity activity) {
+    public ClienteActivityAdapter(List<Cliente> productlist, ClienteFragment fragment) {
         this.productlistAdap = productlist;
-        this.activity = activity;
+        this.fragment = fragment;
     }
 
     @Override
@@ -45,15 +45,13 @@ public class ClienteActivityAdapter extends RecyclerView.Adapter<ClienteActivity
         holderview.v_ruc.setText(productlistAdap.get(position).getRuc());
         holderview.v_direccion.setText(productlistAdap.get(position).getDireccion());
         holderview.v_foto.setImageResource(productlistAdap.get(position).getFoto());
+        holderview.itemView.setOnClickListener(this::onclick);
 
-        holderview.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, ProductosActivity.class);
-                activity.startActivity(intent);
-            }
-        });
+    }
 
+    private void onclick(View view) {
+        log.info("el onclick de clase => " + this.fragment);
+        fragment.onButtonPressed(this.fragment);
     }
 
     @Override
