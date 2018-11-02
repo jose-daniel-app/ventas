@@ -18,17 +18,18 @@
 
         <!-- splash -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".login.views.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- main -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".login.views.MainActivity"
             android:label="@string/title_activity_referencia"
             android:theme="@style/AppTheme">
@@ -38,29 +39,13 @@
         <!-- login -->
         <activity
             android:name=".login.views.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".login.views.LoginActivity" />
         </activity>
 
-        <!-- clientes -->
-        <activity
-            android:name=".ventas.views.ClienteActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ventas.views.ClienteActivity" />
-        </activity>
-
-        <!-- productos -->
-        <activity
-            android:name=".ventas.views.ProductosActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ventas.views.ProductosActivity" />
-        </activity>
 
     </application>
 
