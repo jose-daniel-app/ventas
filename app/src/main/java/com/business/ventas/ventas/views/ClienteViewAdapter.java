@@ -85,7 +85,6 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
             v_direccion = itemview.findViewById(R.id.textView4);
         }
 
-
     }
 
 }
