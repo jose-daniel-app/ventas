@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.business.ventas.R;
 import com.business.ventas.login.contracts.LoginContract;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements
     TextInputEditText inputEditTextCorreo;
     TextInputEditText inputEditTextPassword;
     Button button_login;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +46,22 @@ public class LoginActivity extends AppCompatActivity implements
         inputEditTextCorreo = findViewById(R.id.inputEditTextCorreo);
         inputEditTextPassword = findViewById(R.id.inputEditTextPassword);
         button_login = findViewById(R.id.button_login);
+        progressBar = findViewById(R.id.progressBar);
         button_login.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+
+        String correo = inputEditTextCorreo.getText().toString();
+        String password = inputEditTextPassword.getText().toString();
+
         if(R.id.button_login == view.getId()){
-            auth.signInWithEmailAndPassword("matias", "12345", this, new AuthRepository.OnCompleteListener() {
+            showProgressBar(true);
+            auth.signInWithEmailAndPassword(correo, password, this, new AuthRepository.OnCompleteListener() {
                 @Override
                 public void onComplete(boolean state) {
-
+                    showProgressBar(false);
                 }
             });
         }else if(R.id.button_login == view.getId()){
@@ -64,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void showProgressBar(Boolean show) {
-
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override

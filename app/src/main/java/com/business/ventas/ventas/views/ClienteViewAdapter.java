@@ -19,13 +19,13 @@ import com.business.ventas.utils.VentasLog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteActivityAdapter extends RecyclerView.Adapter<ClienteActivityAdapter.Holderview> {
+public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.Holderview> {
 
-    private VentasLog log = LogFactory.createInstance().setTag(ClienteActivityAdapter.class.getSimpleName());
+    private VentasLog log = LogFactory.createInstance().setTag(ClienteViewAdapter.class.getSimpleName());
     private List<Cliente> productlistAdap;
     private ClienteFragment fragment;
 
-    public ClienteActivityAdapter(List<Cliente> productlist, ClienteFragment fragment) {
+    public ClienteViewAdapter(List<Cliente> productlist, ClienteFragment fragment) {
         this.productlistAdap = productlist;
         this.fragment = fragment;
     }
@@ -84,7 +84,6 @@ public class ClienteActivityAdapter extends RecyclerView.Adapter<ClienteActivity
             v_ruc = itemview.findViewById(R.id.textView3);
             v_direccion = itemview.findViewById(R.id.textView4);
         }
-
 
     }
 

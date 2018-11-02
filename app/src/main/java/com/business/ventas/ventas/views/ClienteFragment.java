@@ -38,7 +38,7 @@ public class ClienteFragment extends Fragment {
 
     RecyclerView listaclientes;
     List<Cliente> productlists = new ArrayList<>();
-    ClienteActivityAdapter adapter;
+    ClienteViewAdapter adapter;
 
     public ClienteFragment() {
         // Required empty public constructor
@@ -98,7 +98,7 @@ public class ClienteFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listaclientes.setLayoutManager(linearLayoutManager);
 
-        adapter = new ClienteActivityAdapter(productlists,this);
+        adapter = new ClienteViewAdapter(productlists,this);
         listaclientes.setAdapter(adapter);
     }
 

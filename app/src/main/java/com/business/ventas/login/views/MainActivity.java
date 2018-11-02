@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +21,8 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.ClienteFragment;
 import com.business.ventas.ventas.views.ProductosFragment;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-        menuFragment();
+        //menuFragment();
     }
 
     @Override
@@ -197,6 +201,14 @@ public class MainActivity extends AppCompatActivity
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragmentList)
+            log.info("aprete el boton de black " + (fragment instanceof MenuFragment));
+        return super.onKeyDown(keyCode, event);
     }
 
     private <T> T castFragment(Class<T> clas, Fragment fragment) {
