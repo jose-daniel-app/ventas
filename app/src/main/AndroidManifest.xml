@@ -45,22 +45,8 @@
         </activity>
 
         <!-- clientes -->
-        <activity
-            android:name=".ventas.views.ClienteActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ventas.views.ClienteActivity" />
-        </activity>
 
         <!-- productos -->
-        <activity
-            android:name=".ventas.views.ProductosActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ventas.views.ProductosActivity" />
-        </activity>
 
     </application>
 
