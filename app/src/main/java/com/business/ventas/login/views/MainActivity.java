@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        toolbar.getMenu().clear();
         if (id == R.id.nav_home) {
             menuFragment();
         } else if (id == R.id.nav_ventas) {
@@ -166,15 +165,15 @@ public class MainActivity extends AppCompatActivity
             ClienteFragment fragment = castFragment(ClienteFragment.class, faFragment);
             executeActionClienteFragment(faFragment);
         }
-
     }
 
     private void executeActionClienteFragment(Fragment faFragment) {
+        toolbar.inflateMenu(R.menu.productos_menu);
         productoFragment();
     }
 
     private void executeActionProductosFragment(ProductosFragment fragment) {
-        toolbar.inflateMenu(R.menu.camara_mnu);
+
     }
 
     private void executeActionMenuFragment(MenuFragment fragment) {
@@ -216,6 +215,7 @@ public class MainActivity extends AppCompatActivity
                     navigationView.setCheckedItem(R.id.nav_home);
                 } else if (fragment instanceof ProductosFragment) {
                     getSupportActionBar().setTitle(R.string.title_ventas);
+                    toolbar.getMenu().clear();
                 }
             }
 

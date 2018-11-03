@@ -1,5 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>
+    <item name="ic_menu_camera_black" type="drawable">@android:drawable/ic_menu_camera</item>
+    <item name="ic_menu_camera_while" type="drawable">@drawable/ic_camera_while_24dp</item>
     <item name="ic_menu_gallery" type="drawable">@android:drawable/ic_menu_gallery</item>
     <item name="ic_menu_slideshow" type="drawable">@android:drawable/ic_menu_slideshow</item>
     <item name="ic_menu_manage" type="drawable">@android:drawable/ic_menu_manage</item>
@@ -10,5 +11,6 @@
     <item name="ic_menu_home" type="drawable">@drawable/ic_home_black_24dp</item>
     <item name="ic_menu_exit" type="drawable">@drawable/ic_exit_to_app_black_24dp</item>
     <item name="ic_menu_vouchers" type="drawable">@drawable/ic_receipt_black_24dp</item>
+    <item name="ic_check_white" type="drawable">@drawable/ic_check_white_24dp</item>
 
 </resources>
