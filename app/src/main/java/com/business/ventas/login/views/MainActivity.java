@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
     NavigationView navigationView;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_home);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void executeActionProductosFragment(ProductosFragment fragment) {
-
+        toolbar.inflateMenu(R.menu.camara_mnu);
     }
 
     private void executeActionMenuFragment(MenuFragment fragment) {
@@ -210,8 +211,12 @@ public class MainActivity extends AppCompatActivity
             for (Fragment fragment : fragmentList) {
                 if (fragment instanceof MenuFragment) {
                     finish();
+                } else if (fragment instanceof ClienteFragment) {
+                    getSupportActionBar().setTitle(R.string.title_home);
+                    navigationView.setCheckedItem(R.id.nav_home);
+                } else if (fragment instanceof ProductosFragment) {
+                    getSupportActionBar().setTitle(R.string.title_ventas);
                 }
-
             }
 
         }
