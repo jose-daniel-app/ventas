@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-        //menuFragment();
+        menuFragment();
     }
 
     @Override
@@ -206,8 +206,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
-        for (Fragment fragment : fragmentList)
-            log.info("aprete el boton de black " + (fragment instanceof MenuFragment));
+        if (fragmentList != null) {
+            for (Fragment fragment : fragmentList) {
+                if (fragment instanceof MenuFragment) {
+                    finish();
+                }
+
+            }
+
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 
