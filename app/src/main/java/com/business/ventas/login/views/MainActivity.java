@@ -25,11 +25,14 @@ import com.business.ventas.ventas.views.ProductosFragment;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+        implements
+        NavigationView.OnNavigationItemSelectedListener,
+        // interfaz pare los fragment
         MenuFragment.OnFragmentInteractionListener,
         ClienteFragment.OnFragmentInteractionListener,
         ProductosFragment.OnFragmentInteractionListener,
         BoletaFragment.OnFragmentInteractionListener,
+        // interface para la sesion
         AuthRepository.AuthStateListener {
 
     AuthRepository auth = AuthRepository.getInstance();
@@ -242,11 +245,11 @@ public class MainActivity extends AppCompatActivity
         return super.onKeyDown(keyCode, event);
     }
 
-    private boolean onMenuItemClick(MenuItem item){
+    private boolean onMenuItemClick(MenuItem item) {
         //TODO
         log.info("se esta click");
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.item_check_producto:
                 getSupportActionBar().setTitle(R.string.title_producto);
                 toolbar.getMenu().clear();

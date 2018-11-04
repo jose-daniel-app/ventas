@@ -60,8 +60,10 @@ public class ProductosFragment extends Fragment {
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
 
-        listaPro.add(new Producto("Queque", "sabor chocolate con chispas",R.drawable.queque));
-        listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+        if (listaPro.size() == 0) {
+            listaPro.add(new Producto("Keke", "sabor chocolate con chispas", R.drawable.queque));
+            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+        }
 
         adapter = new ProductoViewAdapter(listaPro, getActivity());
         recyclerView.setAdapter(adapter);
