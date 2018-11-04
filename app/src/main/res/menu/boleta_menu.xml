@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item
+         android:id="@+id/search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:orderInCategory="300"
+        android:title="buscar..."
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/> -->
+
+    <item
+        android:id="@+id/item_camara"
+        android:icon="@drawable/ic_menu_camera_while"
+        android:title="@string/productos_menu_camara"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+    <item
+        android:id="@+id/item_check"
+        android:icon="@drawable/ic_check_white"
+        android:title="@string/productos_menu_continuar"
+        app:showAsAction="collapseActionView|ifRoom" />
+    <!-- app:actionViewClass="android.widget.SearchView"-->
+</menu>
