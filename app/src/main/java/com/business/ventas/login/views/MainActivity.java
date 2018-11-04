@@ -18,6 +18,7 @@ import com.business.ventas.R;
 import com.business.ventas.repository.AuthRepository;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
+import com.business.ventas.ventas.views.BoletaFragment;
 import com.business.ventas.ventas.views.ClienteFragment;
 import com.business.ventas.ventas.views.ProductosFragment;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         MenuFragment.OnFragmentInteractionListener,
         ClienteFragment.OnFragmentInteractionListener,
         ProductosFragment.OnFragmentInteractionListener,
+        BoletaFragment.OnFragmentInteractionListener,
         AuthRepository.AuthStateListener {
 
     AuthRepository auth = AuthRepository.getInstance();
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
+        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         menuFragment();
     }
 
@@ -141,6 +144,14 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
 
+    private void boletaFragment() {
+        getSupportActionBar().setTitle(R.string.title_boleta);
+        BoletaFragment boletaFragment = new BoletaFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -168,12 +179,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void executeActionClienteFragment(Fragment faFragment) {
+        toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.productos_menu);
         productoFragment();
     }
 
     private void executeActionProductosFragment(ProductosFragment fragment) {
-
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.boleta_menu);
+        boletaFragment();
     }
 
     private void executeActionMenuFragment(MenuFragment fragment) {
@@ -216,12 +230,32 @@ public class MainActivity extends AppCompatActivity
                 } else if (fragment instanceof ProductosFragment) {
                     getSupportActionBar().setTitle(R.string.title_ventas);
                     toolbar.getMenu().clear();
+                } else if (fragment instanceof BoletaFragment) {
+                    getSupportActionBar().setTitle(R.string.title_producto);
+                    toolbar.getMenu().clear();
+                    toolbar.inflateMenu(R.menu.productos_menu);
                 }
             }
 
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    private boolean onMenuItemClick(MenuItem item){
+        //TODO
+        log.info("se esta click");
+        int id = item.getItemId();
+        switch (id){
+            case R.id.item_check_producto:
+                getSupportActionBar().setTitle(R.string.title_producto);
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.boleta_menu);
+                boletaFragment();
+                break;
+        }
+
+        return false;
     }
 
     private <T> T castFragment(Class<T> clas, Fragment fragment) {

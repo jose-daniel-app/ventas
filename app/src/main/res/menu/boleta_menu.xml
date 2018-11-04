@@ -10,13 +10,7 @@
         app:showAsAction="ifRoom|collapseActionView"/> -->
 
     <item
-        android:id="@+id/item_camara"
-        android:icon="@drawable/ic_menu_camera_while"
-        android:title="@string/productos_menu_camara"
-        app:showAsAction="collapseActionView|ifRoom" />
-
-    <item
-        android:id="@+id/item_check"
+        android:id="@+id/item_check_boleta"
         android:icon="@drawable/ic_check_white"
         android:title="@string/productos_menu_continuar"
         app:showAsAction="collapseActionView|ifRoom" />
