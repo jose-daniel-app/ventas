@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
-        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+        //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         menuFragment();
     }
 
@@ -124,32 +124,36 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void menuFragment() {
-        getSupportActionBar().setTitle(R.string.title_home);
-        MenuFragment menuFragment = new MenuFragment();
+        MenuFragment menuFragment = MenuFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, menuFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
 
     private void clienteFragment() {
-        getSupportActionBar().setTitle(R.string.title_ventas);
-        ClienteFragment clienteFragment = new ClienteFragment();
+        ClienteFragment clienteFragment = ClienteFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, clienteFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
 
     private void productoFragment() {
-        getSupportActionBar().setTitle(R.string.title_producto);
-        ProductosFragment productosFragment = new ProductosFragment();
+        ProductosFragment productosFragment = ProductosFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, productosFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
 
     private void boletaFragment() {
-        getSupportActionBar().setTitle(R.string.title_boleta);
-        BoletaFragment boletaFragment = new BoletaFragment();
+        BoletaFragment boletaFragment = BoletaFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
@@ -182,21 +186,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void executeActionClienteFragment(Fragment faFragment) {
-        toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.productos_menu);
         productoFragment();
     }
 
     private void executeActionProductosFragment(ProductosFragment fragment) {
-        toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.boleta_menu);
         boletaFragment();
     }
 
     private void executeActionMenuFragment(MenuFragment fragment) {
         switch (fragment.getPressTheItemType()) {
             case MenuFragment.PRESS_ITEM_VENTAS:
-                navigationView.setCheckedItem(R.id.nav_ventas);
                 clienteFragment();
                 break;
             case MenuFragment.PRESS_ITEM_REQUER:
@@ -227,38 +226,10 @@ public class MainActivity extends AppCompatActivity
             for (Fragment fragment : fragmentList) {
                 if (fragment instanceof MenuFragment) {
                     finish();
-                } else if (fragment instanceof ClienteFragment) {
-                    getSupportActionBar().setTitle(R.string.title_home);
-                    navigationView.setCheckedItem(R.id.nav_home);
-                } else if (fragment instanceof ProductosFragment) {
-                    getSupportActionBar().setTitle(R.string.title_ventas);
-                    toolbar.getMenu().clear();
-                } else if (fragment instanceof BoletaFragment) {
-                    getSupportActionBar().setTitle(R.string.title_producto);
-                    toolbar.getMenu().clear();
-                    toolbar.inflateMenu(R.menu.productos_menu);
                 }
             }
-
         }
-
         return super.onKeyDown(keyCode, event);
-    }
-
-    private boolean onMenuItemClick(MenuItem item) {
-        //TODO
-        log.info("se esta click");
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.item_check_producto:
-                getSupportActionBar().setTitle(R.string.title_producto);
-                toolbar.getMenu().clear();
-                toolbar.inflateMenu(R.menu.boleta_menu);
-                boletaFragment();
-                break;
-        }
-
-        return false;
     }
 
     private <T> T castFragment(Class<T> clas, Fragment fragment) {

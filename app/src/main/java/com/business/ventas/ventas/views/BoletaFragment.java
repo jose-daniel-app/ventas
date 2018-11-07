@@ -3,8 +3,11 @@ package com.business.ventas.ventas.views;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -30,6 +33,9 @@ public class BoletaFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    NavigationView navigationView;
+    Toolbar toolbar;
+
     public BoletaFragment() {
         // Required empty public constructor
     }
@@ -39,9 +45,18 @@ public class BoletaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_boleta, container, false);
+        toolbar.setTitle(R.string.title_boleta);
+        navigationView.setCheckedItem(R.id.nav_ventas);
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.boleta_menu);
+        //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         return view;
     }
 
+    /*private boolean onMenuItemClick(MenuItem menuItem) {
+        onButtonPressed(this);
+        return true;
+    }*/
 
     /**
      * Use this factory method to create a new instance of
@@ -59,6 +74,10 @@ public class BoletaFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static BoletaFragment newInstance() {
+        return new BoletaFragment();
     }
 
     @Override
@@ -93,6 +112,16 @@ public class BoletaFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public BoletaFragment setNavigationView(NavigationView navigationView) {
+        this.navigationView = navigationView;
+        return this;
+    }
+
+    public BoletaFragment setToolbar(Toolbar toolbar) {
+        this.toolbar = toolbar;
+        return this;
     }
 
     /**

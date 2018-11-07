@@ -3,9 +3,11 @@ package com.business.ventas.ventas.views;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +42,9 @@ public class ClienteFragment extends Fragment {
     List<Cliente> productlists = new ArrayList<>();
     ClienteViewAdapter adapter;
 
+    NavigationView navigationView;
+    Toolbar toolbar;
+
     public ClienteFragment() {
         // Required empty public constructor
     }
@@ -62,6 +67,10 @@ public class ClienteFragment extends Fragment {
         return fragment;
     }
 
+    public static ClienteFragment newInstance() {
+        return new ClienteFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +86,9 @@ public class ClienteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cliente, container, false);
         loadComponents(view);
+        toolbar.setTitle(R.string.title_cliente);
+        navigationView.setCheckedItem(R.id.nav_ventas);
+        toolbar.getMenu().clear();
         return view;
     }
 
@@ -126,6 +138,16 @@ public class ClienteFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public ClienteFragment setNavigationView(NavigationView navigationView) {
+        this.navigationView = navigationView;
+        return this;
+    }
+
+    public ClienteFragment setToolbar(Toolbar toolbar) {
+        this.toolbar = toolbar;
+        return this;
     }
 
     /**

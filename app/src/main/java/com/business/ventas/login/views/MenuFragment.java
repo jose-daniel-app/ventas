@@ -2,8 +2,10 @@ package com.business.ventas.login.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,9 @@ public class MenuFragment extends Fragment {
     CardView menuCardViewComprobante;
     CardView menuCardViewSalir;
 
+    NavigationView navigationView;
+    Toolbar toolbar;
+
     public MenuFragment() {
         // Required empty public constructor
     }
@@ -56,6 +61,8 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         loadComponents(view);
+        toolbar.setTitle(R.string.title_home);
+        navigationView.setCheckedItem(R.id.nav_home);
         return view;
     }
 
@@ -114,6 +121,10 @@ public class MenuFragment extends Fragment {
         return fragment;
     }
 
+    public static MenuFragment newInstance() {
+        return new MenuFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,6 +160,17 @@ public class MenuFragment extends Fragment {
 
     public int getPressTheItemType() {
         return typeItem;
+    }
+
+
+    public MenuFragment setToolbar(Toolbar toolbar) {
+        this.toolbar = toolbar;
+        return this;
+    }
+
+    public MenuFragment setNavigationView(NavigationView navigationView) {
+        this.navigationView = navigationView;
+        return this;
     }
 
     /**

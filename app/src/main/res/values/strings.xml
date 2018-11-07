@@ -9,7 +9,7 @@
 
     <!-- activity main -->
     <string name="title_home">Torres</string>
-    <string name="title_ventas">Clientes</string>
+    <string name="title_cliente">Clientes</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

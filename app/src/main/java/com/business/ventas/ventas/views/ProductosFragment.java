@@ -3,10 +3,13 @@ package com.business.ventas.ventas.views;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -37,10 +40,12 @@ public class ProductosFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
     RecyclerView recyclerView;
     List<Producto> listaPro = new ArrayList<>();
     ProductoViewAdapter adapter;
+
+    NavigationView navigationView;
+    Toolbar toolbar;
 
     public ProductosFragment() {
         // Required empty public constructor
@@ -52,7 +57,17 @@ public class ProductosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_productos, container, false);
         loadComponents(view);
+        toolbar.setTitle(R.string.title_producto);
+        navigationView.setCheckedItem(R.id.nav_ventas);
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.productos_menu);
+        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         return view;
+    }
+
+    private boolean onMenuItemClick(MenuItem menuItem) {
+        onButtonPressed(this);
+        return true;
     }
 
     private void loadComponents(View view) {
@@ -87,6 +102,10 @@ public class ProductosFragment extends Fragment {
         return fragment;
     }
 
+    public static ProductosFragment newInstance() {
+        return new ProductosFragment();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +138,16 @@ public class ProductosFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public ProductosFragment setNavigationView(NavigationView navigationView) {
+        this.navigationView = navigationView;
+        return this;
+    }
+
+    public ProductosFragment setToolbar(Toolbar toolbar) {
+        this.toolbar = toolbar;
+        return this;
     }
 
     /**
