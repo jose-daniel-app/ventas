@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.repository.AuthRepository;
@@ -21,6 +22,8 @@ import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.BoletaFragment;
 import com.business.ventas.ventas.views.ClienteFragment;
 import com.business.ventas.ventas.views.ProductosFragment;
+import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+
 
 import java.util.List;
 
@@ -33,13 +36,15 @@ public class MainActivity extends AppCompatActivity
         ProductosFragment.OnFragmentInteractionListener,
         BoletaFragment.OnFragmentInteractionListener,
         // interface para la sesion
-        AuthRepository.AuthStateListener {
+        AuthRepository.AuthStateListener,
+        OnSearchToolbarQueryTextListner{
 
     AuthRepository auth = AuthRepository.getInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
     NavigationView navigationView;
     Toolbar toolbar;
+    SearchToolbar searchToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +55,18 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_home);
+
+       // toolbar.inflateMenu(R.menu.toolbar_menu);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+
+        //searchToolbar = new SearchToolbar(this,this,findViewById(R.id.search_layout));
+
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -78,6 +90,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.referencia, menu);
         //getMenuInflater().inflate(R.menu.searchfile, menu);
+       getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         return true;
     }
 
@@ -86,14 +99,22 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+     /*   switch (item.getItemId())
+        {
+            case R.id.ic_search:
+                searchToolbar.openSearchToolbar();
+                break;
+        }*/
+        return true;
+
+    /*    int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);*/
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -234,5 +255,16 @@ public class MainActivity extends AppCompatActivity
 
     private <T> T castFragment(Class<T> clas, Fragment fragment) {
         return (T) fragment;
+    }
+
+    /******* The following method will invoke when user Change or Submit text in SearchToolbar*/
+    @Override
+    public void onQueryTextSubmit(String query) {
+        Toast.makeText(this, "User Query: "+query , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onQueryTextChange(String editable) {
+        // textView.setText(editable);
     }
 }

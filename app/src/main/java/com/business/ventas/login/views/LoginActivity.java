@@ -3,11 +3,14 @@ package com.business.ventas.login.views;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.login.contracts.LoginContract;
@@ -16,12 +19,24 @@ import com.business.ventas.repository.AuthRepository;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity implements
         LoginContract.View, AuthRepository.AuthStateListener, View.OnClickListener {
 
     VentasLog log = LogFactory.createInstance().setTag(LoginActivity.class.getSimpleName());
     AuthRepository auth;
     LoginContract.Presenter presenter;
+
+    private static final Pattern PASSWORD_PATTERN= Pattern.compile("^" +
+            "(?=.*[0-9])" +         //al menos 1 dijito
+            //"(?=.*[a-z])" +         // al menos 1 miniscula
+            //"(?=.*[A-Z])" +         //al menos 1 mayuscola
+            //  "(?=.*[a-zA-Z])" +      //cualquier letra
+            //   "(?=.*[@#$%^&+=])" +    //al menos un caracter especial
+            "(?=\\S+$)" +           //sin espacios
+            ".{4,}" +               //al menos 4 caracteres
+            "$");
 
     /*
     * Declaracion de elementos
@@ -30,6 +45,9 @@ public class LoginActivity extends AppCompatActivity implements
     TextInputEditText inputEditTextPassword;
     Button button_login;
     ProgressBar progressBar;
+    TextInputLayout inputTextLayoutCorreo;
+    TextInputLayout inputTextLayoutPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +66,9 @@ public class LoginActivity extends AppCompatActivity implements
         button_login = findViewById(R.id.button_login);
         progressBar = findViewById(R.id.progressBar);
         button_login.setOnClickListener(this);
+        inputTextLayoutCorreo = findViewById(R.id.inputTextLayoutCorreo);
+        inputTextLayoutPassword = findViewById(R.id.inputTextLayoutPassword);
+
     }
 
     @Override
@@ -55,6 +76,14 @@ public class LoginActivity extends AppCompatActivity implements
 
         String correo = inputEditTextCorreo.getText().toString();
         String password = inputEditTextPassword.getText().toString();
+
+        //-------------mensaje de confirmacion -------------------
+        if (!validarCorreo() | !validarPassword() ) {
+            return;
+        }
+        Toast.makeText(this,"ingreso exitoso"+correo,Toast.LENGTH_LONG).show();
+        //-----------------------------------------------------------
+
 
         if(R.id.button_login == view.getId()){
             showProgressBar(true);
@@ -94,6 +123,41 @@ public class LoginActivity extends AppCompatActivity implements
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+
+
+    //validacion correo//
+    public boolean validarCorreo() {
+        String inputCorreo = inputEditTextCorreo.getText().toString().trim(); //comprueba el edit text
+        if (inputCorreo.isEmpty()) {
+            inputTextLayoutCorreo.setError("Por favor, ingresar correo"); //mensaje al layout
+            return false;
+
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(inputCorreo).matches()) {
+            inputTextLayoutCorreo.setError("Caracteres incorrectos");
+            return false;
+
+        } else {
+            inputTextLayoutCorreo.setError(null);
+            return true;
+        }
+    }
+    //validar password//
+    public boolean validarPassword(){
+        String inputPassword = inputEditTextPassword.getText().toString().trim();
+
+        if (inputPassword.isEmpty()) {
+            inputTextLayoutPassword.setError("Por favor, ingresar contraseña");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(inputPassword).matches()) {
+            inputTextLayoutPassword.setError("Contraseña debe ser mayor de 4 numeros");
+            return false;
+        } else {
+            inputTextLayoutPassword.setError(null);
+            return true;
+        }
+
     }
 
 }

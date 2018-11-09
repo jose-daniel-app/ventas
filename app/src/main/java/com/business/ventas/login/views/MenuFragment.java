@@ -7,12 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
+import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +25,7 @@ import com.business.ventas.utils.VentasLog;
  * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextListner {
 
     VentasLog log = LogFactory.createInstance().setTag(MenuFragment.class.getSimpleName());
     // TODO: Rename parameter arguments, choose names that match
@@ -50,6 +53,7 @@ public class MenuFragment extends Fragment {
 
     NavigationView navigationView;
     Toolbar toolbar;
+    SearchToolbar searchToolbar;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -61,7 +65,13 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         loadComponents(view);
+
         toolbar.setTitle(R.string.title_home);
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.toolbar_menu);
+
+        searchToolbar = new SearchToolbar(getActivity(),this,getActivity().findViewById(R.id.search_layout));
+
         navigationView.setCheckedItem(R.id.nav_home);
         return view;
     }
@@ -77,6 +87,20 @@ public class MenuFragment extends Fragment {
         menuCardViewComprobante.setOnClickListener(this::onclickCardView);
         menuCardViewSalir.setOnClickListener(this::onclickCardView);
 
+        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+
+    }
+
+    private boolean onMenuItemClick(MenuItem menuItem) {
+
+        switch (menuItem.getItemId())
+        {
+            case R.id.ic_search:
+                searchToolbar.openSearchToolbar();
+                break;
+        }
+
+        return true;
     }
 
     private void onclickCardView(View view) {
@@ -186,5 +210,18 @@ public class MenuFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Fragment faFragment);
+    }
+
+
+
+    /******* The following method will invoke when user Change or Submit text in SearchToolbar*/
+    @Override
+    public void onQueryTextSubmit(String query) {
+        Toast.makeText(getActivity(), "User Query: "+query , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onQueryTextChange(String editable) {
+        // textView.setText(editable);
     }
 }

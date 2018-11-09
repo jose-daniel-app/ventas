@@ -25,4 +25,7 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#fff</color>
 
+    <color name="searchHintColor_searchToolbar">#727272</color>
+    <color name="searchTextColor_searchToolbar">#212121</color>
+
 </resources>
