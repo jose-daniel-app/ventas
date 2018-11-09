@@ -89,6 +89,9 @@ public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextLi
 
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
 
+
+
+
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {

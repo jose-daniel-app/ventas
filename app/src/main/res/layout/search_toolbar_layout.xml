@@ -42,16 +42,16 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:visibility="gone"/>
-
+        android:visibility="visible"/>
+<!--
     <ImageButton
         style="@style/searchToolbar_imageButtonStyle"
-        android:id="@+id/ic_mic"
-        android:src="@drawable/ic_mic"
+        android:id="@+id/ic_barcode_scan"
+        android:src="@drawable/ic_barcode_scan"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:visibility="visible"/>
-
+        android:visibility="gone"/>
+        -->
 
 </RelativeLayout>

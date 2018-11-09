@@ -20,14 +20,14 @@ import com.business.ventas.R;
 
 public class SearchToolbar implements View.OnClickListener {
 
-    public final static int VOICE_INTENT_REQUEST_CODE = 9999;
+   // public final static int VOICE_INTENT_REQUEST_CODE = 9999;
 
     View view;
     Context context;
     RelativeLayout searchLayout;
     EditText searchEditText;
     ImageButton arrowBackBtn;
-    ImageButton micBtn;
+   // ImageButton barcodeBtn;
     ImageButton clearBtn;
     private InputMethodManager imm;
     OnSearchToolbarQueryTextListner listner;
@@ -39,14 +39,18 @@ public class SearchToolbar implements View.OnClickListener {
         searchLayout = view.findViewById(R.id.search_layout);
         searchEditText = view.findViewById(R.id.searchEditText);
         arrowBackBtn = view.findViewById(R.id.ic_arrowBack);
-        micBtn = view.findViewById(R.id.ic_mic);
+       // barcodeBtn = view.findViewById(R.id.ic_barcode_scan);
         clearBtn = view.findViewById(R.id.ic_clear);
         this.listner = listner;
 
 
         arrowBackBtn.setOnClickListener(this);
-        micBtn.setOnClickListener(this);
+      //  barcodeBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
+
+
+
+
     }
 
 
@@ -82,11 +86,11 @@ public class SearchToolbar implements View.OnClickListener {
             public void afterTextChanged(Editable editable) {
                 listner.onQueryTextChange(editable.toString());
                 if (editable.length() > 0) {
-                    micBtn.setVisibility(View.GONE);
+                   // barcodeBtn.setVisibility(View.GONE);
                     clearBtn.setVisibility(View.VISIBLE);
                 } else {
-                    micBtn.setVisibility(View.VISIBLE);
-                    clearBtn.setVisibility(View.GONE);
+                  // barcodeBtn.setVisibility(View.VISIBLE);
+                   // clearBtn.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -139,7 +143,7 @@ public class SearchToolbar implements View.OnClickListener {
             case R.id.ic_clear:
                 searchEditText.setText(null);
                 break;
-
+/*
             case R.id.ic_mic:
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 if (intent.resolveActivity(context.getPackageManager()) != null) {
@@ -150,7 +154,7 @@ public class SearchToolbar implements View.OnClickListener {
                 } else {
                     Toast.makeText(context, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
                 }
-                break;
+                break;*/
         }
 
     }
