@@ -70,7 +70,7 @@ public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextLi
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_menu);
 
-        searchToolbar = new SearchToolbar(getActivity(),this,getActivity().findViewById(R.id.search_layout));
+        searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
 
         navigationView.setCheckedItem(R.id.nav_home);
         return view;
@@ -93,8 +93,7 @@ public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextLi
 
     private boolean onMenuItemClick(MenuItem menuItem) {
 
-        switch (menuItem.getItemId())
-        {
+        switch (menuItem.getItemId()) {
             case R.id.ic_search:
                 searchToolbar.openSearchToolbar();
                 break;
@@ -213,11 +212,10 @@ public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextLi
     }
 
 
-
     /******* The following method will invoke when user Change or Submit text in SearchToolbar*/
     @Override
     public void onQueryTextSubmit(String query) {
-        Toast.makeText(getActivity(), "User Query: "+query , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "User Query: " + query, Toast.LENGTH_SHORT).show();
     }
 
     @Override
