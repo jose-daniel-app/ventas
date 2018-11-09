@@ -36,15 +36,15 @@ public class MainActivity extends AppCompatActivity
         ProductosFragment.OnFragmentInteractionListener,
         BoletaFragment.OnFragmentInteractionListener,
         // interface para la sesion
-        AuthRepository.AuthStateListener,
-        OnSearchToolbarQueryTextListner{
+        AuthRepository.AuthStateListener//,OnSearchToolbarQueryTextListner
+         {
 
     AuthRepository auth = AuthRepository.getInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
     NavigationView navigationView;
     Toolbar toolbar;
-    SearchToolbar searchToolbar;
+    //SearchToolbar searchToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.referencia, menu);
         //getMenuInflater().inflate(R.menu.searchfile, menu);
-       getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+     //  getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         return true;
     }
 
@@ -258,6 +258,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /******* The following method will invoke when user Change or Submit text in SearchToolbar*/
+   /*
     @Override
     public void onQueryTextSubmit(String query) {
         Toast.makeText(this, "User Query: "+query , Toast.LENGTH_SHORT).show();
@@ -267,4 +268,5 @@ public class MainActivity extends AppCompatActivity
     public void onQueryTextChange(String editable) {
         // textView.setText(editable);
     }
+    */
 }

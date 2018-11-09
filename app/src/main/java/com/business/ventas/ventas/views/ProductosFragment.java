@@ -12,10 +12,15 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.login.contracts.LoginContract;
+import com.business.ventas.login.views.SearchToolbar;
+import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +33,7 @@ import java.util.List;
  * Use the {@link ProductosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProductosFragment extends Fragment {
+public class ProductosFragment extends Fragment implements OnSearchToolbarQueryTextListner{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,6 +51,10 @@ public class ProductosFragment extends Fragment {
 
     NavigationView navigationView;
     Toolbar toolbar;
+    SearchToolbar searchToolbar;
+
+    FloatingActionMenu floatingActionMenu;
+    FloatingActionButton flt_btn_Accion1,flt_btn_Accion2;
 
     public ProductosFragment() {
         // Required empty public constructor
@@ -57,16 +66,36 @@ public class ProductosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_productos, container, false);
         loadComponents(view);
+
         toolbar.setTitle(R.string.title_producto);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.productos_menu);
+
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+
+        searchToolbar = new SearchToolbar(getActivity(),this,getActivity().findViewById(R.id.search_layout));
+/*
+        floatingActionMenu = (FloatingActionMenu) getActivity().findViewById(R.id.floating_actionMenu);
+        flt_btn_Accion2.setOnClickListener(this::onClick);
+*/
         return view;
+
     }
 
+
+
+
     private boolean onMenuItemClick(MenuItem menuItem) {
-        onButtonPressed(this);
+       //onButtonPressed(this);
+
+         switch (menuItem.getItemId())
+        {
+            case R.id.ic_search:
+                searchToolbar.openSearchToolbar();
+                break;
+        }
+
         return true;
     }
 
@@ -150,6 +179,8 @@ public class ProductosFragment extends Fragment {
         return this;
     }
 
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -164,4 +195,13 @@ public class ProductosFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Fragment fragment);
     }
+    public void onQueryTextSubmit(String query) {
+        Toast.makeText(getActivity(), "User Query: "+query , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onQueryTextChange(String editable) {
+        // textView.setText(editable);
+    }
+
 }

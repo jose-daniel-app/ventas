@@ -3,17 +3,25 @@ package com.business.ventas.ventas.views;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
+import com.business.ventas.login.views.SearchToolbar;
+import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.github.clans.fab.FloatingActionMenu;
+import com.github.clans.fab.FloatingActionButton;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +34,7 @@ import java.util.List;
  * Use the {@link ClienteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClienteFragment extends Fragment {
+public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTextListner {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,6 +52,9 @@ public class ClienteFragment extends Fragment {
 
     NavigationView navigationView;
     Toolbar toolbar;
+
+    SearchToolbar searchToolbar;
+
 
     public ClienteFragment() {
         // Required empty public constructor
@@ -78,6 +89,7 @@ public class ClienteFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -89,6 +101,13 @@ public class ClienteFragment extends Fragment {
         toolbar.setTitle(R.string.title_cliente);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.toolbar_cliente);
+
+        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+
+        searchToolbar = new SearchToolbar(getActivity(),this,getActivity().findViewById(R.id.search_layout));
+
+
         return view;
     }
 
@@ -115,6 +134,24 @@ public class ClienteFragment extends Fragment {
         adapter = new ClienteViewAdapter(productlists, this);
         listaclientes.setAdapter(adapter);
     }
+
+
+
+    private boolean onMenuItemClick(MenuItem menuItem) {
+        //onButtonPressed(this);
+
+        switch (menuItem.getItemId())
+        {
+            case R.id.ic_search:
+                searchToolbar.openSearchToolbar();
+                break;
+        }
+
+        return true;
+    }
+
+
+
 
     // TODO: Renombrar método, actualizar argumento y enganchar método en evento UI
     public void onButtonPressed(Fragment faFragment) {
@@ -164,4 +201,14 @@ public class ClienteFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Fragment faFragment);
     }
+
+    public void onQueryTextSubmit(String query) {
+        Toast.makeText(getActivity(), "User Query: "+query , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onQueryTextChange(String editable) {
+        // textView.setText(editable);
+    }
+
 }
