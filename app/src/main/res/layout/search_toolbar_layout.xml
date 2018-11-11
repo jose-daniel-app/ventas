@@ -6,12 +6,8 @@
     android:background="@android:color/white"
     android:id="@+id/search_layout"
     android:visibility="gone"
-    android:elevation="4dp"
-
-    tools:showIn="@layout/app_bar_referencia">
-
-
-
+    android:elevation="4dp">
+    <!-- tools:showIn="@layout/app_bar_referencia" -->
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
@@ -43,15 +39,15 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:visibility="visible"/>
-<!--
-    <ImageButton
+
+    <!--<ImageButton
         style="@style/searchToolbar_imageButtonStyle"
         android:id="@+id/ic_barcode_scan"
         android:src="@drawable/ic_barcode_scan"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:visibility="gone"/>
-        -->
+        android:visibility="gone"/> -->
+
 
 </RelativeLayout>

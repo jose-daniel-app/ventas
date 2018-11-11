@@ -1,7 +1,6 @@
 package com.business.ventas.ventas.views;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.design.widget.NavigationView;
@@ -19,8 +18,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
 import com.business.ventas.login.views.SearchToolbar;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
-import com.github.clans.fab.FloatingActionMenu;
-import com.github.clans.fab.FloatingActionButton;
+import com.business.ventas.viewAdapter.ClienteViewAdapter;
 
 
 import java.util.ArrayList;
@@ -89,12 +87,10 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cliente, container, false);
         loadComponents(view);
@@ -104,10 +100,7 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
         toolbar.inflateMenu(R.menu.toolbar_cliente);
 
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-
-        searchToolbar = new SearchToolbar(getActivity(),this,getActivity().findViewById(R.id.search_layout));
-
-
+        searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
         return view;
     }
 
@@ -136,12 +129,10 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
     }
 
 
-
     private boolean onMenuItemClick(MenuItem menuItem) {
         //onButtonPressed(this);
 
-        switch (menuItem.getItemId())
-        {
+        switch (menuItem.getItemId()) {
             case R.id.ic_search:
                 searchToolbar.openSearchToolbar();
                 break;
@@ -149,8 +140,6 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
 
         return true;
     }
-
-
 
 
     // TODO: Renombrar método, actualizar argumento y enganchar método en evento UI
@@ -203,7 +192,7 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
     }
 
     public void onQueryTextSubmit(String query) {
-        Toast.makeText(getActivity(), "User Query: "+query , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "User Query: " + query, Toast.LENGTH_SHORT).show();
     }
 
     @Override

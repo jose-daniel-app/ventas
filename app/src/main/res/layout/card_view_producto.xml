@@ -1,64 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    android:layout_gravity="center"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:clickable="true"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_gravity="center"
             android:id="@+id/img"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_gravity="center"
             android:src="@drawable/queque" />
 
         <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:id="@+id/txtNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="TextView"
-            android:textSize="18sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:text="Queque"
+            android:textSize="16sp"
             android:textStyle="italic|bold" />
 
         <TextView
-            android:layout_marginBottom="5dp"
             android:id="@+id/txtDecripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:text="descripción..."
             android:textColor="@android:color/darker_gray" />
 
         <LinearLayout
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <android.support.v7.widget.CardView
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                app:cardCornerRadius="5dp"
+                android:id="@+id/cardviewMenos"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:layout_weight="0.3"
-                android:elevation="4dp">
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="0.1"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,31 +74,40 @@
                     android:textSize="20dp" />
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                app:cardCornerRadius="5dp"
+
+            <EditText
+                android:id="@+id/txtCantidad"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:layout_weight="0.3"
-                android:elevation="4dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="0"
-                    android:textSize="20dp" />
-            </android.support.v7.widget.CardView>
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="0.8"
+                android:background="@drawable/forma_redonda_edit_text"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="0"
+                android:textColor="#767676"
+                android:textCursorDrawable="@null" />
 
             <android.support.v7.widget.CardView
-                android:foreground="?android:attr/selectableItemBackground"
+                android:id="@+id/cardviewMas"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="0.1"
                 android:clickable="true"
-                app:cardCornerRadius="5dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:layout_weight="0.3"
-                android:elevation="4dp">
+                android:elevation="4dp"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"

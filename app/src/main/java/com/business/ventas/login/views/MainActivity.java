@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity
         ProductosFragment.OnFragmentInteractionListener,
         BoletaFragment.OnFragmentInteractionListener,
         // interface para la sesion
-        AuthRepository.AuthStateListener//,OnSearchToolbarQueryTextListner
-         {
+        AuthRepository.AuthStateListener {
 
     AuthRepository auth = AuthRepository.getInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_home);
 
-       // toolbar.inflateMenu(R.menu.toolbar_menu);
+        // toolbar.inflateMenu(R.menu.toolbar_menu);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.referencia, menu);
         //getMenuInflater().inflate(R.menu.searchfile, menu);
-     //  getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+        //  getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         return true;
     }
 

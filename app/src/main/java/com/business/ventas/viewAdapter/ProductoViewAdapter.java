@@ -1,17 +1,21 @@
-package com.business.ventas.ventas.views;
+package com.business.ventas.viewAdapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.Numeros;
 import com.business.ventas.utils.VentasLog;
 
 import java.util.ArrayList;
@@ -36,6 +40,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
 
@@ -43,11 +48,20 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         holderview.txtDecripcion.setText(productlistAdap.get(position).getDescripcion());
         holderview.img.setImageResource(productlistAdap.get(position).getImg());
 
-        holderview.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
+            if (isFocus)
+                holderview.txtCantidad.setText("");
+        });
 
-            }
+        holderview.cardviewMas.setOnClickListener(view -> {
+            int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
+            holderview.txtCantidad.setText((cantidad + 1) + "");
+        });
+
+        holderview.cardviewMenos.setOnClickListener(view -> {
+            int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
+            if (cantidad > 0)
+                holderview.txtCantidad.setText((cantidad - 1) + "");
         });
 
     }
@@ -70,12 +84,18 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         TextView txtNombre;
         TextView txtDecripcion;
         ImageView img;
+        CardView cardviewMas;
+        CardView cardviewMenos;
+        EditText txtCantidad;
 
         public Holderview(View itemview) {
             super(itemview);
             txtNombre = itemView.findViewById(R.id.txtNombre);
             txtDecripcion = itemView.findViewById(R.id.txtDecripcion);
             img = itemview.findViewById(R.id.img);
+            cardviewMas = itemView.findViewById(R.id.cardviewMas);
+            cardviewMenos = itemView.findViewById(R.id.cardviewMenos);
+            txtCantidad = itemview.findViewById(R.id.txtCantidad);
         }
 
 

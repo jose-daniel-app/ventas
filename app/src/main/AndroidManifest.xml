@@ -18,8 +18,8 @@
 
         <!-- splash -->
         <activity
-            android:screenOrientation="portrait"
             android:name=".login.views.SplashScreenActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,11 +29,13 @@
 
         <!-- main -->
         <activity
-            android:screenOrientation="portrait"
             android:name=".login.views.MainActivity"
             android:label="@string/title_activity_referencia"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".login.views.MainActivity" />
         </activity>
 
         <!-- login -->

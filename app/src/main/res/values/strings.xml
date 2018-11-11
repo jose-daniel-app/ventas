@@ -51,7 +51,7 @@
     <!-- String for menuActivity -->
 
 
-    <string name="searchHintText_searchToolbar">Search</string>
+    <string name="searchHintText_searchToolbar">Buscar</string>
 
 
 </resources>

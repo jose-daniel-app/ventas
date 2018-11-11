@@ -1,7 +1,5 @@
-package com.business.ventas.ventas.views;
+package com.business.ventas.viewAdapter;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +13,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
+import com.business.ventas.ventas.views.ClienteFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +32,7 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
     @Override
     public Holderview onCreateViewHolder(ViewGroup parent, int vewType) {
         View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_cliente, parent, false);
-
         return new Holderview(layout);
-
     }
 
     @Override

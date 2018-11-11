@@ -20,14 +20,14 @@ import com.business.ventas.R;
 
 public class SearchToolbar implements View.OnClickListener {
 
-   // public final static int VOICE_INTENT_REQUEST_CODE = 9999;
+    // public final static int VOICE_INTENT_REQUEST_CODE = 9999;
 
     View view;
     Context context;
     RelativeLayout searchLayout;
     EditText searchEditText;
     ImageButton arrowBackBtn;
-   // ImageButton barcodeBtn;
+    // ImageButton barcodeBtn;
     ImageButton clearBtn;
     private InputMethodManager imm;
     OnSearchToolbarQueryTextListner listner;
@@ -39,16 +39,14 @@ public class SearchToolbar implements View.OnClickListener {
         searchLayout = view.findViewById(R.id.search_layout);
         searchEditText = view.findViewById(R.id.searchEditText);
         arrowBackBtn = view.findViewById(R.id.ic_arrowBack);
-       // barcodeBtn = view.findViewById(R.id.ic_barcode_scan);
+        // barcodeBtn = view.findViewById(R.id.ic_barcode_scan);
         clearBtn = view.findViewById(R.id.ic_clear);
         this.listner = listner;
 
 
         arrowBackBtn.setOnClickListener(this);
-      //  barcodeBtn.setOnClickListener(this);
+        //  barcodeBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
-
-
 
 
     }
@@ -61,8 +59,8 @@ public class SearchToolbar implements View.OnClickListener {
      *  - jb keyboard k submit button pr click ho to agr Edittext empty hy to keyboar hide na ho aur agr edittext empty
      *    nahi hy to user ko query show kr k editText ko null kr dyna hy
      * */
-    public void openSearchToolbar() // Open the SearchToolbar
-    {
+    public void openSearchToolbar(){ // Open the SearchToolbar
+
         searchLayout.setVisibility(View.VISIBLE);
 
         /**  focus editText pr ho aur keyboard open ho aur editText null ho*/
@@ -86,11 +84,11 @@ public class SearchToolbar implements View.OnClickListener {
             public void afterTextChanged(Editable editable) {
                 listner.onQueryTextChange(editable.toString());
                 if (editable.length() > 0) {
-                   // barcodeBtn.setVisibility(View.GONE);
+                    // barcodeBtn.setVisibility(View.GONE);
                     clearBtn.setVisibility(View.VISIBLE);
                 } else {
-                  // barcodeBtn.setVisibility(View.VISIBLE);
-                   // clearBtn.setVisibility(View.VISIBLE);
+                    // barcodeBtn.setVisibility(View.VISIBLE);
+                    // clearBtn.setVisibility(View.VISIBLE);
                 }
             }
         });

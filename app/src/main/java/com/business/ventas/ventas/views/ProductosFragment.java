@@ -1,8 +1,8 @@
 package com.business.ventas.ventas.views;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,13 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
-import com.business.ventas.login.contracts.LoginContract;
 import com.business.ventas.login.views.SearchToolbar;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
+import com.business.ventas.viewAdapter.ProductoViewAdapter;
+//import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.List;
  * Use the {@link ProductosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProductosFragment extends Fragment implements OnSearchToolbarQueryTextListner{
+public class ProductosFragment extends Fragment implements OnSearchToolbarQueryTextListner {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -52,50 +52,35 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
     NavigationView navigationView;
     Toolbar toolbar;
     SearchToolbar searchToolbar;
-
-    FloatingActionMenu floatingActionMenu;
-    FloatingActionButton flt_btn_Accion1,flt_btn_Accion2;
+    FloatingActionButton floatingActionButonContinuar;
 
     public ProductosFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_productos, container, false);
         loadComponents(view);
-
         toolbar.setTitle(R.string.title_producto);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.productos_menu);
-
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-
-        searchToolbar = new SearchToolbar(getActivity(),this,getActivity().findViewById(R.id.search_layout));
-/*
-        floatingActionMenu = (FloatingActionMenu) getActivity().findViewById(R.id.floating_actionMenu);
-        flt_btn_Accion2.setOnClickListener(this::onClick);
-*/
+        searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
         return view;
 
     }
 
 
-
-
     private boolean onMenuItemClick(MenuItem menuItem) {
-       //onButtonPressed(this);
-
-         switch (menuItem.getItemId())
-        {
+        //onButtonPressed(this);
+        switch (menuItem.getItemId()) {
             case R.id.ic_search:
                 searchToolbar.openSearchToolbar();
                 break;
         }
-
         return true;
     }
 
@@ -103,6 +88,8 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         recyclerView = view.findViewById(R.id.listaPro);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
+        floatingActionButonContinuar = view.findViewById(R.id.floatingActionButonContinuar);
+        floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
 
         if (listaPro.size() == 0) {
             listaPro.add(new Producto("Keke", "sabor chocolate con chispas", R.drawable.queque));
@@ -111,6 +98,14 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
 
         adapter = new ProductoViewAdapter(listaPro, getActivity());
         recyclerView.setAdapter(adapter);
+    }
+
+    private void clickBtnContinuar(View view) {
+        new MaterialDialog.Builder(getActivity())
+                .title("¿Continuar con la compra?")
+                .positiveText("ok").onPositive((dialog, which)->{ onButtonPressed(this); })
+                .negativeText("cancelar")
+                .show();
     }
 
     /**
@@ -179,6 +174,14 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         return this;
     }
 
+    public void onQueryTextSubmit(String query) {
+        Toast.makeText(getActivity(), "User Query: " + query, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onQueryTextChange(String editable) {
+        // textView.setText(editable);
+    }
 
 
     /**
@@ -195,13 +198,6 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         // TODO: Update argument type and name
         void onFragmentInteraction(Fragment fragment);
     }
-    public void onQueryTextSubmit(String query) {
-        Toast.makeText(getActivity(), "User Query: "+query , Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void onQueryTextChange(String editable) {
-        // textView.setText(editable);
-    }
 
 }

@@ -48,7 +48,7 @@ public class BoletaFragment extends Fragment {
         toolbar.setTitle(R.string.title_boleta);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.boleta_menu);
+        //toolbar.inflateMenu(R.menu.boleta_menu);
         //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         return view;
     }

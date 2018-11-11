@@ -13,11 +13,11 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_search"
         />
-    <item
+    <!--<item
         android:id="@+id/ic_barcode_scan"
         android:icon="@drawable/ic_barcode_scan_white"
         android:title="@string/productos_menu_camara"
-        app:showAsAction="always" />
+        app:showAsAction="always" /> -->
     <!--
         <item
             android:id="@+id/item_check_producto"

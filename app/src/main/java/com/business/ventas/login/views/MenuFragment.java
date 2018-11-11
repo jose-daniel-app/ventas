@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,6 +18,10 @@ import com.business.ventas.R;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.viewAdapter.MenuItemViewAdapter;
+import com.business.ventas.viewAdapter.ProductoViewAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +31,7 @@ import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextLis
  * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextListner {
+public class MenuFragment extends Fragment {
 
     VentasLog log = LogFactory.createInstance().setTag(MenuFragment.class.getSimpleName());
     // TODO: Rename parameter arguments, choose names that match
@@ -46,17 +52,14 @@ public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextLi
 
     private OnFragmentInteractionListener mListener;
 
-    CardView menuCardViewVentas;
-    CardView menuCardViewRequerimiento;
-    CardView menuCardViewComprobante;
-    CardView menuCardViewSalir;
-
+    RecyclerView recyclerViewItems;
     NavigationView navigationView;
     Toolbar toolbar;
-    SearchToolbar searchToolbar;
+
+    MenuItemViewAdapter menuItemViewAdapter;
+
 
     public MenuFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -65,69 +68,46 @@ public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         loadComponents(view);
-
         toolbar.setTitle(R.string.title_home);
         toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.toolbar_menu);
-
-        searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
-
         navigationView.setCheckedItem(R.id.nav_home);
         return view;
     }
 
     private void loadComponents(View view) {
-        menuCardViewVentas = view.findViewById(R.id.menuCardViewVentas);
-        menuCardViewRequerimiento = view.findViewById(R.id.menuCardViewRequerimiento);
-        menuCardViewComprobante = view.findViewById(R.id.menuCardViewComprobante);
-        menuCardViewSalir = view.findViewById(R.id.menuCardViewSalir);
-
-        menuCardViewVentas.setOnClickListener(this::onclickCardView);
-        menuCardViewRequerimiento.setOnClickListener(this::onclickCardView);
-        menuCardViewComprobante.setOnClickListener(this::onclickCardView);
-        menuCardViewSalir.setOnClickListener(this::onclickCardView);
-
-        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-
-
-
-
+        recyclerViewItems = view.findViewById(R.id.recyclerViewItems);
+        GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerViewItems.setLayoutManager(mGridLayoutManager);
+        menuItemViewAdapter = new MenuItemViewAdapter(new ArrayList<MenuItemViewAdapter.Elemento>() {{
+            add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_VENTAS).setImagen(R.drawable.ic_menu_ventas).setDescripcion("Ventas"));
+            add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_REQUER).setImagen(R.drawable.ic_menu_vouchers).setDescripcion("Comprobante"));
+            add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_COMPRO).setImagen(R.drawable.ic_menu_assignment).setDescripcion("Requerimiento"));
+            add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_SALIR).setImagen(R.drawable.ic_menu_exit).setDescripcion("Salir"));
+        }}, this::onclickItem);
+        recyclerViewItems.setAdapter(menuItemViewAdapter);
     }
 
-    private boolean onMenuItemClick(MenuItem menuItem) {
-
-        switch (menuItem.getItemId()) {
-            case R.id.ic_search:
-                searchToolbar.openSearchToolbar();
-                break;
-        }
-
-        return true;
-    }
-
-    private void onclickCardView(View view) {
-        int id = view.getId();
+    private void onclickItem(MenuItemViewAdapter.Elemento elemento) {
+        int id = elemento.getId();
+        this.typeItem = id;
         switch (id) {
-            case R.id.menuCardViewVentas:
-                this.typeItem = PRESS_ITEM_VENTAS;
+            case PRESS_ITEM_VENTAS:
                 onButtonPressed(this);
                 break;
-            case R.id.menuCardViewRequerimiento:
-                this.typeItem = PRESS_ITEM_REQUER;
+            case PRESS_ITEM_REQUER:
                 onButtonPressed(this);
                 break;
-            case R.id.menuCardViewComprobante:
-                this.typeItem = PRESS_ITEM_COMPRO;
+            case PRESS_ITEM_COMPRO:
                 onButtonPressed(this);
                 break;
-            case R.id.menuCardViewSalir:
-                this.typeItem = PRESS_ITEM_SALIR;
+            case PRESS_ITEM_SALIR:
                 onButtonPressed(this);
                 break;
             default:
                 log.info("entro al default");
         }
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -214,15 +194,4 @@ public class MenuFragment extends Fragment implements OnSearchToolbarQueryTextLi
         void onFragmentInteraction(Fragment faFragment);
     }
 
-
-    /******* The following method will invoke when user Change or Submit text in SearchToolbar*/
-    @Override
-    public void onQueryTextSubmit(String query) {
-        Toast.makeText(getActivity(), "User Query: " + query, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onQueryTextChange(String editable) {
-        // textView.setText(editable);
-    }
 }
