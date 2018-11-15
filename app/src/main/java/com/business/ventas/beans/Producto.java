@@ -6,6 +6,8 @@ public class Producto {
     private String nombre;
     private String Descripcion;
     private int cantidad;
+    private double precioUnitario;
+    private double precioCantidad;
 
     public Producto(String nombre, String descripcion, int img) {
         this.img = img;
@@ -46,5 +48,21 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         Descripcion = descripcion;
+    }
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public double getPrecioCantidad() {
+        return precioCantidad;
+    }
+
+    public void setPrecioCantidad(double precioCantidad) {
+        this.precioCantidad = precioCantidad;
     }
 }

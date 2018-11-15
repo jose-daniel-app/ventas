@@ -16,6 +16,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.Numeros;
+import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         this.activity = activity;
     }
 
+    @NonNull
     @Override
     public ProductoViewAdapter.Holderview onCreateViewHolder(ViewGroup parent, int vewType) {
         View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_producto, parent, false);
@@ -42,7 +44,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
+        public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
 
         holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
         holderview.txtDecripcion.setText(productlistAdap.get(position).getDescripcion());
@@ -55,13 +57,16 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         holderview.cardviewMas.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
+            productlistAdap.get(position).setCantidad(cantidad + 1);
             holderview.txtCantidad.setText((cantidad + 1) + "");
         });
 
         holderview.cardviewMenos.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
-            if (cantidad > 0)
+            if (cantidad > 0){
+                productlistAdap.get(position).setCantidad(cantidad - 1);
                 holderview.txtCantidad.setText((cantidad - 1) + "");
+            }
         });
 
     }
