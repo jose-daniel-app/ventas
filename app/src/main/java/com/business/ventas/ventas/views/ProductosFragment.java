@@ -19,6 +19,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.login.views.SearchToolbar;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ProductoViewAdapter;
 //import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 
@@ -53,6 +54,7 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
     Toolbar toolbar;
     SearchToolbar searchToolbar;
     FloatingActionButton floatingActionButonContinuar;
+    private SharedPreferenceProductos sharedProductos;
 
     public ProductosFragment() {
         // Required empty public constructor
@@ -62,6 +64,7 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_productos, container, false);
+        sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
         loadComponents(view);
         toolbar.setTitle(R.string.title_producto);
         navigationView.setCheckedItem(R.id.nav_ventas);
@@ -94,6 +97,10 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         if (listaPro.size() == 0) {
             listaPro.add(new Producto("Keke", "sabor chocolate con chispas", R.drawable.queque));
             listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
         }
 
         adapter = new ProductoViewAdapter(listaPro, getActivity());
@@ -102,10 +109,10 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
 
     private void clickBtnContinuar(View view) {
         new MaterialDialog.Builder(getActivity())
-                .title("¿Continuar con la compra?")
-                .positiveText("ok").onPositive((dialog, which)->{ onButtonPressed(this); })
-                .negativeText("cancelar")
-                .show();
+            .title(R.string.mensaje_compra)
+            .positiveText(R.string.mensaje_ok).onPositive((dialog, which)->{ onButtonPressed(this); })
+            .negativeText(R.string.mensaje_cancelar)
+            .show();
     }
 
     /**
