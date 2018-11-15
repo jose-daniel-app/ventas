@@ -97,10 +97,10 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         if (listaPro.size() == 0) {
             listaPro.add(new Producto("Keke", "sabor chocolate con chispas", R.drawable.queque));
             listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
-            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
-            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
-            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
-            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+            listaPro.add(new Producto("desinfectante", "Limpia los baños y el labado", R.drawable.tinte));
+            listaPro.add(new Producto("Quita grasa", "Quita toda la grasa del los patos y las cosas", R.drawable.protect));
+            listaPro.add(new Producto("Arroz", "Arroz rompe olla para tu casa", R.drawable.arroz));
+            listaPro.add(new Producto("Orix", "Orix, a la grasa le pone fin", R.drawable.orix));
         }
 
         adapter = new ProductoViewAdapter(listaPro, getActivity());
