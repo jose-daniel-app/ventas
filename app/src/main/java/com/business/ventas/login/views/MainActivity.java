@@ -22,6 +22,7 @@ import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.BoletaFragment;
 import com.business.ventas.ventas.views.ClienteFragment;
 import com.business.ventas.ventas.views.ProductosFragment;
+import com.business.ventas.comprobante.views.ComprobanteFragment;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
 
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         ClienteFragment.OnFragmentInteractionListener,
         ProductosFragment.OnFragmentInteractionListener,
         BoletaFragment.OnFragmentInteractionListener,
+        ComprobanteFragment.OnFragmentInteractionListener,
         // interface para la sesion
         AuthRepository.AuthStateListener {
 
@@ -127,6 +129,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_ventas) {
             clienteFragment();
         } else if (id == R.id.nav_vouchers) {
+            comprobanteFragment();
 
         } else if (id == R.id.nav_requerimiento) {
 
@@ -142,7 +145,7 @@ public class MainActivity extends AppCompatActivity
     private void cerrarSesion() {
         auth.signOut(this);
     }
-
+    /*---------------------------*/
     private void menuFragment() {
         MenuFragment menuFragment = MenuFragment.newInstance()
                 .setToolbar(toolbar)
@@ -151,7 +154,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
-
+    /*---------------------------*/
     private void clienteFragment() {
         ClienteFragment clienteFragment = ClienteFragment.newInstance()
                 .setToolbar(toolbar)
@@ -178,6 +181,19 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
+    /*-----------------------------------------------*/
+
+    private void comprobanteFragment() {
+        ComprobanteFragment comprobanteFragment = ComprobanteFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, comprobanteFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+
+        /*------------------------------------------------*/
 
     @Override
     protected void onStart() {
@@ -202,7 +218,16 @@ public class MainActivity extends AppCompatActivity
         } else if (faFragment instanceof ClienteFragment) {
             ClienteFragment fragment = castFragment(ClienteFragment.class, faFragment);
             executeActionClienteFragment(faFragment);
-        }
+/*
+        } else if(faFragment instanceof ComprobanteFragment) {
+            ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
+        executeActionComprobanteFragment(faFragment);*/
+    }
+    }
+
+
+    private void executeActionComprobanteFragment(Fragment faFragment) {
+        comprobanteFragment();
     }
 
     private void executeActionClienteFragment(Fragment faFragment) {
@@ -213,6 +238,8 @@ public class MainActivity extends AppCompatActivity
         boletaFragment();
     }
 
+
+
     private void executeActionMenuFragment(MenuFragment fragment) {
         switch (fragment.getPressTheItemType()) {
             case MenuFragment.PRESS_ITEM_VENTAS:
@@ -221,6 +248,7 @@ public class MainActivity extends AppCompatActivity
             case MenuFragment.PRESS_ITEM_REQUER:
                 break;
             case MenuFragment.PRESS_ITEM_COMPRO:
+                comprobanteFragment();
                 break;
             case MenuFragment.PRESS_ITEM_SALIR:
                 auth.signOut(this);

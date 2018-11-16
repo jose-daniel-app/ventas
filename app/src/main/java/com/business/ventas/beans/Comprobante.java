@@ -1,26 +1,23 @@
 package com.business.ventas.beans;
 
-public class Cliente {
+public class Comprobante {
     private String nombre;
     private int foto;
     private String ruc;
-    private String direccion;
-/*
-    public Cliente(String nombre, int foto) {
+    private String fecha;
+    private String codigo;
 
-        this.nombre = nombre;
-        this.foto = foto;
-    }*/
 
-    public Cliente() {
+    public Comprobante() {
 
     }
 
-    public Cliente(String nombre, int foto, String ruc, String direccion) {
+    public Comprobante(String nombre, int foto, String ruc, String fecha, String codigo) {
         this.nombre = nombre;
         this.foto = foto;
         this.ruc = ruc;
-        this.direccion = direccion;
+        this.fecha = fecha;
+        this.codigo = codigo;
     }
 
     public String getNombre() {
@@ -47,12 +44,19 @@ public class Cliente {
         this.ruc = ruc;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 }

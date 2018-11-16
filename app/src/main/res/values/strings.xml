@@ -56,5 +56,20 @@
     <string name="mensaje_ok">ok</string>
     <string name="mensaje_cancelar">cancelar</string>
 
+    <!-- REQUERIMIENTO-->
+    <string name="title_requerimiento">Requerimientos</string>
+    <string name="title_ruta">Lista de Rutas</string>
+    <string name="title_detalle">Detalle</string>
+    <string name="title_ProductoReq">Productos</string>
+
+
+    <!-- COMPROBANTE -->
+    <string name="title_comprobante">Comprobantes</string>
+
+
+    <string name="ic_Día">Día</string>
+    <string name="ic_Semana">Semana</string>
+    <string name="ic_Mes">Mes</string>
+
 
 </resources>
