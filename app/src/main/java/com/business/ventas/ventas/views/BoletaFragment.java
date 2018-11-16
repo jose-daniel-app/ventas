@@ -5,13 +5,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Producto;
+import com.business.ventas.viewAdapter.ItemBoletaViewAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +44,9 @@ public class BoletaFragment extends Fragment {
     NavigationView navigationView;
     Toolbar toolbar;
 
+    RecyclerView recyclerViewITemBoleta;
+    ItemBoletaViewAdapter adapter;
+
     public BoletaFragment() {
         // Required empty public constructor
     }
@@ -43,20 +54,30 @@ public class BoletaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_boleta, container, false);
         toolbar.setTitle(R.string.title_boleta);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
-        //toolbar.inflateMenu(R.menu.boleta_menu);
-        //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+        loadComponents(view);
         return view;
     }
 
-    /*private boolean onMenuItemClick(MenuItem menuItem) {
-        onButtonPressed(this);
-        return true;
-    }*/
+    private void loadComponents(View view) {
+        recyclerViewITemBoleta  = view.findViewById(R.id.recyclerViewITemBoleta);
+        recyclerViewITemBoleta.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewITemBoleta.setNestedScrollingEnabled(false);
+
+        adapter = ItemBoletaViewAdapter.newInstance().config()
+                .setActivity(getActivity())
+                .setListaProductos(new ArrayList<Producto>(){{
+                        add(new Producto("Keke","keke de chocolate",3, 3.0,9.0));
+                        add(new Producto("Arroz","keke de chocolate",3, 3.0,9.0));
+                        add(new Producto("Pastel","keke de chocolate",3, 3.0,9.0));
+                    }})
+                .build();
+        recyclerViewITemBoleta.setAdapter(adapter);
+
+    }
 
     /**
      * Use this factory method to create a new instance of

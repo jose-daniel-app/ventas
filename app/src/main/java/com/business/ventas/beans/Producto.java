@@ -18,6 +18,14 @@ public class Producto {
     public Producto() {
     }
 
+    public Producto(String nombre, String descripcion, int cantidad, double precioUnitario, double precioCantidad) {
+        this.nombre = nombre;
+        Descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.precioCantidad = precioCantidad;
+    }
+
     public int getCantidad() {
         return cantidad;
     }

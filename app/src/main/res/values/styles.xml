@@ -42,6 +42,7 @@
         <item name="android:paddingRight">@dimen/search_icon_padding</item>
     </style>
 
+
 <!--
   <style name="AppThemeFecha" parent="Theme.AppCompat.Light">
 
@@ -54,4 +55,15 @@
         <item name="android:background">?android:attr/actionBarItemBackground</item>
         <item name="android:contentDescription">"Filtrar por fecha"</item>
     </style>-->
+
+    <style name="headDetalleBoleta">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="ItemDetalleBoleta">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
 </resources>
