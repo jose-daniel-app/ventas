@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
-import com.business.ventas.login.views.SearchToolbar;
-import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.login.views.SearchToolbarProducto;
+import com.business.ventas.login.views.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ProductoViewAdapter;
 //import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
@@ -52,7 +52,7 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
 
     NavigationView navigationView;
     Toolbar toolbar;
-    SearchToolbar searchToolbar;
+    SearchToolbarProducto searchToolbar;
     FloatingActionButton floatingActionButonContinuar;
     private SharedPreferenceProductos sharedProductos;
 
@@ -71,7 +71,7 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.productos_menu);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-        searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
+        searchToolbar = new SearchToolbarProducto(getActivity(), this, getActivity().findViewById(R.id.search_producto));
         return view;
 
     }

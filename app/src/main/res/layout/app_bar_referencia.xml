@@ -23,7 +23,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/search_toolbar_layout" />
-
+    <include layout="@layout/search_toolbar_producto" />
     <include layout="@layout/content_referencia" />
 
 
