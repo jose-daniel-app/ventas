@@ -48,7 +48,7 @@
     </style>
 
     <style name="ItemDetalleBoleta">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

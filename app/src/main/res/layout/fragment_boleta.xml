@@ -159,10 +159,38 @@
 
             </LinearLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:fadeScrollbars="false"
+                android:id="@+id/recyclerViewITemBoleta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:gravity="center"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    style="@style/headDetalleBoleta"
+                    android:gravity="right"
+                    android:text="TOTAL"
+                    android:layout_weight="0.80"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    style="@style/headDetalleBoleta"
+                    android:gravity="right"
+                    android:text="S/ 200"
+                    android:layout_weight="0.20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButonContinuar"
