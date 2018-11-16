@@ -97,25 +97,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-     /*   switch (item.getItemId())
-        {
-            case R.id.ic_search:
-                searchToolbar.openSearchToolbar();
-                break;
-        }*/
         return true;
-
-    /*    int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);*/
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -130,7 +112,6 @@ public class MainActivity extends AppCompatActivity
             clienteFragment();
         } else if (id == R.id.nav_vouchers) {
             comprobanteFragment();
-
         } else if (id == R.id.nav_requerimiento) {
 
         } else if (id == R.id.nav_cerrar_session) {
@@ -145,7 +126,7 @@ public class MainActivity extends AppCompatActivity
     private void cerrarSesion() {
         auth.signOut(this);
     }
-    /*---------------------------*/
+    /*------------------------------------------------*/
     private void menuFragment() {
         MenuFragment menuFragment = MenuFragment.newInstance()
                 .setToolbar(toolbar)
@@ -154,7 +135,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
-    /*---------------------------*/
+    /*------------------------------------------------*/
     private void clienteFragment() {
         ClienteFragment clienteFragment = ClienteFragment.newInstance()
                 .setToolbar(toolbar)
@@ -163,7 +144,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
-
+    /*------------------------------------------------*/
     private void productoFragment() {
         ProductosFragment productosFragment = ProductosFragment.newInstance()
                 .setToolbar(toolbar)
@@ -172,7 +153,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
-
+    /*------------------------------------------------*/
     private void boletaFragment() {
         BoletaFragment boletaFragment = BoletaFragment.newInstance()
                 .setToolbar(toolbar)
@@ -182,7 +163,6 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
     /*-----------------------------------------------*/
-
     private void comprobanteFragment() {
         ComprobanteFragment comprobanteFragment = ComprobanteFragment.newInstance()
                 .setToolbar(toolbar)
@@ -192,8 +172,6 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
 
-
-        /*------------------------------------------------*/
 
     @Override
     protected void onStart() {
@@ -241,6 +219,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private void executeActionMenuFragment(MenuFragment fragment) {
+        log.info("el Id es: " + fragment.getPressTheItemType());
         switch (fragment.getPressTheItemType()) {
             case MenuFragment.PRESS_ITEM_VENTAS:
                 clienteFragment();

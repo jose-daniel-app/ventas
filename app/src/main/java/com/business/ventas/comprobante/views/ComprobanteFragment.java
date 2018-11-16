@@ -1,6 +1,7 @@
 package com.business.ventas.comprobante.views;
 
 import com.business.ventas.login.views.SearchToolbar;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -101,16 +102,13 @@ public class ComprobanteFragment extends Fragment implements OnSearchToolbarQuer
         return view;
 
 
-
     }
-
-
 
 
     private void loadComponents(View view) {
 
         if (productlists.size() == 0) {
-            productlists.add(new Comprobante("Ana Tarazona ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23","3485786GBTX"));
+            productlists.add(new Comprobante("Ana Tarazona ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
             productlists.add(new Comprobante("Beto Silva ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
             productlists.add(new Comprobante("Carlos Alvarado ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
             productlists.add(new Comprobante("David Hernandez ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
@@ -133,14 +131,6 @@ public class ComprobanteFragment extends Fragment implements OnSearchToolbarQuer
 
 
     private boolean onMenuItemClick(MenuItem menuItem) {
-        //onButtonPressed(this);
-
-     /*   switch (menuItem.getItemId()) {
-            case R.id.ic_search_time:
-              //  searchToolbar.openSearchToolbar();
-                break;
-        }*/
-
         return true;
     }
 
