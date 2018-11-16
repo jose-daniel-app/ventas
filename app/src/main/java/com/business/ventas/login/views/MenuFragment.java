@@ -80,8 +80,8 @@ public class MenuFragment extends Fragment {
         recyclerViewItems.setLayoutManager(mGridLayoutManager);
         menuItemViewAdapter = new MenuItemViewAdapter(new ArrayList<MenuItemViewAdapter.Elemento>() {{
             add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_VENTAS).setImagen(R.drawable.ic_menu_ventas).setDescripcion("Ventas"));
-            add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_REQUER).setImagen(R.drawable.ic_menu_vouchers).setDescripcion("Comprobante"));
             add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_COMPRO).setImagen(R.drawable.ic_menu_assignment).setDescripcion("Requerimiento"));
+            add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_REQUER).setImagen(R.drawable.ic_menu_vouchers).setDescripcion("Comprobante"));
             add(new MenuItemViewAdapter.Elemento().setId(PRESS_ITEM_SALIR).setImagen(R.drawable.ic_menu_exit).setDescripcion("Salir"));
         }}, this::onclickItem);
         recyclerViewItems.setAdapter(menuItemViewAdapter);
@@ -94,10 +94,11 @@ public class MenuFragment extends Fragment {
             case PRESS_ITEM_VENTAS:
                 onButtonPressed(this);
                 break;
-            case PRESS_ITEM_REQUER:
+
+            case PRESS_ITEM_COMPRO:
                 onButtonPressed(this);
                 break;
-            case PRESS_ITEM_COMPRO:
+            case PRESS_ITEM_REQUER:
                 onButtonPressed(this);
                 break;
             case PRESS_ITEM_SALIR:
