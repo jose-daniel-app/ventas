@@ -61,6 +61,10 @@
     <string name="title_ruta">Lista de Rutas</string>
     <string name="title_detalle">Detalle</string>
     <string name="title_ProductoReq">Productos</string>
+              <!-- datepicker-->
+    <string name="titlulo_pickers">Obtener fecha y hora</string>
+    <string name="formato_fecha">dd/mm/yyyy</string>
+    <string name="formato_hora">hh:mm</string>
 
 
     <!-- COMPROBANTE -->
@@ -70,6 +74,8 @@
     <string name="ic_Día">Día</string>
     <string name="ic_Semana">Semana</string>
     <string name="ic_Mes">Mes</string>
+
+
 
 
 </resources>

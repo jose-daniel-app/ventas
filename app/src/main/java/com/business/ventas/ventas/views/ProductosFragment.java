@@ -109,10 +109,10 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
 
     private void clickBtnContinuar(View view) {
         new MaterialDialog.Builder(getActivity())
-            .title(R.string.mensaje_compra)
-            .positiveText(R.string.mensaje_ok).onPositive((dialog, which)->{ onButtonPressed(this); })
-            .negativeText(R.string.mensaje_cancelar)
-            .show();
+                .title(R.string.mensaje_compra)
+                .positiveText(R.string.mensaje_ok).onPositive((dialog, which)->{ onButtonPressed(this); })
+                .negativeText(R.string.mensaje_cancelar)
+                .show();
     }
 
     /**
