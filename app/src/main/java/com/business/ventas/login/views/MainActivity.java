@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
         //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-       // menuFragment();
-      rutaFragment();
+        menuFragment();
+        //rutaFragment();
         //producto
     }
 
@@ -179,11 +179,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.container, comprobanteFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
-
-
-
     }
-
     /*--------------------Requerimiento---------------------------*/
     private void requerimientoFragment() {
         RequerimientoFragment requerimientoFragment = RequerimientoFragment.newInstance()
@@ -192,7 +188,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.container, requerimientoFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();}
-
+    /*--------------------ReqProductoFragment---------------------------*/
     private void reqProductoFragment() {
         ReqProductoFragment reqProductoFragment = ReqProductoFragment.newInstance()
                 .setToolbar(toolbar)
@@ -234,10 +230,6 @@ public class MainActivity extends AppCompatActivity
         } else if (faFragment instanceof ClienteFragment) {
             ClienteFragment fragment = castFragment(ClienteFragment.class, faFragment);
             executeActionClienteFragment(faFragment);
-/*
-        } else if(faFragment instanceof ComprobanteFragment) {
-            ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
-        executeActionComprobanteFragment(faFragment);*/
         }else if(faFragment instanceof RutaFragment){
             RutaFragment fragment = castFragment(RutaFragment.class, faFragment);
             executeActioRutaFragment(fragment);
@@ -247,7 +239,6 @@ public class MainActivity extends AppCompatActivity
     private void executeActioRutaFragment(RutaFragment fragment) {
         this.productoFragment();
     }
-
 
     private void executeActionComprobanteFragment(Fragment faFragment) {
         comprobanteFragment();
@@ -264,7 +255,6 @@ public class MainActivity extends AppCompatActivity
     private void executeActionRequerimientoFragment(Fragment faFragment) {
         requerimientoFragment();
     }
-
 
     private void executeActionMenuFragment(MenuFragment fragment) {
         log.info("el Id es: " + fragment.getPressTheItemType());
@@ -312,16 +302,4 @@ public class MainActivity extends AppCompatActivity
         return (T) fragment;
     }
 
-    /******* The following method will invoke when user Change or Submit text in SearchToolbar*/
-   /*
-    @Override
-    public void onQueryTextSubmit(String query) {
-        Toast.makeText(this, "User Query: "+query , Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onQueryTextChange(String editable) {
-        // textView.setText(editable);
-    }
-    */
 }
