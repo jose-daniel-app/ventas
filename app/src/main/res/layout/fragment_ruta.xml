@@ -7,7 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".requerimiento.views.RequerimientoFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/idHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="14dp"
+        android:backgroundTint="@color/primary"
+        android:elevation="4dp"
+        android:src="@drawable/ic_check_white"
+        app:fab_size="mini" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/idprueba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="14dp"
+            android:backgroundTint="@color/primary"
+            android:elevation="4dp"
+            android:src="@drawable/ic_check_white"
+            app:fab_size="mini" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,5 +57,6 @@
             </LinearLayout>
 
         </LinearLayout>
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

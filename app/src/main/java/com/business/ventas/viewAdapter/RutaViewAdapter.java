@@ -1,6 +1,7 @@
 package com.business.ventas.viewAdapter;
 
 
+        import android.content.Context;
         import android.support.annotation.NonNull;
         import android.support.v7.widget.CardView;
         import android.support.v7.widget.RecyclerView;
@@ -24,10 +25,19 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
     private VentasLog log = LogFactory.createInstance().setTag(RutaViewAdapter.class.getSimpleName());
     private List<Ruta> productlistAdap;
     private RutaFragment fragment;
+    private ListenerItem listener;
 
-    public RutaViewAdapter(List<Ruta> productlist, RutaFragment fragment) {
+    /*public RutaViewAdapter(List<Ruta> productlist, RutaFragment fragment) {
         this.productlistAdap = productlist;
         this.fragment = fragment;
+    }*/
+    public static RutaViewAdapter newInstance(){
+        return new RutaViewAdapter();
+    }
+
+    public RutaViewBuild config(){
+        //TODO
+        return new RutaViewBuild(this);
     }
 
     @Override
@@ -41,14 +51,17 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
 
         holderview.v_codRuta.setText(productlistAdap.get(position).getCodRuta());
         holderview.v_dirRuta.setText(productlistAdap.get(position).getDirRuta());
-        holderview.itemView.setOnClickListener(this::onclick);
+        holderview.itemView.setOnClickListener(view -> {
+            listener.onSelectItem(productlistAdap.get(position).getCodRuta());
+        });
 
     }
 
-    private void onclick(View view) {
+    /*private void onclick(View view) {
         log.info("el onclick de clase => " + this.fragment);
-        fragment.onButtonPressed(this.fragment);
-    }
+        //fragment.onButtonPressed(this.fragment);
+
+    }*/
 
     @Override
     public int getItemCount() {
@@ -69,7 +82,6 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
         TextView v_dirRuta;
         CardView itemCarview;
 
-
         Holderview(View itemview) {
 
             super(itemview);
@@ -79,7 +91,36 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
             v_dirRuta = itemview.findViewById(R.id.textView3);
 
         }
-
     }
 
+    public interface ListenerItem {
+        void onSelectItem(String codigoRuta);
+    }
+
+    public class RutaViewBuild {
+        //TODO
+        private RutaViewAdapter rutaViewAdapter;
+
+        public RutaViewBuild(RutaViewAdapter rutaViewAdapter) {
+            this.rutaViewAdapter = rutaViewAdapter;
+        }
+        public RutaViewBuild setListenerItem(ListenerItem listener){
+            this.rutaViewAdapter.listener = listener;
+            return this;
+        }
+
+        public RutaViewBuild setFragment(RutaFragment context){
+            this.rutaViewAdapter.fragment  = context;
+            return this;
+        }
+
+        public RutaViewBuild setListaRuta(List<Ruta> productlistAdap){
+            this.rutaViewAdapter.productlistAdap = productlistAdap;
+            return this;
+        }
+
+        public RutaViewAdapter build(){
+            return rutaViewAdapter;
+        }
+    }
 }

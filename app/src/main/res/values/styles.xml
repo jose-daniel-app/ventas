@@ -42,6 +42,10 @@
         <item name="android:paddingRight">@dimen/search_icon_padding</item>
     </style>
 
+    <style name="DatePickerTheme" parent="@android:style/Theme.Holo.Light.Dialog.MinWidth">
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+    </style>
 
 <!--
   <style name="AppThemeFecha" parent="Theme.AppCompat.Light">

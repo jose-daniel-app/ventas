@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="TextView"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteY="9dp" />
@@ -51,12 +51,10 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="0.7"
-            android:orientation="vertical"
+            android:layout_height="86dp"
             android:layout_marginTop="10dp"
-            >
-
+            android:layout_weight="0.7"
+            android:orientation="vertical">
 
 
             <LinearLayout
@@ -68,22 +66,23 @@
                     android:id="@+id/textViewPedido"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fecha Pedido:"
+                    android:text="F.Pedido:"
                     android:textStyle="bold"
                     tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteY="33dp" />
+                    tools:layout_editor_absoluteY="33dp"
+                    />
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteY="33dp" />
 
 
-
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,22 +92,22 @@
                     android:id="@+id/textViewEntrega"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fecha Entrega:"
+                    android:text="F.Entrega:"
                     android:textStyle="bold"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteY="33dp" />
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteY="33dp" />
 
 
-
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,7 +130,6 @@
                     android:textStyle="bold"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteY="33dp" />
-
 
 
             </LinearLayout>

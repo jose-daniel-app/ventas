@@ -16,7 +16,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.repository.AuthRepository;
+import com.business.ventas.requerimiento.views.ReqProductoFragment;
+import com.business.ventas.requerimiento.views.RequerimientoFragment;
+import com.business.ventas.requerimiento.views.RutaFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.BoletaFragment;
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity
         ProductosFragment.OnFragmentInteractionListener,
         BoletaFragment.OnFragmentInteractionListener,
         ComprobanteFragment.OnFragmentInteractionListener,
+        RequerimientoFragment.OnFragmentInteractionListener,
+        ReqProductoFragment.OnFragmentInteractionListener,
+        RutaFragment.OnFragmentInteractionListener,
         // interface para la sesion
         AuthRepository.AuthStateListener {
 
@@ -73,7 +80,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
         //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-        menuFragment();
+       // menuFragment();
+      rutaFragment();
+        //producto
     }
 
     @Override
@@ -113,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_vouchers) {
             comprobanteFragment();
         } else if (id == R.id.nav_requerimiento) {
-
+            requerimientoFragment();
         } else if (id == R.id.nav_cerrar_session) {
             cerrarSesion();
         }
@@ -162,7 +171,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
-    /*-----------------------------------------------*/
+    /*--------------------Comprobante---------------------------*/
     private void comprobanteFragment() {
         ComprobanteFragment comprobanteFragment = ComprobanteFragment.newInstance()
                 .setToolbar(toolbar)
@@ -170,6 +179,35 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.container, comprobanteFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
+
+
+
+    }
+
+    /*--------------------Requerimiento---------------------------*/
+    private void requerimientoFragment() {
+        RequerimientoFragment requerimientoFragment = RequerimientoFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, requerimientoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();}
+
+    private void reqProductoFragment() {
+        ReqProductoFragment reqProductoFragment = ReqProductoFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, reqProductoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();}
+
+        private void rutaFragment() {
+            RutaFragment rutaFragment = RutaFragment.newInstance()
+                    .setToolbar(toolbar)
+                    .setNavigationView(navigationView);
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, rutaFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .addToBackStack(null).commit();
     }
 
 
@@ -200,7 +238,14 @@ public class MainActivity extends AppCompatActivity
         } else if(faFragment instanceof ComprobanteFragment) {
             ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
         executeActionComprobanteFragment(faFragment);*/
+        }else if(faFragment instanceof RutaFragment){
+            RutaFragment fragment = castFragment(RutaFragment.class, faFragment);
+            executeActioRutaFragment(fragment);
+        }
     }
+
+    private void executeActioRutaFragment(RutaFragment fragment) {
+        this.productoFragment();
     }
 
 
@@ -216,6 +261,9 @@ public class MainActivity extends AppCompatActivity
         boletaFragment();
     }
 
+    private void executeActionRequerimientoFragment(Fragment faFragment) {
+        requerimientoFragment();
+    }
 
 
     private void executeActionMenuFragment(MenuFragment fragment) {
@@ -225,6 +273,7 @@ public class MainActivity extends AppCompatActivity
                 clienteFragment();
                 break;
             case MenuFragment.PRESS_ITEM_REQUER:
+                requerimientoFragment();
                 break;
             case MenuFragment.PRESS_ITEM_COMPRO:
                 comprobanteFragment();
