@@ -70,4 +70,10 @@
     </style>
 
 
+    <!-- color menu item overflow -->
+    <style name="ThemeOverlay.MyTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/icons</item>
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
 </resources>

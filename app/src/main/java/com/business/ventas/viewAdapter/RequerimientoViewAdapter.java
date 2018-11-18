@@ -24,11 +24,11 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
     private RequerimientoFragment fragment;
     private OnSelectCardListener listener;
 
-    public static RequerimientoViewAdapter newInstance(){
+    public static RequerimientoViewAdapter newInstance() {
         return new RequerimientoViewAdapter();
     }
 
-    public Builder config(){
+    public Builder config() {
         return new Builder(this);
     }
 
@@ -48,7 +48,6 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
         holderview.itemView.setOnClickListener(view -> {
             listener.onClickCard(productlistAdap.get(position));
         });
-
     }
 
     @Override
@@ -71,7 +70,6 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
         TextView v_fecha_entrega;
         TextView v_codigo;
         CardView itemCarview;
-
 
         Holderview(View itemview) {
 

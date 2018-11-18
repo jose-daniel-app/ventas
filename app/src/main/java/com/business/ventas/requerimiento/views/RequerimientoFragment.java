@@ -57,6 +57,7 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
 
     FloatingActionButton floatingActionButtonAgregar;
 
+
     private int tipoAccion;
 
     public RequerimientoFragment() {
@@ -107,7 +108,7 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
 
     private void loadComponents(View view) {
 
-        floatingActionButtonAgregar = view.findViewById(R.id.floatingActionButtonAgregar);
+        floatingActionButtonAgregar = view.findViewById(R.id.fbAgregarRuta);
         floatingActionButtonAgregar.setOnClickListener(this::btnCrearRequerimiento);
 
         if (productlists.size() == 0) {
