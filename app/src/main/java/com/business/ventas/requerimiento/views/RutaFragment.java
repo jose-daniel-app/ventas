@@ -56,7 +56,7 @@ public class RutaFragment extends Fragment implements OnSearchToolbarQueryTextLi
 
     NavigationView navigationView;
     Toolbar toolbar;
-    FloatingActionButton idprueba;
+   // FloatingActionButton idprueba;
     //CardView cardViewIdruta;
     //SearchToolbar searchToolbar;
 
@@ -111,8 +111,8 @@ public class RutaFragment extends Fragment implements OnSearchToolbarQueryTextLi
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         //searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
 
-        idprueba = (FloatingActionButton) view.findViewById(R.id.idprueba);
-        idprueba.setOnClickListener(this::onClick);
+        //idprueba = (FloatingActionButton) view.findViewById(R.id.idprueba);
+       // idprueba.setOnClickListener(this::onClick);
 
         //     cardViewIdruta = (CardView) view.findViewById(R.id.cardViewIdruta);
         // cardViewIdruta.setOnClickListener(this::onClick);
@@ -165,14 +165,14 @@ public class RutaFragment extends Fragment implements OnSearchToolbarQueryTextLi
 
         return true;
     }
-
+/*
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.idprueba:
                 showDatePickerDialog();
                 break;
         }
-    }
+    }*/
 
     private void showDatePickerDialog() {
         //DatePickerFragment newFragment = new DatePickerFragment();

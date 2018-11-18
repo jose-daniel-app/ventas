@@ -41,13 +41,13 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
             holderview.v_fecha_pedido.setText(productlistAdap.get(position).getFecha_pedido());
             holderview.v_fecha_entrega.setText(productlistAdap.get(position).getFecha_entrega());
             holderview.v_ruta.setText(productlistAdap.get(position).getRuta());
-            holderview.itemView.setOnClickListener(this::onclick);
+            holderview.itemView.setOnClickListener(this::onclickview);
 
         }
 
-        private void onclick(View view) {
+        private void onclickview(View view) {
             log.info("el onclick de clase => " + this.fragment);
-            fragment.onButtonPressed(this.fragment);
+             fragment.onButtonPressed(this.fragment);
         }
 
         @Override

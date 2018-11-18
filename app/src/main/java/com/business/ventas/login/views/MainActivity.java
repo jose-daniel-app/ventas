@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.repository.AuthRepository;
+import com.business.ventas.requerimiento.views.DetalleFragment;
 import com.business.ventas.requerimiento.views.ReqProductoFragment;
 import com.business.ventas.requerimiento.views.RequerimientoFragment;
 import com.business.ventas.requerimiento.views.RutaFragment;
@@ -179,6 +180,10 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.container, requerimientoFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();}
+
+
+
+
     /*--------------------ReqProductoFragment---------------------------*/
     private void reqProductoFragment() {
         ReqProductoFragment reqProductoFragment = ReqProductoFragment.newInstance()
@@ -196,6 +201,14 @@ public class MainActivity extends AppCompatActivity
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(null).commit();
     }
+    private void detalleFragment() {
+        DetalleFragment detalleFragment = DetalleFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();}
+
 
 
     @Override
@@ -226,22 +239,28 @@ public class MainActivity extends AppCompatActivity
             executeActioRutaFragment(fragment);
         }else if(faFragment instanceof ComprobanteFragment){
             ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
-            executeActioComprobanteFragment(fragment);
+            executeActionComprobanteFragment(fragment);
+        }else if(faFragment instanceof RequerimientoFragment){
+            RequerimientoFragment fragment = castFragment(RequerimientoFragment.class, faFragment);
+            executeActionRequerimientoFragment(fragment);
         }
+
+
+
     }
 
-    private void executeActioComprobanteFragment(ComprobanteFragment fragment) {
+    private void executeActionComprobanteFragment(ComprobanteFragment fragment) {
         boletaFragment();
     }
 
     private void executeActioRutaFragment(RutaFragment fragment) {
         productoFragment();
     }
-
+/*
     private void executeActionComprobanteFragment(Fragment faFragment) {
         comprobanteFragment();
     }
-
+*/
     private void executeActionClienteFragment(Fragment faFragment) {
         productoFragment();
     }
@@ -251,9 +270,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void executeActionRequerimientoFragment(Fragment faFragment) {
-        requerimientoFragment();
-    }
 
+        rutaFragment();
+    }
+    private void executeActionRequerimientoDetalleFragment(Fragment faFragment2) {
+
+        detalleFragment();
+    }
     private void executeActionMenuFragment(MenuFragment fragment) {
         switch (fragment.getPressTheItemType()) {
             case MenuFragment.PRESS_ITEM_VENTAS:

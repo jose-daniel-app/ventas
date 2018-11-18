@@ -50,7 +50,7 @@ public class SharedPreferenceProductos {
     }
 
     public List<Producto> listarProducto() {
-        List<Producto> lista = null;
+        List<Producto> lista = new ArrayList<Producto>();
         String json = getSharedPreferences().getString(ITEM, null);
         if (json != null)
             lista = gson.fromJson(json, listType);

@@ -5,6 +5,7 @@ import com.business.ventas.login.views.SearchToolbar;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,6 +48,8 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
 
     NavigationView navigationView;
     Toolbar toolbar;
+
+    FloatingActionButton fbAgregarRuta;
 
     //SearchToolbar searchToolbar;
 
@@ -98,6 +101,12 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
 
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         //searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
+
+
+        fbAgregarRuta = (FloatingActionButton) view.findViewById(R.id.fbAgregarRuta);
+        fbAgregarRuta.setOnClickListener(this::onClick);
+
+
         return view;
 
 
@@ -132,6 +141,14 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         listarequerimientos.setAdapter(adapter);
     }
 
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fbAgregarRuta:
+                onButtonPressed(this);
+                break;
+        }
+    }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
         //onButtonPressed(this);
