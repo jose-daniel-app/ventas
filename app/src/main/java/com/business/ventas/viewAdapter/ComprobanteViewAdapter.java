@@ -22,10 +22,14 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
     private VentasLog log = LogFactory.createInstance().setTag(ComprobanteViewAdapter.class.getSimpleName());
     private List<Comprobante> productlistAdap;
     private ComprobanteFragment fragment;
+    private OnSelectCardListener onSelectCardListener;
 
-    public ComprobanteViewAdapter(List<Comprobante> productlist, ComprobanteFragment fragment) {
-        this.productlistAdap = productlist;
-        this.fragment = fragment;
+    public static ComprobanteViewAdapter newInstance(){
+        return new ComprobanteViewAdapter();
+    }
+
+    public Builder config(){
+        return new Builder(this);
     }
 
     @Override
@@ -36,19 +40,14 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
 
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
-
         holderview.v_nombre.setText(productlistAdap.get(position).getNombre());
         holderview.v_ruc.setText(productlistAdap.get(position).getRuc());
         holderview.v_fecha.setText(productlistAdap.get(position).getFecha());
         holderview.v_codigo.setText(productlistAdap.get(position).getCodigo());
         holderview.v_foto.setImageResource(productlistAdap.get(position).getFoto());
-        holderview.itemView.setOnClickListener(this::onclick);
-
-    }
-
-    private void onclick(View view) {
-        log.info("el onclick de clase => " + this.fragment);
-        fragment.onButtonPressed(this.fragment);
+        holderview.itemView.setOnClickListener(view -> {
+            onSelectCardListener.onClickCard(productlistAdap.get(position));
+        });
     }
 
     @Override
@@ -83,7 +82,38 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
             v_fecha = itemview.findViewById(R.id.textView4);
             v_codigo = itemview.findViewById(R.id.textView5);
         }
+    }
 
+    public interface OnSelectCardListener {
+        void onClickCard(Comprobante comprobante);
+    }
+
+
+    public class Builder {
+        ComprobanteViewAdapter comprobanteViewAdapter;
+
+        public Builder(ComprobanteViewAdapter comprobanteViewAdapter) {
+            this.comprobanteViewAdapter = comprobanteViewAdapter;
+        }
+
+        public Builder setProductlistAdap(List<Comprobante> productlistAdap) {
+            this.comprobanteViewAdapter.productlistAdap = productlistAdap;
+            return this;
+        }
+
+        public Builder setFragment(ComprobanteFragment fragment) {
+            this.comprobanteViewAdapter.fragment = fragment;
+            return this;
+        }
+
+        public Builder setOnSelectCardListener(OnSelectCardListener onSelectCardListener) {
+            this.comprobanteViewAdapter.onSelectCardListener = onSelectCardListener;
+            return this;
+        }
+
+        public ComprobanteViewAdapter build() {
+            return comprobanteViewAdapter;
+        }
     }
 
 }

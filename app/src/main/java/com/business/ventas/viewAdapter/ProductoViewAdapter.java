@@ -49,7 +49,6 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         return new ProductoViewAdapter.Holderview(layout);
     }
 
-
     @SuppressLint("SetTextI18n")
     @Override
         public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {

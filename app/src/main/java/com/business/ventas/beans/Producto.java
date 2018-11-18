@@ -35,12 +35,16 @@ public class Producto {
         this.precioUnitario = precioUnitario;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public Build config(){
+        return new Build(this);
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public int getImg() {
@@ -67,6 +71,14 @@ public class Producto {
         Descripcion = descripcion;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public double getPrecioUnitario() {
         return precioUnitario;
     }
@@ -83,16 +95,50 @@ public class Producto {
         this.precioCantidad = precioCantidad;
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
     public void actualizarPrecioCantidad() {
         this.setPrecioCantidad(this.getCantidad() * this.getPrecioUnitario());
+    }
+
+    public class Build {
+        Producto producto;
+
+        public Build(Producto producto) {
+            this.producto = producto;
+        }
+
+        public Build setCodigo(int codigo) {
+            producto.codigo = codigo;
+            return this;
+        }
+
+        public Build setNombre(String nombre) {
+            producto.nombre = nombre;
+            return this;
+        }
+
+        public Build setDescripcion(String descripcion) {
+            producto.Descripcion = descripcion;
+            return this;
+        }
+
+        public Build setCantidad(int cantidad) {
+            producto.cantidad = cantidad;
+            return this;
+        }
+
+        public Build setPrecioUnitario(double precioUnitario) {
+            producto.precioUnitario = precioUnitario;
+            return this;
+        }
+
+        public Build actualizarPrecioCantidad(){
+            producto.actualizarPrecioCantidad();
+            return this;
+        }
+
+        public Producto build(){
+            return producto;
+        }
     }
 
 }

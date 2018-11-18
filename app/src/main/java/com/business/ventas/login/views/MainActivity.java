@@ -72,10 +72,6 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
-        //searchToolbar = new SearchToolbar(this,this,findViewById(R.id.search_layout));
-
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
@@ -97,10 +93,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.referencia, menu);
-        //getMenuInflater().inflate(R.menu.searchfile, menu);
-        //  getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         return true;
     }
 
@@ -126,7 +118,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_cerrar_session) {
             cerrarSesion();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -233,11 +224,18 @@ public class MainActivity extends AppCompatActivity
         }else if(faFragment instanceof RutaFragment){
             RutaFragment fragment = castFragment(RutaFragment.class, faFragment);
             executeActioRutaFragment(fragment);
+        }else if(faFragment instanceof ComprobanteFragment){
+            ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
+            executeActioComprobanteFragment(fragment);
         }
     }
 
+    private void executeActioComprobanteFragment(ComprobanteFragment fragment) {
+        boletaFragment();
+    }
+
     private void executeActioRutaFragment(RutaFragment fragment) {
-        this.productoFragment();
+        productoFragment();
     }
 
     private void executeActionComprobanteFragment(Fragment faFragment) {
@@ -257,7 +255,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void executeActionMenuFragment(MenuFragment fragment) {
-        log.info("el Id es: " + fragment.getPressTheItemType());
         switch (fragment.getPressTheItemType()) {
             case MenuFragment.PRESS_ITEM_VENTAS:
                 clienteFragment();
