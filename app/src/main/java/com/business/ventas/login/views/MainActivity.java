@@ -221,12 +221,27 @@ public class MainActivity extends AppCompatActivity
         } else if (faFragment instanceof ClienteFragment) {
             ClienteFragment fragment = castFragment(ClienteFragment.class, faFragment);
             executeActionClienteFragment(faFragment);
-        }else if(faFragment instanceof RutaFragment){
+        } else if (faFragment instanceof RutaFragment) {
             RutaFragment fragment = castFragment(RutaFragment.class, faFragment);
             executeActioRutaFragment(fragment);
-        }else if(faFragment instanceof ComprobanteFragment){
+        } else if (faFragment instanceof ComprobanteFragment) {
             ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
             executeActioComprobanteFragment(fragment);
+        } else if (faFragment instanceof RequerimientoFragment) {
+            RequerimientoFragment fragment = castFragment(RequerimientoFragment.class, faFragment);
+            executeActioRequerimientoFragment(fragment);
+        }
+    }
+
+    private void executeActioRequerimientoFragment(RequerimientoFragment fragment) {
+        switch (fragment.getTipoAccion()) {
+            case RequerimientoFragment.CREAR_REQUERIMIENTO:
+                rutaFragment();
+                break;
+            case RequerimientoFragment.DETALLE_REQUERIMIENTO:
+                boletaFragment();
+                break;
+            default:
         }
     }
 

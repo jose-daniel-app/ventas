@@ -19,70 +19,104 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequerimientoViewAdapter extends RecyclerView.Adapter<RequerimientoViewAdapter.Holderview> {
-        private VentasLog log = LogFactory.createInstance().setTag(RequerimientoViewAdapter.class.getSimpleName());
-        private List<Requerimiento> productlistAdap;
-        private RequerimientoFragment fragment;
+    private VentasLog log = LogFactory.createInstance().setTag(RequerimientoViewAdapter.class.getSimpleName());
+    private List<Requerimiento> productlistAdap;
+    private RequerimientoFragment fragment;
+    private OnSelectCardListener listener;
 
-        public RequerimientoViewAdapter(List<Requerimiento> productlist, RequerimientoFragment fragment) {
-            this.productlistAdap = productlist;
-            this.fragment = fragment;
-        }
+    public static RequerimientoViewAdapter newInstance(){
+        return new RequerimientoViewAdapter();
+    }
 
-        @Override
-        public Holderview onCreateViewHolder(ViewGroup parent, int vewType) {
-            View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_requerimiento, parent, false);
-            return new Holderview(layout);
-        }
+    public Builder config(){
+        return new Builder(this);
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
+    @Override
+    public Holderview onCreateViewHolder(ViewGroup parent, int vewType) {
+        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_requerimiento, parent, false);
+        return new Holderview(layout);
+    }
 
-            holderview.v_codigo.setText(productlistAdap.get(position).getCodigo());
-            holderview.v_fecha_pedido.setText(productlistAdap.get(position).getFecha_pedido());
-            holderview.v_fecha_entrega.setText(productlistAdap.get(position).getFecha_entrega());
-            holderview.v_ruta.setText(productlistAdap.get(position).getRuta());
-            holderview.itemView.setOnClickListener(this::onclick);
+    @Override
+    public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
 
-        }
+        holderview.v_codigo.setText(productlistAdap.get(position).getCodigo());
+        holderview.v_fecha_pedido.setText(productlistAdap.get(position).getFecha_pedido());
+        holderview.v_fecha_entrega.setText(productlistAdap.get(position).getFecha_entrega());
+        holderview.v_ruta.setText(productlistAdap.get(position).getRuta());
+        holderview.itemView.setOnClickListener(view -> {
+            listener.onClickCard(productlistAdap.get(position));
+        });
 
-        private void onclick(View view) {
-            log.info("el onclick de clase => " + this.fragment);
-            fragment.onButtonPressed(this.fragment);
-        }
+    }
 
-        @Override
-        public int getItemCount() {
-            return productlistAdap.size();
-        }
+    @Override
+    public int getItemCount() {
+        return productlistAdap.size();
+    }
 
-        public void setfilter(List<Requerimiento> listrequerimiento) {
+    public void setfilter(List<Requerimiento> listrequerimiento) {
 
-            productlistAdap = new ArrayList<>();
-            productlistAdap.addAll(listrequerimiento);
-            notifyDataSetChanged();
+        productlistAdap = new ArrayList<>();
+        productlistAdap.addAll(listrequerimiento);
+        notifyDataSetChanged();
 
-        }
+    }
 
-        class Holderview extends RecyclerView.ViewHolder {
+    class Holderview extends RecyclerView.ViewHolder {
 
-            TextView v_ruta;
-            TextView v_fecha_pedido;
-            TextView v_fecha_entrega;
-            TextView v_codigo;
-            CardView itemCarview;
+        TextView v_ruta;
+        TextView v_fecha_pedido;
+        TextView v_fecha_entrega;
+        TextView v_codigo;
+        CardView itemCarview;
 
 
-            Holderview(View itemview) {
+        Holderview(View itemview) {
 
-                super(itemview);
-                itemCarview = itemview.findViewById(R.id.cardViewIdrequerimiento);
+            super(itemview);
+            itemCarview = itemview.findViewById(R.id.cardViewIdrequerimiento);
 
-                v_ruta = itemview.findViewById(R.id.textView2);
-                v_fecha_pedido = itemview.findViewById(R.id.textView3);
-                v_fecha_entrega = itemview.findViewById(R.id.textView4);
-                v_codigo = itemview.findViewById(R.id.textView5);
-            }
-
+            v_ruta = itemview.findViewById(R.id.textView2);
+            v_fecha_pedido = itemview.findViewById(R.id.textView3);
+            v_fecha_entrega = itemview.findViewById(R.id.textView4);
+            v_codigo = itemview.findViewById(R.id.textView5);
         }
 
     }
+
+    public interface OnSelectCardListener {
+        void onClickCard(Requerimiento requerimiento);
+    }
+
+    public class Builder {
+
+        RequerimientoViewAdapter requerimientoViewAdapter;
+
+        public Builder(RequerimientoViewAdapter requerimientoViewAdapter) {
+            this.requerimientoViewAdapter = requerimientoViewAdapter;
+        }
+
+        public Builder setProductlistAdap(List<Requerimiento> productlistAdap) {
+            this.requerimientoViewAdapter.productlistAdap = productlistAdap;
+            return this;
+        }
+
+        public Builder setFragment(RequerimientoFragment fragment) {
+            this.requerimientoViewAdapter.fragment = fragment;
+            return this;
+        }
+
+        public Builder setListener(OnSelectCardListener listener) {
+            this.requerimientoViewAdapter.listener = listener;
+            return this;
+        }
+
+        public RequerimientoViewAdapter build() {
+            return requerimientoViewAdapter;
+        }
+
+    }
+
+}

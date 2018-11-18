@@ -1,10 +1,12 @@
 package com.business.ventas.requerimiento.views;
 
 
+import com.business.ventas.beans.Producto;
 import com.business.ventas.login.views.SearchToolbar;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +22,9 @@ import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.SharedPreferenceProductos;
+import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.RequerimientoViewAdapter;
 
 
@@ -29,13 +34,15 @@ import java.util.List;
 
 public class RequerimientoFragment extends Fragment implements OnSearchToolbarQueryTextListner {
 
+    VentasLog log = LogFactory.createInstance().setTag(RequerimientoFragment.class.getSimpleName());
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    public static final int CREAR_REQUERIMIENTO = 1;
+    public static final int DETALLE_REQUERIMIENTO = 2;
+
     private String mParam1;
     private String mParam2;
 
@@ -48,22 +55,14 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
     NavigationView navigationView;
     Toolbar toolbar;
 
-    //SearchToolbar searchToolbar;
+    FloatingActionButton floatingActionButtonAgregar;
 
+    private int tipoAccion;
 
     public RequerimientoFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RequerimientoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+;
     public static RequerimientoFragment newInstance(String param1, String param2) {
         RequerimientoFragment fragment = new RequerimientoFragment();
         Bundle args = new Bundle();
@@ -99,28 +98,29 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         //searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
         return view;
-
-
-
     }
 
-
-
+    private void btnCrearRequerimiento(View view) {
+        this.setTipoAccion(CREAR_REQUERIMIENTO);
+        onButtonPressed(this);
+    }
 
     private void loadComponents(View view) {
 
-        if (productlists.size() == 0) {
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R004QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R005QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 20:10:23", "10/10/2018 20:10:23","RT0467"));
+        floatingActionButtonAgregar = view.findViewById(R.id.floatingActionButtonAgregar);
+        floatingActionButtonAgregar.setOnClickListener(this::btnCrearRequerimiento);
 
+        if (productlists.size() == 0) {
+            productlists.add(new Requerimiento("R003QW ", "10/10/2018 10:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R004QW ", "10/10/2018 10:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R005QW ", "10/10/2018 12:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R006QW ", "10/10/2018 13:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R007QW ", "10/10/2018 14:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R008QW ", "10/10/2018 15:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R009QW ", "10/10/2018 16:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R010QW ", "10/10/2018 17:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R011QW ", "10/10/2018 18:10:23", "10/10/2018 20:10:23","RT0467"));
+            productlists.add(new Requerimiento("R012QW ", "10/10/2018 19:10:23", "10/10/2018 20:10:23","RT0467"));
         }
 
         listarequerimientos = view.findViewById(R.id.listaReq);
@@ -128,25 +128,26 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listarequerimientos.setLayoutManager(linearLayoutManager);
 
-        adapter = new RequerimientoViewAdapter(productlists, this);
+        adapter = RequerimientoViewAdapter.newInstance().config()
+            .setFragment(this)
+            .setProductlistAdap(productlists)
+            .setListener(this::clickCard)
+            .build();
+
         listarequerimientos.setAdapter(adapter);
     }
 
 
+    private void clickCard(Requerimiento requerimiento) {
+        guardarListaProductos();
+        this.setTipoAccion(DETALLE_REQUERIMIENTO);
+        onButtonPressed(this);
+    }
+
     private boolean onMenuItemClick(MenuItem menuItem) {
-        //onButtonPressed(this);
-
-     /*   switch (menuItem.getItemId()) {
-            case R.id.ic_search_time:
-              //  searchToolbar.openSearchToolbar();
-                break;
-        }*/
-
         return true;
     }
 
-
-    // TODO: Renombrar método, actualizar argumento y enganchar método en evento UI
     public void onButtonPressed(Fragment faFragment) {
         if (mListener != null) {
             mListener.onFragmentInteraction(faFragment);
@@ -180,18 +181,35 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         return this;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    private void guardarListaProductos(){
+        SharedPreferenceProductos.getInstance().setActivity(getActivity()).guardar(
+            new ArrayList<Producto>(){{
+                add(new Producto().config().setCodigo(1).setNombre("Keke").setDescripcion("sabor chocolate con chispas").setCantidad(3)
+                        .setPrecioUnitario(3.0).actualizarPrecioCantidad().build());
+                add(new Producto().config().setCodigo(2).setNombre("Pastel").setDescripcion("sabor de vainilla con manjar blanco").setCantidad(34)
+                        .setPrecioUnitario(3.0).actualizarPrecioCantidad().build());
+                add(new Producto().config().setCodigo(3).setNombre("desinfectante").setDescripcion("Limpia los baños y el labado").setCantidad(3)
+                        .setPrecioUnitario(3.0).actualizarPrecioCantidad().build());
+                add(new Producto().config().setCodigo(4).setNombre("Quita grasa").setDescripcion("Quita toda la grasa del los patos y las cosas").setCantidad(6)
+                        .setPrecioUnitario(3.0).actualizarPrecioCantidad().build());
+                add(new Producto().config().setCodigo(5).setNombre("Arroz").setDescripcion("Arroz rompe olla para tu casa").setCantidad(1)
+                        .setPrecioUnitario(3.0).actualizarPrecioCantidad().build());
+                add(new Producto().config().setCodigo(6).setNombre("Orix").setDescripcion("Orix, a la grasa le pone fin").setCantidad(4)
+                        .setPrecioUnitario(3.0).actualizarPrecioCantidad().build());
+            }}
+        );
+
+    }
+
+    public int getTipoAccion() {
+        return tipoAccion;
+    }
+
+    private void setTipoAccion(int tipoAccion) {
+        this.tipoAccion = tipoAccion;
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Fragment faFragment);
     }
 

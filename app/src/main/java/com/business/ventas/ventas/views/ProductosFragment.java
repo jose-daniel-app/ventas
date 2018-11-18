@@ -188,7 +188,6 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         // textView.setText(editable);
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Producto> listaDeProductos(){
         return new ArrayList<Producto>(){{
