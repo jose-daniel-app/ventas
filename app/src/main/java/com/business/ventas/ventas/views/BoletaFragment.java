@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
@@ -67,7 +68,6 @@ public class BoletaFragment extends Fragment {
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void loadComponents(View view) {
         recyclerViewITemBoleta = view.findViewById(R.id.recyclerViewITemBoleta);
         recyclerViewITemBoleta.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -136,9 +136,8 @@ public class BoletaFragment extends Fragment {
     }
 
     //TODO
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private List<Producto> listaProducto() {
-        return sharedProductos.listarProducto().stream().filter(p -> p.getPrecioCantidad() > 0).collect(Collectors.toList());
+    private Lista<Producto> listaProducto() {
+        return new Lista<Producto>(sharedProductos.listarProducto()).filtar(p -> p.getCantidad() > 0);
     }
 
     public interface OnFragmentInteractionListener {

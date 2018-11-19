@@ -188,7 +188,6 @@ public class ComprobanteFragment extends Fragment implements OnSearchToolbarQuer
                         .setPrecioUnitario(3.0).actualizarPrecioCantidad().build());
             }}
         );
-
     }
 
     public interface OnFragmentInteractionListener {

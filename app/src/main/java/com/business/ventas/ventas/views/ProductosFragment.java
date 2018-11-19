@@ -1,6 +1,5 @@
 package com.business.ventas.ventas.views;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,12 +22,14 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.login.views.SearchToolbarProducto;
 import com.business.ventas.login.views.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ProductoViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,7 +96,7 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     private void loadComponents(View view) {
         recyclerView = view.findViewById(R.id.listaPro);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -105,7 +106,7 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
 
         adapter = ProductoViewAdapter.newInstance().config()
             .setActivity(getActivity())
-            .setProductlistAdap(this.listaDeProductos())
+            .setProductlistAdap(this.newListaDeProductos())
             .build();
         recyclerView.setAdapter(adapter);
     }
@@ -118,9 +119,8 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
             .show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void onDialogOk(MaterialDialog dialog, DialogAction dialogAction) {
-        sharedProductos.guardar(adapter.getProductlistAdap().stream().filter(p -> p.getPrecioCantidad() > 0).collect(Collectors.toList()));
+        sharedProductos.guardar(adapter.getProductlistAdap());
         onButtonPressed(this);
     }
 
@@ -188,24 +188,24 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         // textView.setText(editable);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private List<Producto> listaDeProductos(){
-        return new ArrayList<Producto>(){{
-            add(new Producto(1, R.drawable.queque, "Keke", "sabor chocolate con chispas", 3.0));
-            add(new Producto(2, R.drawable.pastel, "Pastel", "sabor de vainilla con manjar blanco", 3.0));
-            add(new Producto(3, R.drawable.tinte, "desinfectante", "Limpia los baños y el labado", 3.0));
-            add(new Producto(4, R.drawable.protect, "Quita grasa", "Quita toda la grasa del los patos y las cosas", 3.0));
-            add(new Producto(5, R.drawable.arroz, "Arroz", "Arroz rompe olla para tu casa", 3.0));
-            add(new Producto(6, R.drawable.orix, "Orix", "Orix, a la grasa le pone fin", 3.0));
-        }}.stream().filter(p ->  {
-            for(Producto producto : sharedProductos.listarProducto()){
-                if(p.getCodigo() == producto.getCodigo()){
-                    p.setCantidad(producto.getCantidad());
-                    p.actualizarPrecioCantidad();
+    private Lista<Producto> newListaDeProductos(){
+        return new Lista<Producto>()
+            .agregar(new Producto(1, R.drawable.queque, "Keke", "sabor chocolate con chispas", 3.0))
+            .agregar(new Producto(2, R.drawable.pastel, "Pastel", "sabor de vainilla con manjar blanco", 3.0))
+            .agregar(new Producto(3, R.drawable.tinte, "desinfectante", "Limpia los baños y el labado", 3.0))
+            .agregar(new Producto(4, R.drawable.protect, "Quita grasa", "Quita toda la grasa del los patos y las cosas", 3.0))
+            .agregar(new Producto(5, R.drawable.arroz, "Arroz", "Arroz rompe olla para tu casa", 3.0))
+            .agregar(new Producto(6, R.drawable.orix, "Orix", "Orix, a la grasa le pone fin", 3.0))
+            .filtar(p -> {
+                for(Producto producto : sharedProductos.listarProducto()){
+                    if(p.getCodigo() == producto.getCodigo()){
+                        p.setCantidad(producto.getCantidad());
+                        p.actualizarPrecioCantidad();
+                    }
                 }
-            }
-            return true;
-        }).collect(Collectors.toList());
+                return true;
+        });
+
     }
 
     public interface OnFragmentInteractionListener {
