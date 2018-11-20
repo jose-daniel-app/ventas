@@ -26,6 +26,7 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.BoletaFragment;
 import com.business.ventas.ventas.views.ClienteFragment;
+import com.business.ventas.ventas.views.PedidoFragment;
 import com.business.ventas.ventas.views.ProductosFragment;
 import com.business.ventas.comprobante.views.ComprobanteFragment;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         RequerimientoFragment.OnFragmentInteractionListener,
         ReqProductoFragment.OnFragmentInteractionListener,
         RutaFragment.OnFragmentInteractionListener,
+        PedidoFragment.OnFragmentInteractionListener,
         // interface para la sesion
         AuthRepository.AuthStateListener {
 

@@ -50,7 +50,6 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
 
     NavigationView navigationView;
     Toolbar toolbar;
-
     SearchToolbar searchToolbar;
 
 

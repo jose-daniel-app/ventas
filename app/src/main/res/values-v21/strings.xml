@@ -3,4 +3,5 @@
     <string name="mensaje_compra">¿Continuar con la compra?</string>
     <string name="mensaje_ok">ok</string>
     <string name="mensaje_cancelar">cancelar</string>
+    <string name="title_Pedido">Pedido</string>
 </resources>
