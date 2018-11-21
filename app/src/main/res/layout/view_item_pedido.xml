@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/txtCantidad"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.15"
+        android:gravity="center_vertical"
+        android:text="1" />
+
+    <TextView
+        android:id="@+id/txtDescripcion"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.55"
+        android:gravity="center_vertical"
+        android:text="Keke paquete x 30" />
+
+    <TextView
+        android:id="@+id/txtPrecio"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.15"
+        android:gravity="right|center_vertical"
+        android:text="25.0" />
+
+    <TextView
+        android:id="@+id/txtImporte"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.15"
+        android:gravity="right|center_vertical"
+        android:text="25.0" />
+
+</LinearLayout>

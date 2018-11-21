@@ -101,8 +101,8 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         recyclerView = view.findViewById(R.id.listaPro);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
-        floatingActionButonContinuar = view.findViewById(R.id.floatingActionButonContinuar);
-        floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
+        //floatingActionButonContinuar = view.findViewById(R.id.floatingActionButonContinuar);
+        //floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
 
         adapter = ProductoViewAdapter.newInstance().config()
             .setActivity(getActivity())

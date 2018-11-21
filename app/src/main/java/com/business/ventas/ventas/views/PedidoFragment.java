@@ -9,8 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Producto;
+import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.SharedPreferenceProductos;
+import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +37,8 @@ public class PedidoFragment extends Fragment {
 
     NavigationView navigationView;
     Toolbar toolbar;
+    ListView listViewItem;
+    ItemPedidosBaseAdapter adapter;
 
     public PedidoFragment() {
         // Required empty public constructor
@@ -48,6 +55,9 @@ public class PedidoFragment extends Fragment {
         toolbar.setTitle(R.string.title_Pedido);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
+        listViewItem = view.findViewById(R.id.listViewItem);
+        adapter = new ItemPedidosBaseAdapter(getActivity(),R.layout.view_item_pedido, listaProducos());
+        listViewItem.setAdapter(adapter);
         // cagar los componentes del layout
 
     }
@@ -106,6 +116,11 @@ public class PedidoFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private Lista<Producto> listaProducos(){
+        return new Lista<Producto>(SharedPreferenceProductos.getInstance().setActivity(getActivity()).listarProducto())
+                .filtar(p -> p.getCantidad() > 0);
     }
 
     public interface OnFragmentInteractionListener {
