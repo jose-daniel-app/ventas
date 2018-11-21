@@ -126,10 +126,10 @@ public class RutaFragment extends Fragment implements OnSearchToolbarQueryTextLi
     private void loadComponents(View view) {
 
         if (productlists.size() == 0) {
-            productlists.add(new Ruta("MF0037F", "SMP, Urb. Los cedros de naranjal Mz B LT19"));
-            productlists.add(new Ruta("MF0038F", "SMP, Urb. Los cedros de naranjal Mz B LT19"));
-            productlists.add(new Ruta("MF0039F", "SMP, Urb. Los cedros de naranjal Mz B LT19"));
-            productlists.add(new Ruta("MF0040F", "SMP, Urb. Los cedros de naranjal Mz B LT19"));
+            productlists.add(new Ruta("SM00037F", "Urb. Los cedros de naranjal Mz B LT19","Lima","San Martin de Porres"));
+            productlists.add(new Ruta("MF0038F", "An. Josè Pardo 1116","Lima","Miraflores"));
+            productlists.add(new Ruta("BR0039F", "Jirón, Pichincha 485","Lima","Breña"));
+            productlists.add(new Ruta("SM0040F", "Urb. Los cedros de naranjal Mz B LT19","Lima","San Martin de Porres"));
 
         }
 
