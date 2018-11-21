@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,6 +27,7 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ProductoViewAdapter;
+import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,8 +62,10 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
     NavigationView navigationView;
     Toolbar toolbar;
     SearchToolbarProducto searchToolbar;
-    FloatingActionButton floatingActionButonContinuar;
+    //FloatingActionButton floatingActionButonContinuar;
     private SharedPreferenceProductos sharedProductos;
+
+    FloatingActionButton floatingActionButton;
 
     public ProductosFragment() {
         // Required empty public constructor
@@ -101,6 +104,8 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         recyclerView = view.findViewById(R.id.listaPro);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
+        floatingActionButton = view.findViewById(R.id.menu_item);
+        floatingActionButton.setOnClickListener(this::clickBtnContinuar);
         //floatingActionButonContinuar = view.findViewById(R.id.floatingActionButonContinuar);
         //floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
 
@@ -112,11 +117,13 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
     }
 
     private void clickBtnContinuar(View view) {
-        new MaterialDialog.Builder(getActivity())
+        /*new MaterialDialog.Builder(getActivity())
             .title(R.string.mensaje_compra)
             .positiveText(R.string.mensaje_ok).onPositive(this::onDialogOk)
             .negativeText(R.string.mensaje_cancelar)
-            .show();
+            .show();*/
+        sharedProductos.guardar(adapter.getProductlistAdap());
+        onButtonPressed(this);
     }
 
     private void onDialogOk(MaterialDialog dialog, DialogAction dialogAction) {

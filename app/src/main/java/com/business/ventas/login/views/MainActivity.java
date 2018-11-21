@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
         //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-        //menuFragment();
-        pedidoFragment();
+        menuFragment();
+        //pedidoFragment();
         //rutaFragment();
         //producto
     }
@@ -289,7 +289,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void executeActionProductosFragment(ProductosFragment fragment) {
-        boletaFragment();
+        //boletaFragment();
+        pedidoFragment();
     }
 
     private void executeActionRequerimientoFragment(Fragment faFragment) {
