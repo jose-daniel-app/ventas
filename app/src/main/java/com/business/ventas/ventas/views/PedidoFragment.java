@@ -56,10 +56,9 @@ public class PedidoFragment extends Fragment {
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
         listViewItem = view.findViewById(R.id.listViewItem);
-        adapter = new ItemPedidosBaseAdapter(getActivity(),R.layout.view_item_pedido, listaProducos());
+        adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, listaProducos());
         listViewItem.setAdapter(adapter);
         // cagar los componentes del layout
-
     }
 
     public static PedidoFragment newInstance(String param1, String param2) {
@@ -71,7 +70,7 @@ public class PedidoFragment extends Fragment {
         return fragment;
     }
 
-    public static PedidoFragment newInstance(){
+    public static PedidoFragment newInstance() {
         return new PedidoFragment();
     }
 
@@ -118,7 +117,7 @@ public class PedidoFragment extends Fragment {
         mListener = null;
     }
 
-    private Lista<Producto> listaProducos(){
+    private Lista<Producto> listaProducos() {
         return new Lista<Producto>(SharedPreferenceProductos.getInstance().setActivity(getActivity()).listarProducto())
                 .filtar(p -> p.getCantidad() > 0);
     }

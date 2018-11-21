@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
         //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-        menuFragment();
+        //menuFragment();
+        pedidoFragment();
         //rutaFragment();
         //producto
     }
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity
     private void cerrarSesion() {
         auth.signOut(this);
     }
+
     /*------------------------------------------------*/
     private void menuFragment() {
         MenuFragment menuFragment = MenuFragment.newInstance()
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
+
     /*------------------------------------------------*/
     private void clienteFragment() {
         ClienteFragment clienteFragment = ClienteFragment.newInstance()
@@ -147,6 +150,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
+
     /*------------------------------------------------*/
     private void productoFragment() {
         ProductosFragment productosFragment = ProductosFragment.newInstance()
@@ -156,6 +160,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
+
     /*------------------------------------------------*/
     private void boletaFragment() {
         BoletaFragment boletaFragment = BoletaFragment.newInstance()
@@ -165,6 +170,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
+
     /*--------------------Comprobante---------------------------*/
     private void comprobanteFragment() {
         ComprobanteFragment comprobanteFragment = ComprobanteFragment.newInstance()
@@ -174,6 +180,7 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
+
     /*--------------------Requerimiento---------------------------*/
     private void requerimientoFragment() {
         RequerimientoFragment requerimientoFragment = RequerimientoFragment.newInstance()
@@ -181,10 +188,8 @@ public class MainActivity extends AppCompatActivity
                 .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, requerimientoFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();}
-
-
-
+                .addToBackStack(null).commit();
+    }
 
     /*--------------------ReqProductoFragment---------------------------*/
     private void reqProductoFragment() {
@@ -193,25 +198,35 @@ public class MainActivity extends AppCompatActivity
                 .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, reqProductoFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();}
-
-        private void rutaFragment() {
-            RutaFragment rutaFragment = RutaFragment.newInstance()
-                    .setToolbar(toolbar)
-                    .setNavigationView(navigationView);
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, rutaFragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack(null).commit();
+                .addToBackStack(null).commit();
     }
+
+    private void rutaFragment() {
+        RutaFragment rutaFragment = RutaFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, rutaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
     private void detalleFragment() {
         DetalleFragment detalleFragment = DetalleFragment.newInstance()
                 .setToolbar(toolbar)
                 .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();}
+                .addToBackStack(null).commit();
+    }
 
-
+    private void pedidoFragment() {
+        PedidoFragment pedidoFragment = PedidoFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, pedidoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
 
     @Override
     protected void onStart() {
@@ -281,10 +296,12 @@ public class MainActivity extends AppCompatActivity
 
         rutaFragment();
     }
+
     private void executeActionRequerimientoDetalleFragment(Fragment faFragment2) {
 
         detalleFragment();
     }
+
     private void executeActionMenuFragment(MenuFragment fragment) {
         switch (fragment.getPressTheItemType()) {
             case MenuFragment.PRESS_ITEM_VENTAS:
