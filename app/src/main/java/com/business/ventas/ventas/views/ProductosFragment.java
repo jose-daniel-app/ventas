@@ -205,12 +205,22 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
 
     private Lista<Producto> newListaDeProductos(){
         return new Lista<Producto>()
-            .agregar(new Producto(1, R.drawable.queque, "Keke", "sabor chocolate con chispas", 3.0))
-            .agregar(new Producto(2, R.drawable.pastel, "Pastel", "sabor de vainilla con manjar blanco", 3.0))
-            .agregar(new Producto(3, R.drawable.tinte, "desinfectante", "Limpia los baños y el labado", 3.0))
-            .agregar(new Producto(4, R.drawable.protect, "Quita grasa", "Quita toda la grasa del los patos y las cosas", 3.0))
-            .agregar(new Producto(5, R.drawable.arroz, "Arroz", "Arroz rompe olla para tu casa", 3.0))
-            .agregar(new Producto(6, R.drawable.orix, "Orix", "Orix, a la grasa le pone fin", 3.0))
+                .agregar(new Producto(1, R.drawable.queque, "Keke x10", "sabor chocolate con chispas", 1.0))
+                .agregar(new Producto(2, R.drawable.pastel, "Pastel x5", "sabor de vainilla con manjar blanco", 3.0))
+                .agregar(new Producto(3, R.drawable.bizcocho, "Bizcocho x30", "Pan muy suabe", 10.0))
+                .agregar(new Producto(4, R.drawable.bombas, "Bombas x20", "Rico pastel con manjar", 23.5))
+                .agregar(new Producto(5, R.drawable.cachitos, "Cachito x10", "Pan en forma de cachito", 10.0))
+                .agregar(new Producto(6, R.drawable.champa, "Champa x20", "rico keke con tres sabores", 3.0))
+                .agregar(new Producto(7, R.drawable.cocadas, "Cocadas x10", "ricas cocadas crocantes", 3.0))
+                .agregar(new Producto(8, R.drawable.donuts, "Donuts x15", "Ricas donuts con manjar", 3.0))
+                .agregar(new Producto(9, R.drawable.kingkong, "Kingkong x20", "Kingkong con manjar blanco", 10.0))
+                .agregar(new Producto(10, R.drawable.lengua, "Lengua x15", "Rico pastel manjar blanco", 13.0))
+                .agregar(new Producto(11, R.drawable.milhojas, "Milhojas x25", "Rico paltes con chispas blascas", 3.0))
+                .agregar(new Producto(12, R.drawable.orejas, "Orejas", "Ojejas con azucar", 3.0))
+                .agregar(new Producto(13, R.drawable.panblancomolde, "Pan molde x50", "sabor chocolate con chispas", 3.0))
+                .agregar(new Producto(14, R.drawable.roscas, "Roscas x25", "Roscas ricas con mantequilla", 3.0))
+                .agregar(new Producto(15, R.drawable.suspiros, "Suspiros x25", "rico dulce de varios sabores", 3.0))
+                .agregar(new Producto(16, R.drawable.turrones, "Turrones x5", "Rico turros con miel", 3.0))
             .filtar(p -> {
                 for(Producto producto : sharedProductos.listarProducto()){
                     if(p.getCodigo() == producto.getCodigo()){
