@@ -76,4 +76,9 @@
         <item name="android:textColor">@color/secondary_text</item>
     </style>
 
+
+    <style name="FabTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorAccent">@color/primary</item>
+
+    </style>
 </resources>

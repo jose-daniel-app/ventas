@@ -28,6 +28,7 @@ import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ProductoViewAdapter;
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +67,7 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
     private SharedPreferenceProductos sharedProductos;
 
     FloatingActionButton floatingActionButton;
+    FloatingActionMenu fabMenu;
 
     public ProductosFragment() {
         // Required empty public constructor
@@ -85,6 +87,8 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         searchToolbar = new SearchToolbarProducto(getActivity(), this, getActivity().findViewById(R.id.search_producto));
         return view;
+
+
 
     }
 
@@ -106,6 +110,10 @@ public class ProductosFragment extends Fragment implements OnSearchToolbarQueryT
         recyclerView.setLayoutManager(mGridLayoutManager);
         floatingActionButton = view.findViewById(R.id.menu_item);
         floatingActionButton.setOnClickListener(this::clickBtnContinuar);
+
+
+        fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
+        fabMenu.setIconAnimated(false);
         //floatingActionButonContinuar = view.findViewById(R.id.floatingActionButonContinuar);
         //floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
 
