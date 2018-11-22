@@ -200,7 +200,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="14dp"
-            android:backgroundTint="@color/primary"
+            android:theme="@style/FabTheme"
             android:elevation="4dp"
             android:src="@drawable/ic_check_white"
             app:fab_size="mini" />
