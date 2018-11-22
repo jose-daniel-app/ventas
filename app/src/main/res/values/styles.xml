@@ -77,8 +77,9 @@
     </style>
 
 
-    <style name="FabTheme" parent="Theme.AppCompat.Light">
-        <item name="android:colorAccent">@color/primary</item>
+    <style name="FabTheme" >
+        <item name="colorAccent">@color/primary</item>
+
 
     </style>
 </resources>

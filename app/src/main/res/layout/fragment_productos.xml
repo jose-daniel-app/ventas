@@ -13,8 +13,7 @@
         android:layout_height="match_parent">
 
         <com.github.clans.fab.FloatingActionMenu
-            style="@style/FabTheme"
-            android:background="@android:color/p"
+
             android:id="@+id/floatingActionButonContinuar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,6 +24,13 @@
             android:elevation="4dp"
             app:menu_icon="@drawable/ic_menu_ventas_white"
             app:fab_size="mini"
+
+            app:menu_colorNormal="@color/primary"
+            app:menu_labels_colorRipple="@color/primary"
+            app:menu_colorPressed="@color/primary_light"
+
+
+
             >
 
             <com.github.clans.fab.FloatingActionButton
