@@ -15,19 +15,20 @@
         app:showAsAction="ifRoom|collapseActionView"/> -->
     <item
         android:id="@+id/ic_Dia"
-        android:title="@string/ic_Día"
+        android:title="Hoy"
         android:orderInCategory="100"
+        app:showAsAction="never"
 
         />
     <item
         android:id="@+id/ic_Fecha"
-        android:title="@string/ic_Semana"
+        android:title="Última Semana"
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/ic_Mes"
+        android:title="Úiltimo Mes"
         app:showAsAction="never" />
 
 

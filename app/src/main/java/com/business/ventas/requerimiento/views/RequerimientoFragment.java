@@ -109,6 +109,7 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
       toolbar.inflateMenu(R.menu.toolbar_requerimiento);
+      toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
        // toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
 
       //  toolbar.setOnMenuItemClickListener(this::onClick();
@@ -225,7 +226,7 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
        inflater.inflate(R.menu.toolbar_requerimiento, menu);
 
        // super.onCreateOptionsMenu(menu, inflater);
-
+/*
        MenuItem spinnerMenuItem = menu.findItem(R.id.miSpinner);
        final Spinner spinner = (Spinner) MenuItemCompat.getActionView(spinnerMenuItem);
 
@@ -233,7 +234,7 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                getActivity().getBaseContext(), R.array.spinner_list_item_array, android.R.layout.simple_spinner_dropdown_item);
        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       spinner.setAdapter(adapter);
+       spinner.setAdapter(adapter);*/
 
    }
 /*

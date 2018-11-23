@@ -7,14 +7,6 @@
     >
 
 
-    <item
-        android:id="@+id/miSpinner"
-        android:title="This"
-        app:actionViewClass="android.widget.Spinner"
-        app:showAsAction="always"
-        android:popupTheme="@android:style/ThemeOverlay.Material.Light"
-        android:background="@drawable/ic_date_range"
-        />
 
     <!--
     <item
@@ -47,7 +39,7 @@
 
         />
     -->
-    <!--
+
         <item
             android:id="@+id/ic_Dia"
             android:title="@string/ic_Día"
@@ -65,7 +57,7 @@
             android:title="@string/ic_Mes"
             app:showAsAction="never" />
 
-    -->
+
 
 
 </menu>
