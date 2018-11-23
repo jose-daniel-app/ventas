@@ -16,21 +16,14 @@ import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
-import com.github.clans.fab.FloatingActionButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PedidoFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PedidoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PedidoFragment extends Fragment {
-
+public class DetalleGuiaFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -41,37 +34,29 @@ public class PedidoFragment extends Fragment {
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
 
-    FloatingActionButton item1;
-
-    public PedidoFragment() {
+    public DetalleGuiaFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pedido, container, false);
+        View view = inflater.inflate(R.layout.fragment_detalle_guia, container, false);
         loadComponents(view);
         return view;
     }
 
     private void loadComponents(View view) {
-        toolbar.setTitle(R.string.title_orden);
+        toolbar.setTitle(R.string.title_detalle_guia);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
         listViewItem = view.findViewById(R.id.listViewItem);
-        item1 = view.findViewById(R.id.item1);
-        item1.setOnClickListener(this::clickItem);
         adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, listaProducos());
         listViewItem.setAdapter(adapter);
         // cagar los componentes del layout
     }
 
-    private void clickItem(View view) {
-        onButtonPressed(this);
-    }
-
-    public static PedidoFragment newInstance(String param1, String param2) {
-        PedidoFragment fragment = new PedidoFragment();
+    public static DetalleGuiaFragment newInstance(String param1, String param2) {
+        DetalleGuiaFragment fragment = new DetalleGuiaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,16 +64,16 @@ public class PedidoFragment extends Fragment {
         return fragment;
     }
 
-    public static PedidoFragment newInstance() {
-        return new PedidoFragment();
+    public static DetalleGuiaFragment newInstance() {
+        return new DetalleGuiaFragment();
     }
 
-    public PedidoFragment setNavigationView(NavigationView navigationView) {
+    public DetalleGuiaFragment setNavigationView(NavigationView navigationView) {
         this.navigationView = navigationView;
         return this;
     }
 
-    public PedidoFragment setToolbar(Toolbar toolbar) {
+    public DetalleGuiaFragment setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
         return this;
     }
@@ -102,10 +87,9 @@ public class PedidoFragment extends Fragment {
         }
     }
 
-
-    public void onButtonPressed(Fragment fragmnet) {
+    public void onButtonPressed(Fragment fragment) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(fragmnet);
+            mListener.onFragmentInteraction(fragment);
         }
     }
 
@@ -132,6 +116,6 @@ public class PedidoFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Fragment fragmnet);
+        void onFragmentInteraction(Fragment fragment);
     }
 }

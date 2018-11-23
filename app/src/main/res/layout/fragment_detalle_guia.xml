@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ventas.views.PedidoFragment">
+    tools:context=".ventas.views.DetalleGuiaFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -162,32 +162,31 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="14dp"
             android:elevation="4dp"
+            app:fab_size="mini"
             app:menu_colorNormal="@color/primary"
-            app:menu_colorPressed="@color/primary_light"
-            app:fab_size="mini">
+            app:menu_colorPressed="@color/primary_light">
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/item1"
+                android:id="@+id/menu_item1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_check_white"
-                app:fab_label="Confirmar entrega"
-             android:theme="@style/FabTheme"
-                app:fab_size="mini"
-                app:fab_colorNormal="@color/primary"
-                app:fab_colorPressed="@color/primary_light"/>
-
-           <!-- <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_item2"
                 android:theme="@style/FabTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_white"
-                app:fab_label="Boleta"
-                app:fab_size="mini"
                 app:fab_colorNormal="@color/primary"
                 app:fab_colorPressed="@color/primary_light"
-             /> -->
+                app:fab_label="Factura"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_white"
+                android:theme="@style/FabTheme"
+                app:fab_colorNormal="@color/primary"
+                app:fab_colorPressed="@color/primary_light"
+                app:fab_label="Boleta"
+                app:fab_size="mini" />
 
         </com.github.clans.fab.FloatingActionMenu>
 

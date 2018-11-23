@@ -26,6 +26,7 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.BoletaFragment;
 import com.business.ventas.ventas.views.ClienteFragment;
+import com.business.ventas.ventas.views.DetalleGuiaFragment;
 import com.business.ventas.ventas.views.PedidoFragment;
 import com.business.ventas.ventas.views.ProductosFragment;
 import com.business.ventas.comprobante.views.ComprobanteFragment;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         ReqProductoFragment.OnFragmentInteractionListener,
         RutaFragment.OnFragmentInteractionListener,
         PedidoFragment.OnFragmentInteractionListener,
+        DetalleFragment.OnFragmentInteractionListener,
         // interface para la sesion
         AuthRepository.AuthStateListener {
 
@@ -228,6 +230,15 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
 
+    private void detalleGuiaFragment() {
+        DetalleGuiaFragment detalleGuiaFragment = DetalleGuiaFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleGuiaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -260,7 +271,22 @@ public class MainActivity extends AppCompatActivity
         } else if (faFragment instanceof RequerimientoFragment) {
             RequerimientoFragment fragment = castFragment(RequerimientoFragment.class, faFragment);
             executeActioRequerimientoFragment(fragment);
+        }else if (faFragment instanceof DetalleGuiaFragment) {
+            DetalleGuiaFragment fragment = castFragment(DetalleGuiaFragment.class, faFragment);
+            executeActionDetalleGuiaFragment(fragment);
+        }else if (faFragment instanceof PedidoFragment) {
+            PedidoFragment fragment = castFragment(PedidoFragment.class, faFragment);
+            executeActionPedidoFragment(fragment);
         }
+    }
+
+    private void executeActionPedidoFragment(PedidoFragment fragment) {
+        //TODO
+        detalleGuiaFragment();
+    }
+
+    private void executeActionDetalleGuiaFragment(DetalleGuiaFragment fragment) {
+        //TODO
     }
 
     private void executeActioRequerimientoFragment(RequerimientoFragment fragment) {
