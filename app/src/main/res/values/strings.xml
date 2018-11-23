@@ -77,4 +77,12 @@
     <string name="title_Pedido">Pedido</string>
 
 
+    <!-- spinner-->
+
+    <string-array name="spinner_list_item_array">
+        <item>Hoy</item>
+        <item>Última Semana</item>
+        <item>Último Mes</item>
+
+    </string-array>
 </resources>

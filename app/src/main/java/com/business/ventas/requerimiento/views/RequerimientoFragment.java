@@ -2,6 +2,7 @@ package com.business.ventas.requerimiento.views;
 
 
 import com.business.ventas.beans.Producto;
+import com.business.ventas.login.contracts.LoginContract;
 import com.business.ventas.login.views.SearchToolbar;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,14 +10,21 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.business.ventas.R;
@@ -56,7 +64,7 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
     Toolbar toolbar;
 
     FloatingActionButton floatingActionButtonAgregar;
-
+    //SpinnerFiltroFecha spinnerFecha;
 
     private int tipoAccion;
 
@@ -80,10 +88,13 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -91,12 +102,24 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_requerimiento, container, false);
         loadComponents(view);
+      //  toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+       // toolbar = new Toolbar(getActivity(), this, getActivity().findViewById(R.id.toolbar));
         toolbar.setTitle(R.string.title_requerimiento);
+       // toolbar.inflateMenu(R.menu.toolbar_requerimiento);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.toolbar_requerimiento);
+      toolbar.inflateMenu(R.menu.toolbar_requerimiento);
+       // toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
 
-        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+      //  toolbar.setOnMenuItemClickListener(this::onClick();
+      //  toolbar.setOnClickListener(this::onClick);
+
+
+
+
+//Spinner spinner = (Spinner) View.findViewById(R.id.);
+
+
         //searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
         return view;
     }
@@ -144,10 +167,34 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         this.setTipoAccion(DETALLE_REQUERIMIENTO);
         onButtonPressed(this);
     }
+/*
+    public void onClick(View v) {
+        //Creating the instance of PopupMenu
+        PopupMenu popup = new PopupMenu(getActivity(),v);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
 
-    private boolean onMenuItemClick(MenuItem menuItem) {
+        //registering popup with OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(getActivity(),"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+        popup.show();//showing popup menu
+    }*/
+
+  /*  private boolean onMenuItemClick(View v) {
+        PopupMenu popup = new PopupMenu(getActivity(), v);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+        popup.show();//showing popup menu
+
+        Toast.makeText(getActivity(),"You Clicked : " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
         return true;
-    }
+    }*/
 
     public void onButtonPressed(Fragment faFragment) {
         if (mListener != null) {
@@ -171,6 +218,62 @@ public class RequerimientoFragment extends Fragment implements OnSearchToolbarQu
         super.onDetach();
         mListener = null;
     }
+   @Override
+ //
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+       // public boolean onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+       inflater.inflate(R.menu.toolbar_requerimiento, menu);
+
+       // super.onCreateOptionsMenu(menu, inflater);
+
+       MenuItem spinnerMenuItem = menu.findItem(R.id.miSpinner);
+       final Spinner spinner = (Spinner) MenuItemCompat.getActionView(spinnerMenuItem);
+
+       // set Spinner Adapter
+       ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+               getActivity().getBaseContext(), R.array.spinner_list_item_array, android.R.layout.simple_spinner_dropdown_item);
+       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       spinner.setAdapter(adapter);
+
+   }
+/*
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // this part is needed for hiding the original view
+        View view = super.getView(position, convertView, parent);
+        view.setVisibility(View.GONE);
+
+        return view;
+    }
+*/
+       /*
+
+
+       // do other things
+
+
+
+    }
+/*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        String msg = "";
+        switch (item.getItemId()){
+
+            case R.id.pmnuShare:
+            msg="hoyhoy";
+                    break;
+        }
+        Toast.makeText(getActivity(),msg+"prueba",Toast.LENGTH_LONG).show();
+return super.onOptionsItemSelected(item);
+    }
+
+  /* @Override
+   public boolean OnCreateOptionsMenu(Menu menu,MenuInflater inflater){
+     inflater.inflate(R.menu.toolbar_requerimiento,menu);
+       final MenuItem item = menu.findItem(R.id.menuitem);
+   }
+*/
+
 
     public RequerimientoFragment setNavigationView(NavigationView navigationView) {
         this.navigationView = navigationView;

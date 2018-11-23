@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -87,6 +88,7 @@ public class ComprobanteFragment extends Fragment implements OnSearchToolbarQuer
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_comprobante);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         return view;
     }
 
