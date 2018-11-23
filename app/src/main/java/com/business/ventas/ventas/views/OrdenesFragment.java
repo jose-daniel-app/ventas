@@ -2,6 +2,7 @@ package com.business.ventas.ventas.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -42,12 +43,9 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
     RecyclerView listarutas;
     List<Ruta> productlists = new ArrayList<>();
     OrdenesViewAdapter adapter;
-
+    FloatingActionButton addbuton;
     NavigationView navigationView;
     Toolbar toolbar;
-    // FloatingActionButton idprueba;
-    //CardView cardViewIdruta;
-    //SearchToolbar searchToolbar;
 
 
     public OrdenesFragment() {
@@ -98,17 +96,14 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
         toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-        //searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
-
-        //idprueba = (FloatingActionButton) view.findViewById(R.id.idprueba);
-        // idprueba.setOnClickListener(this::onClick);
-
-        //     cardViewIdruta = (CardView) view.findViewById(R.id.cardViewIdruta);
-        // cardViewIdruta.setOnClickListener(this::onClick);
-
-
+        addbuton = view.findViewById(R.id.addbuton);
+        addbuton.setOnClickListener(this::ClickActionButon);
         return view;
 
+    }
+
+    private void ClickActionButon(View view) {
+        this.onButtonPressed(this);
     }
 
 
@@ -127,50 +122,17 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listarutas.setLayoutManager(linearLayoutManager);
 
-        adapter = new OrdenesViewAdapter(productlists, this);
+        adapter = new OrdenesViewAdapter(productlists, this, getActivity());
         listarutas.setAdapter(adapter);
-        //adapter = new OrdenesViewAdapter(productlists, this);
-     /*   adapter = OrdenesViewAdapter.newInstance().config()
-                .setFragment(this).setListaRuta(productlists)
-                .setListenerItem(codigoRuta -> {
-                    DatePickerFragment newFragment = DatePickerFragment.newInstance().configEvent(fecha -> {
-                        log.info("La fecha es: " + fecha + " codigoRuta: " + codigoRuta);
-                        onButtonPressed(this);
-                    });
-                    newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
-                }).build();
-
-
-        listarutas.setAdapter(adapter);*/
-    }
+         }
 
 
     private boolean onMenuItemClick(MenuItem menuItem) {
-        //onButtonPressed(this);
-
-     /*   switch (menuItem.getItemId()) {
-            case R.id.ic_search_time:
-              //  searchToolbar.openSearchToolbar();
-                break;
-        }*/
-
         return true;
     }
-/*
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.idprueba:
-                showDatePickerDialog();
-                break;
-        }
-    }*/
 
     private void showDatePickerDialog() {
-        //DatePickerFragment newFragment = new DatePickerFragment();
-        //DatePickerFragment newFragment = DatePickerFragment.newInstance().configEvent(fecha -> {
-        //   log.info("La fecha es: " + fecha);
-        //});
-        //newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+
     }
 
 
@@ -208,17 +170,6 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
         return this;
     }
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Fragment faFragment);

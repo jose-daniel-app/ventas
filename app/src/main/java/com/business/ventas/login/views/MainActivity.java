@@ -164,9 +164,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     /*------------------------------------------------*/
-    private void boletaFragment() {
+    public void boletaFragment() {
         BoletaFragment boletaFragment = BoletaFragment.newInstance()
                 .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    public void boletaFragment(String titulo){
+        BoletaFragment boletaFragment = BoletaFragment.newInstance()
+                .setToolbar(toolbar)
+                .setTitulo(titulo)
                 .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -231,7 +241,7 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
 
-    private void detalleGuiaFragment() {
+    public void detalleGuiaFragment() {
         DetalleGuiaFragment detalleGuiaFragment = DetalleGuiaFragment.newInstance()
                 .setToolbar(toolbar)
                 .setNavigationView(navigationView);

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".requerimiento.views.RequerimientoFragment">
-<!--
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/idprueba"
+            android:id="@+id/addbuton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -21,8 +20,8 @@
             android:layout_margin="14dp"
             android:backgroundTint="@color/primary"
             android:elevation="4dp"
-            android:src="@drawable/ic_check_white"
-            app:fab_size="mini" />-->
+            android:src="@drawable/fab_add"
+            app:fab_size="mini" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +44,6 @@
             </LinearLayout>
 
         </LinearLayout>
-   <!-- </RelativeLayout>-->
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -10,189 +10,249 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_margin="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:paddingBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:gravity="center"
-                    android:text="Epresa Ventas comenrcial S.A.C"
+                android:weightSum="1">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:gravity="center"
-                    android:text="A.v Victor Andres belaunde Nr 147 INT 301"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Epresa Ventas comenrcial S.A.C" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="A.v Victor Andres belaunde Nr 147 INT 301" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="San Isidro - Lima" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:gravity="center"
-                    android:text="San Isidro - Lima"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Ruc." />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20503840121" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:paddingBottom="16dp"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="10dp"
-                    android:paddingRight="10dp"
-                    android:text="Ruc." />
+                    android:gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ventas Torres"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="20503840121" />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:weightSum="1">
 
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.33"
+                        android:text="11/11/2018" />
 
-                <TextView
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:text="Boleta de Ventas Torres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.33"
+                        android:gravity="center"
+                        android:text="04:27 pm" />
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.33"
+                        android:gravity="right"
+                        android:text="B909-342134" />
 
-            <LinearLayout
-                android:paddingBottom="5dp"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                </LinearLayout>
 
-                <TextView
-                    android:text="11/11/2018"
-                    android:layout_weight="0.33"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Cliente."
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jose Garcia Peceros" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="04:27 pm"
-                    android:layout_weight="0.33"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
-                <TextView
-                    android:gravity="right"
-                    android:text="B909-342134"
-                    android:layout_weight="0.33"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        style="@style/headDetalleBoleta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.15"
+                        android:text="CANT" />
 
-            </LinearLayout>
+                    <TextView
+                        style="@style/headDetalleBoleta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.50"
+                        android:text="DESCRIPCIÓN" />
 
-            <LinearLayout
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <TextView
+                        style="@style/headDetalleBoleta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.15"
+                        android:gravity="right"
+                        android:text="P.UNIT" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        style="@style/headDetalleBoleta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:gravity="right"
+                        android:text="IMPORTE" />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewITemBoleta"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="10dp"
-                    android:paddingRight="10dp"
-                    android:text="Cliente."
-                    android:textStyle="bold" />
+                    android:fadeScrollbars="false" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Jose Garcia Peceros" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    style="@style/headDetalleBoleta"
-                    android:text="CANT"
-                    android:layout_weight="0.15"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    style="@style/headDetalleBoleta"
-                    android:text="DESCRIPCIÓN"
-                    android:layout_weight="0.50"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    style="@style/headDetalleBoleta"
-                    android:gravity="right"
-                    android:text="P.UNIT"
-                    android:layout_weight="0.15"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    style="@style/headDetalleBoleta"
-                    android:gravity="right"
-                    android:text="IMPORTE"
-                    android:layout_weight="0.20"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:fadeScrollbars="false"
-                android:id="@+id/recyclerViewITemBoleta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:gravity="center"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
 
-                <TextView
-                    style="@style/headDetalleBoleta"
-                    android:gravity="right"
-                    android:text="TOTAL"
-                    android:layout_weight="0.80"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    style="@style/headDetalleBoleta"
-                    android:gravity="right"
-                    android:text="S/ 200"
-                    android:layout_weight="0.20"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        style="@style/headDetalleBoleta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.80"
+                        android:gravity="right"
+                        android:text="TOTAL" />
+
+                    <TextView
+                        style="@style/headDetalleBoleta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:gravity="right"
+                        android:text="S/ 200" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="Su token es:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:text="432H4322-4JL3-3456-2JL8L-57LJGK543KLGVJ4" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/codigo_qr" />
+                </LinearLayout>
 
             </LinearLayout>
+        </ScrollView>
 
-        </LinearLayout>
+        <!-- <android.support.design.widget.FloatingActionButton
+             android:id="@+id/floatingActionButonContinuar"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentEnd="true"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentBottom="true"
+             android:layout_margin="14dp"
+             android:theme="@style/FabTheme"
+             android:elevation="4dp"
+             android:src="@drawable/ic_check_white"
+             app:fab_size="mini" /> -->
 
-        <android.support.design.widget.FloatingActionButton
+        <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/floatingActionButonContinuar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -200,10 +260,36 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="14dp"
-            android:theme="@style/FabTheme"
             android:elevation="4dp"
-            android:src="@drawable/ic_check_white"
-            app:fab_size="mini" />
+            app:fab_size="mini"
+            app:menu_colorNormal="@color/primary"
+            app:menu_colorPressed="@color/primary_light"
+            app:menu_icon="@drawable/ic_attach_money_white_24dp">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_white"
+                android:theme="@style/FabTheme"
+                app:fab_colorNormal="@color/primary"
+                app:fab_colorPressed="@color/primary_light"
+                app:fab_label="Efectivo"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_white"
+                android:theme="@style/FabTheme"
+                app:fab_colorNormal="@color/primary"
+                app:fab_colorPressed="@color/primary_light"
+                app:fab_label="Deposito"
+                app:fab_size="mini" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

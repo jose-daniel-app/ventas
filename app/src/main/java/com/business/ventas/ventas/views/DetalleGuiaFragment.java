@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
+import com.business.ventas.login.views.MainActivity;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
@@ -75,8 +76,18 @@ public class DetalleGuiaFragment extends Fragment {
 
     private void onClikItenMenu(View view) {
         int id = view.getId();
-        
-
+        switch (id){
+            case R.id.menu_item1:
+                ((MainActivity)getActivity()).boletaFragment("Factura");
+                break;
+            case R.id.menu_item2:
+                ((MainActivity)getActivity()).boletaFragment("Boleta");
+                break;
+            case R.id.menu_item3:
+                ((MainActivity)getActivity()).boletaFragment("Nota de ventas");
+                break;
+        }
+        //((MainActivity)getActivity()).boletaFragment("Factura");
     }
 
     public static DetalleGuiaFragment newInstance(String param1, String param2) {
