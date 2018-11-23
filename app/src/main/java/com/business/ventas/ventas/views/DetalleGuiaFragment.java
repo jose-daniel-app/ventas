@@ -16,6 +16,8 @@ import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 public class DetalleGuiaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -33,6 +35,11 @@ public class DetalleGuiaFragment extends Fragment {
     Toolbar toolbar;
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
+    FloatingActionMenu fabMenu;
+    FloatingActionButton item1;
+    FloatingActionButton item2;
+    FloatingActionButton item3;
+
 
     public DetalleGuiaFragment() {
         // Required empty public constructor
@@ -50,9 +57,26 @@ public class DetalleGuiaFragment extends Fragment {
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
         listViewItem = view.findViewById(R.id.listViewItem);
+        fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
+        fabMenu.setIconAnimated(false);
+
+        item1 = view.findViewById(R.id.menu_item1);
+        item2 = view.findViewById(R.id.menu_item2);
+        item3 = view.findViewById(R.id.menu_item3);
+
+        item1.setOnClickListener(this::onClikItenMenu);
+        item2.setOnClickListener(this::onClikItenMenu);
+        item3.setOnClickListener(this::onClikItenMenu);
+
         adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, listaProducos());
         listViewItem.setAdapter(adapter);
         // cagar los componentes del layout
+    }
+
+    private void onClikItenMenu(View view) {
+        int id = view.getId();
+        
+
     }
 
     public static DetalleGuiaFragment newInstance(String param1, String param2) {

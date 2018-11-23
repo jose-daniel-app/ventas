@@ -24,16 +24,11 @@
             android:elevation="4dp"
             app:menu_icon="@drawable/ic_menu_ventas_white"
             app:fab_size="mini"
-
             app:menu_colorNormal="@color/primary"
             app:menu_labels_colorRipple="@color/primary"
             app:menu_colorPressed="@color/primary_light"
             app:menu_labels_colorNormal="@color/primary"
-            app:menu_labels_colorPressed="@color/primary_light"
-
-
-
-            >
+            app:menu_labels_colorPressed="@color/primary_light">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/menu_item"
