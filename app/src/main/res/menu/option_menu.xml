@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/idDia"
+        android:title="Hoy"
+
+        />
+    <item
+        android:id="@+id/idSemana"
+        android:title="Última Semana"
+
+        />
+    <item
+        android:id="@+id/idMes"
+        android:title="Último Mes"
+
+        />
+</menu>

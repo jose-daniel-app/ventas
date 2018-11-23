@@ -2,7 +2,6 @@ package com.business.ventas.ventas.views;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,24 +14,19 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.business.ventas.R;
-import com.business.ventas.beans.Cliente;
-import com.business.ventas.login.views.SearchToolbar;
+import com.business.ventas.beans.Ruta;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
-import com.business.ventas.viewAdapter.ClienteViewAdapter;
-
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
+import com.business.ventas.viewAdapter.OrdenesViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ClienteFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ClienteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTextListner {
+
+public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTextListner {
+
+    VentasLog log = LogFactory.createInstance().setTag(OrdenesFragment.class.getSimpleName());
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,16 +38,18 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
 
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView listaclientes;
-    List<Cliente> productlists = new ArrayList<>();
-    ClienteViewAdapter adapter;
+    RecyclerView listarutas;
+    List<Ruta> productlists = new ArrayList<>();
+    OrdenesViewAdapter adapter;
 
     NavigationView navigationView;
     Toolbar toolbar;
-    SearchToolbar searchToolbar;
+    // FloatingActionButton idprueba;
+    //CardView cardViewIdruta;
+    //SearchToolbar searchToolbar;
 
 
-    public ClienteFragment() {
+    public OrdenesFragment() {
         // Required empty public constructor
     }
 
@@ -63,11 +59,11 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ClienteFragment.
+     * @return A new instance of fragment OrdenesFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ClienteFragment newInstance(String param1, String param2) {
-        ClienteFragment fragment = new ClienteFragment();
+
+    public static OrdenesFragment newInstance(String param1, String param2) {
+        OrdenesFragment fragment = new OrdenesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,12 +71,14 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
         return fragment;
     }
 
-    public static ClienteFragment newInstance() {
-        return new ClienteFragment();
+    public static OrdenesFragment newInstance() {
+        return new OrdenesFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -91,54 +89,87 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cliente, container, false);
+        View view = inflater.inflate(R.layout.fragment_ruta, container, false);
         loadComponents(view);
-        toolbar.setTitle(R.string.title_cliente);
+        toolbar.setTitle("Ordenes");
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.toolbar_cliente);
+        toolbar.inflateMenu(R.menu.toolbar_ruta);
 
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-        searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
+        //searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
+
+        //idprueba = (FloatingActionButton) view.findViewById(R.id.idprueba);
+        // idprueba.setOnClickListener(this::onClick);
+
+        //     cardViewIdruta = (CardView) view.findViewById(R.id.cardViewIdruta);
+        // cardViewIdruta.setOnClickListener(this::onClick);
+
+
         return view;
+
     }
+
 
     private void loadComponents(View view) {
 
         if (productlists.size() == 0) {
-            productlists.add(new Cliente("Ana Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Beto Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Carlos Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("David Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Eduardo Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Fernando Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Giovanni Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Helena Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Isabel Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Jose Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
+            productlists.add(new Ruta("SM00037F", "Urb. Los cedros de naranjal Mz B LT19","Lima","San Martin de Porres"));
+            productlists.add(new Ruta("MF0038F", "An. Josè Pardo 1116","Lima","Miraflores"));
+            productlists.add(new Ruta("BR0039F", "Jirón, Pichincha 485","Lima","Breña"));
+            productlists.add(new Ruta("SM0040F", "Urb. Los cedros de naranjal Mz B LT19","Lima","San Martin de Porres"));
+
         }
 
-
-        listaclientes = view.findViewById(R.id.listacli);
-        listaclientes.setHasFixedSize(true);
+        listarutas = view.findViewById(R.id.listaRuta);
+        listarutas.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        listaclientes.setLayoutManager(linearLayoutManager);
+        listarutas.setLayoutManager(linearLayoutManager);
 
-        adapter = new ClienteViewAdapter(productlists, this);
-        listaclientes.setAdapter(adapter);
+        adapter = new OrdenesViewAdapter(productlists, this);
+        listarutas.setAdapter(adapter);
+        //adapter = new OrdenesViewAdapter(productlists, this);
+     /*   adapter = OrdenesViewAdapter.newInstance().config()
+                .setFragment(this).setListaRuta(productlists)
+                .setListenerItem(codigoRuta -> {
+                    DatePickerFragment newFragment = DatePickerFragment.newInstance().configEvent(fecha -> {
+                        log.info("La fecha es: " + fecha + " codigoRuta: " + codigoRuta);
+                        onButtonPressed(this);
+                    });
+                    newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+                }).build();
+
+
+        listarutas.setAdapter(adapter);*/
     }
 
 
     private boolean onMenuItemClick(MenuItem menuItem) {
         //onButtonPressed(this);
 
-        switch (menuItem.getItemId()) {
-            case R.id.ic_search:
-                searchToolbar.openSearchToolbar();
+     /*   switch (menuItem.getItemId()) {
+            case R.id.ic_search_time:
+              //  searchToolbar.openSearchToolbar();
                 break;
-        }
+        }*/
 
         return true;
+    }
+/*
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.idprueba:
+                showDatePickerDialog();
+                break;
+        }
+    }*/
+
+    private void showDatePickerDialog() {
+        //DatePickerFragment newFragment = new DatePickerFragment();
+        //DatePickerFragment newFragment = DatePickerFragment.newInstance().configEvent(fecha -> {
+        //   log.info("La fecha es: " + fecha);
+        //});
+        //newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
 
 
@@ -166,15 +197,16 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
         mListener = null;
     }
 
-    public ClienteFragment setNavigationView(NavigationView navigationView) {
+    public OrdenesFragment setNavigationView(NavigationView navigationView) {
         this.navigationView = navigationView;
         return this;
     }
 
-    public ClienteFragment setToolbar(Toolbar toolbar) {
+    public OrdenesFragment setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
         return this;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -201,3 +233,4 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
     }
 
 }
+
