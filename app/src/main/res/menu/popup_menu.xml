@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--
+        <item
+            android:id="@+id/miSpinner"
+            android:title="This"
+            app:actionViewClass="android.widget.Spinner"
+            app:showAsAction="always"
+
+
+            />
+
+
+        <item
+            android:id="@+id/pmnuShare"
+            android:icon="@drawable/ic_date_range"
+            android:iconTint="@color/primary"
+            android:title="Hoy"
+
+            />
+        <item
+            android:id="@+id/pmnuDelete"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="Última Semana" />
+        <item
+            android:id="@+id/pmnuEdit"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Último Mes" />-->
+</menu>

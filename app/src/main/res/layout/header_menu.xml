@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@drawable/fondo1"
+    android:background="@drawable/fondob"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -15,13 +15,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Menu"
+        android:text="Pepe Lopez"
         android:textColor="@color/primary_light"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Menu desplegable"
+        android:text="pepe@lopez.net"
         android:textColor="@color/icons" />
 </LinearLayout>

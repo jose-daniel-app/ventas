@@ -50,7 +50,6 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
 
     NavigationView navigationView;
     Toolbar toolbar;
-
     SearchToolbar searchToolbar;
 
 
@@ -118,6 +117,7 @@ public class ClienteFragment extends Fragment implements OnSearchToolbarQueryTex
             productlists.add(new Cliente("Isabel Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
             productlists.add(new Cliente("Jose Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
         }
+
 
         listaclientes = view.findViewById(R.id.listacli);
         listaclientes.setHasFixedSize(true);

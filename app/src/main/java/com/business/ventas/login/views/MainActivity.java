@@ -13,16 +13,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.repository.AuthRepository;
+import com.business.ventas.requerimiento.views.DetalleFragment;
+import com.business.ventas.requerimiento.views.ReqProductoFragment;
+import com.business.ventas.requerimiento.views.RequerimientoFragment;
+import com.business.ventas.requerimiento.views.RutaFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.BoletaFragment;
 import com.business.ventas.ventas.views.ClienteFragment;
+import com.business.ventas.ventas.views.DetalleGuiaFragment;
+import com.business.ventas.ventas.views.OrdenesFragment;
+import com.business.ventas.ventas.views.PedidoFragment;
 import com.business.ventas.ventas.views.ProductosFragment;
-import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.comprobante.views.ComprobanteFragment;
 
 
 import java.util.List;
@@ -35,6 +41,14 @@ public class MainActivity extends AppCompatActivity
         ClienteFragment.OnFragmentInteractionListener,
         ProductosFragment.OnFragmentInteractionListener,
         BoletaFragment.OnFragmentInteractionListener,
+        ComprobanteFragment.OnFragmentInteractionListener,
+        RequerimientoFragment.OnFragmentInteractionListener,
+        ReqProductoFragment.OnFragmentInteractionListener,
+        RutaFragment.OnFragmentInteractionListener,
+        PedidoFragment.OnFragmentInteractionListener,
+        DetalleFragment.OnFragmentInteractionListener,
+        DetalleGuiaFragment.OnFragmentInteractionListener,
+        OrdenesFragment.OnFragmentInteractionListener,
         // interface para la sesion
         AuthRepository.AuthStateListener {
 
@@ -63,15 +77,14 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
-        //searchToolbar = new SearchToolbar(this,this,findViewById(R.id.search_layout));
-
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
         //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         menuFragment();
+        //pedidoFragment();
+        //rutaFragment();
+        //producto
     }
 
     @Override
@@ -86,34 +99,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.referencia, menu);
-        //getMenuInflater().inflate(R.menu.searchfile, menu);
-        //  getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-     /*   switch (item.getItemId())
-        {
-            case R.id.ic_search:
-                searchToolbar.openSearchToolbar();
-                break;
-        }*/
         return true;
-
-    /*    int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);*/
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -125,15 +116,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             menuFragment();
         } else if (id == R.id.nav_ventas) {
-            clienteFragment();
+            ordenesFragment();
         } else if (id == R.id.nav_vouchers) {
-
+            comprobanteFragment();
         } else if (id == R.id.nav_requerimiento) {
-
+            requerimientoFragment();
         } else if (id == R.id.nav_cerrar_session) {
             cerrarSesion();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -143,6 +133,7 @@ public class MainActivity extends AppCompatActivity
         auth.signOut(this);
     }
 
+    /*------------------------------------------------*/
     private void menuFragment() {
         MenuFragment menuFragment = MenuFragment.newInstance()
                 .setToolbar(toolbar)
@@ -152,6 +143,7 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
 
+    /*------------------------------------------------*/
     private void clienteFragment() {
         ClienteFragment clienteFragment = ClienteFragment.newInstance()
                 .setToolbar(toolbar)
@@ -161,6 +153,7 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
 
+    /*------------------------------------------------*/
     private void productoFragment() {
         ProductosFragment productosFragment = ProductosFragment.newInstance()
                 .setToolbar(toolbar)
@@ -170,11 +163,98 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).commit();
     }
 
-    private void boletaFragment() {
+    /*------------------------------------------------*/
+    public void boletaFragment() {
         BoletaFragment boletaFragment = BoletaFragment.newInstance()
                 .setToolbar(toolbar)
                 .setNavigationView(navigationView);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    public void boletaFragment(String titulo){
+        BoletaFragment boletaFragment = BoletaFragment.newInstance()
+                .setToolbar(toolbar)
+                .setTitulo(titulo)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    /*--------------------Comprobante---------------------------*/
+    private void comprobanteFragment() {
+        ComprobanteFragment comprobanteFragment = ComprobanteFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, comprobanteFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    /*--------------------Requerimiento---------------------------*/
+    private void requerimientoFragment() {
+        RequerimientoFragment requerimientoFragment = RequerimientoFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, requerimientoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    /*--------------------ReqProductoFragment---------------------------*/
+    private void reqProductoFragment() {
+        ReqProductoFragment reqProductoFragment = ReqProductoFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, reqProductoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    private void rutaFragment() {
+        RutaFragment rutaFragment = RutaFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, rutaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    private void detalleFragment() {
+        DetalleFragment detalleFragment = DetalleFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    private void pedidoFragment() {
+        PedidoFragment pedidoFragment = PedidoFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, pedidoFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    public void detalleGuiaFragment() {
+        DetalleGuiaFragment detalleGuiaFragment = DetalleGuiaFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleGuiaFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+    }
+
+    private void ordenesFragment() {
+        OrdenesFragment ordenesFragment = OrdenesFragment.newInstance()
+                .setToolbar(toolbar)
+                .setNavigationView(navigationView);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, ordenesFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null).commit();
     }
@@ -199,10 +279,59 @@ public class MainActivity extends AppCompatActivity
         } else if (faFragment instanceof ProductosFragment) {
             ProductosFragment fragment = castFragment(ProductosFragment.class, faFragment);
             executeActionProductosFragment(fragment);
+
         } else if (faFragment instanceof ClienteFragment) {
             ClienteFragment fragment = castFragment(ClienteFragment.class, faFragment);
             executeActionClienteFragment(faFragment);
+        } else if (faFragment instanceof OrdenesFragment) {
+            OrdenesFragment fragment = castFragment(OrdenesFragment.class, faFragment);
+            executeActionOrdenesFragment(faFragment);
+        } else if (faFragment instanceof RutaFragment) {
+            RutaFragment fragment = castFragment(RutaFragment.class, faFragment);
+            executeActionRutaFragment(fragment);
+        } else if (faFragment instanceof ComprobanteFragment) {
+            ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
+            executeActionComprobanteFragment(fragment);
+        } else if (faFragment instanceof RequerimientoFragment) {
+            RequerimientoFragment fragment = castFragment(RequerimientoFragment.class, faFragment);
+            executeActioRequerimientoFragment(fragment);
+        } else if (faFragment instanceof DetalleGuiaFragment) {
+            DetalleGuiaFragment fragment = castFragment(DetalleGuiaFragment.class, faFragment);
+            executeActionDetalleGuiaFragment(fragment);
+        } else if (faFragment instanceof PedidoFragment) {
+            PedidoFragment fragment = castFragment(PedidoFragment.class, faFragment);
+            executeActionPedidoFragment(fragment);
         }
+    }
+
+    private void executeActionPedidoFragment(PedidoFragment fragment) {
+        //TODO
+        detalleGuiaFragment();
+    }
+
+    private void executeActionDetalleGuiaFragment(DetalleGuiaFragment fragment) {
+        //TODO
+    }
+
+    private void executeActioRequerimientoFragment(RequerimientoFragment fragment) {
+        switch (fragment.getTipoAccion()) {
+            case RequerimientoFragment.CREAR_REQUERIMIENTO:
+                rutaFragment();
+                break;
+            case RequerimientoFragment.DETALLE_REQUERIMIENTO:
+                boletaFragment();
+                break;
+            default:
+        }
+
+    }
+
+    private void executeActionComprobanteFragment(ComprobanteFragment fragment) {
+        boletaFragment();
+    }
+
+    private void executeActionRutaFragment(RutaFragment fragment) {
+        productoFragment();
     }
 
     private void executeActionClienteFragment(Fragment faFragment) {
@@ -210,24 +339,41 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void executeActionProductosFragment(ProductosFragment fragment) {
-        boletaFragment();
+        //boletaFragment();
+        pedidoFragment();
+    }
+
+    private void executeActionRequerimientoFragment(Fragment faFragment) {
+
+        rutaFragment();
+    }
+/*
+    private void executeActionRequerimientoDetalleFragment(Fragment faFragment2) {
+
+        detalleFragment();
+    }*/
+
+    private void executeActionOrdenesFragment(Fragment fragment) {
+
+        clienteFragment();
     }
 
     private void executeActionMenuFragment(MenuFragment fragment) {
         switch (fragment.getPressTheItemType()) {
             case MenuFragment.PRESS_ITEM_VENTAS:
-                clienteFragment();
+                ordenesFragment();
                 break;
             case MenuFragment.PRESS_ITEM_REQUER:
+                requerimientoFragment();
                 break;
             case MenuFragment.PRESS_ITEM_COMPRO:
+                comprobanteFragment();
                 break;
             case MenuFragment.PRESS_ITEM_SALIR:
                 auth.signOut(this);
                 break;
             default:
         }
-
     }
 
     @Override
@@ -256,16 +402,4 @@ public class MainActivity extends AppCompatActivity
         return (T) fragment;
     }
 
-    /******* The following method will invoke when user Change or Submit text in SearchToolbar*/
-   /*
-    @Override
-    public void onQueryTextSubmit(String query) {
-        Toast.makeText(this, "User Query: "+query , Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onQueryTextChange(String editable) {
-        // textView.setText(editable);
-    }
-    */
 }

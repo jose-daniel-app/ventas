@@ -52,6 +52,38 @@
 
 
     <string name="searchHintText_searchToolbar">Buscar</string>
+    <string name="mensaje_compra">¿Continuar con la compra?</string>
+    <string name="mensaje_ok">ok</string>
+    <string name="mensaje_cancelar">cancelar</string>
+
+    <!-- REQUERIMIENTO-->
+    <string name="title_requerimiento">Requerimientos</string>
+    <string name="title_ruta">Lista de Rutas</string>
+    <string name="title_detalle">Detalle</string>
+    <string name="title_ProductoReq">Productos</string>
+    <!-- datepicker-->
+    <string name="titlulo_pickers">Obtener fecha y hora</string>
+    <string name="formato_fecha">dd/mm/yyyy</string>
+    <string name="formato_hora">hh:mm</string>
 
 
+    <!-- COMPROBANTE -->
+    <string name="title_comprobante">Comprobantes</string>
+
+
+    <string name="ic_Día">Día</string>
+    <string name="ic_Semana">Semana</string>
+    <string name="ic_Mes">Mes</string>
+    <string name="title_orden">Orden</string>
+    <string name="title_detalle_guia">Guia</string>
+
+
+    <!-- spinner-->
+
+    <string-array name="spinner_list_item_array">
+        <item>Hoy</item>
+        <item>Última Semana</item>
+        <item>Último Mes</item>
+
+    </string-array>
 </resources>

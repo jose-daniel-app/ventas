@@ -7,15 +7,15 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
-            android:title="inicio" />
+            android:title="Inicio" />
         <item
             android:id="@+id/nav_ventas"
             android:icon="@drawable/ic_menu_ventas"
-            android:title="Ventas" />
+            android:title="Ordenes" />
         <item
             android:id="@+id/nav_vouchers"
             android:icon="@drawable/ic_menu_vouchers"
-            android:title="Comprobante" />
+            android:title="Comprobantes" />
         <item
             android:id="@+id/nav_requerimiento"
             android:icon="@drawable/ic_menu_assignment"

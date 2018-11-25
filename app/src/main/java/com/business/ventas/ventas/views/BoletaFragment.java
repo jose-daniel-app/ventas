@@ -1,17 +1,30 @@
 package com.business.ventas.ventas.views;
 
 import android.content.Context;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Producto;
+import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.SharedPreferenceProductos;
+import com.business.ventas.utils.VentasLog;
+import com.business.ventas.viewAdapter.ItemBoletaViewAdapter;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,12 +35,11 @@ import com.business.ventas.R;
  * create an instance of this fragment.
  */
 public class BoletaFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    VentasLog log = LogFactory.createInstance().setTag(BoletaFragment.class.getSimpleName());
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -36,37 +48,59 @@ public class BoletaFragment extends Fragment {
     NavigationView navigationView;
     Toolbar toolbar;
 
+    RecyclerView recyclerViewITemBoleta;
+    ItemBoletaViewAdapter adapter;
+
+    FloatingActionMenu fabMenu;
+    FloatingActionButton item1;
+    FloatingActionButton item2;
+
+    private SharedPreferenceProductos sharedProductos;
+    private String titulo;
     public BoletaFragment() {
         // Required empty public constructor
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_boleta, container, false);
-        toolbar.setTitle(R.string.title_boleta);
+        toolbar.setTitle((this.titulo == null) ? "Boleta" : this.titulo);
         navigationView.setCheckedItem(R.id.nav_ventas);
         toolbar.getMenu().clear();
-        //toolbar.inflateMenu(R.menu.boleta_menu);
-        //toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+        sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
+        loadComponents(view);
         return view;
     }
 
-    /*private boolean onMenuItemClick(MenuItem menuItem) {
-        onButtonPressed(this);
-        return true;
-    }*/
+    private void loadComponents(View view) {
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BoletaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+        fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
+        fabMenu.setIconAnimated(false);
+
+        item1 = view.findViewById(R.id.menu_item1);
+        item2 = view.findViewById(R.id.menu_item2);
+
+        item1.setOnClickListener(this::onClikItenMenu);
+        item2.setOnClickListener(this::onClikItenMenu);
+
+        recyclerViewITemBoleta = view.findViewById(R.id.recyclerViewITemBoleta);
+        recyclerViewITemBoleta.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewITemBoleta.setNestedScrollingEnabled(false);
+
+        adapter = ItemBoletaViewAdapter.newInstance().config()
+                .setActivity(getActivity())
+                .setListaProductos(this.listaProducto())
+                .build();
+        recyclerViewITemBoleta.setAdapter(adapter);
+    }
+
+    private void onClikItenMenu(View view) {
+
+
+    }
+
     public static BoletaFragment newInstance(String param1, String param2) {
         BoletaFragment fragment = new BoletaFragment();
         Bundle args = new Bundle();
@@ -89,8 +123,6 @@ public class BoletaFragment extends Fragment {
         }
     }
 
-
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Fragment faFragment) {
         if (mListener != null) {
             mListener.onFragmentInteraction(faFragment);
@@ -124,18 +156,18 @@ public class BoletaFragment extends Fragment {
         return this;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    public BoletaFragment setTitulo(String titulo){
+        this.titulo = titulo;
+        toolbar.setTitle(titulo);
+        return this;
+    }
+
+    //TODO
+    private Lista<Producto> listaProducto() {
+        return new Lista<Producto>(sharedProductos.listarProducto()).filtar(p -> p.getCantidad() > 0);
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Fragment faFragment);
     }
 }

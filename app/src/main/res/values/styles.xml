@@ -41,4 +41,54 @@
         <item name="android:paddingLeft">@dimen/search_icon_padding</item>
         <item name="android:paddingRight">@dimen/search_icon_padding</item>
     </style>
+
+    <style name="DatePickerTheme" parent="@android:style/Theme.Holo.Light.Dialog.MinWidth">
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+    </style>
+
+<!--
+  <style name="AppThemeFecha" parent="Theme.AppCompat.Light">
+
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+    </style>
+
+
+    <style name="MyActionButtonOverflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_date_range</item>
+        <item name="android:background">?android:attr/actionBarItemBackground</item>
+        <item name="android:contentDescription">"Filtrar por fecha"</item>
+    </style>-->
+
+    <style name="headDetalleBoleta">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="ItemDetalleBoleta">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <!-- color menu item overflow -->
+    <style name="ThemeOverlay.MyTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/icons</item>
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
+
+    <style name="FabTheme" >
+        <item name="colorAccent">@color/primary</item>
+
+    </style>
+
+    <style name="OverFlowCalendario" parent="@android:style/Theme.Holo">
+        <!-- Pointer to Overflow style ***MUST*** go here or it will not work -->
+        <item name="android:actionOverflowButtonStyle">@style/OverFlow</item>
+    </style>
+
+    <!-- Styles -->
+    <style name="OverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_date_range</item>
+    </style>
 </resources>

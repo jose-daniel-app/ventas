@@ -7,10 +7,14 @@
     <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
     <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
     <item name="ic_menu_ventas" type="drawable">@drawable/ic_shopping_cart_black_24dp</item>
+    <item name="ic_menu_ventas_white" type="drawable">@drawable/ic_shopping_cart_white_24dp</item>
+
     <item name="ic_menu_assignment" type="drawable">@drawable/ic_assignment_black_24dp</item>
     <item name="ic_menu_home" type="drawable">@drawable/ic_home_black_24dp</item>
     <item name="ic_menu_exit" type="drawable">@drawable/ic_exit_to_app_black_24dp</item>
     <item name="ic_menu_vouchers" type="drawable">@drawable/ic_receipt_black_24dp</item>
     <item name="ic_check_white" type="drawable">@drawable/ic_check_white_24dp</item>
     <item name="ic_print_white" type="drawable">@drawable/ic_print_white_24dp</item>
+    <item name="ic_motor_white" type="drawable">@drawable/ic_motorcycle_white_24dp</item>
+
 </resources>
