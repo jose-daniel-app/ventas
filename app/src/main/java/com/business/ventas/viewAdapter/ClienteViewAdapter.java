@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
+import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ventas.views.ClienteFragment;
+import com.business.ventas.ventas.views.ProductosFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,7 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
 
     private void onclick(View view) {
         log.info("el onclick de clase => " + this.fragment);
-        //fragment.onButtonPressed(this.fragment);
+        fragment.getMainActivity().newFragmentHandler().changeFragment(ProductosFragment.newInstance());
     }
 
     @Override

@@ -46,7 +46,8 @@ public class PedidoFragment extends AppFragmnet {
     }
 
     private void clickItem(View view) {
-        //onButtonPressed(this);
+        //TODO
+       getMainActivity().newFragmentHandler().changeFragment(DetalleGuiaFragment.newInstance());
     }
 
 

@@ -12,6 +12,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
+import com.business.ventas.ventas.views.DetalleGuiaFragment;
 import com.business.ventas.ventas.views.OrdenesFragment;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.
 
     private void onclick(View view) {
         log.info("el onclick de clase => " + this.fragment);
-        fragment.getMainActivity().detalleGuiaFragment(); //.newFragmentHandler().changeFragment(DetalleFragment.)
+        fragment.getMainActivity().newFragmentHandler().changeFragment(DetalleGuiaFragment.newInstance());
     }
 
     @Override
