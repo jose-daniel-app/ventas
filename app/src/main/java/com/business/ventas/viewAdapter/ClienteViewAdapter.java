@@ -48,7 +48,7 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
 
     private void onclick(View view) {
         log.info("el onclick de clase => " + this.fragment);
-        fragment.onButtonPressed(this.fragment);
+        //fragment.onButtonPressed(this.fragment);
     }
 
     @Override

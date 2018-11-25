@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.utils.AppFragmnet;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.OrdenesViewAdapter;
@@ -26,63 +27,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTextListner {
+public class OrdenesFragment extends AppFragmnet implements OnSearchToolbarQueryTextListner {
 
     VentasLog log = LogFactory.createInstance().setTag(OrdenesFragment.class.getSimpleName());
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
     RecyclerView listarutas;
     List<Ruta> productlists = new ArrayList<>();
     OrdenesViewAdapter adapter;
     FloatingActionButton addbuton;
-    NavigationView navigationView;
-    Toolbar toolbar;
 
 
     public OrdenesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrdenesFragment.
-     */
-
-    public static OrdenesFragment newInstance(String param1, String param2) {
-        OrdenesFragment fragment = new OrdenesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public static OrdenesFragment newInstance() {
         return new OrdenesFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -103,17 +62,17 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
     }
 
     private void ClickActionButon(View view) {
-        this.onButtonPressed(this);
+        getMainActivity().newFragmentHandler().changeFragment(ClienteFragment.newInstance());
     }
 
 
     private void loadComponents(View view) {
 
         if (productlists.size() == 0) {
-            productlists.add(new Ruta("SM00037F", "Urb. Los cedros de naranjal Mz B LT19","Lima","San Martin de Porres"));
-            productlists.add(new Ruta("MF0038F", "An. Josè Pardo 1116","Lima","Miraflores"));
-            productlists.add(new Ruta("BR0039F", "Jirón, Pichincha 485","Lima","Breña"));
-            productlists.add(new Ruta("SM0040F", "Urb. Los cedros de naranjal Mz B LT19","Lima","San Martin de Porres"));
+            productlists.add(new Ruta("SM00037F", "Urb. Los cedros de naranjal Mz B LT19", "Lima", "San Martin de Porres"));
+            productlists.add(new Ruta("MF0038F", "An. Josè Pardo 1116", "Lima", "Miraflores"));
+            productlists.add(new Ruta("BR0039F", "Jirón, Pichincha 485", "Lima", "Breña"));
+            productlists.add(new Ruta("SM0040F", "Urb. Los cedros de naranjal Mz B LT19", "Lima", "San Martin de Porres"));
 
         }
 
@@ -122,9 +81,9 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listarutas.setLayoutManager(linearLayoutManager);
 
-        adapter = new OrdenesViewAdapter(productlists, this, getActivity());
+        adapter = new OrdenesViewAdapter(productlists, this);
         listarutas.setAdapter(adapter);
-         }
+    }
 
 
     private boolean onMenuItemClick(MenuItem menuItem) {
@@ -132,47 +91,6 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
     }
 
     private void showDatePickerDialog() {
-
-    }
-
-
-    // TODO: Renombrar método, actualizar argumento y enganchar método en evento UI
-    public void onButtonPressed(Fragment faFragment) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(faFragment);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public OrdenesFragment setNavigationView(NavigationView navigationView) {
-        this.navigationView = navigationView;
-        return this;
-    }
-
-    public OrdenesFragment setToolbar(Toolbar toolbar) {
-        this.toolbar = toolbar;
-        return this;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Fragment faFragment);
     }
 
     public void onQueryTextSubmit(String query) {
@@ -183,6 +101,5 @@ public class OrdenesFragment extends Fragment implements OnSearchToolbarQueryTex
     public void onQueryTextChange(String editable) {
         // textView.setText(editable);
     }
-
 }
 
