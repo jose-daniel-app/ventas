@@ -1,4 +1,4 @@
-package com.business.ventas.ventas.views;
+package com.business.ventas.ordenes.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,13 +63,13 @@ public class DetalleGuiaFragment extends AppFragment {
         MainActivity.FragmentHandler fh = getMainActivity().newFragmentHandler();
         switch (id){
             case R.id.menu_item1:
-                fh.changeFragment(BoletaFragment.newInstance().setTitulo("Factura"));
+                fh.changeFragment(DocumentoFragment.newInstance().setTitulo("Factura"));
                 break;
             case R.id.menu_item2:
-                fh.changeFragment(BoletaFragment.newInstance().setTitulo("Boleta"));
+                fh.changeFragment(DocumentoFragment.newInstance().setTitulo("Boleta"));
                 break;
             case R.id.menu_item3:
-                fh.changeFragment(BoletaFragment.newInstance().setTitulo("Nota de ventas"));
+                fh.changeFragment(DocumentoFragment.newInstance().setTitulo("Nota de ventas"));
                 break;
         }
     }

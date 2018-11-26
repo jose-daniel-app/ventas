@@ -1,4 +1,4 @@
-package com.business.ventas.ventas.views;
+package com.business.ventas.ordenes.views;
 
 
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import com.business.ventas.viewAdapter.ItemBoletaViewAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-public class BoletaFragment extends AppFragment {
+public class DocumentoFragment extends AppFragment {
 
-    VentasLog log = LogFactory.createInstance().setTag(BoletaFragment.class.getSimpleName());
+    VentasLog log = LogFactory.createInstance().setTag(DocumentoFragment.class.getSimpleName());
 
     RecyclerView recyclerViewITemBoleta;
     ItemBoletaViewAdapter adapter;
@@ -33,7 +33,7 @@ public class BoletaFragment extends AppFragment {
     private SharedPreferenceProductos sharedProductos;
     private String titulo;
 
-    public BoletaFragment() {
+    public DocumentoFragment() {
         // Required empty public constructor
     }
 
@@ -74,11 +74,11 @@ public class BoletaFragment extends AppFragment {
 
     }
 
-    public static BoletaFragment newInstance() {
-        return new BoletaFragment();
+    public static DocumentoFragment newInstance() {
+        return new DocumentoFragment();
     }
 
-    public BoletaFragment setTitulo(String titulo) {
+    public DocumentoFragment setTitulo(String titulo) {
         this.titulo = titulo;
         //toolbar.setTitle(titulo);
         return this;

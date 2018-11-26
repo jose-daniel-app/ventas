@@ -11,11 +11,10 @@ import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
-import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.business.ventas.ventas.views.ClienteFragment;
-import com.business.ventas.ventas.views.ProductosFragment;
+import com.business.ventas.ordenes.views.ClienteFragment;
+import com.business.ventas.ordenes.views.ProductosFragment;
 
 import java.util.ArrayList;
 import java.util.List;

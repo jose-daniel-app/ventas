@@ -16,18 +16,11 @@ import android.view.MenuItem;
 
 import com.business.ventas.R;
 import com.business.ventas.repository.AuthRepository;
-import com.business.ventas.requerimiento.views.DetalleFragment;
-import com.business.ventas.requerimiento.views.ReqProductoFragment;
 import com.business.ventas.requerimiento.views.RequerimientoFragment;
-import com.business.ventas.requerimiento.views.RutaFragment;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.business.ventas.ventas.views.ClienteFragment;
-import com.business.ventas.ventas.views.DetalleGuiaFragment;
-import com.business.ventas.ventas.views.OrdenesFragment;
-import com.business.ventas.ventas.views.PedidoFragment;
-import com.business.ventas.ventas.views.ProductosFragment;
+import com.business.ventas.ordenes.views.OrdenesFragment;
 import com.business.ventas.comprobante.views.ComprobanteFragment;
 
 
@@ -38,10 +31,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView.OnNavigationItemSelectedListener,
         // interfaz pare los fragment
         AppFragment.OnFragmentInteractionListener,
-        RequerimientoFragment.OnFragmentInteractionListener,
-        ReqProductoFragment.OnFragmentInteractionListener,
-        RutaFragment.OnFragmentInteractionListener,
-        DetalleFragment.OnFragmentInteractionListener,
         // interface para la sesion
         AuthRepository.AuthStateListener {
 
@@ -60,8 +49,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_home);
-
-        // toolbar.inflateMenu(R.menu.toolbar_menu);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -97,10 +84,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         toolbar.getMenu().clear();
         if (id == R.id.nav_home) {
@@ -110,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_vouchers) {
             showAppFragment(ComprobanteFragment.newInstance());
         } else if (id == R.id.nav_requerimiento) {
-            requerimientoFragment();
+            showAppFragment(RequerimientoFragment.newInstance());
         } else if (id == R.id.nav_cerrar_session) {
             cerrarSesion();
         }
@@ -121,54 +106,6 @@ public class MainActivity extends AppCompatActivity
 
     private void cerrarSesion() {
         auth.signOut(this);
-    }
-
-
-    /*--------------------Requerimiento---------------------------*/
-    private void requerimientoFragment() {
-        RequerimientoFragment requerimientoFragment = RequerimientoFragment.newInstance()
-                .setToolbar(toolbar)
-                .setNavigationView(navigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, requerimientoFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
-    }
-
-    /*--------------------ReqProductoFragment---------------------------*/
-    private void reqProductoFragment() {
-        ReqProductoFragment reqProductoFragment = ReqProductoFragment.newInstance()
-                .setToolbar(toolbar)
-                .setNavigationView(navigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, reqProductoFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
-    }
-
-    private void rutaFragment() {
-        RutaFragment rutaFragment = RutaFragment.newInstance()
-                .setToolbar(toolbar)
-                .setNavigationView(navigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, rutaFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
-    }
-
-    private void detalleFragment() {
-        DetalleFragment detalleFragment = DetalleFragment.newInstance()
-                .setToolbar(toolbar)
-                .setNavigationView(navigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
-    }
-
-    private void pedidoFragment() {
-        PedidoFragment pedidoFragment = PedidoFragment.newInstance()
-                .setToolbar(toolbar)
-                .setNavigationView(navigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, pedidoFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
     }
 
     @Override
@@ -184,64 +121,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Fragment faFragment) {
-        if (faFragment instanceof MenuFragment) {
-            MenuFragment fragment = castFragment(MenuFragment.class, faFragment);
-            //executeActionMenuFragment(fragment);
-        } else if (faFragment instanceof ProductosFragment) {
-            ProductosFragment fragment = castFragment(ProductosFragment.class, faFragment);
-            executeActionProductosFragment(fragment);
+    public void onFragmentInteraction(Fragment faFragment) {}
 
-        } else if (faFragment instanceof ClienteFragment) {
-            ClienteFragment fragment = castFragment(ClienteFragment.class, faFragment);
-            //executeActionClienteFragment(faFragment);
-        } else if (faFragment instanceof OrdenesFragment) {
-            OrdenesFragment fragment = castFragment(OrdenesFragment.class, faFragment);
-            executeActionOrdenesFragment(faFragment);
-        } else if (faFragment instanceof RutaFragment) {
-            RutaFragment fragment = castFragment(RutaFragment.class, faFragment);
-            //executeActionRutaFragment(fragment);
-        } else if (faFragment instanceof ComprobanteFragment) {
-            ComprobanteFragment fragment = castFragment(ComprobanteFragment.class, faFragment);
-            executeActionComprobanteFragment(fragment);
-        } else if (faFragment instanceof RequerimientoFragment) {
-            RequerimientoFragment fragment = castFragment(RequerimientoFragment.class, faFragment);
-            //executeActioRequerimientoFragment(fragment);
-        } else if (faFragment instanceof DetalleGuiaFragment) {
-            DetalleGuiaFragment fragment = castFragment(DetalleGuiaFragment.class, faFragment);
-            executeActionDetalleGuiaFragment(fragment);
-        } else if (faFragment instanceof PedidoFragment) {
-            PedidoFragment fragment = castFragment(PedidoFragment.class, faFragment);
-            executeActionPedidoFragment(fragment);
-        }
-    }
-
-    private void executeActionPedidoFragment(PedidoFragment fragment) {
-        //detalleGuiaFragment();
-    }
-
-    private void executeActionDetalleGuiaFragment(DetalleGuiaFragment fragment) {
-        //TODO
-    }
-
-    private void executeActionComprobanteFragment(ComprobanteFragment fragment) {
-        //boletaFragment();
-    }
-
-    private void executeActionProductosFragment(ProductosFragment fragment) {
-        //boletaFragment();
-        pedidoFragment();
-    }
-
-    private void executeActionRequerimientoFragment(Fragment faFragment) {
-
-        rutaFragment();
-    }
-
-    private void executeActionOrdenesFragment(Fragment fragment) {
-
-        //clienteFragment();
-    }
 
     @Override
     public void onAuthStateChanged(boolean state) {
@@ -263,10 +144,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    private <T> T castFragment(Class<T> clas, Fragment fragment) {
-        return (T) fragment;
     }
 
     public FragmentHandler newFragmentHandler() {

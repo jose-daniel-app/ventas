@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ventas.views.ProductosFragment">
+    tools:context=".ordenes.views.ProductosFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,28 +38,10 @@
                 app:fab_size="mini"
                 app:fab_label="¿Seguro?"
                 android:theme="@style/FabTheme"
-
                 app:fab_colorNormal="@color/primary"
-                app:fab_colorPressed="@color/primary_light"
-
-
-
-                />
+                app:fab_colorPressed="@color/primary_light"/>
 
         </com.github.clans.fab.FloatingActionMenu>
-
-        <!--<android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButonContinuar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="14dp"
-            android:backgroundTint="@color/primary"
-            android:elevation="4dp"
-            android:src="@drawable/ic_check_white"
-            app:fab_size="mini" /> -->
 
         <LinearLayout
             android:layout_width="match_parent"

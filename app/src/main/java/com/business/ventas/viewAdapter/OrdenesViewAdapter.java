@@ -12,8 +12,8 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.business.ventas.ventas.views.DetalleGuiaFragment;
-import com.business.ventas.ventas.views.OrdenesFragment;
+import com.business.ventas.ordenes.views.DetalleGuiaFragment;
+import com.business.ventas.ordenes.views.OrdenesFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.business.ventas.ventas.views;
+package com.business.ventas.ordenes.views;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,7 +33,6 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
 
 
     public OrdenesFragment() {
-        // Required empty public constructor
     }
 
     public static OrdenesFragment newInstance() {
@@ -43,7 +42,7 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ruta, container, false);
+        View view = inflater.inflate(R.layout.fragment_ordenes, container, false);
         loadComponents(view);
         toolbar.setTitle("Ordenes");
         navigationView.setCheckedItem(R.id.nav_ventas);
@@ -60,7 +59,6 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
     private void ClickActionButon(View view) {
         getMainActivity().newFragmentHandler().changeFragment(ClienteFragment.newInstance());
     }
-
 
     private void loadComponents(View view) {
 

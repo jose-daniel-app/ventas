@@ -13,8 +13,8 @@ import com.business.ventas.requerimiento.views.RequerimientoFragment;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.business.ventas.ventas.views.ClienteFragment;
-import com.business.ventas.ventas.views.OrdenesFragment;
+import com.business.ventas.ordenes.views.ClienteFragment;
+import com.business.ventas.ordenes.views.OrdenesFragment;
 import com.business.ventas.viewAdapter.MenuItemViewAdapter;
 
 import java.util.ArrayList;

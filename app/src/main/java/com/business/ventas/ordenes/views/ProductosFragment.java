@@ -1,4 +1,4 @@
-package com.business.ventas.ventas.views;
+package com.business.ventas.ordenes.views;
 
 import android.os.Bundle;
 
@@ -54,7 +54,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         searchToolbar = new SearchToolbarProducto(getActivity(), this, getActivity().findViewById(R.id.search_producto));
         return view;
-
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
@@ -71,7 +70,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
         floatingActionButton = view.findViewById(R.id.menu_item);
-        floatingActionButton.setOnClickListener(this::clickBtnContinuar);
+        floatingActionButton.setOnClickListener(this::clickItemButon);
 
         fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
         fabMenu.setIconAnimated(false);
@@ -83,14 +82,9 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         recyclerView.setAdapter(adapter);
     }
 
-    private void clickBtnContinuar(View view) {
+    private void clickItemButon(View view) {
         sharedProductos.guardar(adapter.getProductlistAdap());
-        onButtonPressed(this);
-    }
-
-    private void onDialogOk(MaterialDialog dialog, DialogAction dialogAction) {
-        sharedProductos.guardar(adapter.getProductlistAdap());
-        onButtonPressed(this);
+        //getMainActivity().newFragmentHandler().changeFragment(De)
     }
 
     public static ProductosFragment newInstance() {

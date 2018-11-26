@@ -1,4 +1,4 @@
-package com.business.ventas.ventas.views;
+package com.business.ventas.ordenes.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
