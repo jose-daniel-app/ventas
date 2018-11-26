@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
+import com.business.ventas.comprobante.views.DetalleGuiaFragment;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.SharedPreferenceProductos;

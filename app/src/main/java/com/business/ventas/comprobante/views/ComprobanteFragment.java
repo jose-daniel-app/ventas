@@ -14,7 +14,6 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Comprobante;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
-import com.business.ventas.ordenes.views.DocumentoFragment;
 import com.business.ventas.viewAdapter.ComprobanteViewAdapter;
 
 

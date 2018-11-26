@@ -13,7 +13,6 @@ import com.business.ventas.beans.Ruta;
 import com.business.ventas.ordenes.views.OrdenFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.business.ventas.ordenes.views.DetalleGuiaFragment;
 import com.business.ventas.ordenes.views.OrdenesFragment;
 
 import java.util.ArrayList;
