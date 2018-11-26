@@ -1,11 +1,6 @@
 package com.business.ventas.ventas.views;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +9,14 @@ import android.widget.ListView;
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.login.views.MainActivity;
-import com.business.ventas.utils.AppFragmnet;
+import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-public class DetalleGuiaFragment extends AppFragmnet {
+public class DetalleGuiaFragment extends AppFragment {
 
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
@@ -65,18 +60,18 @@ public class DetalleGuiaFragment extends AppFragmnet {
 
     private void onClikItenMenu(View view) {
         int id = view.getId();
+        MainActivity.FragmentHandler fh = getMainActivity().newFragmentHandler();
         switch (id){
             case R.id.menu_item1:
-                ((MainActivity)getActivity()).boletaFragment("Factura");
+                fh.changeFragment(BoletaFragment.newInstance().setTitulo("Factura"));
                 break;
             case R.id.menu_item2:
-                ((MainActivity)getActivity()).boletaFragment("Boleta");
+                fh.changeFragment(BoletaFragment.newInstance().setTitulo("Boleta"));
                 break;
             case R.id.menu_item3:
-                ((MainActivity)getActivity()).boletaFragment("Nota de ventas");
+                fh.changeFragment(BoletaFragment.newInstance().setTitulo("Nota de ventas"));
                 break;
         }
-        //((MainActivity)getActivity()).boletaFragment("Factura");
     }
 
     public static DetalleGuiaFragment newInstance() {

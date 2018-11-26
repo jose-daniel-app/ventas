@@ -11,13 +11,13 @@ import android.widget.ListView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
-import com.business.ventas.utils.AppFragmnet;
+import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 import com.github.clans.fab.FloatingActionButton;
 
-public class PedidoFragment extends AppFragmnet {
+public class PedidoFragment extends AppFragment {
 
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;

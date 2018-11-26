@@ -1,14 +1,10 @@
 package com.business.ventas.ventas.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +14,7 @@ import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
-import com.business.ventas.utils.AppFragmnet;
+import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.OrdenesViewAdapter;
@@ -27,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrdenesFragment extends AppFragmnet implements OnSearchToolbarQueryTextListner {
+public class OrdenesFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
 
     VentasLog log = LogFactory.createInstance().setTag(OrdenesFragment.class.getSimpleName());
     RecyclerView listarutas;

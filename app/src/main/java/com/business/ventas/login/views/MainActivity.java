@@ -20,10 +20,9 @@ import com.business.ventas.requerimiento.views.DetalleFragment;
 import com.business.ventas.requerimiento.views.ReqProductoFragment;
 import com.business.ventas.requerimiento.views.RequerimientoFragment;
 import com.business.ventas.requerimiento.views.RutaFragment;
-import com.business.ventas.utils.AppFragmnet;
+import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.business.ventas.ventas.views.BoletaFragment;
 import com.business.ventas.ventas.views.ClienteFragment;
 import com.business.ventas.ventas.views.DetalleGuiaFragment;
 import com.business.ventas.ventas.views.OrdenesFragment;
@@ -38,9 +37,7 @@ public class MainActivity extends AppCompatActivity
         implements
         NavigationView.OnNavigationItemSelectedListener,
         // interfaz pare los fragment
-        AppFragmnet.OnFragmentInteractionListener,
-        BoletaFragment.OnFragmentInteractionListener,
-        ComprobanteFragment.OnFragmentInteractionListener,
+        AppFragment.OnFragmentInteractionListener,
         RequerimientoFragment.OnFragmentInteractionListener,
         ReqProductoFragment.OnFragmentInteractionListener,
         RutaFragment.OnFragmentInteractionListener,
@@ -53,7 +50,6 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView;
     Toolbar toolbar;
-    //SearchToolbar searchToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +108,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_ventas) {
             showAppFragment(OrdenesFragment.newInstance());
         } else if (id == R.id.nav_vouchers) {
-            comprobanteFragment();
+            showAppFragment(ComprobanteFragment.newInstance());
         } else if (id == R.id.nav_requerimiento) {
             requerimientoFragment();
         } else if (id == R.id.nav_cerrar_session) {
@@ -127,36 +123,6 @@ public class MainActivity extends AppCompatActivity
         auth.signOut(this);
     }
 
-    /*------------------------------------------------*/
-    public void boletaFragment() {
-        BoletaFragment boletaFragment = BoletaFragment.newInstance()
-                .setToolbar(toolbar)
-                .setNavigationView(navigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
-    }
-
-    public void boletaFragment(String titulo) {
-        BoletaFragment boletaFragment = BoletaFragment.newInstance()
-                .setToolbar(toolbar)
-                .setTitulo(titulo)
-                .setNavigationView(navigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, boletaFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
-    }
-
-    /*--------------------Comprobante---------------------------*/
-    private void comprobanteFragment() {
-        ComprobanteFragment comprobanteFragment = ComprobanteFragment.newInstance()
-                .setToolbar(toolbar)
-                .setNavigationView(navigationView);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, comprobanteFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null).commit();
-    }
 
     /*--------------------Requerimiento---------------------------*/
     private void requerimientoFragment() {
@@ -240,7 +206,7 @@ public class MainActivity extends AppCompatActivity
             executeActionComprobanteFragment(fragment);
         } else if (faFragment instanceof RequerimientoFragment) {
             RequerimientoFragment fragment = castFragment(RequerimientoFragment.class, faFragment);
-            executeActioRequerimientoFragment(fragment);
+            //executeActioRequerimientoFragment(fragment);
         } else if (faFragment instanceof DetalleGuiaFragment) {
             DetalleGuiaFragment fragment = castFragment(DetalleGuiaFragment.class, faFragment);
             executeActionDetalleGuiaFragment(fragment);
@@ -258,21 +224,8 @@ public class MainActivity extends AppCompatActivity
         //TODO
     }
 
-    private void executeActioRequerimientoFragment(RequerimientoFragment fragment) {
-        switch (fragment.getTipoAccion()) {
-            case RequerimientoFragment.CREAR_REQUERIMIENTO:
-                rutaFragment();
-                break;
-            case RequerimientoFragment.DETALLE_REQUERIMIENTO:
-                boletaFragment();
-                break;
-            default:
-        }
-
-    }
-
     private void executeActionComprobanteFragment(ComprobanteFragment fragment) {
-        boletaFragment();
+        //boletaFragment();
     }
 
     private void executeActionProductosFragment(ProductosFragment fragment) {
@@ -320,7 +273,7 @@ public class MainActivity extends AppCompatActivity
         return new FragmentHandler(this);
     }
 
-    private void showAppFragment(AppFragmnet fragmnet) {
+    private void showAppFragment(AppFragment fragmnet) {
         newFragmentHandler().changeFragment(fragmnet);
     }
 
@@ -331,7 +284,7 @@ public class MainActivity extends AppCompatActivity
             this.mainActivity = mainActivity;
         }
 
-        public FragmentHandler changeFragment(AppFragmnet fragment) {
+        public FragmentHandler changeFragment(AppFragment fragment) {
             fragment.setNavigationView(this.mainActivity.navigationView)
                     .setToolbar(this.mainActivity.toolbar);
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)

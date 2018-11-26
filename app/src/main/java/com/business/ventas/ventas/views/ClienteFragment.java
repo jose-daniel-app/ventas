@@ -2,10 +2,8 @@ package com.business.ventas.ventas.views;
 
 import android.os.Bundle;
 
-import android.support.design.widget.NavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +14,14 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
 import com.business.ventas.login.views.SearchToolbar;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
-import com.business.ventas.utils.AppFragmnet;
+import com.business.ventas.utils.AppFragment;
 import com.business.ventas.viewAdapter.ClienteViewAdapter;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteFragment extends AppFragmnet implements OnSearchToolbarQueryTextListner {
+public class ClienteFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
 
     RecyclerView listaclientes;
     List<Cliente> productlists = new ArrayList<>();

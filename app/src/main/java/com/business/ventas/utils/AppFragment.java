@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.business.ventas.login.views.MainActivity;
 
-public abstract class AppFragmnet extends Fragment {
+public abstract class AppFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private MainActivity mainActivity;
@@ -42,12 +42,12 @@ public abstract class AppFragmnet extends Fragment {
         void onFragmentInteraction(Fragment faFragment);
     }
 
-    public AppFragmnet setToolbar(Toolbar toolbar) {
+    public AppFragment setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
         return this;
     }
 
-    public AppFragmnet setNavigationView(NavigationView navigationView) {
+    public AppFragment setNavigationView(NavigationView navigationView) {
         this.navigationView = navigationView;
         return this;
     }

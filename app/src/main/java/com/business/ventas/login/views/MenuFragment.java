@@ -1,32 +1,25 @@
 package com.business.ventas.login.views;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.business.ventas.R;
-import com.business.ventas.utils.AppFragmnet;
+import com.business.ventas.comprobante.views.ComprobanteFragment;
+import com.business.ventas.requerimiento.views.RequerimientoFragment;
+import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
-import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.ventas.views.ClienteFragment;
 import com.business.ventas.ventas.views.OrdenesFragment;
 import com.business.ventas.viewAdapter.MenuItemViewAdapter;
-import com.business.ventas.viewAdapter.ProductoViewAdapter;
 
 import java.util.ArrayList;
 
-public class MenuFragment extends AppFragmnet {
+public class MenuFragment extends AppFragment {
 
     VentasLog log = LogFactory.createInstance().setTag(MenuFragment.class.getSimpleName());
     RecyclerView recyclerViewItems;
@@ -58,8 +51,8 @@ public class MenuFragment extends AppFragmnet {
         }}, obj -> {
             switch (obj.getId()){
                 case 1: getMainActivity().newFragmentHandler().changeFragment(OrdenesFragment.newInstance());break;
-                case 2: getMainActivity().newFragmentHandler().changeFragment(ClienteFragment.newInstance());break;
-                case 3: getMainActivity().newFragmentHandler().changeFragment(ClienteFragment.newInstance());break;
+                case 2: getMainActivity().newFragmentHandler().changeFragment(ComprobanteFragment.newInstance());break;
+                case 3: getMainActivity().newFragmentHandler().changeFragment(RequerimientoFragment.newInstance());break;
                 case 4: getMainActivity().newFragmentHandler().changeFragment(ClienteFragment.newInstance());break;
                 default:
             }
