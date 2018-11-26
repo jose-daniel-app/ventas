@@ -41,7 +41,7 @@ public class DocumentoFragment extends AppFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_boleta, container, false);
         toolbar.setTitle((this.titulo == null) ? "Boleta" : this.titulo);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
         loadComponents(view);

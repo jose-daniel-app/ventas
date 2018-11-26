@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         toolbar.getMenu().clear();
         if (id == R.id.nav_home) {
             showAppFragment(MenuFragment.newInstance());
-        } else if (id == R.id.nav_ventas) {
+        } else if (id == R.id.nav_ordenes) {
             showAppFragment(OrdenesFragment.newInstance());
         } else if (id == R.id.nav_vouchers) {
             showAppFragment(ComprobanteFragment.newInstance());

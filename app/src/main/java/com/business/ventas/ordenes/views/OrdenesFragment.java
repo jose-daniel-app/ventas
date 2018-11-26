@@ -45,7 +45,7 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
         View view = inflater.inflate(R.layout.fragment_ordenes, container, false);
         loadComponents(view);
         toolbar.setTitle("Ordenes");
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
         toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));

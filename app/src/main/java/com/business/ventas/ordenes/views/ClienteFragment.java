@@ -40,7 +40,7 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
         View view = inflater.inflate(R.layout.fragment_cliente, container, false);
         loadComponents(view);
         toolbar.setTitle(R.string.title_cliente);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_cliente);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);

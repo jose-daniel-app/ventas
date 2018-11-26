@@ -32,7 +32,7 @@ public class DetalleFragment extends AppFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detalle, container, false);
         toolbar.setTitle(R.string.title_detalle);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         return view;
     }

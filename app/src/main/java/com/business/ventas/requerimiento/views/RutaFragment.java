@@ -31,9 +31,7 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
     List<Ruta> productlists = new ArrayList<>();
     RutaViewAdapter adapter;
 
-    public RutaFragment() {
-
-    }
+    public RutaFragment() {}
 
     public static RutaFragment newInstance() {
         return new RutaFragment();
@@ -44,7 +42,7 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
         View view = inflater.inflate(R.layout.fragment_ruta, container, false);
         loadComponents(view);
         toolbar.setTitle(R.string.title_ruta);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_requerimiento);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_ruta);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);

@@ -46,7 +46,7 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
         View view = inflater.inflate(R.layout.fragment_requerimiento, container, false);
         loadComponents(view);
         toolbar.setTitle(R.string.title_requerimiento);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_requerimiento);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
         toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));

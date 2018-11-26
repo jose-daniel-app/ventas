@@ -17,26 +17,26 @@ import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 import com.github.clans.fab.FloatingActionButton;
 
-public class PedidoFragment extends AppFragment {
+public class OrdenFragment extends AppFragment {
 
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
     FloatingActionButton item1;
 
-    public PedidoFragment() {
+    public OrdenFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pedido, container, false);
+        View view = inflater.inflate(R.layout.fragment_orden, container, false);
         loadComponents(view);
         return view;
     }
 
     private void loadComponents(View view) {
         toolbar.setTitle(R.string.title_orden);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         listViewItem = view.findViewById(R.id.listViewItem);
         item1 = view.findViewById(R.id.item1);
@@ -51,16 +51,16 @@ public class PedidoFragment extends AppFragment {
     }
 
 
-    public static PedidoFragment newInstance() {
-        return new PedidoFragment();
+    public static OrdenFragment newInstance() {
+        return new OrdenFragment();
     }
 
-    public PedidoFragment setNavigationView(NavigationView navigationView) {
+    public OrdenFragment setNavigationView(NavigationView navigationView) {
         this.navigationView = navigationView;
         return this;
     }
 
-    public PedidoFragment setToolbar(Toolbar toolbar) {
+    public OrdenFragment setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
         return this;
     }

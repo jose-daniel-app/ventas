@@ -39,7 +39,7 @@ public class DetalleGuiaFragment extends AppFragment {
 
     private void loadComponents(View view) {
         toolbar.setTitle(R.string.title_detalle_guia);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         listViewItem = view.findViewById(R.id.listViewItem);
         fabMenu = view.findViewById(R.id.floatingActionButonContinuar);

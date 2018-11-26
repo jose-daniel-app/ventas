@@ -48,7 +48,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
         loadComponents(view);
         toolbar.setTitle(R.string.title_producto);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.productos_menu);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
@@ -84,7 +84,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
     private void clickItemButon(View view) {
         sharedProductos.guardar(adapter.getProductlistAdap());
-        //getMainActivity().newFragmentHandler().changeFragment(De)
+        getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance());
     }
 
     public static ProductosFragment newInstance() {

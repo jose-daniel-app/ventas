@@ -60,7 +60,7 @@ public class ReqProductoFragment extends Fragment implements OnSearchToolbarQuer
         sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
         loadComponents(view);
         toolbar.setTitle(R.string.title_producto);
-        navigationView.setCheckedItem(R.id.nav_ventas);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.productos_menu);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);

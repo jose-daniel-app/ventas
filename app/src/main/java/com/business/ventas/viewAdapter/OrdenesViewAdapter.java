@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Ruta;
+import com.business.ventas.ordenes.views.OrdenFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.ordenes.views.DetalleGuiaFragment;
@@ -46,7 +47,7 @@ public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.
 
     private void onclick(View view) {
         log.info("el onclick de clase => " + this.fragment);
-        fragment.getMainActivity().newFragmentHandler().changeFragment(DetalleGuiaFragment.newInstance());
+        fragment.getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance());
     }
 
     @Override
