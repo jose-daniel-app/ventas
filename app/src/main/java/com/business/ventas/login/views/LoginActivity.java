@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements
     AuthRepository auth;
     LoginContract.Presenter presenter;
 
-    private static final Pattern PASSWORD_PATTERN= Pattern.compile("^" +
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
             "(?=.*[0-9])" +         //al menos 1 dijito
             //"(?=.*[a-z])" +         // al menos 1 miniscula
             //"(?=.*[A-Z])" +         //al menos 1 mayuscola
@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity implements
             "$");
 
     /*
-    * Declaracion de elementos
-    * */
+     * Declaracion de elementos
+     * */
     TextInputEditText inputEditTextCorreo;
     TextInputEditText inputEditTextPassword;
     Button button_login;
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     }
 
-    private void loadItems(){
+    private void loadItems() {
         inputEditTextCorreo = findViewById(R.id.inputEditTextCorreo);
         inputEditTextPassword = findViewById(R.id.inputEditTextPassword);
         button_login = findViewById(R.id.button_login);
@@ -78,24 +78,27 @@ public class LoginActivity extends AppCompatActivity implements
         String password = inputEditTextPassword.getText().toString();
 
         //-------------mensaje de confirmacion -------------------
-        if (!validarCorreo() | !validarPassword() ) {
+        if (!validarCorreo() | !validarPassword()) {
             return;
         }
-        Toast.makeText(this,"ingreso exitoso"+correo,Toast.LENGTH_LONG).show();
+
         //-----------------------------------------------------------
 
-
-        if(R.id.button_login == view.getId()){
+        if (R.id.button_login == view.getId()) {
             showProgressBar(true);
-            auth.signInWithEmailAndPassword(correo, password, this, new AuthRepository.OnCompleteListener() {
-                @Override
-                public void onComplete(boolean state) {
+            auth.signInWithEmailAndPassword(correo, password, this)
+                .setOnCompleteSuscces(() -> {
+                    Toast.makeText(this, "Se inicio correctamente", Toast.LENGTH_LONG).show();
                     showProgressBar(false);
-                }
-            });
-        }else if(R.id.button_login == view.getId()){
+                })
+                .setOnCompleteError(mensjae -> {
+                    Toast.makeText(this, mensjae, Toast.LENGTH_LONG).show();
+                    showProgressBar(false);
+                });
+
+        } /*else if (R.id.button_login == view.getId()) {
             auth.signOut(this);
-        }
+        }*/
 
     }
 
@@ -118,13 +121,12 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void onAuthStateChanged(boolean state) {
-        if(state){
+        if (state) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
-
 
 
     //validacion correo//
@@ -143,17 +145,18 @@ public class LoginActivity extends AppCompatActivity implements
             return true;
         }
     }
+
     //validar password//
-    public boolean validarPassword(){
+    public boolean validarPassword() {
         String inputPassword = inputEditTextPassword.getText().toString().trim();
 
         if (inputPassword.isEmpty()) {
             inputTextLayoutPassword.setError("Por favor, ingresar contraseña");
             return false;
-        } else if (!PASSWORD_PATTERN.matcher(inputPassword).matches()) {
+        } /*else if (!PASSWORD_PATTERN.matcher(inputPassword).matches()) {
             inputTextLayoutPassword.setError("Contraseña debe ser mayor de 4 numeros");
             return false;
-        } else {
+        }*/ else {
             inputTextLayoutPassword.setError(null);
             return true;
         }

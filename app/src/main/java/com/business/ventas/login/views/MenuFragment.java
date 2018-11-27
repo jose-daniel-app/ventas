@@ -53,7 +53,7 @@ public class MenuFragment extends AppFragment {
                 case 1: getMainActivity().newFragmentHandler().changeFragment(OrdenesFragment.newInstance());break;
                 case 2: getMainActivity().newFragmentHandler().changeFragment(ComprobanteFragment.newInstance());break;
                 case 3: getMainActivity().newFragmentHandler().changeFragment(RequerimientoFragment.newInstance());break;
-                case 4: getMainActivity().newFragmentHandler().changeFragment(ClienteFragment.newInstance());break;
+                case 4: getMainActivity().cerrarSesion();break;
                 default:
             }
         });

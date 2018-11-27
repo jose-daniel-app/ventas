@@ -2,10 +2,8 @@ package com.business.ventas.apiRest;
 
 
 
-import com.business.ventas.beans.User;
-import com.google.gson.JsonObject;
 
-import java.util.HashMap;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,17 +11,35 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface Service {
-    //@Headers("content-type:application/json")
-    @POST(Constants.URL_LOGIN)
-    Call<Void> login(@Body User user);
 
-    public class User{
-        public User(String username, String password){
-            this.username = username;
-            this.password = password;
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST(Constants.URL_LOGIN)
+    Call<JsonObject> login(@Body User User);
+
+    public class User {
+        public User(String usr, String pwd) {
+            this.usr = usr;
+            this.pwd = pwd;
         }
-        String username;
-        String password;
+
+        private String usr;
+        private String pwd;
+
+        public String getUsr() {
+            return usr;
+        }
+
+        public void setUsr(String usr) {
+            this.usr = usr;
+        }
+
+        public String getPwd() {
+            return pwd;
+        }
+
+        public void setPwd(String pwd) {
+            this.pwd = pwd;
+        }
     }
 
 }
