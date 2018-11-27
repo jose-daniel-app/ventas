@@ -25,10 +25,12 @@ public class UserRepositoryImpl implements UserRepository {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                log.info("es null : " + (response.raw().request().headers().get("Set-Cookie")== null));
-                log.info("es null2 : " + response.headers().get("Cookie") == null ? "true": response.headers().get("Cookie"));
+
+                //log.info("el valor es:" + response.headers().get("Set-Cookie").isEmpty());
+                //log.info("es null : " + (response.raw().request().headers().get("Set-Cookie")== null));
+                //log.info("es null2 : " + response.headers().get("Cookie") == null ? "true": response.headers().get("Cookie"));
                 User user = new User();
-                user.setApiKey(response.headers().get("Cookie"));
+                user.setApiKey("sdfsfsdfsf");
                 listener.succes(user);
             }
 

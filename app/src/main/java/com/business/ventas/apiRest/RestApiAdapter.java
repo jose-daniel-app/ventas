@@ -1,8 +1,8 @@
 package com.business.ventas.apiRest;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
+import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,19 +12,29 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiAdapter {
 
-    public Service getLoginService(){
+    VentasLog log = LogFactory.createInstance().setTag(RestApiAdapter.class.getSimpleName());
 
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+    public Service getLoginService() {
 
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
-                Request newRequest  = chain.request().newBuilder()
-                        .addHeader("Content-Type", "application/json")
-                        .addHeader("Accept", "application/json")
-                        .build();
-                return chain.proceed(newRequest);
-            }
-        }).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor((chain) -> {
+                    Request newRequest = chain.request().newBuilder()
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("Accept", "application/json")
+                            .build();
+                    return chain.proceed(newRequest);
+                })
+                .addInterceptor((chain) -> {
+                    Response originalResponse = chain.proceed(chain.request());
+                    log.info("los heads : " + originalResponse.headers("Set-Cookie"));
+                    if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+                        new Lista<String>(originalResponse.headers("Set-Cookie")).foreach(item ->{
+                            log.info("Cookie: " + item);
+                        });
+                    }
+                    return originalResponse;
+                })
+                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_ROOT)
