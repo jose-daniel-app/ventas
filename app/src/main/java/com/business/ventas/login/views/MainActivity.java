@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void cerrarSesion() {
+    public void cerrarSesion() {
         auth.signOut(this);
     }
 

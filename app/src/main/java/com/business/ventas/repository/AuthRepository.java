@@ -16,6 +16,8 @@ public class AuthRepository {
 
     RepositoryFactory _factory = RepositoryFactory.getFactory(RepositoryFactory.API_REST);
     UserRepository _userRepository = _factory.getUserRepository();
+    OnCompleteSuscces onCompleteSuscces;
+    OnCompleteError onCompleteError;
 
     private static final String API_KEY_REST = "api_key_rest";
     private static AuthRepository authRepository;
@@ -25,28 +27,33 @@ public class AuthRepository {
     private AuthRepository() {
     }
 
-    public static AuthRepository getInstance(){
-        if(authRepository == null)
+    public static AuthRepository getInstance() {
+        if (authRepository == null)
             return new AuthRepository();
         return authRepository;
     }
 
-    public void signInWithEmailAndPassword(String Correo, String password, Context context, OnCompleteListener listener){
+    public AuthRepository signInWithEmailAndPassword(String Correo, String password, Context context) {
         _userRepository.loginSesion(Correo, password, new UserRepository.Respond<User>() {
+
             @Override
             public void succes(User obj) {
-                logIn(obj.getApiKey(),context);
-                listener.onComplete(true);
+                logIn(obj.getApiKey(), context);
+                if (onCompleteSuscces != null)
+                    onCompleteSuscces.onComplete();
             }
 
             @Override
             public void error(String cause) {
-                listener.onComplete(false);
+                //listener.onComplete(false);
+                if (onCompleteError != null)
+                    onCompleteError.onComplete(cause);
             }
         });
+        return this;
     }
 
-    public void logIn(String apiKey, Context context){
+    public void logIn(String apiKey, Context context) {
         SharedPreferences sharedPreferences = getSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
@@ -55,36 +62,36 @@ public class AuthRepository {
         notificar(true);
     }
 
-    public void signOut(Context context){
+    public void signOut(Context context) {
         SharedPreferences sharedPreferences = getSharedPreferences(context);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.remove(API_KEY_REST);
-            editor.commit();
-            notificar(false);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(API_KEY_REST);
+        editor.commit();
+        notificar(false);
     }
 
-    public String getApiKeyRest(Context context){
-        if(getSharedPreferences(context) != null){
-            return getSharedPreferences(context).getString(API_KEY_REST,null);
+    public String getApiKeyRest(Context context) {
+        if (getSharedPreferences(context) != null) {
+            return getSharedPreferences(context).getString(API_KEY_REST, null);
         }
         return null;
     }
 
-    public void addAuthStateListener(AuthStateListener authStateListener){
+    public void addAuthStateListener(AuthStateListener authStateListener) {
         subscribers.add(authStateListener);
-        notificar(getApiKeyRest((Context)authStateListener) != null);
+        notificar(getApiKeyRest((Context) authStateListener) != null);
     }
 
-    public void removeAuthStateListener(AuthStateListener authStateListener){
+    public void removeAuthStateListener(AuthStateListener authStateListener) {
         subscribers.remove(authStateListener);
     }
 
-    SharedPreferences getSharedPreferences(Context context){
+    SharedPreferences getSharedPreferences(Context context) {
         return context.getSharedPreferences("ventasPreferences", context.MODE_PRIVATE);
     }
 
-    private void notificar(boolean state){
-        for (AuthStateListener subscriber : subscribers){
+    private void notificar(boolean state) {
+        for (AuthStateListener subscriber : subscribers) {
             subscriber.onAuthStateChanged(state);
         }
     }
@@ -93,8 +100,24 @@ public class AuthRepository {
         public void onAuthStateChanged(boolean state);
     }
 
-    public interface OnCompleteListener{
-         void onComplete(boolean state);
+    public AuthRepository setOnCompleteSuscces(OnCompleteSuscces onCompleteSuscces) {
+        this.onCompleteSuscces = onCompleteSuscces;
+        return this;
+    }
+
+    public AuthRepository setOnCompleteError(OnCompleteError onCompleteError) {
+        this.onCompleteError = onCompleteError;
+        return this;
+    }
+
+    @FunctionalInterface
+    public interface OnCompleteSuscces {
+        public void onComplete();
+    }
+
+    @FunctionalInterface
+    public interface OnCompleteError {
+        public void onComplete(String mensjae);
     }
 
 }

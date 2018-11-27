@@ -1,10 +1,11 @@
 package com.business.ventas.apiRest;
 
+import android.util.Log;
+
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,13 +18,13 @@ public class RestApiAdapter {
     public Service getLoginService() {
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor((chain) -> {
+                /*.addInterceptor((chain) -> {
                     Request newRequest = chain.request().newBuilder()
-                            .addHeader("Content-Type", "application/json")
-                            .addHeader("Accept", "application/json")
+                            //.addHeader("Accept", "application/json")
+                            .header("Content-Type", "application/json")
                             .build();
                     return chain.proceed(newRequest);
-                })
+                })*/
                 .addInterceptor((chain) -> {
                     Response originalResponse = chain.proceed(chain.request());
                     log.info("los heads : " + originalResponse.headers("Set-Cookie"));
@@ -38,7 +39,7 @@ public class RestApiAdapter {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_ROOT)
-                //.client(client)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
