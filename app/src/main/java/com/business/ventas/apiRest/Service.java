@@ -15,15 +15,15 @@ import retrofit2.http.POST;
 public interface Service {
     //@Headers("content-type:application/json")
     @POST(Constants.URL_LOGIN)
-    Call<Void> login(@Body User user);
+    Call<JsonObject> login(@Body User user);
 
     public class User{
         public User(String username, String password){
-            this.username = username;
-            this.password = password;
+            this.usr = username;
+            this.pwd = password;
         }
-        String username;
-        String password;
+        String usr;
+        String pwd;
     }
 
 }

@@ -20,6 +20,7 @@ public class RestApiAdapter {
             public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request newRequest  = chain.request().newBuilder()
                         .addHeader("Content-Type", "application/json")
+                        .addHeader("Accept", "application/json")
                         .build();
                 return chain.proceed(newRequest);
             }

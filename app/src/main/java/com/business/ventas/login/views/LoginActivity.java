@@ -150,10 +150,10 @@ public class LoginActivity extends AppCompatActivity implements
         if (inputPassword.isEmpty()) {
             inputTextLayoutPassword.setError("Por favor, ingresar contraseña");
             return false;
-        } else if (!PASSWORD_PATTERN.matcher(inputPassword).matches()) {
+        } /*else if (!PASSWORD_PATTERN.matcher(inputPassword).matches()) {
             inputTextLayoutPassword.setError("Contraseña debe ser mayor de 4 numeros");
             return false;
-        } else {
+        }*/ else {
             inputTextLayoutPassword.setError(null);
             return true;
         }
