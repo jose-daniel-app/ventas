@@ -1,10 +1,14 @@
 package com.business.ventas.apiRest;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
+
+import java.util.HashSet;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import retrofit2.Retrofit;
@@ -18,19 +22,13 @@ public class RestApiAdapter {
     public Service getLoginService() {
 
         OkHttpClient client = new OkHttpClient.Builder()
-                /*.addInterceptor((chain) -> {
-                    Request newRequest = chain.request().newBuilder()
-                            //.addHeader("Accept", "application/json")
-                            .header("Content-Type", "application/json")
-                            .build();
-                    return chain.proceed(newRequest);
-                })*/
                 .addInterceptor((chain) -> {
                     Response originalResponse = chain.proceed(chain.request());
-                    log.info("los heads : " + originalResponse.headers("Set-Cookie"));
+                    //log.info("los heads : " + originalResponse.headers("Set-Cookie"));
                     if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+                        HashSet<String> cookies = new HashSet<>();
                         new Lista<String>(originalResponse.headers("Set-Cookie")).foreach(item ->{
-                            log.info("Cookie: " + item);
+                            cookies.add(item);
                         });
                     }
                     return originalResponse;
