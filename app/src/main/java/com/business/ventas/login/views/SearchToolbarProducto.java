@@ -57,7 +57,7 @@ public class SearchToolbarProducto implements View.OnClickListener {
      *  - jb keyboard k submit button pr click ho to agr Edittext empty hy to keyboar hide na ho aur agr edittext empty
      *    nahi hy to user ko query show kr k editText ko null kr dyna hy
      * */
-    public void openSearchToolbar(){ // Open the SearchToolbarProducto
+    public void openSearchToolbar() { // Open the SearchToolbarProducto
 
         searchLayout.setVisibility(View.VISIBLE);
 
