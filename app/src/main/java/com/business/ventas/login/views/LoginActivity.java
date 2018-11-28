@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements
             showProgressBar(true);
             auth.signInWithEmailAndPassword(correo, password, this)
                 .setOnCompleteSuscces(() -> {
-                    Toast.makeText(this, "Se inicio correctamente", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Se inicio correctamente la session", Toast.LENGTH_LONG).show();
                     showProgressBar(false);
                 })
                 .setOnCompleteError(mensjae -> {
@@ -96,9 +96,7 @@ public class LoginActivity extends AppCompatActivity implements
                     showProgressBar(false);
                 });
 
-        } /*else if (R.id.button_login == view.getId()) {
-            auth.signOut(this);
-        }*/
+        }
 
     }
 
