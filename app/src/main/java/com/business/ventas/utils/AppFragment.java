@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 
 import com.business.ventas.login.views.MainActivity;
 
@@ -20,10 +21,14 @@ public abstract class AppFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
             mainActivity = (MainActivity) context;
+            mainActivity.setActivityAconKeyDown(this::onKeyDown);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void onKeyDown(int i, KeyEvent keyEvent) {
     }
 
     @Override

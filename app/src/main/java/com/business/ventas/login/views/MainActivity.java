@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     AuthRepository auth = AuthRepository.getInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
+    ActivityAconKeyDown activityAconKeyDown;
     NavigationView navigationView;
     Toolbar toolbar;
 
@@ -120,8 +121,13 @@ public class MainActivity extends AppCompatActivity
         auth.removeAuthStateListener(this);
     }
 
+    public void setActivityAconKeyDown(ActivityAconKeyDown activityAconKeyDown) {
+        this.activityAconKeyDown = activityAconKeyDown;
+    }
+
     @Override
-    public void onFragmentInteraction(Fragment faFragment) {}
+    public void onFragmentInteraction(Fragment faFragment) {
+    }
 
 
     @Override
@@ -143,6 +149,8 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
+        if (this.activityAconKeyDown != null)
+            this.activityAconKeyDown.onKeyDown(keyCode, event);
         return super.onKeyDown(keyCode, event);
     }
 
@@ -170,4 +178,9 @@ public class MainActivity extends AppCompatActivity
             return this;
         }
     }
+
+    public interface ActivityAconKeyDown {
+        void onKeyDown(int keyCode, KeyEvent event);
+    }
+
 }

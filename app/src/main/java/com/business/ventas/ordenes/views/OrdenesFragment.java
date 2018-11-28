@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,6 +95,12 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
     @Override
     public void onQueryTextChange(String editable) {
         // textView.setText(editable);
+    }
+
+    @Override
+    public void onKeyDown(int i, KeyEvent keyEvent) {
+        //super.onKeyDown(i, keyEvent);
+        log.info("se apreto el back");
     }
 }
 
