@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.business.ventas.beans.User;
 import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.SharedPrefedenceCookies;
 import com.business.ventas.utils.VentasLog;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class AuthRepository {
                 if (onCompleteError != null)
                     onCompleteError.onComplete(cause);
             }
-        });
+        },context);
         return this;
     }
 
@@ -77,6 +78,16 @@ public class AuthRepository {
         return null;
     }
 
+    public User getUserSesion(Context context){
+        log.info("si llego");
+        SharedPrefedenceCookies cookies = new SharedPrefedenceCookies(context);
+        User user = new User();
+        cookies.getCookies().foreach(item -> {
+            log.info("item cookies: " + item);
+        });
+        return null;
+    }
+
     public void addAuthStateListener(AuthStateListener authStateListener) {
         subscribers.add(authStateListener);
         notificar(getApiKeyRest((Context) authStateListener) != null);
@@ -97,7 +108,7 @@ public class AuthRepository {
     }
 
     public interface AuthStateListener {
-        public void onAuthStateChanged(boolean state);
+        void onAuthStateChanged(boolean state);
     }
 
     public AuthRepository setOnCompleteSuscces(OnCompleteSuscces onCompleteSuscces) {
@@ -112,12 +123,12 @@ public class AuthRepository {
 
     @FunctionalInterface
     public interface OnCompleteSuscces {
-        public void onComplete();
+        void onComplete();
     }
 
     @FunctionalInterface
     public interface OnCompleteError {
-        public void onComplete(String mensjae);
+        void onComplete(String mensjae);
     }
 
 }

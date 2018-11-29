@@ -1,7 +1,9 @@
 package com.business.ventas.beans;
 
-public class User {
+import com.business.ventas.utils.AppHashSet;
 
+public class User {
+    private String nombres;
     private String Correo;
     private String password;
     private String apiKey;
@@ -29,4 +31,15 @@ public class User {
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
     }
+
+    public User getUserCookies(AppHashSet<String>  cookies){
+        User user = new User();
+        //user.set
+        return user;
+    }
+
+    private String getUser_id(AppHashSet<String>  cookies){
+        return null;
+    }
+
 }
