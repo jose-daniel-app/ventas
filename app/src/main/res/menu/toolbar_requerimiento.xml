@@ -6,58 +6,50 @@
 
     >
 
+    <item android:id="@+id/ic_tipo"
+        android:title="Filtrar tipo"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_assignment"
+        >
+        <menu>
+            <item
+                android:id="@+id/ic_tipo1"
+                android:title="Ruta"
+                app:showAsAction="collapseActionView"
+                />
+            <item
+                android:id="@+id/ic_tipo2"
+                android:title="Otro"
+                android:orderInCategory="100"
+                app:showAsAction="collapseActionView" />
 
 
-    <!--
-    <item
-        android:id="@+id/spinners"
-        android:background="#ff00"
+        </menu>
+    </item>
+
+    <item android:id="@+id/ic_search"
+        android:title="Filtrar fecha"
+        app:showAsAction="always"
         android:icon="@drawable/ic_date_range"
-        android:title="ActionBar Spinner"
-        app:actionViewClass="android.widget.Spinner"
-        app:showAsAction="always" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_below="@+id/toolbar"
-            android:layout_alignLeft="@+id/toolbar"
-            android:layout_alignStart="@+id/toolbar"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-
-            />
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_date_range"
-        android:adjustViewBounds="true"
-
-        />
-    -->
-
+        >
+        <menu>
         <item
             android:id="@+id/ic_Dia"
             android:title="@string/ic_Día"
-            android:orderInCategory="100"
-
+            app:showAsAction="collapseActionView"
             />
         <item
             android:id="@+id/ic_Fecha"
             android:title="@string/ic_Semana"
             android:orderInCategory="100"
-            app:showAsAction="never" />
+            app:showAsAction="collapseActionView" />
         <item
             android:id="@+id/action_settings"
             android:orderInCategory="100"
             android:title="@string/ic_Mes"
-            app:showAsAction="never" />
+            app:showAsAction="collapseActionView" />
 
-
-
+        </menu>
+    </item>
 
 </menu>

@@ -63,7 +63,7 @@ public class OrdenesFragment extends AppFragment
         navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
-        toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
+        //toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         addbuton = view.findViewById(R.id.addbuton);
         addbuton.setOnClickListener(this::ClickActionButon);

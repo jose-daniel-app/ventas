@@ -20,7 +20,10 @@
         android:inputType="text"
         android:paddingLeft="@dimen/search_view_padding_searchToolbar"
         android:paddingRight="@dimen/search_view_padding_searchToolbar"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:iconifiedByDefault="false"/>
+
+
 
 
     <ImageButton
