@@ -5,4 +5,9 @@ public class RepositoryFactoryImpl extends RepositoryFactory {
     public UserRepository getUserRepository() {
         return new UserRepositoryImpl();
     }
+
+    @Override
+    public ProductosRepository getProductosRepository() {
+        return new ProductosRepositoryImpl();
+    }
 }

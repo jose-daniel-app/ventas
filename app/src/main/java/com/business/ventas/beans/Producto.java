@@ -4,6 +4,7 @@ public class Producto {
 
     private int codigo;
     private int img;
+    private String pathImg;
     private String nombre;
     private String Descripcion;
     private int cantidad;
@@ -93,6 +94,14 @@ public class Producto {
 
     public void setPrecioCantidad(double precioCantidad) {
         this.precioCantidad = precioCantidad;
+    }
+
+    public String getPathImg() {
+        return pathImg;
+    }
+
+    public void setPathImg(String pathImg) {
+        this.pathImg = pathImg;
     }
 
     public void actualizarPrecioCantidad() {

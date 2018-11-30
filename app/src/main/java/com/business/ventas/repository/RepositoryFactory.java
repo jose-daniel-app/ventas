@@ -5,6 +5,7 @@ public abstract class RepositoryFactory {
     public static final int API_REST = 1;
 
     public abstract UserRepository getUserRepository();
+    public abstract ProductosRepository getProductosRepository();
 
     public static RepositoryFactory getFactory(int type){
         switch (type){

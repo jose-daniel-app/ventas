@@ -7,14 +7,19 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface Service {
 
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST(Constants.URL_LOGIN)
     Call<JsonObject> login(@Body User User);
+
+    @GET(Constants.URL_LISTA_PRODUCTO)
+    Call<JsonObject> listarProductos(@Query("fields") String fields);
 
     public class User {
         public User(String usr, String pwd) {

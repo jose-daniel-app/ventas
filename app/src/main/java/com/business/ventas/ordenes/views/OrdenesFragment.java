@@ -2,6 +2,7 @@ package com.business.ventas.ordenes.views;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Producto;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.ordenes.contracts.OrdenesContracts;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
@@ -24,16 +27,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrdenesFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
+public class OrdenesFragment extends AppFragment
+        implements
+        OnSearchToolbarQueryTextListner,
+        OrdenesContracts.View {
 
     VentasLog log = LogFactory.createInstance().setTag(OrdenesFragment.class.getSimpleName());
     RecyclerView listarutas;
+    OrdenesContracts.Presenter presenter;
+
     List<Ruta> productlists = new ArrayList<>();
     OrdenesViewAdapter adapter;
     FloatingActionButton addbuton;
 
 
     public OrdenesFragment() {
+
     }
 
     public static OrdenesFragment newInstance() {
@@ -43,6 +52,11 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        presenter = OrdenesContracts.createInstance(OrdenesContracts.Presenter.class)
+                .SetContext(getMainActivity())
+                .setView(this);
+
         View view = inflater.inflate(R.layout.fragment_ordenes, container, false);
         loadComponents(view);
         toolbar.setTitle("Ordenes");
@@ -53,6 +67,7 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         addbuton = view.findViewById(R.id.addbuton);
         addbuton.setOnClickListener(this::ClickActionButon);
+        presenter.solicitarProductos();
         return view;
 
     }
@@ -101,6 +116,17 @@ public class OrdenesFragment extends AppFragment implements OnSearchToolbarQuery
     public void onKeyDown(int i, KeyEvent keyEvent) {
         //super.onKeyDown(i, keyEvent);
         log.info("se apreto el back");
+    }
+
+    //TODO
+    @Override
+    public void showProgressBar(Boolean show) {
+
+    }
+
+    @Override
+    public void cargarProductos(List<Producto> productos) {
+
     }
 }
 

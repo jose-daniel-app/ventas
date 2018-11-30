@@ -28,4 +28,8 @@ public class SharedPrefedenceCookies {
         return new AppHashSet<>(this.getPreferences().getStringSet(PREF_COOKIES, new HashSet<String>()));
     }
 
+    public interface Cookiestring {
+        //String get
+    }
+
 }

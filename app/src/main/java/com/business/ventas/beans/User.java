@@ -3,8 +3,6 @@ package com.business.ventas.beans;
 import com.business.ventas.apiRest.Constants;
 import com.business.ventas.utils.AppHashSet;
 
-import java.net.URI;
-
 public class User {
 
     private String fullName;
