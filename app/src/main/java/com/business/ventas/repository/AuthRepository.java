@@ -79,13 +79,9 @@ public class AuthRepository {
     }
 
     public User getUserSesion(Context context){
-        log.info("si llego");
         SharedPrefedenceCookies cookies = new SharedPrefedenceCookies(context);
-        User user = new User();
-        cookies.getCookies().foreach(item -> {
-            log.info("item cookies: " + item);
-        });
-        return null;
+        User user = new User().getUserCookies(cookies.getCookies());
+        return user;
     }
 
     public void addAuthStateListener(AuthStateListener authStateListener) {
