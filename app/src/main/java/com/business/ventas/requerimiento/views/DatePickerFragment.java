@@ -47,14 +47,18 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         Locale.setDefault(spanish);
 
 
-        // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();
+        //agregando 1 dia a la fecha actual
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        // c.add(Calendar.HOUR_OF_DAY, 24);
         anio = c.get(Calendar.YEAR);
         mes = c.get(Calendar.MONTH);
         dia = c.get(Calendar.DAY_OF_MONTH);
-        // Create a new instance of DatePickerDialog and return it
-        DatePickerDialog dp= new DatePickerDialog(getActivity(),AlertDialog.THEME_HOLO_LIGHT, this, mes,anio, dia);
-       // dp.setTitle("Ingrese Fecha");
+
+
+        DatePickerDialog dp= new DatePickerDialog(getActivity(),AlertDialog.THEME_HOLO_LIGHT, this, anio,mes,dia);
+        dp.getDatePicker().setMinDate(c.getTimeInMillis());
+
         return dp;
 
     }
@@ -62,6 +66,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public void onDateSet(DatePicker view, int year, int month, int day) {
 
         final Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.HOUR_OF_DAY, 8);
+        c.set(Calendar.MINUTE, 00);
+
          hour = c.get(Calendar.HOUR_OF_DAY);
          minute = c.get(Calendar.MINUTE);
 

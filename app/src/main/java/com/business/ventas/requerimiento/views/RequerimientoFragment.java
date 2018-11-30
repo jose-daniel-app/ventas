@@ -49,7 +49,7 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
         navigationView.setCheckedItem(R.id.nav_requerimiento);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
-        toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
+     //   toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         return view;
     }
 

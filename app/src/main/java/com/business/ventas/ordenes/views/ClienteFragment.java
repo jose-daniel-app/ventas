@@ -96,5 +96,6 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     @Override
     public void onKeyDown(int i, KeyEvent keyEvent) {
         Log.i("backClient","sdfsdfsdfsf back client");
+        //searchToolbar.closeSearchToolbar();
     }
 }

@@ -114,7 +114,7 @@ public class SearchToolbar implements View.OnClickListener {
 
     /* Close the tooolbar:
      * jb toolbar close ho to searchLayout hide ho jaey aur keyboar b close ho jaey*/
-    private void closeSearchToolbar() {
+    public void closeSearchToolbar() {
         searchLayout.setVisibility(View.GONE);
         closeKeyboard();
     }
