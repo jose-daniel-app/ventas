@@ -46,6 +46,7 @@ public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.
 
     private void onclick(View view) {
         log.info("el onclick de clase => " + this.fragment);
+        fragment.guardarProductostemporales();
         fragment.getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance());
     }
 

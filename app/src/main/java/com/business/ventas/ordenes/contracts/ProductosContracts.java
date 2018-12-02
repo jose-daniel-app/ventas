@@ -3,26 +3,26 @@ package com.business.ventas.ordenes.contracts;
 import android.content.Context;
 
 import com.business.ventas.beans.Producto;
-import com.business.ventas.ordenes.interactors.OrdenesInteractor;
-import com.business.ventas.ordenes.presenters.OrdenesPresenter;
+import com.business.ventas.ordenes.interactors.ProductosInteractor;
+import com.business.ventas.ordenes.presenters.ProductosPresenter;
 
 import java.util.List;
 
-public interface OrdenesContracts {
+public interface ProductosContracts {
 
     String PRESENTERS = "Presenter";
     String INTERACTOR = "Interactor";
 
     static <T> T createInstance(Class<T> clas) {
         if (clas.getSimpleName().equalsIgnoreCase(PRESENTERS))
-            return (T) new OrdenesPresenter();
+            return (T) new ProductosPresenter();
         else if (clas.getSimpleName().equalsIgnoreCase(INTERACTOR))
-            return (T) new OrdenesInteractor();
+            return (T) new ProductosInteractor();
         return null;
     }
 
     interface View {
-        void showProgressBar(Boolean show);
+        void errorRespuesta(String mensaje);
         void cargarProductos(List<Producto> productos);
     }
 

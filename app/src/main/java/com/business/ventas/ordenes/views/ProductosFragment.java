@@ -16,6 +16,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.login.views.SearchToolbarProducto;
 import com.business.ventas.login.views.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
+import com.business.ventas.ordenes.contracts.ProductosContracts;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
@@ -25,8 +26,10 @@ import com.business.ventas.viewAdapter.ProductoViewAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import java.util.List;
 
-public class ProductosFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
+
+public class ProductosFragment extends AppFragment implements OnSearchToolbarQueryTextListner, ProductosContracts.View {
 
     VentasLog log = LogFactory.createInstance().setTag(ProductosFragment.class.getSimpleName());
 
@@ -35,6 +38,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
     SearchToolbarProducto searchToolbar;
     private SharedPreferenceProductos sharedProductos;
+    ProductosContracts.Presenter presenter;
 
     FloatingActionButton floatingActionButton;
     FloatingActionMenu fabMenu;
@@ -44,6 +48,12 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        presenter = ProductosContracts.createInstance(ProductosContracts.Presenter.class)
+                .SetContext(getMainActivity())
+                .setView(this);
+
+
         View view = inflater.inflate(R.layout.fragment_productos, container, false);
         sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
         loadComponents(view);
@@ -53,6 +63,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         toolbar.inflateMenu(R.menu.productos_menu);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         searchToolbar = new SearchToolbarProducto(getActivity(), this, getActivity().findViewById(R.id.search_producto));
+        presenter.solicitarProductos();
         return view;
     }
 
@@ -74,12 +85,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
         fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
         fabMenu.setIconAnimated(false);
-
-        adapter = ProductoViewAdapter.newInstance().config()
-                .setActivity(getActivity())
-                .setProductlistAdap(this.newListaDeProductos())
-                .build();
-        recyclerView.setAdapter(adapter);
     }
 
     private void clickItemButon(View view) {
@@ -130,4 +135,18 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
             });
     }
 
+    @Override
+    public void errorRespuesta(String mensaje) {
+        log.info(mensaje);
+    }
+
+    @Override
+    public void cargarProductos(List<Producto> productos) {
+        //new Lista<Producto>(productos).foreach(p -> log.info(p.toString()));
+        adapter = ProductoViewAdapter.newInstance().config()
+            .setActivity(getActivity())
+            .setProductlistAdap(productos)
+            .build();
+        recyclerView.setAdapter(adapter);
+    }
 }

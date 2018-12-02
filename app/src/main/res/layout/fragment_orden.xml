@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_check_white"
                 app:fab_label="Confirmar entrega"
-             android:theme="@style/FabTheme"
+                android:theme="@style/FabTheme"
                 app:fab_size="mini"
                 app:fab_colorNormal="@color/primary"
                 app:fab_colorPressed="@color/primary_light"/>

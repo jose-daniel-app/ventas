@@ -2,11 +2,13 @@ package com.business.ventas.repository;
 
 import android.content.Context;
 
+import com.business.ventas.apiRest.Constants;
 import com.business.ventas.apiRest.RestApiAdapter;
 import com.business.ventas.apiRest.Service;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.Numeros;
 import com.business.ventas.utils.VentasLog;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -21,7 +23,7 @@ import retrofit2.Response;
 
 public class ProductosRepositoryImpl implements ProductosRepository {
     VentasLog log = LogFactory.createInstance().setTag(ProductosRepositoryImpl.class.getSimpleName());
-    private RespuestaSucces listenSucces;
+    private RespuestaSucces<List<Producto>> listenSucces;
     private RespuestaError listenError;
 
     @Override
@@ -37,14 +39,21 @@ public class ProductosRepositoryImpl implements ProductosRepository {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.code() == 200) {
                     Lista<Producto> lista = new Lista<>();
-                    JsonObject objeto = response.body();
-                    JsonArray array = objeto.getAsJsonArray("data");
+                    JsonArray array = response.body().getAsJsonArray("data");
                     Iterator<JsonElement> iterar = array.iterator();
                     while (iterar.hasNext()) {
                         JsonObject object = iterar.next().getAsJsonObject();
-                        log.info("elemen: " + object.toString());
+                        if (contieneNull(object)) continue;
+                        lista.add(new Producto().config()
+                                .setItemCode(object.get("item_code").getAsString())
+                                .setPathImg(Constants.URL_ROOT + object.get("thumbnail").getAsString())
+                                .setNombre(object.get("brand").getAsString() + " " + object.get("item_name").getAsString())
+                                .setDescripcion(object.get("description").getAsString())
+                                .setPrecioUnitario(Numeros.getDouble(object.get("standard_rate").getAsString()))
+                                .build()
+                        );
                     }
-
+                    listenSucces.onRespuestaSucces(lista);
                 } else {
                     listenError.onRespuestaError("ocurrio un error codigo: " + response.code());
                 }
@@ -69,5 +78,16 @@ public class ProductosRepositoryImpl implements ProductosRepository {
     public ProductosRepository setOnRespuestaError(RespuestaError listenError) {
         this.listenError = listenError;
         return this;
+    }
+
+    private boolean contieneNull(JsonObject obj) {
+
+        return (obj.get("item_code").isJsonNull() ||
+                obj.get("thumbnail").isJsonNull() ||
+                obj.get("brand").isJsonNull() ||
+                obj.get("item_name").isJsonNull() ||
+                obj.get("description").isJsonNull() ||
+                obj.get("standard_rate").isJsonNull()
+        );
     }
 }

@@ -4,6 +4,7 @@ public class Producto {
 
     private int codigo;
     private int img;
+    private String itemCode;
     private String pathImg;
     private String nombre;
     private String Descripcion;
@@ -36,7 +37,7 @@ public class Producto {
         this.precioUnitario = precioUnitario;
     }
 
-    public Build config(){
+    public Build config() {
         return new Build(this);
     }
 
@@ -108,6 +109,29 @@ public class Producto {
         this.setPrecioCantidad(this.getCantidad() * this.getPrecioUnitario());
     }
 
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "codigo=" + codigo +
+                ", img=" + img +
+                ", itemCode='" + itemCode + '\'' +
+                ", pathImg='" + pathImg + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", Descripcion='" + Descripcion + '\'' +
+                ", cantidad=" + cantidad +
+                ", precioUnitario=" + precioUnitario +
+                ", precioCantidad=" + precioCantidad +
+                '}';
+    }
+
     public class Build {
         Producto producto;
 
@@ -120,13 +144,23 @@ public class Producto {
             return this;
         }
 
+        public Build setItemCode(String itemCode) {
+            producto.itemCode = itemCode;
+            return this;
+        }
+
+        public Build setPathImg(String pathImg) {
+            producto.setPathImg(pathImg);
+            return this;
+        }
+
         public Build setNombre(String nombre) {
             producto.nombre = nombre;
             return this;
         }
 
         public Build setDescripcion(String descripcion) {
-            producto.Descripcion = descripcion;
+            producto.setDescripcion(descripcion);
             return this;
         }
 
@@ -140,12 +174,12 @@ public class Producto {
             return this;
         }
 
-        public Build actualizarPrecioCantidad(){
+        public Build actualizarPrecioCantidad() {
             producto.actualizarPrecioCantidad();
             return this;
         }
 
-        public Producto build(){
+        public Producto build() {
             return producto;
         }
     }

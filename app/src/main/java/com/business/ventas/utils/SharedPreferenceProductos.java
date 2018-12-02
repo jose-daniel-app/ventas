@@ -37,16 +37,20 @@ public class SharedPreferenceProductos {
 
     public void guardar(List<Producto> lista) {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
-        limpiar();
+        limpiarLista();
         this.lista = lista;
         editor.clear();
         editor.putString(ITEM, gson.toJson(this.lista, listType));
         editor.apply();
     }
 
-    private void limpiar() {
+    private void limpiarLista() {
         if (this.lista != null)
             this.lista = null;
+    }
+
+    public void limpiar(){
+        getSharedPreferences().edit().clear();
     }
 
     public List<Producto> listarProducto() {

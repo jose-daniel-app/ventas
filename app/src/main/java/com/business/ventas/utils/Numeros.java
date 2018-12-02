@@ -9,4 +9,12 @@ public class Numeros {
             return 0;
         return Integer.parseInt(cantidad);
     }
+
+    public static double getDouble(String value) {
+        if (value == null)
+            return 0.0;
+        if (value.trim().length() == 0)
+            return 0.0;
+        return Double.parseDouble(value);
+    }
 }

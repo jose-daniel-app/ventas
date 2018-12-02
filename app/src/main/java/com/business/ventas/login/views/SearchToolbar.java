@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,10 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.business.ventas.R;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
 
 public class SearchToolbar implements View.OnClickListener {
 
     // public final static int VOICE_INTENT_REQUEST_CODE = 9999;
+    private VentasLog log = LogFactory.createInstance().setTag(SearchToolbar.class.getSimpleName());
 
     View view;
     Context context;
@@ -59,13 +63,27 @@ public class SearchToolbar implements View.OnClickListener {
      *  - jb keyboard k submit button pr click ho to agr Edittext empty hy to keyboar hide na ho aur agr edittext empty
      *    nahi hy to user ko query show kr k editText ko null kr dyna hy
      * */
-    public void openSearchToolbar(){ // Open the SearchToolbar
+    public void openSearchToolbar() { // Open the SearchToolbar
 
         searchLayout.setVisibility(View.VISIBLE);
 
         /**  focus editText pr ho aur keyboard open ho aur editText null ho*/
         searchEditText.setText(null);
         searchEditText.requestFocus();
+        searchEditText.setOnFocusChangeListener((view, isFocus) -> {
+            if(!isFocus){
+                closeSearchToolbar();
+            }
+        });
+        searchEditText.setOnKeyListener((view1, i, keyEvent) -> {
+            if(keyEvent.getAction() == KeyEvent.KEYCODE_BACK){
+                log.info("de apreto el back");
+                closeSearchToolbar();
+            }
+            return true;
+        });
+
+
         openKeyboard();
 
         /**  jb user Type krna shuru ho to mic to hide kr k clear btn ho show krna hy,*/
@@ -103,12 +121,8 @@ public class SearchToolbar implements View.OnClickListener {
                     closeSearchToolbar();
                     return false;
                 }
-
-
             }
         });
-
-
     }
 
 

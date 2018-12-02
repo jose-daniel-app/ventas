@@ -2,8 +2,6 @@ package com.business.ventas.ordenes.views;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -17,9 +15,10 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
-import com.business.ventas.ordenes.contracts.OrdenesContracts;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.OrdenesViewAdapter;
 
@@ -29,12 +28,10 @@ import java.util.List;
 
 public class OrdenesFragment extends AppFragment
         implements
-        OnSearchToolbarQueryTextListner,
-        OrdenesContracts.View {
+        OnSearchToolbarQueryTextListner {
 
     VentasLog log = LogFactory.createInstance().setTag(OrdenesFragment.class.getSimpleName());
     RecyclerView listarutas;
-    OrdenesContracts.Presenter presenter;
 
     List<Ruta> productlists = new ArrayList<>();
     OrdenesViewAdapter adapter;
@@ -52,22 +49,16 @@ public class OrdenesFragment extends AppFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        presenter = OrdenesContracts.createInstance(OrdenesContracts.Presenter.class)
-                .SetContext(getMainActivity())
-                .setView(this);
-
         View view = inflater.inflate(R.layout.fragment_ordenes, container, false);
         loadComponents(view);
         toolbar.setTitle("Ordenes");
         navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.toolbar_requerimiento);
+        toolbar.inflateMenu(R.menu.toolbar_ordenes);
         //toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         addbuton = view.findViewById(R.id.addbuton);
         addbuton.setOnClickListener(this::ClickActionButon);
-        presenter.solicitarProductos();
         return view;
 
     }
@@ -118,15 +109,25 @@ public class OrdenesFragment extends AppFragment
         log.info("se apreto el back");
     }
 
-    //TODO
-    @Override
-    public void showProgressBar(Boolean show) {
-
-    }
-
-    @Override
-    public void cargarProductos(List<Producto> productos) {
-
+    public void guardarProductostemporales(){
+        SharedPreferenceProductos.getInstance().setActivity(getMainActivity()).limpiar();
+        SharedPreferenceProductos.getInstance().setActivity(getMainActivity()).guardar(new Lista<Producto>()
+                .agregar(new Producto().config()
+                        .setNombre("Bizcocho especial x12")
+                        .setCantidad(3).setPrecioUnitario(5.0)
+                        .actualizarPrecioCantidad()
+                        .build())
+                .agregar(new Producto().config()
+                        .setNombre("Keke ingles x12")
+                        .setCantidad(2).setPrecioUnitario(2.0)
+                        .actualizarPrecioCantidad()
+                        .build())
+                .agregar(new Producto().config()
+                        .setNombre("Empanada x20")
+                        .setCantidad(6).setPrecioUnitario(5.0)
+                        .actualizarPrecioCantidad()
+                        .build())
+        );
     }
 }
 

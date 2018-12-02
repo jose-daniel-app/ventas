@@ -43,15 +43,8 @@ public class RestApiAdapter {
                 })
                 .addInterceptor((chain) -> {
                     Request.Builder builder = chain.request().newBuilder();
-                    String cookiestring = "";
-                    /*shareCookies.getCookies().foreach(cookie -> {
-                        builder.addHeader("Cookie", cookie);
-                    }); */
-                    for(String cookie : shareCookies.getCookies()){
-                        String[] parser = cookie.split(";");
-                        cookiestring = cookiestring + parser[0] + "; ";
-                    }
-                    builder.addHeader("Cookie", cookiestring);
+                    builder.addHeader("Cookie", shareCookies
+                            .concatenateCookies(cookie -> cookie.split(";")[0] + ";"));
                     return chain.proceed(builder.build());
                 })
                 .build();
