@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Ruta;
-import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;

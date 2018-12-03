@@ -1,4 +1,4 @@
-package com.business.ventas.requerimiento.views;
+package com.business.ventas.search;
 
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;

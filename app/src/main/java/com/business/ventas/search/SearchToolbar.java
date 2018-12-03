@@ -1,13 +1,9 @@
-package com.business.ventas.login.views;
+package com.business.ventas.search;
 
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.utils.LogFactory;
@@ -76,11 +71,11 @@ public class SearchToolbar implements View.OnClickListener {
             }
         });
         searchEditText.setOnKeyListener((view1, i, keyEvent) -> {
-            if(keyEvent.getAction() == KeyEvent.KEYCODE_BACK){
+            if(keyEvent.getAction() == KeyEvent.ACTION_UP){
                 log.info("de apreto el back");
                 closeSearchToolbar();
             }
-            return true;
+            return false;
         });
 
 

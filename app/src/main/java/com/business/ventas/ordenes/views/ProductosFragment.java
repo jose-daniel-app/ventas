@@ -10,12 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
-import com.business.ventas.login.views.SearchToolbarProducto;
-import com.business.ventas.login.views.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
+import com.business.ventas.search.SearchToolbarProducto;
+import com.business.ventas.search.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
 import com.business.ventas.ordenes.contracts.ProductosContracts;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;

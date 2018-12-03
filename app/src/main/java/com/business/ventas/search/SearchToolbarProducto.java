@@ -1,4 +1,4 @@
-package com.business.ventas.login.views;
+package com.business.ventas.search;
 
 
 import android.app.Activity;
@@ -41,11 +41,9 @@ public class SearchToolbarProducto implements View.OnClickListener {
         clearBtn = view.findViewById(R.id.ic_clear);
         this.listner = listner;
 
-
         arrowBackBtn.setOnClickListener(this);
         barcodeBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
-
 
     }
 
@@ -65,6 +63,13 @@ public class SearchToolbarProducto implements View.OnClickListener {
         searchEditText.setText(null);
         searchEditText.requestFocus();
         openKeyboard();
+
+        searchEditText.setOnKeyListener((view1, i, keyEvent) -> {
+            if(keyEvent.getAction() == KeyEvent.ACTION_UP){
+                closeSearchToolbar();
+            }
+            return false;
+        });
 
         /**  jb user Type krna shuru ho to mic to hide kr k clear btn ho show krna hy,*/
         searchEditText.addTextChangedListener(new TextWatcher() {
