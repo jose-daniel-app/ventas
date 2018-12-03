@@ -88,12 +88,12 @@ public class ReqProductoFragment extends Fragment implements OnSearchToolbarQuer
         floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
 
         if (listaPro.size() == 0) {
-            listaPro.add(new Producto("Keke", "sabor chocolate con chispas", R.drawable.queque));
+            /*listaPro.add(new Producto("Keke", "sabor chocolate con chispas", R.drawable.queque));
             listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
             listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
             listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
             listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
-            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));
+            listaPro.add(new Producto("Pastel", "sabor de vainilla con manjar blanco", R.drawable.pastel));*/
         }
 
         adapter = new ReqProductoViewAdapter(listaPro, getActivity());

@@ -55,8 +55,8 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
 
         holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
-        holderview.txtDecripcion.setText(productlistAdap.get(position).getDescripcion());
-        //holderview.img.setImageResource(productlistAdap.get(position).getImg());
+        holderview.txtStock.setText("30");
+        holderview.txtCodigo.setText(productlistAdap.get(position).getItemCode());
         Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
         holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() +"");
 
@@ -128,7 +128,8 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
     class Holderview extends RecyclerView.ViewHolder {
 
         TextView txtNombre;
-        TextView txtDecripcion;
+        TextView txtCodigo;
+        TextView txtStock;
         ImageView img;
         CardView cardviewMas;
         CardView cardviewMenos;
@@ -137,7 +138,8 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         public Holderview(View itemview) {
             super(itemview);
             txtNombre = itemView.findViewById(R.id.txtNombre);
-            txtDecripcion = itemView.findViewById(R.id.txtDecripcion);
+            txtCodigo = itemview.findViewById(R.id.txtCodigo);
+            txtStock = itemview.findViewById(R.id.txtStock);
             img = itemview.findViewById(R.id.img);
             cardviewMas = itemView.findViewById(R.id.cardviewMas);
             cardviewMenos = itemView.findViewById(R.id.cardviewMenos);

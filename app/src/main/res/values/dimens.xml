@@ -14,5 +14,7 @@
     <dimen name="search_icon_padding">12dp</dimen>
     <dimen name="search_view_padding_searchToolbar">65dp</dimen>
 
+    <dimen name="productos_cardView_height_width">30dp</dimen>
+
 
 </resources>

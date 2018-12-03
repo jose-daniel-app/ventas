@@ -163,9 +163,9 @@
             android:layout_margin="14dp"
             android:elevation="4dp"
             app:fab_size="mini"
-            app:menu_icon="@drawable/ic_motor_white"
             app:menu_colorNormal="@color/primary"
-            app:menu_colorPressed="@color/primary_light">
+            app:menu_colorPressed="@color/primary_light"
+            app:menu_icon="@drawable/ic_motor_white">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/menu_item1"
@@ -198,6 +198,28 @@
                 app:fab_colorNormal="@color/primary"
                 app:fab_colorPressed="@color/primary_light"
                 app:fab_label="Nota venta"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_white"
+                android:theme="@style/FabTheme"
+                app:fab_colorNormal="@color/primary"
+                app:fab_colorPressed="@color/primary_light"
+                app:fab_label="Bonificación"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check_white"
+                android:theme="@style/FabTheme"
+                app:fab_colorNormal="@color/primary"
+                app:fab_colorPressed="@color/primary_light"
+                app:fab_label="Devolución"
                 app:fab_size="mini" />
 
         </com.github.clans.fab.FloatingActionMenu>

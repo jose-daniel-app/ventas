@@ -15,6 +15,8 @@ public abstract class AppFragment extends Fragment {
     protected NavigationView navigationView;
     protected Toolbar toolbar;
 
+    //abstract void mostrarProgresBar(Boolean estado);
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
