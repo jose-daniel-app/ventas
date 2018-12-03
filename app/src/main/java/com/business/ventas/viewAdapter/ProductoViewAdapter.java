@@ -55,7 +55,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
 
         holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
-        holderview.txtStock.setText("30");
+        holderview.txtStock.setText(productlistAdap.get(position).getStock()+"");
         holderview.txtCodigo.setText(productlistAdap.get(position).getItemCode());
         Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
         holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() +"");
@@ -118,11 +118,9 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
     }
 
     public void setfilter(List<Producto> listProducto) {
-
         productlistAdap = new ArrayList<>();
         productlistAdap.addAll(listProducto);
         notifyDataSetChanged();
-
     }
 
     class Holderview extends RecyclerView.ViewHolder {

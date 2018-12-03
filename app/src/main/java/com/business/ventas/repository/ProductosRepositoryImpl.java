@@ -32,7 +32,7 @@ public class ProductosRepositoryImpl implements ProductosRepository {
         RestApiAdapter restApiAdapter = new RestApiAdapter(context);
         Service service = restApiAdapter.getLoginService();
         Call<JsonObject> call = service
-                .listarProductos("\"brand,item_name,description,item_code,standard_rate,thumbnail\"");
+                .listarProductos("\"brand,item_name,item_code,standard_rate,thumbnail,is_stock_item\"");
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -46,9 +46,9 @@ public class ProductosRepositoryImpl implements ProductosRepository {
                         if (contieneNull(object)) continue;
                         lista.add(new Producto().config()
                                 .setItemCode(object.get("item_code").getAsString())
+                                .setStock(object.get("is_stock_item").getAsInt())
                                 .setPathImg(Constants.URL_ROOT + object.get("thumbnail").getAsString())
                                 .setNombre(object.get("brand").getAsString() + " " + object.get("item_name").getAsString())
-                                .setDescripcion(object.get("description").getAsString())
                                 .setPrecioUnitario(Numeros.getDouble(object.get("standard_rate").getAsString()))
                                 .build()
                         );
@@ -86,7 +86,7 @@ public class ProductosRepositoryImpl implements ProductosRepository {
                 obj.get("thumbnail").isJsonNull() ||
                 obj.get("brand").isJsonNull() ||
                 obj.get("item_name").isJsonNull() ||
-                obj.get("description").isJsonNull() ||
+                obj.get("is_stock_item").isJsonNull() ||
                 obj.get("standard_rate").isJsonNull()
         );
     }

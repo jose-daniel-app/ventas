@@ -15,7 +15,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.search.SearchToolbarProducto;
 import com.business.ventas.search.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
-import com.business.ventas.ordenes.contracts.ProductosContracts;
+import com.business.ventas.ordenes.contracts.ProductosContract;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.SharedPreferenceProductos;
@@ -27,7 +27,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import java.util.List;
 
 
-public class ProductosFragment extends AppFragment implements OnSearchToolbarQueryTextListner, ProductosContracts.View {
+public class ProductosFragment extends AppFragment implements OnSearchToolbarQueryTextListner, ProductosContract.View {
 
     VentasLog log = LogFactory.createInstance().setTag(ProductosFragment.class.getSimpleName());
 
@@ -36,7 +36,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
     SearchToolbarProducto searchToolbar;
     private SharedPreferenceProductos sharedProductos;
-    ProductosContracts.Presenter presenter;
+    ProductosContract.Presenter presenter;
 
     FloatingActionButton floatingActionButton;
     FloatingActionMenu fabMenu;
@@ -48,8 +48,8 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        presenter = ProductosContracts.createInstance(ProductosContracts.Presenter.class)
-                .SetContext(getMainActivity())
+        presenter = ProductosContract.createInstance(ProductosContract.Presenter.class)
+                .setContext(getMainActivity())
                 .setView(this);
 
         View view = inflater.inflate(R.layout.fragment_productos, container, false);

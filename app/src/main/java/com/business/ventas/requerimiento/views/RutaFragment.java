@@ -76,7 +76,7 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
     private void clickCardViewRuta(String codigoRuta) {
         DatePickerFragment newFragment = DatePickerFragment.newInstance().configEvent(fecha -> {
             log.info("La fecha es: " + fecha + " codigoRuta: " + codigoRuta);
-
+            getMainActivity().newFragmentHandler().changeFragment(ReqProductoFragment.newInstance());
         });
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }

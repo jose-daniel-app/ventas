@@ -11,6 +11,7 @@ public class Producto {
     private int cantidad;
     private double precioUnitario;
     private double precioCantidad;
+    private int stock;
 
     public Producto(String nombre, String descripcion, int img) {
         this.img = img;
@@ -109,6 +110,10 @@ public class Producto {
         this.setPrecioCantidad(this.getCantidad() * this.getPrecioUnitario());
     }
 
+    public int getStock() {
+        return stock;
+    }
+
     public String getItemCode() {
         return itemCode;
     }
@@ -171,6 +176,11 @@ public class Producto {
 
         public Build setPrecioUnitario(double precioUnitario) {
             producto.precioUnitario = precioUnitario;
+            return this;
+        }
+
+        public Build setStock(int stock) {
+            producto.stock = stock;
             return this;
         }
 

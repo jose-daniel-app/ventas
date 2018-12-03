@@ -2,7 +2,7 @@ package com.business.ventas.utils;
 
 import android.util.Log;
 
-public class VentasLogImpl implements VentasLog{
+public class VentasLogImpl implements VentasLog {
 
     private String tag;
 
@@ -14,51 +14,57 @@ public class VentasLogImpl implements VentasLog{
 
     @Override
     public void verbose(String message) {
-        Log.v(tag,message);
+        Log.v(tag, message);
     }
 
     @Override
     public void debug(String message) {
-        Log.d(tag,message);
+        Log.d(tag, message);
     }
 
     @Override
     public void info(String message) {
-        Log.i(tag,message);
+        Log.i(tag, message);
     }
 
     @Override
     public void warn(String message) {
-        Log.w(tag,message);
+        Log.w(tag, message);
     }
 
     @Override
     public void error(String message) {
-        Log.e(tag,message);
+        Log.e(tag, message);
     }
 
     @Override
     public void verbose(String message, Throwable t) {
-        Log.v(tag,message,t);
+        Log.v(tag, message, t);
     }
 
     @Override
     public void debug(String message, Throwable t) {
-        Log.d(tag,message,t);
+        Log.d(tag, message, t);
     }
 
     @Override
     public void info(String message, Throwable t) {
-        Log.i(tag,message,t);
+        Log.i(tag, message, t);
     }
 
     @Override
     public void warn(String message, Throwable t) {
-        Log.w(tag,message,t);
+        Log.w(tag, message, t);
     }
 
     @Override
     public void error(String message, Throwable t) {
-        Log.e(tag,message,t);
+        Log.e(tag, message, t);
+    }
+
+    @Override
+    public void info(String message, Object... args) {
+        String smg = String.format(message, args);
+        Log.i(tag, smg);
     }
 }

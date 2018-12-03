@@ -1,14 +1,14 @@
 package com.business.ventas.ordenes.contracts;
 
-import android.content.Context;
-
 import com.business.ventas.beans.Producto;
 import com.business.ventas.ordenes.interactors.ProductosInteractor;
 import com.business.ventas.ordenes.presenters.ProductosPresenter;
+import com.business.ventas.utils.PadreInteractor;
+import com.business.ventas.utils.PadrePresenter;
 
 import java.util.List;
 
-public interface ProductosContracts {
+public interface ProductosContract {
 
     String PRESENTERS = "Presenter";
     String INTERACTOR = "Interactor";
@@ -26,16 +26,11 @@ public interface ProductosContracts {
         void cargarProductos(List<Producto> productos);
     }
 
-    interface Presenter {
-        Presenter setView(View context);
-        Presenter SetContext(Context context);
-        View getView();
-        Context getContext();
+    interface Presenter extends PadrePresenter<Presenter, View> {
         void solicitarProductos();
     }
 
-    interface Interactor {
-        Interactor setPresenter(Presenter presenter);
+    interface Interactor extends PadreInteractor<Interactor, Presenter> {
         void solicitarProductos();
     }
 
