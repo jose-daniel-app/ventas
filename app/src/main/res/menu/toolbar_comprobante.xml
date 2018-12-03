@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:popupTheme="@style/ThemeOverlay.MyTheme"
+    app:popupTheme="@style/ThemeOverlay.MyTheme">
 
-    >
-
-
-    <!--<item
-         android:id="@+id/search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:orderInCategory="300"
-        android:title="buscar..."
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"/> -->
     <item
-        android:id="@+id/ic_Dia"
-        android:title="Hoy"
-        android:orderInCategory="100"
-        app:showAsAction="never"
+        android:id="@+id/ic_tipo"
+        android:icon="@drawable/ic_assignment"
+        android:title="Filtrar tipo"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/ic_tipo1"
+                android:title="Gui"
+                app:showAsAction="collapseActionView" />
+            <item
+                android:id="@+id/ic_tipo2"
+                android:orderInCategory="100"
+                android:title="Factura"
+                app:showAsAction="collapseActionView" />
+            <item
+                android:id="@+id/ic_tipo3"
+                android:orderInCategory="100"
+                android:title="Boleta"
+                app:showAsAction="collapseActionView" />
+            <item
+                android:id="@+id/ic_tipo4"
+                android:orderInCategory="100"
+                android:title="Nota de ventas"
+                app:showAsAction="collapseActionView" />
+        </menu>
+    </item>
 
-        />
     <item
-        android:id="@+id/ic_Fecha"
-        android:title="Última Semana"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="Úiltimo Mes"
-        app:showAsAction="never" />
+        android:id="@+id/ic_search"
+        android:icon="@drawable/ic_date_range"
+        android:title="Filtrar fecha"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/ic_Dia"
+                android:title="@string/ic_Día"
+                app:showAsAction="collapseActionView" />
+            <item
+                android:id="@+id/ic_Fecha"
+                android:orderInCategory="100"
+                android:title="@string/ic_Semana"
+                app:showAsAction="collapseActionView" />
+            <item
+                android:id="@+id/action_settings"
+                android:orderInCategory="100"
+                android:title="@string/ic_Mes"
+                app:showAsAction="collapseActionView" />
 
-
-
-
-
-
-
+        </menu>
+    </item>
 
 
     <!-- app:actionViewClass="android.widget.SearchView"-->

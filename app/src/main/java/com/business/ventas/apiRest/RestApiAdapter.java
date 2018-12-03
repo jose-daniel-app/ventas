@@ -1,8 +1,16 @@
 package com.business.ventas.apiRest;
 
-import java.io.IOException;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
-import okhttp3.Interceptor;
+import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.SharedPrefedenceCookies;
+import com.business.ventas.utils.VentasLog;
+
+import java.util.HashSet;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,22 +20,38 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiAdapter {
 
-    public Service getLoginService(){
+    Context context;
+    SharedPrefedenceCookies shareCookies;
+    VentasLog log = LogFactory.createInstance().setTag(RestApiAdapter.class.getSimpleName());
 
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+    public RestApiAdapter(Context context) {
+        this.context = context;
+        shareCookies = new SharedPrefedenceCookies(context);
+    }
 
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
-                Request newRequest  = chain.request().newBuilder()
-                        .addHeader("Content-Type", "application/json")
-                        .build();
-                return chain.proceed(newRequest);
-            }
-        }).build();
+    public Service getLoginService() {
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor((chain) -> {
+                    Response originalResponse = chain.proceed(chain.request());
+                    if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+                        HashSet<String> cookies = new HashSet<String>();
+                        new Lista<String>(originalResponse.headers("Set-Cookie")).foreach(cookies::add);
+                        shareCookies.guardarCokkies(cookies);
+                    }
+                    return originalResponse;
+                })
+                .addInterceptor((chain) -> {
+                    Request.Builder builder = chain.request().newBuilder();
+                    builder.addHeader("Cookie", shareCookies
+                            .concatenateCookies(cookie -> cookie.split(";")[0] + ";"));
+                    return chain.proceed(builder.build());
+                })
+                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_ROOT)
-                //.client(client)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

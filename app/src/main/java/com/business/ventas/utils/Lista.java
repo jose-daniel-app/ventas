@@ -8,6 +8,7 @@ import java.util.ListIterator;
 public class Lista<T> extends ArrayList<T> {
 
     Filtar filter;
+    Foreach foreach;
 
     public Lista() {
         super();
@@ -17,7 +18,7 @@ public class Lista<T> extends ArrayList<T> {
         super(list);
     }
 
-    public Lista<T> agregar(T t){
+    public Lista<T> agregar(T t) {
         super.add(t);
         return this;
     }
@@ -34,8 +35,22 @@ public class Lista<T> extends ArrayList<T> {
         return lista;
     }
 
+    public Lista<T> foreach(Foreach<T> foreach) {
+        ListIterator<T> iterar = super.listIterator();
+        while (iterar.hasNext()) {
+            foreach.iterar(iterar.next());
+        }
+        return this;
+    }
+
+    @FunctionalInterface
     public interface Filtar<T> {
         boolean iterar(T item);
+    }
+
+    @FunctionalInterface
+    public interface Foreach<T> {
+        void iterar(T item);
     }
 
 }

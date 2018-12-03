@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.utils.LogFactory;
@@ -55,7 +56,8 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
         holderview.txtDecripcion.setText(productlistAdap.get(position).getDescripcion());
-        holderview.img.setImageResource(productlistAdap.get(position).getImg());
+        //holderview.img.setImageResource(productlistAdap.get(position).getImg());
+        Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
         holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() +"");
 
         holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
