@@ -63,13 +63,13 @@ public class DetalleGuiaFragment extends AppFragment {
         MainActivity.FragmentHandler fh = getMainActivity().newFragmentHandler();
         switch (id){
             case R.id.menu_item1:
-                fh.changeFragment(DocumentoFragment.newInstance().setTitulo("Factura"));
+                fh.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Factura"));
                 break;
             case R.id.menu_item2:
-                fh.changeFragment(DocumentoFragment.newInstance().setTitulo("Boleta"));
+                fh.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Boleta"));
                 break;
             case R.id.menu_item3:
-                fh.changeFragment(DocumentoFragment.newInstance().setTitulo("Nota de ventas"));
+                fh.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Nota de ventas"));
                 break;
         }
     }

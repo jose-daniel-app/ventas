@@ -19,27 +19,24 @@ import com.business.ventas.viewAdapter.ItemBoletaViewAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-public class DocumentoFragment extends AppFragment {
+public class DocumentoCompletadoFragment extends AppFragment {
 
-    VentasLog log = LogFactory.createInstance().setTag(DocumentoFragment.class.getSimpleName());
+    VentasLog log = LogFactory.createInstance().setTag(DocumentoCompletadoFragment.class.getSimpleName());
 
     RecyclerView recyclerViewITemBoleta;
     ItemBoletaViewAdapter adapter;
 
     FloatingActionMenu fabMenu;
     FloatingActionButton item1;
-    FloatingActionButton item2;
 
     private SharedPreferenceProductos sharedProductos;
     private String titulo;
 
-    public DocumentoFragment() {
-        // Required empty public constructor
-    }
+    public DocumentoCompletadoFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_boleta, container, false);
+        View view = inflater.inflate(R.layout.fragment_documento_completado, container, false);
         toolbar.setTitle((this.titulo == null) ? "Boleta" : this.titulo);
         navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
@@ -54,10 +51,8 @@ public class DocumentoFragment extends AppFragment {
         fabMenu.setIconAnimated(false);
 
         item1 = view.findViewById(R.id.menu_item1);
-        item2 = view.findViewById(R.id.menu_item2);
-
         item1.setOnClickListener(this::onClikItenMenu);
-        item2.setOnClickListener(this::onClikItenMenu);
+
 
         recyclerViewITemBoleta = view.findViewById(R.id.recyclerViewITemBoleta);
         recyclerViewITemBoleta.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -74,11 +69,11 @@ public class DocumentoFragment extends AppFragment {
 
     }
 
-    public static DocumentoFragment newInstance() {
-        return new DocumentoFragment();
+    public static DocumentoCompletadoFragment newInstance() {
+        return new DocumentoCompletadoFragment();
     }
 
-    public DocumentoFragment setTitulo(String titulo) {
+    public DocumentoCompletadoFragment setTitulo(String titulo) {
         this.titulo = titulo;
         //toolbar.setTitle(titulo);
         return this;

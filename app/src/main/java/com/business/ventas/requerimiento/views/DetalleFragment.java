@@ -55,6 +55,16 @@ public class DetalleFragment extends AppFragment {
                 .setNombre("Empanada x20")
                 .setCantidad(6).setPrecioUnitario(5.0)
                 .actualizarPrecioCantidad()
+                .build())
+            .agregar(new Producto().config()
+                .setNombre("Empanada x40")
+                .setCantidad(6).setPrecioUnitario(5.0)
+                .actualizarPrecioCantidad()
+                .build())
+            .agregar(new Producto().config()
+                .setNombre("Empanada x50")
+                .setCantidad(6).setPrecioUnitario(5.0)
+                .actualizarPrecioCantidad()
                 .build());
     }
 

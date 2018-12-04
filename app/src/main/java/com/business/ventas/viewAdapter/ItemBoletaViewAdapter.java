@@ -44,7 +44,7 @@ public class ItemBoletaViewAdapter extends RecyclerView.Adapter<ItemBoletaViewAd
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, int i) {
         holderview.txtCantidad.setText(productos.get(i).getCantidad() + "");
-        holderview.txtDescripcion.setText(productos.get(i).getDescripcion());
+        holderview.txtDescripcion.setText(productos.get(i).getNombre());
         holderview.txtPrecioUnitario.setText("s/ "+productos.get(i).getPrecioUnitario() + "");
         holderview.txtImporte.setText("s/ "+ productos.get(i).getPrecioCantidad());
     }

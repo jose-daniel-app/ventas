@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".comprobante.views.DocumentoFragment">
+    tools:context=".comprobante.views.DocumentoCompletadoFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -264,28 +264,17 @@
             app:fab_size="mini"
             app:menu_colorNormal="@color/primary"
             app:menu_colorPressed="@color/primary_light"
-            app:menu_icon="@drawable/ic_attach_money_white_24dp">
+            app:menu_icon="@drawable/ic_receipt_white_24dp">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/menu_item1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_white"
+                android:src="@drawable/ic_print_white"
                 android:theme="@style/FabTheme"
                 app:fab_colorNormal="@color/primary"
                 app:fab_colorPressed="@color/primary_light"
                 app:fab_label="Efectivo"
-                app:fab_size="mini" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_item2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_white"
-                android:theme="@style/FabTheme"
-                app:fab_colorNormal="@color/primary"
-                app:fab_colorPressed="@color/primary_light"
-                app:fab_label="Deposito"
                 app:fab_size="mini" />
 
         </com.github.clans.fab.FloatingActionMenu>

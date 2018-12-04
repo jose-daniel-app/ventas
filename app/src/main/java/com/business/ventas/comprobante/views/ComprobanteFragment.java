@@ -77,7 +77,7 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
     }
 
     private void onClickCard(Comprobante comprobante) {
-        getMainActivity().newFragmentHandler().changeFragment(DocumentoFragment.newInstance().setTitulo("Boleta"));
+        getMainActivity().newFragmentHandler().changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Boleta"));
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
