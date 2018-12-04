@@ -71,7 +71,16 @@ public class DocumentoPendienteFragment extends AppFragment {
     }
 
     private void onClikItenMenu(View view) {
-        getMainActivity().newFragmentHandler().changeFragment(DocumentoCompletadoFragment.newInstance().setTitulo("Completado"));
+        switch (view.getId()){
+            case R.id.menu_item1:
+                getMainActivity().newFragmentHandler().changeFragment(DocumentoCompletadoFragment.newInstance().setTitulo("Pagado con Efectivo"));
+                break;
+            case R.id.menu_item2:
+                getMainActivity().newFragmentHandler().changeFragment(DocumentoCompletadoFragment.newInstance().setTitulo("Pagado con Deposito"));
+                break;
+
+        }
+
     }
 
     public static DocumentoPendienteFragment newInstance() {
