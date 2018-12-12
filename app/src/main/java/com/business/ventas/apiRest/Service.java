@@ -22,6 +22,9 @@ public interface Service {
     @GET(Constants.URL_LISTA_CLIENTES)
     Call<JsonObject> listarClientes(@Query("fields") String fields, @Query("filters") String filters);
 
+    @GET(Constants.URL_LISTA_ORDENES)
+    Call<JsonObject> listarOrdenes(@Query("fields") String fields);
+
     public class User {
         public User(String usr, String pwd) {
             this.usr = usr;

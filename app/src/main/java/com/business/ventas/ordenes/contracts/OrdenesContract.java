@@ -13,7 +13,8 @@ public interface OrdenesContract {
     interface Presenter extends PadrePresenter<Presenter, View> {
 
     }
+
     interface Interactor extends PadreInteractor<Interactor, Presenter> {
-         
+
     }
 }
