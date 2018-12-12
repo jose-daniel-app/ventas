@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Orden;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.beans.Ruta;
+import com.business.ventas.ordenes.contracts.OrdenesContract;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;
@@ -28,9 +30,12 @@ import java.util.List;
 
 public class OrdenesFragment extends AppFragment
         implements
+        OrdenesContract.View,
         OnSearchToolbarQueryTextListner {
 
     VentasLog log = LogFactory.createInstance().setTag(OrdenesFragment.class.getSimpleName());
+    OrdenesContract.Presenter presenter;
+
     RecyclerView listarutas;
 
     List<Ruta> productlists = new ArrayList<>();
@@ -55,10 +60,14 @@ public class OrdenesFragment extends AppFragment
         navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_ordenes);
-        //toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         addbuton = view.findViewById(R.id.addbuton);
         addbuton.setOnClickListener(this::ClickActionButon);
+
+        presenter = OrdenesContract.createInstance(OrdenesContract.Presenter.class)
+                .setContext(getMainActivity())
+                .setView(this);
+
         return view;
 
     }
@@ -128,6 +137,16 @@ public class OrdenesFragment extends AppFragment
                         .actualizarPrecioCantidad()
                         .build())
         );
+    }
+
+    @Override
+    public void mostrarOrdenes(List<Orden> ordenes) {
+
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+
     }
 }
 

@@ -10,6 +10,8 @@ public abstract class RepositoryFactory {
 
     public abstract ClientesRepository getClientesRepository();
 
+    public abstract OrdenesRepository getOrdenesRepository();
+
 
     public static RepositoryFactory getFactory(int type) {
         switch (type) {
