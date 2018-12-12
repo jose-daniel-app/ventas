@@ -7,5 +7,5 @@ public class Constants {
     public static final String VERSION = "/v1";
     public static final String URL_LOGIN = "/api/method/login";
     public static final String URL_LISTA_PRODUCTO = "/api/resource/Item";
-
+    public static final String URL_LISTA_CLIENTES = "api/resource/Customer";
 }

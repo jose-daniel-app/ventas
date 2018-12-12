@@ -19,8 +19,7 @@
             android:id="@+id/img"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/lengua" />
+            android:layout_gravity="center"/>
 
         <TextView
             android:paddingRight="3dp"

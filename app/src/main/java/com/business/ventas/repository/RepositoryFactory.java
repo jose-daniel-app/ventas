@@ -5,12 +5,18 @@ public abstract class RepositoryFactory {
     public static final int API_REST = 1;
 
     public abstract UserRepository getUserRepository();
+
     public abstract ProductosRepository getProductosRepository();
 
-    public static RepositoryFactory getFactory(int type){
-        switch (type){
-            case API_REST: return new RepositoryFactoryImpl();
-            default: return null;
+    public abstract ClientesRepository getClientesRepository();
+
+
+    public static RepositoryFactory getFactory(int type) {
+        switch (type) {
+            case API_REST:
+                return new RepositoryFactoryImpl();
+            default:
+                return null;
         }
     }
 
