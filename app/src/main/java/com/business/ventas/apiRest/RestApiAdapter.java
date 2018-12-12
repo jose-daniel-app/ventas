@@ -32,22 +32,22 @@ public class RestApiAdapter {
     public Service getLoginService() {
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor((chain) -> {
-                    Response originalResponse = chain.proceed(chain.request());
-                    if (!originalResponse.headers("Set-Cookie").isEmpty()) {
-                        HashSet<String> cookies = new HashSet<String>();
-                        new Lista<String>(originalResponse.headers("Set-Cookie")).foreach(cookies::add);
-                        shareCookies.guardarCokkies(cookies);
-                    }
-                    return originalResponse;
-                })
-                .addInterceptor((chain) -> {
-                    Request.Builder builder = chain.request().newBuilder();
-                    builder.addHeader("Cookie", shareCookies
-                            .concatenateCookies(cookie -> cookie.split(";")[0] + ";"));
-                    return chain.proceed(builder.build());
-                })
-                .build();
+            .addInterceptor((chain) -> {
+                Response originalResponse = chain.proceed(chain.request());
+                if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+                    HashSet<String> cookies = new HashSet<String>();
+                    new Lista<String>(originalResponse.headers("Set-Cookie")).foreach(cookies::add);
+                    shareCookies.guardarCokkies(cookies);
+                }
+                return originalResponse;
+            })
+            .addInterceptor((chain) -> {
+                Request.Builder builder = chain.request().newBuilder();
+                builder.addHeader("Cookie", shareCookies
+                        .concatenateCookies(cookie -> cookie.split(";")[0] + ";"));
+                return chain.proceed(builder.build());
+            })
+            .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_ROOT)
