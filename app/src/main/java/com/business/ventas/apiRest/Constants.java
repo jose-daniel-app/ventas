@@ -9,4 +9,6 @@ public class Constants {
     public static final String URL_LISTA_CLIENTES = "api/resource/Customer";
     public static final String URL_LISTA_ORDENES = "api/resource/Sales Order";
     public static final String URL_LISTA_RUTAS = "/api/resource/Warehouse";
+    public static final String URL_DETALLE_ORDEN = "/api/resource/Sales Order/{codigo}";
+
 }

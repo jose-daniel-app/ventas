@@ -1,8 +1,11 @@
 package com.business.ventas.ordenes.interactors;
 
+import com.business.ventas.beans.Orden;
 import com.business.ventas.ordenes.contracts.OrdenesContract;
 import com.business.ventas.repository.OrdenesRepository;
 import com.business.ventas.repository.RepositoryFactory;
+import com.business.ventas.utils.IpadreRepository;
+import com.business.ventas.utils.Lista;
 
 public class OrdenInteractor implements OrdenesContract.Interactor {
 
@@ -20,7 +23,13 @@ public class OrdenInteractor implements OrdenesContract.Interactor {
     @Override
     public void listarOrdenes() {
         _orden.listarOrdenes(presenter.getContext())
-                .setOnRespuestaSucces(presenter.getView()::mostrarOrdenes)
+                .setOnRespuestaSucces(new IpadreRepository.RespuestaSucces<Lista<Orden>>() {
+
+                    @Override
+                    public void onRespuestaSucces(Lista<Orden> ordens) {
+                        presenter.getView().mostrarOrdenes(ordens);
+                    }
+                })
                 .setOnRespuestaError(presenter.getView()::errorRespuesta);
     }
 }

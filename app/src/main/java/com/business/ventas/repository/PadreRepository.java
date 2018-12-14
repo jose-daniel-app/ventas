@@ -5,7 +5,7 @@ import android.content.Context;
 import com.business.ventas.apiRest.RestApiAdapter;
 import com.business.ventas.apiRest.Service;
 
-public abstract class PadreRepository {
+public abstract class PadreRepository  {
 
     protected static int SUCCES = 200;
 

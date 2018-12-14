@@ -4,11 +4,14 @@ import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 
+import java.util.Date;
+
 public class Orden {
 
     private String codigo;
     private String nombreCliente;
     private String direcionCliente;
+    private Date fechaEntrega;
     private Lista<Producto> productos;
 
     public String getCodigo() {
@@ -43,36 +46,11 @@ public class Orden {
         this.productos = productos;
     }
 
-    public static class handerProductos {
+    public Date getFechaEntrega() {
+        return fechaEntrega;
+    }
 
-        VentasLog log = LogFactory.createInstance().setTag(handerProductos.class.getSimpleName());
-
-        private String detalleHtml;
-        private Lista<Producto> productos;
-
-        public handerProductos(String detalleHtml) {
-            this.detalleHtml = detalleHtml;
-        }
-
-        public handerProductos parserList() {
-
-            if (detalleHtml == null)
-                return this;
-
-            String[] lineas = detalleHtml.trim().split("\n");
-
-            for (String linea : lineas) {
-                if(linea.trim().length()> 0)
-                log.info("fila contenido de: %s", linea);
-            }
-
-            return this;
-        }
-
-        public Lista<Producto> getProductos() {
-            if (this.productos == null)
-                this.productos = new Lista<Producto>();
-            return this.productos;
-        }
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
     }
 }

@@ -16,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrdenesRepositoryImpl implements OrdenesRepository {
+public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRepository {
 
     RespuestaSucces succes;
     RespuestaError error;
@@ -41,11 +41,6 @@ public class OrdenesRepositoryImpl implements OrdenesRepository {
                         orden.setNombreCliente(json.get("customer_name").isJsonNull() ? null : json.get("customer_name").getAsString());
                         orden.setDirecionCliente(json.get("address_display").isJsonNull() ? null : json.get("address_display")
                                 .getAsString().replaceAll("<br>"," "));
-
-                        /*new Orden.handerProductos(json.get("other_charges_calculation").isJsonNull() ? null : json.get("other_charges_calculation")
-                                .getAsString())
-                                .parserList();*/
-
                         ordenes.add(orden);
                     }
                     succes.onRespuestaSucces(ordenes);
@@ -65,7 +60,33 @@ public class OrdenesRepositoryImpl implements OrdenesRepository {
     }
 
     @Override
-    public OrdenesRepository setOnRespuestaSucces(RespuestaSucces<List<Orden>> listen) {
+    public OrdenesRepository detalleOrden(Context context, String codigoOrden) {
+
+        getService(context).obtenerDetalleOrden(codigoOrden).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                if(response.code() == SUCCES){
+                    JsonObject data = response.body().get("data").getAsJsonObject();
+                    Orden orden = new Orden();
+                    orden.setCodigo(data.get("name").isJsonNull() ? null : data.get("name").getAsString());
+                    orden.setNombreCliente(data.get("customer_name").isJsonNull() ? null : data.get("customer_name").getAsString());
+                    orden.setFechaEntrega(data.get("delivery_date").isJsonNull() ? null : data.get("customer_name").getAs);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        } );
+
+        return this;
+    }
+
+    @Override
+    public OrdenesRepository setOnRespuestaSucces(RespuestaSucces listen) {
         this.succes = listen;
         return this;
     }
