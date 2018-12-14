@@ -1,8 +1,6 @@
 package com.business.ventas.beans;
 
 import com.business.ventas.utils.Lista;
-import com.business.ventas.utils.LogFactory;
-import com.business.ventas.utils.VentasLog;
 
 import java.util.Date;
 
@@ -12,7 +10,16 @@ public class Orden {
     private String nombreCliente;
     private String direcionCliente;
     private Date fechaEntrega;
+    private double totalGeneral;
     private Lista<Producto> productos;
+
+    public double getTotalGeneral() {
+        return totalGeneral;
+    }
+
+    public void setTotalGeneral(double totalGeneral) {
+        this.totalGeneral = totalGeneral;
+    }
 
     public String getCodigo() {
         return codigo;

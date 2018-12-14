@@ -5,6 +5,8 @@ import android.content.Context;
 import com.business.ventas.apiRest.RestApiAdapter;
 import com.business.ventas.apiRest.Service;
 import com.business.ventas.beans.Orden;
+import com.business.ventas.beans.Producto;
+import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.Lista;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -71,7 +73,20 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                     Orden orden = new Orden();
                     orden.setCodigo(data.get("name").isJsonNull() ? null : data.get("name").getAsString());
                     orden.setNombreCliente(data.get("customer_name").isJsonNull() ? null : data.get("customer_name").getAsString());
-                    orden.setFechaEntrega(data.get("delivery_date").isJsonNull() ? null : data.get("customer_name").getAs);
+                    orden.setFechaEntrega(data.get("delivery_date").isJsonNull() ? null : Fechas.asDate(data.get("customer_name").getAsString()));
+                    orden.setTotalGeneral(data.get("base_grand_total").isJsonNull() ? null : data.get("base_grand_total").getAsDouble());
+                    Lista<Producto> productos = new Lista<>();
+
+                    recorrerLista(data.get("items").getAsJsonArray().iterator(), (item)->{
+                        Producto producto = new Producto();
+                        producto.setItemCode(item.get("item_code").isJsonNull() ? null : item.get("item_code").getAsString());
+                        producto.setCantidad(item.get("qty").isJsonNull() ? null : item.get("qty").getAsInt());
+                        producto.setPrecioUnitario(item.get("rate").isJsonNull() ? null : item.get("rate").getAsDouble());
+                        producto.setNombre(item.get("rate").isJsonNull() ? null : item.get("rate").getAsString());
+                        productos.add(producto);
+                    });
+
+                    orden.setProductos(productos);
                 }
 
             }
