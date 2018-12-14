@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Orden;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.ordenes.views.OrdenFragment;
 import com.business.ventas.utils.LogFactory;
@@ -20,27 +21,26 @@ import java.util.List;
 
 public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.Holderview> {
     private VentasLog log = LogFactory.createInstance().setTag(OrdenesViewAdapter.class.getSimpleName());
-    private List<Ruta> productlistAdap;
+    private List<Orden> ordenes;
     private OrdenesFragment fragment;
 
-    public OrdenesViewAdapter(List<Ruta> productlist, OrdenesFragment fragment) {
-        this.productlistAdap = productlist;
+    public OrdenesViewAdapter(List<Orden> ordenes, OrdenesFragment fragment) {
+        this.ordenes = ordenes;
         this.fragment = fragment;
     }
 
     @NonNull
     @Override
     public Holderview onCreateViewHolder(@NonNull ViewGroup parent, int vewType) {
-        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_ruta, parent, false);
+        View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_orden, parent, false);
         return new Holderview(layout);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
-        holderview.v_codRuta.setText(productlistAdap.get(position).getCodRuta());
-        holderview.v_dirRuta.setText(productlistAdap.get(position).getDirRuta());
-        holderview.v_provincia.setText(productlistAdap.get(position).getProvincia());
-        holderview.v_distrito.setText(productlistAdap.get(position).getDistrito());
+        holderview.v_codigo.setText(ordenes.get(position).getCodigo());
+        holderview.v_direcion.setText(ordenes.get(position).getDirecionCliente());
+        holderview.v_nombre.setText(ordenes.get(position).getNombreCliente());
         holderview.itemView.setOnClickListener(this::onclick);
     }
 
@@ -52,31 +52,29 @@ public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.
 
     @Override
     public int getItemCount() {
-        return productlistAdap.size();
+        return ordenes.size();
     }
 
-    public void setfilter(List<Ruta> listruta) {
-        productlistAdap = new ArrayList<>();
-        productlistAdap.addAll(listruta);
+    public void setfilter(List<Orden> ordenes) {
+        this.ordenes = new ArrayList<>();
+        this.ordenes.addAll(ordenes);
         notifyDataSetChanged();
     }
 
     class Holderview extends RecyclerView.ViewHolder {
 
-        TextView v_codRuta;
-        TextView v_dirRuta;
-        TextView v_provincia;
-        TextView v_distrito;
+        TextView v_codigo;
+        TextView v_nombre;
+        TextView v_direcion;
         CardView itemCarview;
 
         Holderview(View itemview) {
 
             super(itemview);
             itemCarview = itemview.findViewById(R.id.cardViewIdruta);
-            v_codRuta = itemview.findViewById(R.id.textViewCodRuta);
-            v_dirRuta = itemview.findViewById(R.id.textViewDirRuta);
-            v_provincia = itemview.findViewById(R.id.textViewProvincia);
-            v_distrito = itemview.findViewById(R.id.textViewDistrito);
+            v_codigo = itemview.findViewById(R.id.txtCodigoOrden);
+            v_direcion = itemview.findViewById(R.id.txtDireccion);
+            v_nombre = itemview.findViewById(R.id.txtNombreCliente);
         }
     }
 

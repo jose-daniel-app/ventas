@@ -4,6 +4,7 @@ public class Ruta {
 
     private String codRuta;
     private String dirRuta;
+    private String company;
     private String provincia;
     private String distrito;
 
@@ -47,5 +48,13 @@ public class Ruta {
 
     public void setDistrito(String distrito) {
         this.distrito = distrito;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

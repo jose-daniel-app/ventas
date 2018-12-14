@@ -8,6 +8,11 @@ public class RepositoryFactoryImpl extends RepositoryFactory {
     }
 
     @Override
+    public RutaRepository getRutaRepository() {
+        return new RutaRepositoryImpl();
+    }
+
+    @Override
     public ClientesRepository getClientesRepository() {
         return new ClientesRepositoryImpl();
     }

@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Ruta;
+import com.business.ventas.requerimiento.contracts.RutaContract;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
@@ -23,15 +25,17 @@ import com.business.ventas.viewAdapter.RutaViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
+public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTextListner, RutaContract.View {
 
     VentasLog log = LogFactory.createInstance().setTag(RutaFragment.class.getSimpleName());
+    RutaContract.Presenter presenter;
 
-    RecyclerView listarutas;
-    List<Ruta> productlists = new ArrayList<>();
+    RecyclerView recyclerViewRutas;
     RutaViewAdapter adapter;
+    ProgressBar progressBar;
 
-    public RutaFragment() {}
+    public RutaFragment() {
+    }
 
     public static RutaFragment newInstance() {
         return new RutaFragment();
@@ -46,31 +50,23 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_ruta);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
-        return view;
 
+        presenter = RutaContract.createInstance(RutaContract.Presenter.class).setContext(getMainActivity()).setView(this);
+        presenter.listarRutas();
+        mostrarProgresBar(true);
+        return view;
+    }
+
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
     }
 
     private void loadComponents(View view) {
-
-        if (productlists.size() == 0) {
-            productlists.add(new Ruta("SM00037F", "Urb. Los cedros de naranjal Mz B LT19", "Lima", "San Martin de Porres"));
-            productlists.add(new Ruta("MF0038F", "An. Josè Pardo 1116", "Lima", "Miraflores"));
-            productlists.add(new Ruta("BR0039F", "Jirón, Pichincha 485", "Lima", "Breña"));
-            productlists.add(new Ruta("SM0040F", "Urb. Los cedros de naranjal Mz B LT19", "Lima", "San Martin de Porres"));
-
-        }
-
-        listarutas = view.findViewById(R.id.listaRuta);
-        listarutas.setHasFixedSize(true);
+        progressBar = view.findViewById(R.id.progressBar);
+        recyclerViewRutas = view.findViewById(R.id.listaRuta);
+        recyclerViewRutas.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        listarutas.setLayoutManager(linearLayoutManager);
-
-        adapter = RutaViewAdapter.newInstance().config()
-                .setFragment(this).setListaRuta(productlists)
-                .setListenerItem(this::clickCardViewRuta)
-                .build();
-
-        listarutas.setAdapter(adapter);
+        recyclerViewRutas.setLayoutManager(linearLayoutManager);
     }
 
     private void clickCardViewRuta(String codigoRuta) {
@@ -80,7 +76,6 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
         });
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }
-
 
     private boolean onMenuItemClick(MenuItem menuItem) {
         return true;
@@ -95,5 +90,20 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
         // textView.setText(editable);
     }
 
+    @Override
+    public void mostrarRutas(List<Ruta> rutas) {
+        adapter = RutaViewAdapter.newInstance().config()
+                .setFragment(this).setListaRuta(rutas)
+                .setListenerItem(this::clickCardViewRuta)
+                .build();
+        recyclerViewRutas.setAdapter(adapter);
+        mostrarProgresBar(false);
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+        log.error(mensaje);
+        mostrarProgresBar(false);
+    }
 }
 

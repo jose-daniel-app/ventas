@@ -26,7 +26,7 @@ public class OrdenesRepositoryImpl implements OrdenesRepository {
 
         RestApiAdapter restApiAdapter = new RestApiAdapter(context);
         Service service = restApiAdapter.getLoginService();
-        Call<JsonObject> call = service.listarProductos("\"name,customer_name,customer,customer_address,address_display\"");
+        Call<JsonObject> call = service.listarOrdenes("\"name,customer_name,customer,customer_address,address_display,other_charges_calculation\"");
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -39,7 +39,13 @@ public class OrdenesRepositoryImpl implements OrdenesRepository {
                         Orden orden = new Orden();
                         orden.setCodigo(json.get("name").isJsonNull() ? null : json.get("name").getAsString());
                         orden.setNombreCliente(json.get("customer_name").isJsonNull() ? null : json.get("customer_name").getAsString());
-                        orden.setDirecionCliente(json.get("address_display").isJsonNull() ? null : json.get("address_display").getAsString());
+                        orden.setDirecionCliente(json.get("address_display").isJsonNull() ? null : json.get("address_display")
+                                .getAsString().replaceAll("<br>"," "));
+
+                        /*new Orden.handerProductos(json.get("other_charges_calculation").isJsonNull() ? null : json.get("other_charges_calculation")
+                                .getAsString())
+                                .parserList();*/
+
                         ordenes.add(orden);
                     }
                     succes.onRespuestaSucces(ordenes);

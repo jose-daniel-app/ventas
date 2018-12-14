@@ -51,19 +51,13 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
 
         holderview.v_codRuta.setText(productlistAdap.get(position).getCodRuta());
         holderview.v_dirRuta.setText(productlistAdap.get(position).getDirRuta());
-        holderview.v_provincia.setText(productlistAdap.get(position).getProvincia());
-        holderview.v_distrito.setText(productlistAdap.get(position).getDistrito());
+        holderview.v_provincia.setText(productlistAdap.get(position).getCompany());
+        //holderview.v_distrito.setText(productlistAdap.get(position).getDistrito());
         holderview.itemView.setOnClickListener(view -> {
             listener.onSelectItem(productlistAdap.get(position).getCodRuta());
         });
 
     }
-
-    /*private void onclick(View view) {
-        log.info("el onclick de clase => " + this.fragment);
-        //fragment.onButtonPressed(this.fragment);
-
-    }*/
 
     @Override
     public int getItemCount() {
@@ -83,7 +77,7 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
         TextView v_codRuta;
         TextView v_dirRuta;
         TextView v_provincia;
-        TextView v_distrito;
+        //TextView v_distrito;
         CardView itemCarview;
 
         Holderview(View itemview) {
@@ -94,7 +88,7 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
             v_codRuta = itemview.findViewById(R.id.textViewCodRuta);
             v_dirRuta = itemview.findViewById(R.id.textViewDirRuta);
             v_provincia = itemview.findViewById(R.id.textViewProvincia);
-            v_distrito = itemview.findViewById(R.id.textViewDistrito);
+            //v_distrito = itemview.findViewById(R.id.textViewDistrito);
 
 
         }

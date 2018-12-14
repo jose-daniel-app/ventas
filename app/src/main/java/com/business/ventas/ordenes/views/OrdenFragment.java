@@ -37,8 +37,9 @@ public class OrdenFragment extends AppFragment {
 
     private void loadComponents(View view) {
         toolbar.setTitle(R.string.title_orden);
-        navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.toolbar_orden);
+        navigationView.setCheckedItem(R.id.nav_ordenes);
         listViewItem = view.findViewById(R.id.listViewItem);
         item1 = view.findViewById(R.id.item1);
         item1.setOnClickListener(this::clickItem);

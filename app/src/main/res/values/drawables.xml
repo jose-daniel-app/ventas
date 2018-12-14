@@ -17,5 +17,6 @@
     <item name="ic_check_white" type="drawable">@drawable/ic_check_white_24dp</item>
     <item name="ic_print_white" type="drawable">@drawable/ic_print_white_24dp</item>
     <item name="ic_motor_white" type="drawable">@drawable/ic_motorcycle_white_24dp</item>
+    <item name="ic_elimiar_white" type="drawable">@drawable/ic_delete_white_24dp</item>
 
 </resources>
