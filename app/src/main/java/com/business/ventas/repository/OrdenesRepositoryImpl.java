@@ -82,12 +82,17 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                         producto.setItemCode(item.get("item_code").isJsonNull() ? null : item.get("item_code").getAsString());
                         producto.setCantidad(item.get("qty").isJsonNull() ? null : item.get("qty").getAsInt());
                         producto.setPrecioUnitario(item.get("rate").isJsonNull() ? null : item.get("rate").getAsDouble());
-                        producto.setNombre(item.get("rate").isJsonNull() ? null : item.get("rate").getAsString());
+                        producto.setNombre(item.get("description").isJsonNull() ? null : item.get("description").getAsString());
                         productos.add(producto);
                     });
 
                     orden.setProductos(productos);
+                    succes.onRespuestaSucces(productos);
+
+                }else{
+                    error.onRespuestaError(String.format("error codigo %s", response.code()));
                 }
+
 
             }
 

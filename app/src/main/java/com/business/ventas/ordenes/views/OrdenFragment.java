@@ -48,7 +48,6 @@ public class OrdenFragment extends AppFragment {
     }
 
     private void clickItem(View view) {
-        //TODO
        getMainActivity().newFragmentHandler().changeFragment(DetalleGuiaFragment.newInstance());
     }
 

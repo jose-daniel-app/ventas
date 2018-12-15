@@ -2,33 +2,32 @@ package com.business.ventas.ordenes.presenters;
 
 import android.content.Context;
 
-import com.business.ventas.ordenes.contracts.OrdenesContract;
+import com.business.ventas.beans.Orden;
+import com.business.ventas.ordenes.contracts.OrdenContract;
 
-public class OrdenPresenter implements OrdenesContract.Presenter {
+public class OrdenPresenter implements OrdenContract.Presenter {
 
-    private OrdenesContract.Interactor interactor;
-    private OrdenesContract.View view;
+    private OrdenContract.View view;
+    private OrdenContract.Interactor interactor;
     private Context context;
 
     public OrdenPresenter() {
-        this.interactor = OrdenesContract
-            .createInstance(OrdenesContract.Interactor.class)
-            .setPresenter(this);
+        interactor = OrdenContract.createInstance(OrdenContract.Interactor.class).setPresenter(this);
     }
 
     @Override
-    public void listarOrdenes() {
-        interactor.listarOrdenes();
+    public void solicitarDetalleOrden(String codigo) {
+        interactor.solicitarDetalleOrden(codigo);
     }
 
     @Override
-    public OrdenesContract.Presenter setView(OrdenesContract.View view) {
+    public OrdenContract.Presenter setView(OrdenContract.View view) {
         this.view = view;
         return this;
     }
 
     @Override
-    public OrdenesContract.Presenter setContext(Context context) {
+    public OrdenContract.Presenter setContext(Context context) {
         this.context = context;
         return this;
     }
@@ -39,7 +38,7 @@ public class OrdenPresenter implements OrdenesContract.Presenter {
     }
 
     @Override
-    public OrdenesContract.View getView() {
+    public OrdenContract.View getView() {
         return this.view;
     }
 }
