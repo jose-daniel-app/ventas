@@ -14,18 +14,12 @@ import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Orden;
-import com.business.ventas.beans.Producto;
-import com.business.ventas.beans.Ruta;
 import com.business.ventas.ordenes.contracts.OrdenesContract;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
-import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
-import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.OrdenesViewAdapter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -108,27 +102,6 @@ public class OrdenesFragment extends AppFragment
     public void onKeyDown(int i, KeyEvent keyEvent) {
         //super.onKeyDown(i, keyEvent);
         log.info("se apreto el back");
-    }
-
-    public void guardarProductostemporales() {
-        SharedPreferenceProductos.getInstance().setActivity(getMainActivity()).limpiar();
-        SharedPreferenceProductos.getInstance().setActivity(getMainActivity()).guardar(new Lista<Producto>()
-                .agregar(new Producto().config()
-                        .setNombre("Bizcocho especial x12")
-                        .setCantidad(3).setPrecioUnitario(5.0)
-                        .actualizarPrecioCantidad()
-                        .build())
-                .agregar(new Producto().config()
-                        .setNombre("Keke ingles x12")
-                        .setCantidad(2).setPrecioUnitario(2.0)
-                        .actualizarPrecioCantidad()
-                        .build())
-                .agregar(new Producto().config()
-                        .setNombre("Empanada x20")
-                        .setCantidad(6).setPrecioUnitario(5.0)
-                        .actualizarPrecioCantidad()
-                        .build())
-        );
     }
 
     @Override
