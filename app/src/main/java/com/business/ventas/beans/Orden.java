@@ -60,4 +60,15 @@ public class Orden {
     public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
+
+    @Override
+    public String toString() {
+        return "Orden{" +
+                "codigo='" + codigo + '\'' +
+                ", nombreCliente='" + nombreCliente + '\'' +
+                ", direcionCliente='" + direcionCliente + '\'' +
+                ", fechaEntrega=" + fechaEntrega.toString() +
+                ", totalGeneral=" + totalGeneral +
+                '}';
+    }
 }

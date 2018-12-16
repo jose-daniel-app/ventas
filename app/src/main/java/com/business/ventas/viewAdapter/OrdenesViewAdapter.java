@@ -41,14 +41,17 @@ public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.
         holderview.v_codigo.setText(ordenes.get(position).getCodigo());
         holderview.v_direcion.setText(ordenes.get(position).getDirecionCliente());
         holderview.v_nombre.setText(ordenes.get(position).getNombreCliente());
-        holderview.itemView.setOnClickListener(this::onclick);
+        holderview.itemView.setOnClickListener(view -> {
+            log.info("seselecciono el codigo codigio %s", ordenes.get(position).getCodigo());
+            fragment.getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance(ordenes.get(position).getCodigo()));
+        });
     }
 
-    private void onclick(View view) {
+    /*private void onclick(View view) {
         log.info("el onclick de clase => " + this.fragment);
         fragment.guardarProductostemporales();
         fragment.getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance());
-    }
+    }*/
 
     @Override
     public int getItemCount() {

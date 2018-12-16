@@ -56,7 +56,9 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
 
-        presenter = ClienteContract.createInstance(ClienteContract.Presenter.class).setContext(getMainActivity()).setView(this);
+        presenter = ClienteContract.createInstance(ClienteContract.Presenter.class)
+                .setContext(getMainActivity())
+                .setView(this);
         presenter.solicitarlistaClientes();
         mostrarProgresBar(true);
         return view;

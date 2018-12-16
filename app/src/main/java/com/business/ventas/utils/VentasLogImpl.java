@@ -8,7 +8,7 @@ public class VentasLogImpl implements VentasLog {
 
     @Override
     public VentasLog setTag(String nameClas) {
-        this.tag = nameClas;
+        this.tag = "ventas-proyect-"+ nameClas;
         return this;
     }
 

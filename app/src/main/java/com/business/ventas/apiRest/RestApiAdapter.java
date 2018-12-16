@@ -32,6 +32,7 @@ public class RestApiAdapter {
     public Service getLoginService() {
 
         OkHttpClient client = new OkHttpClient.Builder()
+                // se obtiene las cookies
             .addInterceptor((chain) -> {
                 Response originalResponse = chain.proceed(chain.request());
                 if (!originalResponse.headers("Set-Cookie").isEmpty()) {
@@ -41,6 +42,7 @@ public class RestApiAdapter {
                 }
                 return originalResponse;
             })
+                // se envian las cookies
             .addInterceptor((chain) -> {
                 Request.Builder builder = chain.request().newBuilder();
                 builder.addHeader("Cookie", shareCookies
