@@ -3,7 +3,7 @@ package com.business.ventas.beans;
 public class Guia extends Comprobante {
 
     @Override
-    int tipoDecomprobante() {
+    public int tipoDecomprobante() {
         return Comprobante.GUIA;
     }
 }

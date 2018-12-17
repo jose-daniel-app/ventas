@@ -9,6 +9,7 @@ public abstract class Comprobante {
     protected String fecha;
     protected String codigo;
     protected Date fechaPublicacion;
+    protected double pagoTotal;
 
     public static final int FACTURA = 1;
     public static final int GUIA = 2;
@@ -25,7 +26,7 @@ public abstract class Comprobante {
         this.codigo = codigo;
     }
 
-    abstract int tipoDecomprobante();
+    public abstract int tipoDecomprobante();
 
     public String getNombre() {
         return nombre;
@@ -73,5 +74,26 @@ public abstract class Comprobante {
 
     public void setFechaPublicacion(Date fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
+    }
+
+    public double getPagoTotal() {
+        return pagoTotal;
+    }
+
+    public void setPagoTotal(double pagoTotal) {
+        this.pagoTotal = pagoTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "Comprobante{" +
+                "nombre='" + nombre + '\'' +
+                ", foto=" + foto +
+                ", ruc='" + ruc + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                ", pagoTotal=" + pagoTotal +
+                '}';
     }
 }

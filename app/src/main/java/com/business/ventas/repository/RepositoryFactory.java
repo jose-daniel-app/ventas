@@ -14,6 +14,8 @@ public abstract class RepositoryFactory {
 
     public abstract RutaRepository getRutaRepository();
 
+    public abstract ComprobanteRepository getComprobanteRepository();
+
     public static RepositoryFactory getFactory(int type) {
         switch (type) {
             case API_REST:

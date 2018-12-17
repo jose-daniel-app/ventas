@@ -1,6 +1,10 @@
 package com.business.ventas.repository;
 
 public class RepositoryFactoryImpl extends RepositoryFactory {
+    @Override
+    public ComprobanteRepository getComprobanteRepository() {
+        return new ComprobanteRepositoryImpl();
+    }
 
     @Override
     public OrdenesRepository getOrdenesRepository() {

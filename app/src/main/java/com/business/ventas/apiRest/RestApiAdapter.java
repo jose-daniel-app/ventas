@@ -1,9 +1,6 @@
 package com.business.ventas.apiRest;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.SharedPrefedenceCookies;
@@ -49,11 +46,13 @@ public class RestApiAdapter {
                         .concatenateCookies(cookie -> cookie.split(";")[0] + ";"));
                 return chain.proceed(builder.build());
             })
+
             .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_ROOT)
                 .client(client)
+                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
