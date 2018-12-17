@@ -10,4 +10,6 @@ public interface ComprobanteRepository extends IpadreRepository {
 
     void listarComprovantes(Context context, RespuestaSucces<Lista<Comprobante>> succes, RespuestaError error);
 
+    void detalleDeComprobante(Context context, String codigo, int tipoComprobante, RespuestaSucces<Comprobante> succes, RespuestaError error);
+
 }

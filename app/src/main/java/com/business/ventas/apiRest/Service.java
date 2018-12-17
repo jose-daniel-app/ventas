@@ -38,6 +38,12 @@ public interface Service {
     @GET(Constants.URL_LISTA_GUIAS)
     Call<JsonObject> listarGuias(@Query("fields") String fields);
 
+    @GET(Constants.URL_DETALLE_FACTURA)
+    Call<JsonObject> obtenerDetalleFactura(@Path("codigo") String codigo);
+
+    @GET(Constants.URL_DETALLE_GUI)
+    Call<JsonObject> obtenerDetalleGuia(@Path("codigo") String codigo);
+
     public class User {
         public User(String usr, String pwd) {
             this.usr = usr;

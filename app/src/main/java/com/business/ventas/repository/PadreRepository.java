@@ -34,6 +34,10 @@ public abstract class PadreRepository {
         return element.isJsonNull() ? null : element.getAsDouble();
     }
 
+    protected int getInt(JsonElement element) {
+        return element.isJsonNull() ? null : element.getAsInt();
+    }
+
     protected void recorrerLista(Iterator<JsonElement> iterator, RecorrersonObject recorrer) {
         while (iterator.hasNext()) {
             recorrer.onItemJsonObject(iterator.next().getAsJsonObject());

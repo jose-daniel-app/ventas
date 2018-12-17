@@ -1,5 +1,7 @@
 package com.business.ventas.beans;
 
+import com.business.ventas.utils.Lista;
+
 import java.util.Date;
 
 public abstract class Comprobante {
@@ -10,6 +12,8 @@ public abstract class Comprobante {
     protected String codigo;
     protected Date fechaPublicacion;
     protected double pagoTotal;
+
+    protected Lista<Producto> productos;
 
     public static final int FACTURA = 1;
     public static final int GUIA = 2;
@@ -82,6 +86,16 @@ public abstract class Comprobante {
 
     public void setPagoTotal(double pagoTotal) {
         this.pagoTotal = pagoTotal;
+    }
+
+    public Lista<Producto> getProductos() {
+        if(this.productos==null)
+            productos = new Lista<>();
+        return productos;
+    }
+
+    public void setProductos(Lista<Producto> productos) {
+        this.productos = productos;
     }
 
     @Override
