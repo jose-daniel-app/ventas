@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.business.ventas.apiRest.RestApiAdapter;
 import com.business.ventas.apiRest.Service;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -15,6 +17,7 @@ import retrofit2.Response;
 
 public abstract class PadreRepository {
 
+
     protected static int SUCCES = 200;
 
 
@@ -23,11 +26,11 @@ public abstract class PadreRepository {
         return restApiAdapter.getLoginService();
     }
 
-    protected String getString(JsonElement element){
+    protected String getString(JsonElement element) {
         return element.isJsonNull() ? null : element.getAsString();
     }
 
-    protected double getDouble(JsonElement element){
+    protected double getDouble(JsonElement element) {
         return element.isJsonNull() ? null : element.getAsDouble();
     }
 
@@ -44,29 +47,46 @@ public abstract class PadreRepository {
 
     public static class CallRespuesta implements Callback<JsonObject> {
 
-        private ICallRespuesta iCallRespuesta;
+        protected VentasLog log = LogFactory.createInstance().setTag(CallRespuesta.class.getSimpleName());
+
+        private ICallRespuestaSucces iCallRespuestaSucces;
+        private ICallRespuestaError iCallRespuestaError;
 
         @Override
         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-            if(this.iCallRespuesta!= null){
-                iCallRespuesta.onICallRespuesta(response);
+            if (this.iCallRespuestaSucces != null) {
+                if (response.code() == SUCCES) {
+                    iCallRespuestaSucces.onICallRespuesta(response);
+                } else {
+                    if (this.iCallRespuestaError != null)
+                        iCallRespuestaError.onICallRespuesta("codigo respuesta :" + response.code());
+                }
             }
         }
 
         @Override
         public void onFailure(Call<JsonObject> call, Throwable t) {
-
+            log.info(t.getMessage());
+            if (this.iCallRespuestaError != null)
+                iCallRespuestaError.onICallRespuesta(t.getMessage());
         }
 
-        public CallRespuesta listenRespuesta(ICallRespuesta iCallRespuesta){
-            this.iCallRespuesta = iCallRespuesta;
+        public CallRespuesta listenRespuesta(ICallRespuestaSucces iCallRespuesta) {
+            this.iCallRespuestaSucces = iCallRespuesta;
             return this;
         }
 
-        interface ICallRespuesta {
+        public CallRespuesta listenError(ICallRespuestaError iCallRespuestaError) {
+            this.iCallRespuestaError = iCallRespuestaError;
+            return this;
+        }
+
+        interface ICallRespuestaSucces {
             void onICallRespuesta(Response<JsonObject> response);
         }
 
-
+        interface ICallRespuestaError {
+            void onICallRespuesta(String mensajeError);
+        }
     }
 }

@@ -41,7 +41,7 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
         holderview.v_nombre.setText(productlistAdap.get(position).getNombre());
-        holderview.v_ruc.setText(productlistAdap.get(position).getRuc());
+        //holderview.v_ruc.setText(productlistAdap.get(position).getRuc());
         holderview.v_fecha.setText(productlistAdap.get(position).getFecha());
         holderview.v_codigo.setText(productlistAdap.get(position).getCodigo());
         holderview.v_foto.setImageResource(productlistAdap.get(position).getFoto());
@@ -66,7 +66,7 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
     class Holderview extends RecyclerView.ViewHolder {
         ImageView v_foto;
         TextView v_nombre;
-        TextView v_ruc;
+        //TextView v_ruc;
         TextView v_fecha;
         TextView v_codigo;
         CardView itemCarview;
@@ -78,7 +78,7 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
             itemCarview = itemview.findViewById(R.id.cardViewIdcomprobante);
             v_foto = (ImageView) itemview.findViewById(R.id.product_image);
             v_nombre = (TextView) itemview.findViewById(R.id.textView2);
-            v_ruc = itemview.findViewById(R.id.textView3);
+            //v_ruc = itemview.findViewById(R.id.textView3);
             v_fecha = itemview.findViewById(R.id.textView4);
             v_codigo = itemview.findViewById(R.id.textView5);
         }

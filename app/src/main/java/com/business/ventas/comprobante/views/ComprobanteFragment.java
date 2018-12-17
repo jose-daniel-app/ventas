@@ -15,6 +15,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Comprobante;
 import com.business.ventas.beans.Factura;
 import com.business.ventas.comprobante.contracts.ComprobanteContract;
+import com.business.ventas.login.views.MainActivity;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;
@@ -61,6 +62,7 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
                 .setContext(getMainActivity())
                 .setView(this);
         mostrarProgresBar(true);
+        log.info("solicitando comprobantes...");
         presenter.pedirComprobantes();
         return view;
     }
@@ -74,7 +76,12 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
     }
 
     private void onClickCard(Comprobante comprobante) {
-        getMainActivity().newFragmentHandler().changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Boleta"));
+        MainActivity.FragmentHandler handlerFragment = getMainActivity().newFragmentHandler();
+        if (comprobante.tipoDecomprobante() == Comprobante.FACTURA)
+            handlerFragment.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Factura"));
+        else if (comprobante.tipoDecomprobante() == Comprobante.GUIA)
+            handlerFragment.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Guia"));
+
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
@@ -91,18 +98,19 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
 
     @Override
     public void mostrarComprovantes(Lista<Comprobante> comprobantes) {
+        comprobantes.foreach(p -> log.info(p.toString()));
+        mostrarProgresBar(false);
         adapter = ComprobanteViewAdapter.newInstance().config()
                 .setFragment(this)
                 .setProductlistAdap(comprobantes)
                 .setOnSelectCardListener(this::onClickCard)
                 .build();
         listacomprobantes.setAdapter(adapter);
-        mostrarProgresBar(false);
     }
 
     @Override
     public void errorRespuesta(String mensaje) {
-        log.error(mensaje);
+        Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
         mostrarProgresBar(false);
     }
 
