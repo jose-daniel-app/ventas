@@ -1,6 +1,8 @@
 package com.business.ventas.apiRest;
 
 
+import android.database.Observable;
+
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -31,6 +33,12 @@ public interface Service {
 
     @GET(Constants.URL_LISTA_RUTAS)
     Call<JsonObject> listarRutas(@Query("fields") String fields);
+
+    @GET(Constants.URL_LISTA_FACTURAS)
+    Observable<JsonObject> listarFacturas(@Query("fields") String fields);
+
+    @GET(Constants.URL_LISTA_GUIAS)
+    Observable<JsonObject> listarGuias(@Query("fields") String fields);
 
     public class User {
         public User(String usr, String pwd) {

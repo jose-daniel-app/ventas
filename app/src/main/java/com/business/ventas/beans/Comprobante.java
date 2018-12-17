@@ -1,12 +1,17 @@
 package com.business.ventas.beans;
 
-public class Comprobante {
-    private String nombre;
-    private int foto;
-    private String ruc;
-    private String fecha;
-    private String codigo;
+import java.util.Date;
 
+public abstract class Comprobante {
+    protected String nombre;
+    protected int foto;
+    protected String ruc;
+    protected String fecha;
+    protected String codigo;
+    protected Date fechaPublicacion;
+
+    public static final int FACTURA = 1;
+    public static final int GUIA = 2;
 
     public Comprobante() {
 
@@ -19,6 +24,8 @@ public class Comprobante {
         this.fecha = fecha;
         this.codigo = codigo;
     }
+
+    abstract int tipoDecomprobante();
 
     public String getNombre() {
         return nombre;
@@ -58,5 +65,13 @@ public class Comprobante {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public Date getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(Date fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
     }
 }
