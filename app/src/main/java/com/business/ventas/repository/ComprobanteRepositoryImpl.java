@@ -40,7 +40,6 @@ public class ComprobanteRepositoryImpl extends PadreRepository implements Compro
 
             recorrerLista(resp1.body().get("data").getAsJsonArray().iterator(), (item) -> {
                 Factura factura = new Factura();
-                factura.setFoto(R.drawable.ic_account_circle_black_24dp);
                 factura.setCodigo(getString(item.get("name")));
                 factura.setPagoTotal(getDouble(item.get("grand_total")));
                 factura.setNombre(getString(item.get("customer_name")));
@@ -53,7 +52,6 @@ public class ComprobanteRepositoryImpl extends PadreRepository implements Compro
             getService(context).listarGuias(columnas).enqueue(new PadreRepository.CallRespuesta().listenRespuesta(resp2 -> {
                 recorrerLista(resp2.body().get("data").getAsJsonArray().iterator(), (item) -> {
                     Guia guia = new Guia();
-                    guia.setFoto(R.drawable.ic_account_circle_black_24dp);
                     guia.setCodigo(getString(item.get("name")));
                     guia.setPagoTotal(getDouble(item.get("grand_total")));
                     guia.setNombre(getString(item.get("customer_name")));
