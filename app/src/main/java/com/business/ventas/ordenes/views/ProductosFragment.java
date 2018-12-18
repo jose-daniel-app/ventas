@@ -8,16 +8,15 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
-import com.business.ventas.login.views.SearchToolbarProducto;
-import com.business.ventas.login.views.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
+import com.business.ventas.search.SearchToolbarProducto;
+import com.business.ventas.search.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
+import com.business.ventas.ordenes.contracts.ProductosContract;
 import com.business.ventas.utils.AppFragment;
-import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
@@ -25,8 +24,10 @@ import com.business.ventas.viewAdapter.ProductoViewAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import java.util.List;
 
-public class ProductosFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
+
+public class ProductosFragment extends AppFragment implements OnSearchToolbarQueryTextListner, ProductosContract.View {
 
     VentasLog log = LogFactory.createInstance().setTag(ProductosFragment.class.getSimpleName());
 
@@ -35,15 +36,22 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
     SearchToolbarProducto searchToolbar;
     private SharedPreferenceProductos sharedProductos;
+    ProductosContract.Presenter presenter;
 
     FloatingActionButton floatingActionButton;
     FloatingActionMenu fabMenu;
+    ProgressBar progressBar;
 
     public ProductosFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        presenter = ProductosContract.createInstance(ProductosContract.Presenter.class)
+                .setContext(getMainActivity())
+                .setView(this);
+
         View view = inflater.inflate(R.layout.fragment_productos, container, false);
         sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
         loadComponents(view);
@@ -53,6 +61,8 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         toolbar.inflateMenu(R.menu.productos_menu);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         searchToolbar = new SearchToolbarProducto(getActivity(), this, getActivity().findViewById(R.id.search_producto));
+        mostrarProgresBar(true);
+        presenter.solicitarProductos();
         return view;
     }
 
@@ -66,6 +76,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     }
 
     private void loadComponents(View view) {
+        progressBar = view.findViewById(R.id.progressBar);
         recyclerView = view.findViewById(R.id.listaPro);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
@@ -74,12 +85,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
         fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
         fabMenu.setIconAnimated(false);
-
-        adapter = ProductoViewAdapter.newInstance().config()
-                .setActivity(getActivity())
-                .setProductlistAdap(this.newListaDeProductos())
-                .build();
-        recyclerView.setAdapter(adapter);
     }
 
     private void clickItemButon(View view) {
@@ -101,33 +106,24 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         // textView.setText(editable);
     }
 
-    private Lista<Producto> newListaDeProductos() {
-        return new Lista<Producto>()
-            .agregar(new Producto(1, R.drawable.queque, "Keke x10", "sabor chocolate con chispas", 1.0))
-            .agregar(new Producto(2, R.drawable.pastel, "Pastel x5", "sabor de vainilla con manjar blanco", 3.0))
-            .agregar(new Producto(3, R.drawable.bizcocho, "Bizcocho x30", "Pan muy suabe", 10.0))
-            .agregar(new Producto(4, R.drawable.bombas, "Bombas x20", "Rico pastel con manjar", 23.5))
-            .agregar(new Producto(5, R.drawable.cachitos, "Cachito x10", "Pan en forma de cachito", 10.0))
-            .agregar(new Producto(6, R.drawable.champa, "Champa x20", "rico keke con tres sabores", 3.0))
-            .agregar(new Producto(7, R.drawable.cocadas, "Cocadas x10", "ricas cocadas crocantes", 3.0))
-            .agregar(new Producto(8, R.drawable.donuts, "Donuts x15", "Ricas donuts con manjar", 3.0))
-            .agregar(new Producto(9, R.drawable.kingkong, "Kingkong x20", "Kingkong con manjar blanco", 10.0))
-            .agregar(new Producto(10, R.drawable.lengua, "Lengua x15", "Rico pastel manjar blanco", 13.0))
-            .agregar(new Producto(11, R.drawable.milhojas, "Milhojas x25", "Rico paltes con chispas blascas", 3.0))
-            .agregar(new Producto(12, R.drawable.orejas, "Orejas", "Ojejas con azucar", 3.0))
-            .agregar(new Producto(13, R.drawable.panblancomolde, "Pan molde x50", "sabor chocolate con chispas", 3.0))
-            .agregar(new Producto(14, R.drawable.roscas, "Roscas x25", "Roscas ricas con mantequilla", 3.0))
-            .agregar(new Producto(15, R.drawable.suspiros, "Suspiros x25", "rico dulce de varios sabores", 3.0))
-            .agregar(new Producto(16, R.drawable.turrones, "Turrones x5", "Rico turros con miel", 3.0))
-            .filtar(p -> {
-                for (Producto producto : sharedProductos.listarProducto()) {
-                    if (p.getCodigo() == producto.getCodigo()) {
-                        p.setCantidad(producto.getCantidad());
-                        p.actualizarPrecioCantidad();
-                    }
-                }
-                return true;
-            });
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public void errorRespuesta(String mensaje) {
+        log.info(mensaje);
+        mostrarProgresBar(false);
+    }
+
+    @Override
+    public void cargarProductos(List<Producto> productos) {
+        //new Lista<Producto>(productos).foreach(p -> log.info(p.toString()));
+        adapter = ProductoViewAdapter.newInstance().config()
+                .setActivity(getActivity())
+                .setProductlistAdap(productos)
+                .build();
+        recyclerView.setAdapter(adapter);
+        mostrarProgresBar(false);
+    }
 }

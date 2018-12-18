@@ -11,6 +11,8 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -40,6 +42,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/txtNameCliene"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.7"
@@ -143,6 +146,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/txtTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="S/ 2000" />
@@ -172,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_check_white"
                 app:fab_label="Confirmar entrega"
-             android:theme="@style/FabTheme"
+                android:theme="@style/FabTheme"
                 app:fab_size="mini"
                 app:fab_colorNormal="@color/primary"
                 app:fab_colorPressed="@color/primary_light"/>
@@ -190,6 +194,16 @@
              /> -->
 
         </com.github.clans.fab.FloatingActionMenu>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

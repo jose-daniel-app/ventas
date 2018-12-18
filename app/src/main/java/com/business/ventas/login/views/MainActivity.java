@@ -13,8 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.business.ventas.R;
+import com.business.ventas.beans.User;
 import com.business.ventas.repository.AuthRepository;
 import com.business.ventas.requerimiento.views.RequerimientoFragment;
 import com.business.ventas.utils.AppFragment;
@@ -37,8 +41,12 @@ public class MainActivity extends AppCompatActivity
     AuthRepository auth = AuthRepository.getInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
+    ActivityAconKeyDown activityAconKeyDown;
     NavigationView navigationView;
     Toolbar toolbar;
+    TextView txtNombre;
+    TextView txtCorreo;
+    ImageView imageViewAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +55,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_home);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -59,7 +69,14 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
+        User user = auth.getUserSesion(this);
+        txtNombre = navigationView.getHeaderView(0).findViewById(R.id.txtNombre);
+        txtCorreo = navigationView.getHeaderView(0).findViewById(R.id.txtCorreo);
+        imageViewAvatar = navigationView.getHeaderView(0).findViewById(R.id.imageViewAvatar);
 
+        txtNombre.setText(user.getFullName());
+        txtCorreo.setText(user.getCorreo());
+        Glide.with(this).load(user.getPathImg()).into(imageViewAvatar);
         showAppFragment(MenuFragment.newInstance());
 
     }
@@ -120,8 +137,13 @@ public class MainActivity extends AppCompatActivity
         auth.removeAuthStateListener(this);
     }
 
+    public void setActivityAconKeyDown(ActivityAconKeyDown activityAconKeyDown) {
+        this.activityAconKeyDown = activityAconKeyDown;
+    }
+
     @Override
-    public void onFragmentInteraction(Fragment faFragment) {}
+    public void onFragmentInteraction(Fragment faFragment) {
+    }
 
 
     @Override
@@ -143,6 +165,8 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
+        if (this.activityAconKeyDown != null)
+            this.activityAconKeyDown.onKeyDown(keyCode, event);
         return super.onKeyDown(keyCode, event);
     }
 
@@ -170,4 +194,9 @@ public class MainActivity extends AppCompatActivity
             return this;
         }
     }
+
+    public interface ActivityAconKeyDown {
+        void onKeyDown(int keyCode, KeyEvent event);
+    }
+
 }

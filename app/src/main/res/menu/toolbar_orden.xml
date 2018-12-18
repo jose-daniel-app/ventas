@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/item_check_boleta"
+        android:icon="@drawable/ic_elimiar_white"
+        android:title="@string/orden_eliminar"
+        app:showAsAction="collapseActionView|ifRoom" />
+
+</menu>

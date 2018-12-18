@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.business.ventas.login.views.MainActivity;
 
@@ -14,16 +16,22 @@ public abstract class AppFragment extends Fragment {
     protected NavigationView navigationView;
     protected Toolbar toolbar;
 
+    //abstract void mostrarProgresBar(Boolean estado);
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
             mainActivity = (MainActivity) context;
+            mainActivity.setActivityAconKeyDown(this::onKeyDown);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    public void onKeyDown(int i, KeyEvent keyEvent) {
     }
 
     @Override
@@ -54,6 +62,10 @@ public abstract class AppFragment extends Fragment {
 
     public MainActivity getMainActivity() {
         return mainActivity == null ? (MainActivity) getActivity() : mainActivity;
+    }
+
+    protected void mensajeToast(String mensaje) {
+        Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
     }
 
 }

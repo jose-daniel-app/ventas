@@ -4,29 +4,39 @@ import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
-import com.business.ventas.login.views.SearchToolbar;
-import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.ordenes.contracts.ClienteContract;
+import com.business.ventas.search.SearchToolbar;
+import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ClienteViewAdapter;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
+public class ClienteFragment extends AppFragment implements OnSearchToolbarQueryTextListner, ClienteContract.View {
+
+    VentasLog log = LogFactory.createInstance().setTag(ClienteFragment.class.getSimpleName());
 
     RecyclerView listaclientes;
-    List<Cliente> productlists = new ArrayList<>();
     ClienteViewAdapter adapter;
     SearchToolbar searchToolbar;
+    ProgressBar progressBar;
+
+    ClienteContract.Presenter presenter;
 
     public ClienteFragment() {
     }
@@ -45,32 +55,21 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
         toolbar.inflateMenu(R.menu.toolbar_cliente);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         searchToolbar = new SearchToolbar(getActivity(), this, getActivity().findViewById(R.id.search_layout));
+
+        presenter = ClienteContract.createInstance(ClienteContract.Presenter.class)
+                .setContext(getMainActivity())
+                .setView(this);
+        presenter.solicitarlistaClientes();
+        mostrarProgresBar(true);
         return view;
     }
 
     private void loadComponents(View view) {
-
-        if (productlists.size() == 0) {
-            productlists.add(new Cliente("Ana Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Beto Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Carlos Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("David Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Eduardo Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Fernando Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Giovanni Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Helena Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Isabel Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-            productlists.add(new Cliente("Jose Nombre Apellido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "SMP, urb. los cedros de naranjal"));
-        }
-
-
         listaclientes = view.findViewById(R.id.listacli);
+        progressBar = view.findViewById(R.id.progressBar);
         listaclientes.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listaclientes.setLayoutManager(linearLayoutManager);
-
-        adapter = new ClienteViewAdapter(productlists, this);
-        listaclientes.setAdapter(adapter);
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
@@ -86,9 +85,31 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
         Toast.makeText(getActivity(), "User Query: " + query, Toast.LENGTH_SHORT).show();
     }
 
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
+    }
+
     @Override
     public void onQueryTextChange(String editable) {
         // textView.setText(editable);
     }
 
+    @Override
+    public void onKeyDown(int i, KeyEvent keyEvent) {
+        Log.i("backClient", "sdfsdfsdfsf back client");
+        //searchToolbar.closeSearchToolbar();
+    }
+
+    @Override
+    public void mostrarListaClientes(List<Cliente> clientes) {
+        adapter = new ClienteViewAdapter(clientes, this);
+        listaclientes.setAdapter(adapter);
+        mostrarProgresBar(false);
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+        log.info("error: %s", mensaje);
+        mostrarProgresBar(false);
+    }
 }

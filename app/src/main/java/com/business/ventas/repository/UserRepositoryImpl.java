@@ -1,5 +1,7 @@
 package com.business.ventas.repository;
 
+import android.content.Context;
+
 import com.business.ventas.apiRest.RestApiAdapter;
 import com.business.ventas.apiRest.Service;
 import com.business.ventas.beans.User;
@@ -22,9 +24,9 @@ public class UserRepositoryImpl implements UserRepository {
     VentasLog log = LogFactory.createInstance().setTag(UserRepositoryImpl.class.getSimpleName());
 
     @Override
-    public void loginSesion(final String correo, final String password, final Respond<User> listener) {
+    public void loginSesion(final String correo, final String password, final Respond<User> listener, Context context) {
 
-        RestApiAdapter restApiAdapter = new RestApiAdapter();
+        RestApiAdapter restApiAdapter = new RestApiAdapter(context);
         Service service = restApiAdapter.getLoginService();
 
         Call<JsonObject> call = service.login(new Service.User(correo, password));

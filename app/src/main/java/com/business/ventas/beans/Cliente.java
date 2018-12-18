@@ -5,12 +5,6 @@ public class Cliente {
     private int foto;
     private String ruc;
     private String direccion;
-/*
-    public Cliente(String nombre, int foto) {
-
-        this.nombre = nombre;
-        this.foto = foto;
-    }*/
 
     public Cliente() {
 

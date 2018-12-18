@@ -1,12 +1,22 @@
 package com.business.ventas.beans;
 
-public class Comprobante {
-    private String nombre;
-    private int foto;
-    private String ruc;
-    private String fecha;
-    private String codigo;
+import com.business.ventas.utils.Lista;
 
+import java.util.Date;
+
+public abstract class Comprobante {
+    protected String nombre;
+    protected int foto;
+    protected String ruc;
+    protected String fecha;
+    protected String codigo;
+    protected Date fechaPublicacion;
+    protected double pagoTotal;
+
+    protected Lista<Producto> productos;
+
+    public static final int FACTURA = 1;
+    public static final int GUIA = 2;
 
     public Comprobante() {
 
@@ -19,6 +29,8 @@ public class Comprobante {
         this.fecha = fecha;
         this.codigo = codigo;
     }
+
+    public abstract int tipoDecomprobante();
 
     public String getNombre() {
         return nombre;
@@ -58,5 +70,44 @@ public class Comprobante {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public Date getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(Date fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
+    }
+
+    public double getPagoTotal() {
+        return pagoTotal;
+    }
+
+    public void setPagoTotal(double pagoTotal) {
+        this.pagoTotal = pagoTotal;
+    }
+
+    public Lista<Producto> getProductos() {
+        if(this.productos==null)
+            productos = new Lista<>();
+        return productos;
+    }
+
+    public void setProductos(Lista<Producto> productos) {
+        this.productos = productos;
+    }
+
+    @Override
+    public String toString() {
+        return "Comprobante{" +
+                "nombre='" + nombre + '\'' +
+                ", foto=" + foto +
+                ", ruc='" + ruc + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", fechaPublicacion=" + fechaPublicacion +
+                ", pagoTotal=" + pagoTotal +
+                '}';
     }
 }

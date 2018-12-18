@@ -2,7 +2,7 @@ package com.business.ventas.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
+    import android.content.SharedPreferences;
 
 import com.business.ventas.beans.Producto;
 import com.google.gson.Gson;
@@ -37,16 +37,20 @@ public class SharedPreferenceProductos {
 
     public void guardar(List<Producto> lista) {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
-        limpiar();
+        limpiarLista();
         this.lista = lista;
         editor.clear();
         editor.putString(ITEM, gson.toJson(this.lista, listType));
         editor.apply();
     }
 
-    private void limpiar() {
+    private void limpiarLista() {
         if (this.lista != null)
             this.lista = null;
+    }
+
+    public void limpiar(){
+        getSharedPreferences().edit().clear();
     }
 
     public List<Producto> listarProducto() {

@@ -8,12 +8,20 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Comprobante;
-import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.beans.Factura;
+import com.business.ventas.comprobante.contracts.ComprobanteContract;
+import com.business.ventas.comprobante.contracts.DetalleGuiaContract;
+import com.business.ventas.login.views.MainActivity;
+import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ComprobanteViewAdapter;
 
 
@@ -21,14 +29,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
+public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQueryTextListner, ComprobanteContract.View {
+
+    VentasLog log = LogFactory.createInstance().setTag(ComprobanteFragment.class.getSimpleName());
 
     RecyclerView listacomprobantes;
-    List<Comprobante> productlists = new ArrayList<>();
     ComprobanteViewAdapter adapter;
+    ProgressBar progressBar;
+
+
+    private ComprobanteContract.Presenter presenter;
 
     public ComprobanteFragment() {
-        // Required empty public constructor
+
     }
 
     public static ComprobanteFragment newInstance() {
@@ -45,39 +58,31 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
         toolbar.inflateMenu(R.menu.toolbar_comprobante);
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
+
+        presenter = ComprobanteContract.createInstance(ComprobanteContract.Presenter.class)
+                .setContext(getMainActivity())
+                .setView(this);
+        mostrarProgresBar(true);
+        log.info("solicitando comprobantes...");
+        presenter.pedirComprobantes();
         return view;
     }
 
     private void loadComponents(View view) {
-
-        if (productlists.size() == 0) {
-            productlists.add(new Comprobante("Ana Tarazona ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Beto Silva ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Carlos Alvarado ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("David Hernandez ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Eduardo Vilca ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Fernando Chavez", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Giovanni Pullido ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Helena Garcia ", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Isabel Lloza", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-            productlists.add(new Comprobante("Jose Sanchez", R.drawable.ic_account_circle_black_24dp, "104593895087", "10/10/2018 20:10:23", "3485786GBTX"));
-        }
-
+        progressBar = view.findViewById(R.id.progressBar);
         listacomprobantes = view.findViewById(R.id.listaComp);
         listacomprobantes.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listacomprobantes.setLayoutManager(linearLayoutManager);
-
-        adapter = ComprobanteViewAdapter.newInstance().config()
-                .setFragment(this)
-                .setProductlistAdap(productlists)
-                .setOnSelectCardListener(this::onClickCard)
-                .build();
-        listacomprobantes.setAdapter(adapter);
     }
 
     private void onClickCard(Comprobante comprobante) {
-        getMainActivity().newFragmentHandler().changeFragment(DocumentoFragment.newInstance().setTitulo("Boleta"));
+        MainActivity.FragmentHandler handlerFragment = getMainActivity().newFragmentHandler();
+        if (comprobante.tipoDecomprobante() == Comprobante.FACTURA)
+            handlerFragment.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Factura").setComprobante(comprobante));
+        else if (comprobante.tipoDecomprobante() == Comprobante.GUIA)
+            handlerFragment.changeFragment(DetalleGuiaFragment.newInstance(comprobante.getCodigo(), comprobante.tipoDecomprobante()));
+
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
@@ -92,5 +97,26 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
     public void onQueryTextChange(String editable) {
     }
 
+    @Override
+    public void mostrarComprovantes(Lista<Comprobante> comprobantes) {
+        comprobantes.foreach(p -> log.info(p.toString()));
+        mostrarProgresBar(false);
+        adapter = ComprobanteViewAdapter.newInstance().config()
+                .setFragment(this)
+                .setProductlistAdap(comprobantes)
+                .setOnSelectCardListener(this::onClickCard)
+                .build();
+        listacomprobantes.setAdapter(adapter);
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+        Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
+        mostrarProgresBar(false);
+    }
+
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
+    }
 }
 

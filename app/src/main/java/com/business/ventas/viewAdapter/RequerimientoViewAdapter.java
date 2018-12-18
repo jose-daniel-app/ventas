@@ -1,5 +1,6 @@
 package com.business.ventas.viewAdapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +39,7 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
         return new Holderview(layout);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
 
@@ -45,6 +47,7 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
         holderview.v_fecha_pedido.setText(productlistAdap.get(position).getFecha_pedido());
         holderview.v_fecha_entrega.setText(productlistAdap.get(position).getFecha_entrega());
         holderview.v_ruta.setText(productlistAdap.get(position).getRuta());
+
         holderview.itemView.setOnClickListener(view -> {
             listener.onClickCard(productlistAdap.get(position));
         });
@@ -56,11 +59,9 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
     }
 
     public void setfilter(List<Requerimiento> listrequerimiento) {
-
         productlistAdap = new ArrayList<>();
         productlistAdap.addAll(listrequerimiento);
         notifyDataSetChanged();
-
     }
 
     class Holderview extends RecyclerView.ViewHolder {

@@ -17,10 +17,11 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="14dp"
-            android:backgroundTint="@color/primary"
-            android:elevation="4dp"
+            android:layout_margin="19dp"
+            android:elevation="5dp"
             android:src="@drawable/fab_add"
+            android:theme="@style/FabTheme"
+            app:fab_colorNormal="@color/primary"
             app:fab_size="mini" />
 
         <LinearLayout
@@ -36,7 +37,7 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/listaRuta"
+                    android:id="@+id/recyclerViewOrden"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fadeScrollbars="true" />
@@ -44,6 +45,16 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

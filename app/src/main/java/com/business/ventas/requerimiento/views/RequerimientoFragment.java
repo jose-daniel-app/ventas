@@ -3,7 +3,6 @@ package com.business.ventas.requerimiento.views;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.beans.Requerimiento;
-import com.business.ventas.login.views.SearchToolbar.OnSearchToolbarQueryTextListner;
+import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
@@ -49,7 +48,7 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
         navigationView.setCheckedItem(R.id.nav_requerimiento);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
-        toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
+     //   toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         return view;
     }
 

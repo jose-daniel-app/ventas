@@ -6,10 +6,22 @@ public abstract class RepositoryFactory {
 
     public abstract UserRepository getUserRepository();
 
-    public static RepositoryFactory getFactory(int type){
-        switch (type){
-            case API_REST: return new RepositoryFactoryImpl();
-            default: return null;
+    public abstract ProductosRepository getProductosRepository();
+
+    public abstract ClientesRepository getClientesRepository();
+
+    public abstract OrdenesRepository getOrdenesRepository();
+
+    public abstract RutaRepository getRutaRepository();
+
+    public abstract ComprobanteRepository getComprobanteRepository();
+
+    public static RepositoryFactory getFactory(int type) {
+        switch (type) {
+            case API_REST:
+                return new RepositoryFactoryImpl();
+            default:
+                return null;
         }
     }
 

@@ -76,6 +76,7 @@
     <string name="ic_Mes">Mes</string>
     <string name="title_orden">Orden</string>
     <string name="title_detalle_guia">Guia</string>
+    <string name="orden_eliminar">eliminar</string>
 
 
     <!-- spinner-->
