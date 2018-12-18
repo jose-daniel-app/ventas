@@ -79,7 +79,7 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
     private void onClickCard(Comprobante comprobante) {
         MainActivity.FragmentHandler handlerFragment = getMainActivity().newFragmentHandler();
         if (comprobante.tipoDecomprobante() == Comprobante.FACTURA)
-            handlerFragment.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Factura"));
+            handlerFragment.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Factura").setComprobante(comprobante));
         else if (comprobante.tipoDecomprobante() == Comprobante.GUIA)
             handlerFragment.changeFragment(DetalleGuiaFragment.newInstance(comprobante.getCodigo(), comprobante.tipoDecomprobante()));
 

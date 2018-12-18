@@ -5,6 +5,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.business.ventas.login.views.MainActivity;
 
@@ -61,6 +62,10 @@ public abstract class AppFragment extends Fragment {
 
     public MainActivity getMainActivity() {
         return mainActivity == null ? (MainActivity) getActivity() : mainActivity;
+    }
+
+    protected void mensajeToast(String mensaje) {
+        Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
     }
 
 }

@@ -1,7 +1,6 @@
 package com.business.ventas.apiRest;
 
 public class Constants {
-
     public static final String URL_ROOT = "https://torres.rockoo.pw";
     public static final String URL_LOGIN = "/api/method/login";
     public static final String URL_LOGIN_ESTADO = "/api/method/frappe.auth.get_logged_usern";
@@ -12,7 +11,6 @@ public class Constants {
     public static final String URL_DETALLE_ORDEN = "/api/resource/Sales Order/{codigo}";
     public static final String URL_LISTA_FACTURAS = "/api/resource/Sales Invoice";
     public static final String URL_LISTA_GUIAS = "/api/resource/Delivery Note";
-
-    public static final String URL_DETALLE_FACTURA = "/api/resource/Sales Order/{codigo}";
+    public static final String URL_DETALLE_FACTURA = "/api/resource/Sales Invoice/{codigo}";
     public static final String URL_DETALLE_GUI = "/api/resource/Delivery Note/{codigo}";
 }
