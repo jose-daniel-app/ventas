@@ -5,7 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Comprobante;
@@ -21,12 +24,19 @@ import com.github.clans.fab.FloatingActionMenu;
 
 public class DetalleGuiaFragment extends AppFragment implements DetalleGuiaContract.View {
 
+    DetalleGuiaContract.Presenter presenter;
+
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
     FloatingActionMenu fabMenu;
     FloatingActionButton item1;
     FloatingActionButton item2;
     FloatingActionButton item3;
+
+    ProgressBar progressBar;
+    LinearLayout linearLayoutMain;
+    TextView txtNombreCliente;
+    TextView txtTotal;
 
     private String codigo;
     private int tipoDocumento;
@@ -40,6 +50,12 @@ public class DetalleGuiaFragment extends AppFragment implements DetalleGuiaContr
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detalle_guia, container, false);
         loadComponents(view);
+
+        presenter = DetalleGuiaContract.createInstance(DetalleGuiaContract.Presenter.class).setContext(getMainActivity()).setView(this);
+        if(codigo != null && tipoDocumento != 0){
+            mostrarProgresBar(true);
+            presenter.pedirDetalleComprobante(codigo,tipoDocumento);
+        }
         return view;
     }
 
@@ -48,6 +64,10 @@ public class DetalleGuiaFragment extends AppFragment implements DetalleGuiaContr
         navigationView.setCheckedItem(R.id.nav_ordenes);
         toolbar.getMenu().clear();
         listViewItem = view.findViewById(R.id.listViewItem);
+        progressBar = view.findViewById(R.id.progressBar);
+        txtNombreCliente = view.findViewById(R.id.txtNombreCliente);
+        txtTotal = view.findViewById(R.id.txtTotal);
+        linearLayoutMain = view.findViewById(R.id.linearLayoutMain);
         fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
         fabMenu.setIconAnimated(false);
 
@@ -105,12 +125,20 @@ public class DetalleGuiaFragment extends AppFragment implements DetalleGuiaContr
 
     @Override
     public void mostrarDetalleComprobante(Comprobante comprobante) {
+        txtNombreCliente.setText(comprobante.getNombre());
+        txtTotal.setText("S/ "+ comprobante.getPagoTotal());
         adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, comprobante.getProductos());
         listViewItem.setAdapter(adapter);
+        mostrarProgresBar(false);
     }
 
     @Override
     public void errorRespuesta(String mensaje) {
+        mostrarProgresBar(false);
+    }
 
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
+        linearLayoutMain.setVisibility(estado ? View.GONE : View.VISIBLE);
     }
 }

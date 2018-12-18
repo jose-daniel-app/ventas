@@ -15,6 +15,7 @@ import com.business.ventas.R;
 import com.business.ventas.beans.Comprobante;
 import com.business.ventas.beans.Factura;
 import com.business.ventas.comprobante.contracts.ComprobanteContract;
+import com.business.ventas.comprobante.contracts.DetalleGuiaContract;
 import com.business.ventas.login.views.MainActivity;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
@@ -80,7 +81,7 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
         if (comprobante.tipoDecomprobante() == Comprobante.FACTURA)
             handlerFragment.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Factura"));
         else if (comprobante.tipoDecomprobante() == Comprobante.GUIA)
-            handlerFragment.changeFragment(DocumentoPendienteFragment.newInstance().setTitulo("Guia"));
+            handlerFragment.changeFragment(DetalleGuiaFragment.newInstance(comprobante.getCodigo(), comprobante.tipoDecomprobante()));
 
     }
 

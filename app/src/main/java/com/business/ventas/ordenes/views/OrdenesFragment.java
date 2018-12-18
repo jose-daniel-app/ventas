@@ -106,9 +106,6 @@ public class OrdenesFragment extends AppFragment
 
     @Override
     public void mostrarOrdenes(List<Orden> ordenes) {
-        for (Orden orden : ordenes ){
-            log.info(orden.toString());
-        }
         adapter = new OrdenesViewAdapter(ordenes, this);
         recyclerViewOrden.setAdapter(adapter);
         mostrarProgresBar(false);

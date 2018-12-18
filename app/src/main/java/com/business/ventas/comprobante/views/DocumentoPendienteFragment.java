@@ -64,14 +64,14 @@ public class DocumentoPendienteFragment extends AppFragment {
         recyclerViewITemBoleta.setNestedScrollingEnabled(false);
 
         adapter = ItemBoletaViewAdapter.newInstance().config()
-            .setActivity(getActivity())
-            .setListaProductos(this.listaProducto())
-            .build();
+                .setActivity(getActivity())
+                .setListaProductos(this.listaProducto())
+                .build();
         recyclerViewITemBoleta.setAdapter(adapter);
     }
 
     private void onClikItenMenu(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.menu_item1:
                 getMainActivity().newFragmentHandler().changeFragment(DocumentoCompletadoFragment.newInstance().setTitulo("Pagado con Efectivo"));
                 break;
@@ -89,7 +89,6 @@ public class DocumentoPendienteFragment extends AppFragment {
 
     public DocumentoPendienteFragment setTitulo(String titulo) {
         this.titulo = titulo;
-        //toolbar.setTitle(titulo);
         return this;
     }
 
