@@ -2,6 +2,7 @@ package com.business.ventas.comprobante.contracts;
 
 import com.business.ventas.beans.Comprobante;
 import com.business.ventas.comprobante.interactors.DetalleGuiaInteractor;
+import com.business.ventas.comprobante.presenters.DetalleGuiaPresenter;
 import com.business.ventas.utils.PadreInteractor;
 import com.business.ventas.utils.PadrePresenter;
 import com.business.ventas.utils.PadreView;
@@ -13,7 +14,7 @@ public interface DetalleGuiaContract {
 
     static <T> T createInstance(Class<T> clas) {
         if (clas.getSimpleName().equalsIgnoreCase(PRESENTERS))
-            return null;//(T) new DetalleGuiaPresenter();
+            return (T) new DetalleGuiaPresenter();
         else if (clas.getSimpleName().equalsIgnoreCase(INTERACTOR))
             return (T)new DetalleGuiaInteractor();
         return null;

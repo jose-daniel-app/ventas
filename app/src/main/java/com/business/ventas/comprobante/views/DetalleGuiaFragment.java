@@ -1,13 +1,16 @@
 package com.business.ventas.comprobante.views;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Comprobante;
 import com.business.ventas.beans.Producto;
+import com.business.ventas.comprobante.contracts.DetalleGuiaContract;
 import com.business.ventas.login.views.MainActivity;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.Lista;
@@ -16,7 +19,7 @@ import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-public class DetalleGuiaFragment extends AppFragment {
+public class DetalleGuiaFragment extends AppFragment implements DetalleGuiaContract.View {
 
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
@@ -24,6 +27,9 @@ public class DetalleGuiaFragment extends AppFragment {
     FloatingActionButton item1;
     FloatingActionButton item2;
     FloatingActionButton item3;
+
+    private String codigo;
+    private int tipoDocumento;
 
 
     public DetalleGuiaFragment() {
@@ -52,10 +58,6 @@ public class DetalleGuiaFragment extends AppFragment {
         item1.setOnClickListener(this::onClikItenMenu);
         item2.setOnClickListener(this::onClikItenMenu);
         item3.setOnClickListener(this::onClikItenMenu);
-
-        adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, listaProducos());
-        listViewItem.setAdapter(adapter);
-        // cagar los componentes del layout
     }
 
     private void onClikItenMenu(View view) {
@@ -78,9 +80,37 @@ public class DetalleGuiaFragment extends AppFragment {
         return new DetalleGuiaFragment();
     }
 
+    public static DetalleGuiaFragment newInstance(String codigo, int tipoDocumento) {
+        DetalleGuiaFragment ordenFragment = new DetalleGuiaFragment();
+        Bundle args = new Bundle();
+        args.putString("codigo", codigo);
+        args.putInt("tipoDocumento",tipoDocumento);
+        ordenFragment.setArguments(args);
+        return ordenFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            this.codigo = getArguments().getString("codigo");
+            this.tipoDocumento = getArguments().getInt("tipoDocumento",0);
+        }
+    }
+
     private Lista<Producto> listaProducos() {
         return new Lista<Producto>(SharedPreferenceProductos.getInstance().setActivity(getActivity()).listarProducto())
                 .filtar(p -> p.getCantidad() > 0);
     }
 
+    @Override
+    public void mostrarDetalleComprobante(Comprobante comprobante) {
+        adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, comprobante.getProductos());
+        listViewItem.setAdapter(adapter);
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+
+    }
 }
