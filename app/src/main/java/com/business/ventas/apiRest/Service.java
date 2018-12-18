@@ -35,6 +35,11 @@ public interface Service {
     @GET(Constants.URL_LISTA_FACTURAS)
     Call<JsonObject> listarFacturas(@Query("fields") String fields);
 
+    //@GET(Constants.URL_LISTA_FACTURAS)
+    //Observable<Response<JsonObject>> listarFacturas1(@Query("fields") String fields);
+    //@GET(Constants.URL_LISTA_GUIAS)
+    //Observable<Response<JsonObject>> listarGuias1(@Query("fields") String fields);
+
     @GET(Constants.URL_LISTA_GUIAS)
     Call<JsonObject> listarGuias(@Query("fields") String fields);
 

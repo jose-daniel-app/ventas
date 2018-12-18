@@ -14,6 +14,14 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.google.gson.JsonObject;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+
 
 public class ComprobanteRepositoryImpl extends PadreRepository implements ComprobanteRepository {
 
@@ -61,6 +69,42 @@ public class ComprobanteRepositoryImpl extends PadreRepository implements Compro
         }).listenError(error::onRespuestaError));
 
     }
+    /*public void listarComprovantes(Context context, RespuestaSucces<Lista<Comprobante>> succes, RespuestaError error){
+
+        String columnas = "\"name,customer_name,grand_total,status,posting_date,modified,posting_time,creation\"";
+        final Disposable subscribe = Observable.zip(
+                getService(context).listarFacturas1(columnas),
+                getService(context).listarGuias1(columnas),
+                (resp1, resp2) -> {
+
+                    Lista<Comprobante> comprobantes = new Lista<>();
+                    recorrerLista(resp1.body().get("data").getAsJsonArray().iterator(), (item) -> {
+                        Factura factura = new Factura();
+                        factura.setCodigo(getString(item.get("name")));
+                        factura.setPagoTotal(getDouble(item.get("grand_total")));
+                        factura.setNombre(getString(item.get("customer_name")));
+                        factura.setFecha(getString(item.get("posting_date")));
+                        factura.setFechaPublicacion(Fechas.asDate(getString(item.get("posting_date"))));
+                        factura.setNombre(getString(item.get("customer_name")));
+                        comprobantes.add(factura);
+                    });
+
+                    recorrerLista(resp2.body().get("data").getAsJsonArray().iterator(), (item) -> {
+                        Guia guia = new Guia();
+                        guia.setCodigo(getString(item.get("name")));
+                        guia.setPagoTotal(getDouble(item.get("grand_total")));
+                        guia.setNombre(getString(item.get("customer_name")));
+                        guia.setFecha(getString(item.get("posting_date")));
+                        guia.setFechaPublicacion(Fechas.asDate(getString(item.get("posting_date"))));
+                        guia.setNombre(getString(item.get("customer_name")));
+                        comprobantes.add(guia);
+                    });
+
+                    return comprobantes;
+                }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(succes::onRespuestaSucces);
+    }*/
 
     @Override
     public void detalleDeComprobante(Context context, String codigo, int tipoComprobante, RespuestaSucces<Comprobante> succes, RespuestaError error) {
