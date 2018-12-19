@@ -4,12 +4,18 @@ import android.content.Context;
 
 import com.business.ventas.apiRest.RestApiAdapter;
 import com.business.ventas.apiRest.Service;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.Iterator;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,5 +98,26 @@ public abstract class PadreRepository {
         interface ICallRespuestaError {
             void onICallRespuesta(String mensajeError);
         }
+    }
+
+    public static class PoolExecute<T>{
+        ExecutorService executor;
+        Lista<tarea<T>> tareas = new Lista<>();
+
+        PoolExecute<T> agregarTarea(tarea<T> tarea){
+            tareas.add(tarea);
+            return this;
+        }
+
+        Lista<T> executarYobtenerResultados(){
+
+            executor = Executors.newFixedThreadPool(tareas.size());
+            tareas.foreach(tarea -> executor.submit(tarea));
+
+            return null;
+        }
+
+        interface tarea<T> extends Callable<T> {}
+
     }
 }
