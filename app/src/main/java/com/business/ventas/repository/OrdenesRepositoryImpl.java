@@ -8,8 +8,10 @@ import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import java.util.Iterator;
 
 import retrofit2.Call;
@@ -26,34 +28,34 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
     public OrdenesRepository listarOrdenes(Context context) {
 
         getService(context).listarOrdenes("\"name,customer_name,customer,customer_address,address_display,delivery_date,other_charges_calculation\"")
-        .enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if (response.code() == 200) {
-                    Lista<Orden> ordenes = new Lista<>();
-                    Iterator<JsonElement> iterar = response.body().getAsJsonArray("data").iterator();
-                    while (iterar.hasNext()) {
-                        JsonObject json = iterar.next().getAsJsonObject();
-                        Orden orden = new Orden();
-                        orden.setCodigo(json.get("name").isJsonNull() ? null : json.get("name").getAsString());
-                        orden.setNombreCliente(json.get("customer_name").isJsonNull() ? null : json.get("customer_name").getAsString());
-                        orden.setDirecionCliente(json.get("address_display").isJsonNull() ? null : json.get("address_display")
-                                .getAsString().replaceAll("<br>"," "));
-                        orden.setFechaEntrega(json.get("customer_name").isJsonNull() ? null : Fechas.asDate(json.get("delivery_date").getAsString()));
-                        ordenes.add(orden);
+                .enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if (response.code() == 200) {
+                            Lista<Orden> ordenes = new Lista<>();
+                            Iterator<JsonElement> iterar = response.body().getAsJsonArray("data").iterator();
+                            while (iterar.hasNext()) {
+                                JsonObject json = iterar.next().getAsJsonObject();
+                                Orden orden = new Orden();
+                                orden.setCodigo(json.get("name").isJsonNull() ? null : json.get("name").getAsString());
+                                orden.setNombreCliente(json.get("customer_name").isJsonNull() ? null : json.get("customer_name").getAsString());
+                                orden.setDirecionCliente(json.get("address_display").isJsonNull() ? null : json.get("address_display")
+                                        .getAsString().replaceAll("<br>", " "));
+                                orden.setFechaEntrega(json.get("customer_name").isJsonNull() ? null : Fechas.asDate(json.get("delivery_date").getAsString()));
+                                ordenes.add(orden);
+                            }
+                            succes.onRespuestaSucces(ordenes);
+                        } else {
+                            error.onRespuestaError(String.format("error codigo %s", response.code()));
+                        }
                     }
-                    succes.onRespuestaSucces(ordenes);
-                } else {
-                    error.onRespuestaError(String.format("error codigo %s", response.code()));
-                }
-            }
 
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                error.onRespuestaError(t.getMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        error.onRespuestaError(t.getMessage());
+                    }
+                });
 
         return this;
     }
@@ -65,7 +67,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                if(response.code() == SUCCES){
+                if (response.code() == SUCCES) {
                     JsonObject data = response.body().get("data").getAsJsonObject();
                     Orden orden = new Orden();
                     orden.setCodigo(data.get("name").isJsonNull() ? null : data.get("name").getAsString());
@@ -74,7 +76,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                     orden.setTotalGeneral(data.get("base_grand_total").isJsonNull() ? null : data.get("base_grand_total").getAsDouble());
                     Lista<Producto> productos = new Lista<>();
 
-                    recorrerLista(data.get("items").getAsJsonArray().iterator(), (item)->{
+                    recorrerLista(data.get("items").getAsJsonArray().iterator(), (item) -> {
                         Producto producto = new Producto();
                         producto.setItemCode(item.get("item_code").isJsonNull() ? null : item.get("item_code").getAsString());
                         producto.setCantidad(item.get("qty").isJsonNull() ? null : item.get("qty").getAsInt());
@@ -87,7 +89,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                     orden.setProductos(productos);
                     succes.onRespuestaSucces(orden);
 
-                }else{
+                } else {
                     error.onRespuestaError(String.format("error codigo %s", response.code()));
                 }
             }
@@ -96,9 +98,33 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
             public void onFailure(Call<JsonObject> call, Throwable t) {
 
             }
-        } );
+        });
 
         return this;
+    }
+
+    @Override
+    public void CrearOrden(Context context, Orden orden, RespuestaSucces<String> succes, RespuestaError error) {
+
+        JsonObject object = new JsonObject();
+        object.addProperty("customer",orden.getNombreCliente());
+        object.addProperty("delivery_date",Fechas.dateAsString(orden.getFechaEntrega()));
+        JsonArray listaJson = new JsonArray();
+        orden.getProductos().foreach(producto -> {
+            JsonObject item = new JsonObject();
+            item.addProperty("item_code", producto.getCodigo());
+            item.addProperty("qty", producto.getCantidad());
+            listaJson.add(item);
+        });
+        object.add("items", listaJson);
+
+        getService(context).crearOrden(object).enqueue(
+            new PadreRepository.CallRespuesta().listenRespuesta(responseOk -> {
+                succes.onRespuestaSucces("Se creo la orden correctamente.");
+            }).listenError(respError -> {
+                error.onRespuestaError(respError);
+            })
+        );
     }
 
     @Override

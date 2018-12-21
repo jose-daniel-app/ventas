@@ -85,8 +85,10 @@ public class AuthRepository {
     }
 
     public void addAuthStateListener(AuthStateListener authStateListener) {
+        Context context = (Context) authStateListener;
         subscribers.add(authStateListener);
-        notificar(getApiKeyRest((Context) authStateListener) != null);
+        notificar(getApiKeyRest(context) != null);
+
     }
 
     public void removeAuthStateListener(AuthStateListener authStateListener) {

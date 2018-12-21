@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl extends PadreRepository implements UserRepository {
 
     VentasLog log = LogFactory.createInstance().setTag(UserRepositoryImpl.class.getSimpleName());
 
@@ -53,6 +53,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public boolean conseguirUsuarioRegistrado(Context context) {
+        try {
+            Response<JsonObject> response = getService(context).conseguirUsuarioRegistrado().execute();
+            return response.code() == SUCCES;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     private class ErrorHandel {
         private ResponseBody responseBody;

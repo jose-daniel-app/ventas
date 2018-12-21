@@ -1,5 +1,6 @@
 package com.business.ventas.ordenes.contracts;
 
+import com.business.ventas.beans.Orden;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.ordenes.interactors.ProductosInteractor;
 import com.business.ventas.ordenes.presenters.ProductosPresenter;
@@ -24,14 +25,20 @@ public interface ProductosContract {
 
     interface View extends PadreView {
         void cargarProductos(List<Producto> productos);
+
+        void respuestaCrearOrden(String mensja);
     }
 
     interface Presenter extends PadrePresenter<Presenter, View> {
         void solicitarProductos();
+
+        void crearNuevaOrden(Orden orden);
     }
 
     interface Interactor extends PadreInteractor<Interactor, Presenter> {
         void solicitarProductos();
+
+        void crearNuevaOrden(Orden orden);
     }
 
 }

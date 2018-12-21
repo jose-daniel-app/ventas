@@ -113,11 +113,10 @@ public abstract class PadreRepository {
 
             executor = Executors.newFixedThreadPool(tareas.size());
             tareas.foreach(tarea -> executor.submit(tarea));
-
+            executor.shutdown();
             return null;
         }
 
         interface tarea<T> extends Callable<T> {}
-
     }
 }

@@ -14,4 +14,12 @@ public class Fechas {
         return null;
     }
 
+    public static String dateAsString(Date date){
+        try{
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            return format.format(date);
+        }catch (Exception e){
+            return null;
+        }
+    }
 }

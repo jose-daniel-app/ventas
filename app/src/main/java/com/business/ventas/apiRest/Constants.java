@@ -13,4 +13,5 @@ public class Constants {
     public static final String URL_LISTA_GUIAS = "/api/resource/Delivery Note";
     public static final String URL_DETALLE_FACTURA = "/api/resource/Sales Invoice/{codigo}";
     public static final String URL_DETALLE_GUI = "/api/resource/Delivery Note/{codigo}";
+    public static final String URL_CREAR_ORDEN = "/api/resource/Sales Order";
 }

@@ -20,6 +20,9 @@ public interface Service {
     @GET(Constants.URL_LISTA_PRODUCTO)
     Call<JsonObject> listarProductos(@Query("fields") String fields);
 
+    @GET(Constants.URL_LOGIN_ESTADO)
+    Call<JsonObject> conseguirUsuarioRegistrado();
+
     @GET(Constants.URL_LISTA_CLIENTES)
     Call<JsonObject> listarClientes(@Query("fields") String fields, @Query("filters") String filters);
 
@@ -34,6 +37,10 @@ public interface Service {
 
     @GET(Constants.URL_LISTA_FACTURAS)
     Call<JsonObject> listarFacturas(@Query("fields") String fields);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST(Constants.URL_CREAR_ORDEN)
+    Call<JsonObject> crearOrden(@Body JsonObject JsonObject);
 
     //@GET(Constants.URL_LISTA_FACTURAS)
     //Observable<Response<JsonObject>> listarFacturas1(@Query("fields") String fields);
