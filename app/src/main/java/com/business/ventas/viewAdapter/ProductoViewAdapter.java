@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.Numeros;
 import com.business.ventas.utils.SharedPreferenceProductos;
@@ -28,7 +29,7 @@ import java.util.List;
 public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapter.Holderview> {
 
     private VentasLog log = LogFactory.createInstance().setTag(ProductoViewAdapter.class.getSimpleName());
-    private List<Producto> productlistAdap;
+    private Lista<Producto> productlistAdap;
     private Activity activity;
 
     public static ProductoViewAdapter newInstance() {
@@ -52,13 +53,13 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
     @SuppressLint("SetTextI18n")
     @Override
-        public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
+    public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
 
         holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
-        holderview.txtStock.setText(productlistAdap.get(position).getStock()+"");
+        holderview.txtStock.setText(productlistAdap.get(position).getStock() + "");
         holderview.txtCodigo.setText(productlistAdap.get(position).getItemCode());
         Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
-        holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() +"");
+        holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() + "");
 
         holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
             if (isFocus)
@@ -76,7 +77,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         holderview.cardviewMenos.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
-            if (cantidad > 0){
+            if (cantidad > 0) {
                 productlistAdap.get(position).setCantidad(cantidad - 1);
                 productlistAdap.get(position).actualizarPrecioCantidad();
                 holderview.txtCantidad.setText((cantidad - 1) + "");
@@ -84,6 +85,11 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         });
 
     }
+
+    public Lista<Producto> obtenerProductosElegidos() {
+        return productlistAdap.filtar(producto -> producto.getCantidad() > 0);
+    }
+
 
     private class ViewTextHandler implements TextWatcher {
         Producto producto;
@@ -117,8 +123,8 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         return productlistAdap.size();
     }
 
-    public void setfilter(List<Producto> listProducto) {
-        productlistAdap = new ArrayList<>();
+    public void setfilter(Lista<Producto> listProducto) {
+        productlistAdap = new Lista<>();
         productlistAdap.addAll(listProducto);
         notifyDataSetChanged();
     }
@@ -147,11 +153,12 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
     public class BuildAdapter {
         ProductoViewAdapter productoViewAdapter;
+
         public BuildAdapter(ProductoViewAdapter productoViewAdapter) {
             this.productoViewAdapter = productoViewAdapter;
         }
 
-        public BuildAdapter setProductlistAdap(List<Producto> productlistAdap) {
+        public BuildAdapter setProductlistAdap(Lista<Producto> productlistAdap) {
             this.productoViewAdapter.productlistAdap = productlistAdap;
             return this;
         }
@@ -161,7 +168,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
             return this;
         }
 
-        public ProductoViewAdapter build(){
+        public ProductoViewAdapter build() {
             return this.productoViewAdapter;
         }
     }

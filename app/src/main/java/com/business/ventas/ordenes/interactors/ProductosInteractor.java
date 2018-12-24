@@ -1,6 +1,8 @@
 package com.business.ventas.ordenes.interactors;
 
+import com.business.ventas.beans.Orden;
 import com.business.ventas.ordenes.contracts.ProductosContract;
+import com.business.ventas.repository.OrdenesRepository;
 import com.business.ventas.repository.ProductosRepository;
 import com.business.ventas.repository.RepositoryFactory;
 
@@ -8,6 +10,7 @@ public class ProductosInteractor implements ProductosContract.Interactor {
 
     RepositoryFactory factory = RepositoryFactory.getFactory(RepositoryFactory.API_REST);
     ProductosRepository _producto = factory.getProductosRepository();
+    OrdenesRepository _orden = factory.getOrdenesRepository();
     ProductosContract.Presenter presenter;
 
     @Override
@@ -21,5 +24,14 @@ public class ProductosInteractor implements ProductosContract.Interactor {
         _producto.listarProductos(presenter.getContext())
             .setOnRespuestaSucces(presenter.getView()::cargarProductos)
             .setOnRespuestaError(presenter.getView()::errorRespuesta);
+    }
+
+    @Override
+    public void crearNuevaOrden(Orden orden) {
+        _orden.CrearOrden(
+            presenter.getContext(), orden,
+            presenter.getView()::respuestaCrearOrden,
+            presenter.getView()::errorRespuesta
+        );
     }
 }

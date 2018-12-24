@@ -2,6 +2,7 @@ package com.business.ventas.ordenes.presenters;
 
 import android.content.Context;
 
+import com.business.ventas.beans.Orden;
 import com.business.ventas.ordenes.contracts.ProductosContract;
 
 public class ProductosPresenter implements ProductosContract.Presenter {
@@ -40,5 +41,10 @@ public class ProductosPresenter implements ProductosContract.Presenter {
     @Override
     public Context getContext() {
         return this.context;
+    }
+
+    @Override
+    public void crearNuevaOrden(Orden orden) {
+        interactor.crearNuevaOrden(orden);
     }
 }

@@ -68,4 +68,9 @@ public abstract class AppFragment extends Fragment {
         Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
     }
 
+    protected void mensajeToast(String fonmato, Object... valores) {
+        String mensaje = String.format(fonmato, valores);
+        Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
+    }
+
 }

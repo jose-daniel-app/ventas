@@ -102,9 +102,13 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
 
     @Override
     public void mostrarListaClientes(List<Cliente> clientes) {
-        adapter = new ClienteViewAdapter(clientes, this);
+        adapter = new ClienteViewAdapter(clientes, this::clienteSeleccionado);
         listaclientes.setAdapter(adapter);
         mostrarProgresBar(false);
+    }
+
+    private void clienteSeleccionado(Cliente cliente){
+        getMainActivity().newFragmentHandler().changeFragment(ProductosFragment.newInstance().setCliente(cliente));
     }
 
     @Override

@@ -40,7 +40,7 @@ public interface Service {
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST(Constants.URL_CREAR_ORDEN)
-    Call<JsonObject> crearOrden(@Body JsonObject JsonObject);
+    Call<JsonObject> crearOrden(@Body JsonObject jsonObject);
 
     //@GET(Constants.URL_LISTA_FACTURAS)
     //Observable<Response<JsonObject>> listarFacturas1(@Query("fields") String fields);
@@ -56,7 +56,7 @@ public interface Service {
     @GET(Constants.URL_DETALLE_GUI)
     Call<JsonObject> obtenerDetalleGuia(@Path("codigo") String codigo);
 
-    public class User {
+     class User {
         public User(String usr, String pwd) {
             this.usr = usr;
             this.pwd = pwd;

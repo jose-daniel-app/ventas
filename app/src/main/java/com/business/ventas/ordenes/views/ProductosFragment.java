@@ -12,11 +12,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Cliente;
+import com.business.ventas.beans.Orden;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.search.SearchToolbarProducto;
 import com.business.ventas.search.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
 import com.business.ventas.ordenes.contracts.ProductosContract;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Fechas;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
@@ -24,6 +28,7 @@ import com.business.ventas.viewAdapter.ProductoViewAdapter;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -41,6 +46,9 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     FloatingActionButton floatingActionButton;
     FloatingActionMenu fabMenu;
     ProgressBar progressBar;
+
+    // parametro.
+    private Cliente cliente;
 
     public ProductosFragment() {
     }
@@ -88,8 +96,17 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     }
 
     private void clickItemButon(View view) {
-        sharedProductos.guardar(adapter.getProductlistAdap());
-        getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance());
+        Lista<Producto> productos = adapter.obtenerProductosElegidos();
+        if (productos.size() > 0) {
+            Orden orden = new Orden();
+            orden.setNombreCliente(cliente.getNombre());
+            orden.setFechaEntrega(new Date());
+            orden.setProductos(productos);
+            presenter.crearNuevaOrden(orden);
+            mostrarProgresBar(true);
+        } else {
+            mensajeToast("No se a seleccionado ningun producto.");
+        }
     }
 
     public static ProductosFragment newInstance() {
@@ -112,18 +129,30 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
 
     @Override
     public void errorRespuesta(String mensaje) {
+        mensajeToast(mensaje);
         log.info(mensaje);
         mostrarProgresBar(false);
     }
 
     @Override
     public void cargarProductos(List<Producto> productos) {
-        //new Lista<Producto>(productos).foreach(p -> log.info(p.toString()));
         adapter = ProductoViewAdapter.newInstance().config()
                 .setActivity(getActivity())
-                .setProductlistAdap(productos)
+                .setProductlistAdap(new Lista<>(productos))
                 .build();
         recyclerView.setAdapter(adapter);
         mostrarProgresBar(false);
+    }
+
+    public ProductosFragment setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        return this;
+    }
+
+    @Override
+    public void respuestaCrearOrden(Orden orden) {
+        mensajeToast("se creo la orden "+orden.getCodigo());
+        mostrarProgresBar(false);
+        getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance(orden.getCodigo()));
     }
 }

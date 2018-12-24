@@ -26,7 +26,7 @@ public interface ProductosContract {
     interface View extends PadreView {
         void cargarProductos(List<Producto> productos);
 
-        void respuestaCrearOrden(String mensja);
+        void respuestaCrearOrden(Orden orden);
     }
 
     interface Presenter extends PadrePresenter<Presenter, View> {

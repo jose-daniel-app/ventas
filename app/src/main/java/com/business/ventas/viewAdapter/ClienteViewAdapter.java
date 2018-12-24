@@ -23,11 +23,12 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
 
     private VentasLog log = LogFactory.createInstance().setTag(ClienteViewAdapter.class.getSimpleName());
     private List<Cliente> productlistAdap;
-    private ClienteFragment fragment;
+    //private ClienteFragment fragment;
+    private SeleccionCliente seleccionCliente;
 
-    public ClienteViewAdapter(List<Cliente> productlist, ClienteFragment fragment) {
+    public ClienteViewAdapter(List<Cliente> productlist, SeleccionCliente seleccionCliente) {
+        this.seleccionCliente = seleccionCliente;
         this.productlistAdap = productlist;
-        this.fragment = fragment;
     }
 
     @Override
@@ -38,19 +39,18 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
-
         holderview.v_nombre.setText(productlistAdap.get(position).getNombre());
         holderview.v_ruc.setText(productlistAdap.get(position).getRuc());
         holderview.v_direccion.setText(productlistAdap.get(position).getDireccion());
         holderview.v_foto.setImageResource(productlistAdap.get(position).getFoto());
-        holderview.itemView.setOnClickListener(this::onclick);
-
+        holderview.itemView.setOnClickListener(view -> {
+            seleccionCliente.escucharClienteSeleccionado(productlistAdap.get(position));
+        });
     }
 
-    private void onclick(View view) {
-        log.info("el onclick de clase => " + this.fragment);
+    /*private void onclick(View view) {
         fragment.getMainActivity().newFragmentHandler().changeFragment(ProductosFragment.newInstance());
-    }
+    }*/
 
     @Override
     public int getItemCount() {
@@ -83,6 +83,11 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
             v_direccion = itemview.findViewById(R.id.textView4);
         }
 
+    }
+
+    @FunctionalInterface
+    public interface SeleccionCliente {
+        void escucharClienteSeleccionado(Cliente cliente);
     }
 
 }
