@@ -18,24 +18,31 @@ public interface Service {
     @POST(Constants.URL_LOGIN)
     Call<JsonObject> login(@Body User User);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_PRODUCTO)
     Call<JsonObject> listarProductos(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LOGIN_ESTADO)
     Call<JsonObject> conseguirUsuarioRegistrado();
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_CLIENTES)
     Call<JsonObject> listarClientes(@Query("fields") String fields, @Query("filters") String filters);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_ORDENES)
     Call<JsonObject> listarOrdenes(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_DETALLE_ORDEN)
     Call<JsonObject> obtenerDetalleOrden(@Path("codigo") String codigo);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_RUTAS)
     Call<JsonObject> listarRutas(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_FACTURAS)
     Call<JsonObject> listarFacturas(@Query("fields") String fields);
 
@@ -52,12 +59,15 @@ public interface Service {
     //@GET(Constants.URL_LISTA_GUIAS)
     //Observable<Response<JsonObject>> listarGuias1(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_GUIAS)
     Call<JsonObject> listarGuias(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_DETALLE_FACTURA)
     Call<JsonObject> obtenerDetalleFactura(@Path("codigo") String codigo);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_DETALLE_GUI)
     Call<JsonObject> obtenerDetalleGuia(@Path("codigo") String codigo);
 
