@@ -100,6 +100,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         if (productos.size() > 0) {
             Orden orden = new Orden();
             orden.setNombreCliente(cliente.getNombre());
+            orden.setTerritorio(cliente.getDireccion());
             orden.setFechaEntrega(new Date());
             orden.setProductos(productos);
             presenter.crearNuevaOrden(orden);

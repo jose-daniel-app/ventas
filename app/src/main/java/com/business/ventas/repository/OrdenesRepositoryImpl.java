@@ -109,6 +109,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
         JsonObject object = new JsonObject();
         object.addProperty("customer",orden.getNombreCliente());
         object.addProperty("delivery_date",Fechas.dateAsString(orden.getFechaEntrega()));
+        object.addProperty("territory",orden.getTerritorio());
         JsonArray listaJson = new JsonArray();
         orden.getProductos().foreach(producto -> {
             JsonObject item = new JsonObject();

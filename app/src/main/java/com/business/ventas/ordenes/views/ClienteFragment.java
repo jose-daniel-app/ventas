@@ -108,6 +108,7 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     }
 
     private void clienteSeleccionado(Cliente cliente){
+        log.info("cliente %s ", cliente.toString());
         getMainActivity().newFragmentHandler().changeFragment(ProductosFragment.newInstance().setCliente(cliente));
     }
 
