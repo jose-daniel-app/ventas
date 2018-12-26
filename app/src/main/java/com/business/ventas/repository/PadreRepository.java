@@ -25,6 +25,7 @@ public abstract class PadreRepository {
 
 
     protected static int SUCCES = 200;
+    protected static int ACCEPTED = 202;
 
 
     public Service getService(Context context) {
@@ -65,7 +66,7 @@ public abstract class PadreRepository {
         @Override
         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
             if (this.iCallRespuestaSucces != null) {
-                if (response.code() == SUCCES) {
+                if (response.code() == SUCCES || ACCEPTED == response.code()) {
                     iCallRespuestaSucces.onICallRespuesta(response);
                 } else {
                     if (this.iCallRespuestaError != null)

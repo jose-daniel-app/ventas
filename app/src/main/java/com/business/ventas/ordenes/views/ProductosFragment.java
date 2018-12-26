@@ -96,7 +96,9 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     }
 
     private void clickItemButon(View view) {
-        Lista<Producto> productos = adapter.obtenerProductosElegidos();
+        Lista<Producto> productos = adapter.obtenerProductosElegidos()
+                .editarItemDelaLista(p -> p.setAlmacen(cliente.getDireccion()));
+
         if (productos.size() > 0) {
             Orden orden = new Orden();
             orden.setNombreCliente(cliente.getNombre());

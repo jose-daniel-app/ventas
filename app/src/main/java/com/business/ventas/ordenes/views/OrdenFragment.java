@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,20 +16,14 @@ import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Orden;
-import com.business.ventas.beans.Producto;
 import com.business.ventas.comprobante.views.DetalleGuiaFragment;
 import com.business.ventas.ordenes.contracts.OrdenContract;
-import com.business.ventas.ordenes.contracts.OrdenesContract;
 import com.business.ventas.utils.AppFragment;
-import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.DialogoConfimacion;
 import com.business.ventas.utils.LogFactory;
-import com.business.ventas.utils.SharedPreferenceProductos;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 import com.github.clans.fab.FloatingActionButton;
-
-import java.util.HashMap;
-import java.util.List;
 
 public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
@@ -66,6 +61,7 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
         toolbar.setTitle(R.string.title_orden);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_orden);
+        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         navigationView.setCheckedItem(R.id.nav_ordenes);
         listViewItem = view.findViewById(R.id.listViewItem);
         item1 = view.findViewById(R.id.item1);
@@ -74,6 +70,30 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
         txtNameCliene = view.findViewById(R.id.txtNameCliene);
         txtTotal = view.findViewById(R.id.txtTotal);
         item1.setOnClickListener(this::clickItem);
+    }
+
+    private boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.item_check_boleta:
+                mostrarMensajeConfirmacion();
+                break;
+            default:
+        }
+        return true;
+    }
+
+    private void mostrarMensajeConfirmacion() {
+        new DialogoConfimacion(getFragmentManager())
+                .setMensaje("¿Eliminar la orden?")
+                .setDescripcionCancelar("NO")
+                .setDescripcionConfirmar("SI")
+                .setAccionConfirmar(() -> {
+                    Orden ordenEli = new Orden();
+                    ordenEli.setCodigo(codigoDeOrden);
+                    presenter.solicitarEliminarOrden(ordenEli);
+                    mostrarProgresBar(true);
+                })
+                .show();
     }
 
     private void clickItem(View view) {
@@ -119,7 +139,7 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
     @Override
     public void mostrarDetalleOrden(Orden orden) {
-        txtTotal.setText("s/ "+ orden.getTotalGeneral());
+        txtTotal.setText("s/ " + orden.getTotalGeneral());
         txtNameCliene.setText(orden.getNombreCliente());
         adapter = new ItemPedidosBaseAdapter(getMainActivity(), R.layout.view_item_pedido, orden.getProductos());
         listViewItem.setAdapter(adapter);
@@ -127,8 +147,17 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
     }
 
     @Override
+    public void respuestaEliminarOrden(String mensaje) {
+        mensajeToast("se elimino la orden " + codigoDeOrden);
+        mostrarProgresBar(false);
+        codigoDeOrden = null;
+        getMainActivity().newFragmentHandler().changeFragment(OrdenesFragment.newInstance());
+    }
+
+    @Override
     public void errorRespuesta(String mensaje) {
         log.error(mensaje);
+        mensajeToast(mensaje);
         mostrarProgresBar(false);
     }
 }

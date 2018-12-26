@@ -15,7 +15,7 @@ public class OrdenInteractor implements OrdenContract.Interactor {
 
     @Override
     public void solicitarDetalleOrden(String codigo) {
-        _orden.detalleOrden(this.presenter.getContext(),codigo).setOnRespuestaSucces(new IpadreRepository.RespuestaSucces<Orden>() {
+        _orden.detalleOrden(this.presenter.getContext(), codigo).setOnRespuestaSucces(new IpadreRepository.RespuestaSucces<Orden>() {
             @Override
             public void onRespuestaSucces(Orden orden) {
                 presenter.getView().mostrarDetalleOrden(orden);
@@ -27,5 +27,10 @@ public class OrdenInteractor implements OrdenContract.Interactor {
     public OrdenContract.Interactor setPresenter(OrdenContract.Presenter presenter) {
         this.presenter = presenter;
         return this;
+    }
+
+    @Override
+    public void solicitarEliminarOrden(Orden orden) {
+        _orden.eliminarOrden(presenter.getContext(), orden, presenter.getView()::respuestaEliminarOrden, presenter.getView()::errorRespuesta);
     }
 }

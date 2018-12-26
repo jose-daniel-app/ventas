@@ -50,7 +50,6 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                         }
                     }
 
-
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         error.onRespuestaError(t.getMessage());
@@ -104,7 +103,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
     }
 
     @Override
-    public void CrearOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error) {
+    public void crearOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error) {
 
         JsonObject object = new JsonObject();
         object.addProperty("customer",orden.getNombreCliente());
@@ -115,6 +114,8 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
             JsonObject item = new JsonObject();
             item.addProperty("item_code", producto.getItemCode());
             item.addProperty("qty", producto.getCantidad());
+            //log.info("warehouse %s ", producto.getAlmacen());
+            //item.addProperty("warehouse", producto.getAlmacen());
             listaJson.add(item);
         });
         object.add("items", listaJson);
@@ -145,6 +146,15 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                 error.onRespuestaError(respError);
             })
         );
+    }
+
+    @Override
+    public void eliminarOrden(Context context, Orden orden, RespuestaSucces<String> succes, RespuestaError error) {
+        getService(context).eliminarOrden(orden.getCodigo()).enqueue(new PadreRepository.CallRespuesta().listenRespuesta(respOk -> {
+            String message = respOk.body().get("message").getAsString();
+            succes.onRespuestaSucces(message);
+
+        }).listenError(error::onRespuestaError));
     }
 
     @Override

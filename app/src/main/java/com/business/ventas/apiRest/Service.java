@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -41,6 +42,10 @@ public interface Service {
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST(Constants.URL_CREAR_ORDEN)
     Call<JsonObject> crearOrden(@Body JsonObject jsonObject);
+
+    @Headers({"Accept: application/json"})
+    @DELETE(Constants.URL_ELIMINAR_ORDEN)
+    Call<JsonObject> eliminarOrden(@Path("codigo") String codigo);
 
     //@GET(Constants.URL_LISTA_FACTURAS)
     //Observable<Response<JsonObject>> listarFacturas1(@Query("fields") String fields);

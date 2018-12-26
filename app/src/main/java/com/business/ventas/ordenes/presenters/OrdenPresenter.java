@@ -41,4 +41,9 @@ public class OrdenPresenter implements OrdenContract.Presenter {
     public OrdenContract.View getView() {
         return this.view;
     }
+
+    @Override
+    public void solicitarEliminarOrden(Orden orden) {
+        interactor.solicitarEliminarOrden(orden);
+    }
 }
