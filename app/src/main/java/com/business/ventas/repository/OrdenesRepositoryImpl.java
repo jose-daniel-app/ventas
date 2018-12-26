@@ -114,7 +114,6 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
             JsonObject item = new JsonObject();
             item.addProperty("item_code", producto.getItemCode());
             item.addProperty("qty", producto.getCantidad());
-            log.info("warehouse %s ", producto.getAlmacen());
             item.addProperty("warehouse", producto.getAlmacen());
             listaJson.add(item);
         });
