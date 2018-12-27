@@ -9,14 +9,15 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.Iterator;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Pattern;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,7 +71,11 @@ public abstract class PadreRepository {
                     iCallRespuestaSucces.onICallRespuesta(response);
                 } else {
                     if (this.iCallRespuestaError != null)
-                        iCallRespuestaError.onICallRespuesta("codigo respuesta :" + response.code());
+                        iCallRespuestaError.onICallRespuesta(
+                                "codigo respuesta :" + response.code() + ", " +
+                                        obtenerMensajeError(response.errorBody())
+                        );
+
                 }
             }
         }
@@ -92,6 +97,19 @@ public abstract class PadreRepository {
             return this;
         }
 
+        private String obtenerMensajeError(ResponseBody respuesta) {
+            String mensaje = "Ocurrio un error interno.";
+            try {
+                String jsonString = respuesta.string();
+                JsonElement root = new JsonParser().parse(jsonString);
+                mensaje = root.getAsJsonObject().get("_server_messages").getAsString()
+                        .replaceAll(Pattern.quote("\\"), "");
+            } catch (Exception e) {
+                log.info(e.getMessage());
+            }
+            return mensaje;
+        }
+
         interface ICallRespuestaSucces {
             void onICallRespuesta(Response<JsonObject> response);
         }
@@ -101,16 +119,16 @@ public abstract class PadreRepository {
         }
     }
 
-    public static class PoolExecute<T>{
+    public static class PoolExecute<T> {
         ExecutorService executor;
         Lista<tarea<T>> tareas = new Lista<>();
 
-        PoolExecute<T> agregarTarea(tarea<T> tarea){
+        PoolExecute<T> agregarTarea(tarea<T> tarea) {
             tareas.add(tarea);
             return this;
         }
 
-        Lista<T> executarYobtenerResultados(){
+        Lista<T> executarYobtenerResultados() {
 
             executor = Executors.newFixedThreadPool(tareas.size());
             tareas.foreach(tarea -> executor.submit(tarea));
@@ -118,6 +136,7 @@ public abstract class PadreRepository {
             return null;
         }
 
-        interface tarea<T> extends Callable<T> {}
+        interface tarea<T> extends Callable<T> {
+        }
     }
 }
