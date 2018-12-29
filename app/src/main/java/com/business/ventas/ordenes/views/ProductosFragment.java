@@ -70,7 +70,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         searchToolbar = new SearchToolbarProducto(getActivity(), this, getActivity().findViewById(R.id.search_producto));
         mostrarProgresBar(true);
-        presenter.solicitarProductos();
+        presenter.solicitarProductos(cliente.getDireccion());
         return view;
     }
 
@@ -96,8 +96,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     }
 
     private void clickItemButon(View view) {
-        Lista<Producto> productos = adapter.obtenerProductosElegidos()
-                .editarItemDelaLista(p -> p.setAlmacen("AT-Arequipa1 - TS"));
+        Lista<Producto> productos = adapter.obtenerProductosElegidos();
 
         if (productos.size() > 0) {
             Orden orden = new Orden();

@@ -25,19 +25,16 @@ public interface ProductosContract {
 
     interface View extends PadreView {
         void cargarProductos(List<Producto> productos);
-
         void respuestaCrearOrden(Orden orden);
     }
 
     interface Presenter extends PadrePresenter<Presenter, View> {
-        void solicitarProductos();
-
+        void solicitarProductos(String nombreAlmacen);
         void crearNuevaOrden(Orden orden);
     }
 
     interface Interactor extends PadreInteractor<Interactor, Presenter> {
-        void solicitarProductos();
-
+        void solicitarProductos(String nombreAlmacen);
         void crearNuevaOrden(Orden orden);
     }
 

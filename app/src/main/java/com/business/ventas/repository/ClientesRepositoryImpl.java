@@ -29,7 +29,7 @@ public class ClientesRepositoryImpl implements ClientesRepository {
         RestApiAdapter restApiAdapter = new RestApiAdapter(context);
         Service service = restApiAdapter.getLoginService();
         Call<JsonObject> call = service
-                .listarClientes("\"*\"", "[[\"Customer\",\"territory\",\"=\",\"Arequipa1\"]]");
+                .listarClientes("\"*\""/*, "[[\"Customer\",\"territory\",\"=\",\"Arequipa1\"]]"*/);
 
         call.enqueue(new Callback<JsonObject>() {
 
