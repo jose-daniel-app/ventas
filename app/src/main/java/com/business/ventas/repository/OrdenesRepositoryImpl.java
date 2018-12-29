@@ -50,7 +50,6 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                         }
                     }
 
-
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         error.onRespuestaError(t.getMessage());
@@ -81,7 +80,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                         producto.setItemCode(item.get("item_code").isJsonNull() ? null : item.get("item_code").getAsString());
                         producto.setCantidad(item.get("qty").isJsonNull() ? null : item.get("qty").getAsInt());
                         producto.setPrecioUnitario(item.get("rate").isJsonNull() ? null : item.get("rate").getAsDouble());
-                        producto.setNombre(item.get("description").isJsonNull() ? null : item.get("description").getAsString());
+                        producto.setNombre(item.get("item_name").isJsonNull() ? null : item.get("item_name").getAsString());
                         producto.setPrecioCantidad(item.get("base_amount").isJsonNull() ? null : item.get("base_amount").getAsDouble());
                         productos.add(producto);
                     });
@@ -104,16 +103,18 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
     }
 
     @Override
-    public void CrearOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error) {
+    public void crearOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error) {
 
         JsonObject object = new JsonObject();
         object.addProperty("customer",orden.getNombreCliente());
         object.addProperty("delivery_date",Fechas.dateAsString(orden.getFechaEntrega()));
+        object.addProperty("territory",orden.getTerritorio());
         JsonArray listaJson = new JsonArray();
         orden.getProductos().foreach(producto -> {
             JsonObject item = new JsonObject();
             item.addProperty("item_code", producto.getItemCode());
             item.addProperty("qty", producto.getCantidad());
+            item.addProperty("warehouse", producto.getAlmacen());
             listaJson.add(item);
         });
         object.add("items", listaJson);
@@ -144,6 +145,15 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                 error.onRespuestaError(respError);
             })
         );
+    }
+
+    @Override
+    public void eliminarOrden(Context context, Orden orden, RespuestaSucces<String> succes, RespuestaError error) {
+        getService(context).eliminarOrden(orden.getCodigo()).enqueue(new PadreRepository.CallRespuesta().listenRespuesta(respOk -> {
+            String message = respOk.body().get("message").getAsString();
+            succes.onRespuestaSucces(message);
+
+        }).listenError(error::onRespuestaError));
     }
 
     @Override

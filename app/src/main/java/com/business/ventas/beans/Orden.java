@@ -9,6 +9,7 @@ public class Orden {
     private String codigo;
     private String nombreCliente;
     private String direcionCliente;
+    private String territorio;
     private Date fechaEntrega;
     private double totalGeneral;
     private Lista<Producto> productos;
@@ -61,14 +62,24 @@ public class Orden {
         this.fechaEntrega = fechaEntrega;
     }
 
+    public String getTerritorio() {
+        return territorio;
+    }
+
+    public void setTerritorio(String territorio) {
+        this.territorio = territorio;
+    }
+
     @Override
     public String toString() {
         return "Orden{" +
                 "codigo='" + codigo + '\'' +
                 ", nombreCliente='" + nombreCliente + '\'' +
                 ", direcionCliente='" + direcionCliente + '\'' +
-                ", fechaEntrega=" + fechaEntrega.toString() +
+                ", territorio='" + territorio + '\'' +
+                ", fechaEntrega=" + fechaEntrega +
                 ", totalGeneral=" + totalGeneral +
+                ", productos=" + productos +
                 '}';
     }
 }

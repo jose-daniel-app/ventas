@@ -1,6 +1,7 @@
 package com.business.ventas.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.business.ventas.apiRest.RestApiAdapter;
 import com.business.ventas.apiRest.Service;
@@ -50,15 +51,23 @@ public class UserRepositoryImpl extends PadreRepository implements UserRepositor
                 listener.error(t.getMessage());
             }
         });
-
     }
 
     @Override
     public boolean conseguirUsuarioRegistrado(Context context) {
         try {
-            Response<JsonObject> response = getService(context).conseguirUsuarioRegistrado().execute();
-            return response.code() == SUCCES;
+            /*getService(context).conseguirUsuarioRegistrado().enqueue(
+                new PadreRepository.CallRespuesta().listenRespuesta(respOk -> {
+                    Log.i("ventas-pro", "Existe sesion");
+                }).listenError(error -> {
+                    Log.e("ventas-pro", error);
+                })
+            );*/
+            //Call<JsonObject> call = getService(context).conseguirUsuarioRegistrado();
+            //Response<JsonObject> response = call.execute();
+            return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

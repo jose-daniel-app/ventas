@@ -35,6 +35,17 @@ public class Lista<T> extends ArrayList<T> {
         return lista;
     }
 
+    public Lista<T> editarItemDelaLista(Foreach<T> iterador) {
+        Lista<T> lista = new Lista<>();
+        ListIterator<T> iterar = super.listIterator();
+        while (iterar.hasNext()) {
+            T t = iterar.next();
+            iterador.iterar(t);
+            lista.add(t);
+        }
+        return lista;
+    }
+
     public Lista<T> foreach(Foreach<T> foreach) {
         ListIterator<T> iterar = super.listIterator();
         while (iterar.hasNext()) {

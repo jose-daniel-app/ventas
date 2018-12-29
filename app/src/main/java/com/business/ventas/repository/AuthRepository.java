@@ -87,6 +87,7 @@ public class AuthRepository {
     public void addAuthStateListener(AuthStateListener authStateListener) {
         Context context = (Context) authStateListener;
         subscribers.add(authStateListener);
+        _userRepository.conseguirUsuarioRegistrado(context);
         notificar(getApiKeyRest(context) != null);
 
     }

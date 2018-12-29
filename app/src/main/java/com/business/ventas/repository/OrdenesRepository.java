@@ -17,6 +17,8 @@ public interface OrdenesRepository extends IpadreRepository {
 
     OrdenesRepository setOnRespuestaError(RespuestaError listen);
 
-    void CrearOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error);
+    void crearOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error);
+
+    void eliminarOrden(Context context, Orden orden, RespuestaSucces<String> succes, RespuestaError error);
 
 }

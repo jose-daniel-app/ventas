@@ -22,14 +22,17 @@ public interface OrdenContract {
 
     interface View extends PadreView {
         void mostrarDetalleOrden(Orden orden);
+        void respuestaEliminarOrden(String mensaje);
     }
 
     interface Presenter extends PadrePresenter<Presenter, View> {
         void solicitarDetalleOrden(String codigo);
+        void solicitarEliminarOrden(Orden orden);
     }
 
     interface Interactor extends PadreInteractor<Interactor, Presenter> {
         void solicitarDetalleOrden(String codigo);
+        void solicitarEliminarOrden(Orden orden);
     }
 
 }

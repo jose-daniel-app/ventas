@@ -8,6 +8,7 @@ public class Producto {
     private String pathImg;
     private String nombre;
     private String Descripcion;
+    private String almacen;
     private int cantidad;
     private double precioUnitario;
     private double precioCantidad;
@@ -110,6 +111,14 @@ public class Producto {
         this.setPrecioCantidad(this.getCantidad() * this.getPrecioUnitario());
     }
 
+    public String getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(String almacen) {
+        this.almacen = almacen;
+    }
+
     public int getStock() {
         return stock;
     }
@@ -126,14 +135,15 @@ public class Producto {
     public String toString() {
         return "Producto{" +
                 "codigo=" + codigo +
-                ", img=" + img +
                 ", itemCode='" + itemCode + '\'' +
                 ", pathImg='" + pathImg + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", Descripcion='" + Descripcion + '\'' +
+                ", almacen='" + almacen + '\'' +
                 ", cantidad=" + cantidad +
                 ", precioUnitario=" + precioUnitario +
                 ", precioCantidad=" + precioCantidad +
+                ", stock=" + stock +
                 '}';
     }
 

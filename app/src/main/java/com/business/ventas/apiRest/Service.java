@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -17,24 +18,31 @@ public interface Service {
     @POST(Constants.URL_LOGIN)
     Call<JsonObject> login(@Body User User);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_PRODUCTO)
     Call<JsonObject> listarProductos(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LOGIN_ESTADO)
     Call<JsonObject> conseguirUsuarioRegistrado();
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_CLIENTES)
     Call<JsonObject> listarClientes(@Query("fields") String fields, @Query("filters") String filters);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_ORDENES)
     Call<JsonObject> listarOrdenes(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_DETALLE_ORDEN)
     Call<JsonObject> obtenerDetalleOrden(@Path("codigo") String codigo);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_RUTAS)
     Call<JsonObject> listarRutas(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_FACTURAS)
     Call<JsonObject> listarFacturas(@Query("fields") String fields);
 
@@ -42,17 +50,24 @@ public interface Service {
     @POST(Constants.URL_CREAR_ORDEN)
     Call<JsonObject> crearOrden(@Body JsonObject jsonObject);
 
+    @Headers({"Accept: application/json"})
+    @DELETE(Constants.URL_ELIMINAR_ORDEN)
+    Call<JsonObject> eliminarOrden(@Path("codigo") String codigo);
+
     //@GET(Constants.URL_LISTA_FACTURAS)
     //Observable<Response<JsonObject>> listarFacturas1(@Query("fields") String fields);
     //@GET(Constants.URL_LISTA_GUIAS)
     //Observable<Response<JsonObject>> listarGuias1(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_GUIAS)
     Call<JsonObject> listarGuias(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_DETALLE_FACTURA)
     Call<JsonObject> obtenerDetalleFactura(@Path("codigo") String codigo);
 
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_DETALLE_GUI)
     Call<JsonObject> obtenerDetalleGuia(@Path("codigo") String codigo);
 
