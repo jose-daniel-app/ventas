@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductosRepositoryImpl implements ProductosRepository {
+public class ProductosRepositoryImpl  extends PadreRepository implements ProductosRepository {
     VentasLog log = LogFactory.createInstance().setTag(ProductosRepositoryImpl.class.getSimpleName());
     private RespuestaSucces<List<Producto>> listenSucces;
     private RespuestaError listenError;

@@ -16,6 +16,8 @@ public abstract class RepositoryFactory {
 
     public abstract ComprobanteRepository getComprobanteRepository();
 
+    public abstract AlmacenRepository getAlmacenRepository();
+
     public static RepositoryFactory getFactory(int type) {
         switch (type) {
             case API_REST:

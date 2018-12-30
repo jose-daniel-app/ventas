@@ -217,6 +217,7 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/sonarlint
+.idea/misc.xml
 
 ### Maven ###
 target/

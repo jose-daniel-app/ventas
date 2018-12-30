@@ -34,8 +34,8 @@ public class ProductosPresenter implements ProductosContract.Presenter {
     }
 
     @Override
-    public void solicitarProductos() {
-        interactor.solicitarProductos();
+    public void solicitarProductos(String nombreAlmacen) {
+        interactor.solicitarProductos(nombreAlmacen);
     }
 
     @Override

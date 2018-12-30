@@ -28,7 +28,7 @@ public interface Service {
 
     @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_CLIENTES)
-    Call<JsonObject> listarClientes(@Query("fields") String fields, @Query("filters") String filters);
+    Call<JsonObject> listarClientes(@Query("fields") String fields/*, @Query("filters") String filters*/);
 
     @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_ORDENES)
@@ -70,6 +70,10 @@ public interface Service {
     @Headers({"Accept: application/json"})
     @GET(Constants.URL_DETALLE_GUI)
     Call<JsonObject> obtenerDetalleGuia(@Path("codigo") String codigo);
+
+    @Headers({"Accept: application/json"})
+    @GET(Constants.URL_OBTENER_ALMACEN)
+    Call<JsonObject> obtenerAlmacen(@Query("fields") String fields, @Query("filters") String filters);
 
      class User {
         public User(String usr, String pwd) {

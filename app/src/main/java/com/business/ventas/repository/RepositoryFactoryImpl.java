@@ -30,4 +30,9 @@ public class RepositoryFactoryImpl extends RepositoryFactory {
     public ProductosRepository getProductosRepository() {
         return new ProductosRepositoryImpl();
     }
+
+    @Override
+    public AlmacenRepository getAlmacenRepository() {
+        return new AlmacenRepositoryImpl();
+    }
 }
