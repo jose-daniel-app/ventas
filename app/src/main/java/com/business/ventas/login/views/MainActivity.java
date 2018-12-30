@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.business.ventas.R;
 import com.business.ventas.beans.User;
-import com.business.ventas.repository.AuthRepository;
+import com.business.ventas.repository.AuthRepositoryImpl;
 import com.business.ventas.requerimiento.views.RequerimientoFragment;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity
         // interfaz pare los fragment
         AppFragment.OnFragmentInteractionListener,
         // interface para la sesion
-        AuthRepository.AuthStateListener {
+        AuthRepositoryImpl.AuthStateListener {
 
-    AuthRepository auth = AuthRepository.getInstance();
+    AuthRepositoryImpl auth = AuthRepositoryImpl.getInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
     ActivityAconKeyDown activityAconKeyDown;

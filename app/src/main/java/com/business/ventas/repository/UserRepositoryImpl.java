@@ -54,22 +54,28 @@ public class UserRepositoryImpl extends PadreRepository implements UserRepositor
     }
 
     @Override
-    public boolean conseguirUsuarioRegistrado(Context context) {
+    public void conseguirUsuarioRegistrado(Context context, RespuestaSucces<String> succes, RespuestaError error) {
         try {
-            /*getService(context).conseguirUsuarioRegistrado().enqueue(
+            getService(context).conseguirUsuarioRegistrado().enqueue(
                 new PadreRepository.CallRespuesta().listenRespuesta(respOk -> {
-                    Log.i("ventas-pro", "Existe sesion");
-                }).listenError(error -> {
-                    Log.e("ventas-pro", error);
+                    succes.onRespuestaSucces("existe sesion");
+                }).listenError(respError -> {
+                    error.onRespuestaError(respError);
                 })
-            );*/
-            //Call<JsonObject> call = getService(context).conseguirUsuarioRegistrado();
-            //Response<JsonObject> response = call.execute();
-            return true;
+            );
+
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+    }
+
+    @Override
+    public void cerrarSeesion(Context context, RespuestaSucces<String> succes, RespuestaError error) {
+        getService(context).cerrarSession().enqueue(
+            new PadreRepository.CallRespuesta().listenRespuesta(respOk -> {
+                succes.onRespuestaSucces("se cerro la session");
+            }).listenError(error::onRespuestaError)
+        );
     }
 
     private class ErrorHandel {

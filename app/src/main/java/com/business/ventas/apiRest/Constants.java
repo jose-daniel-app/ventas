@@ -16,4 +16,5 @@ public class Constants {
     public static final String URL_CREAR_ORDEN = "/api/resource/Sales Order";
     public static final String URL_ELIMINAR_ORDEN = "/api/resource/Sales Order/{codigo}";
     public static final String URL_OBTENER_ALMACEN = "/api/resource/Warehouse";
+    public static final String URL_CERRAR_SESSION = "/api/method/logout";
 }
