@@ -66,6 +66,7 @@ public class UserRepositoryImpl extends PadreRepository implements UserRepositor
 
         } catch (Exception e) {
             e.printStackTrace();
+            error.onRespuestaError(e.getMessage());
         }
     }
 
