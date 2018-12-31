@@ -15,17 +15,20 @@ import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.login.contracts.LoginContract;
 import com.business.ventas.login.contracts.LoginFactory;
-import com.business.ventas.repository.AuthRepositoryImpl;
+import com.business.ventas.repository.AuthRepository;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity implements
-        LoginContract.View, AuthRepositoryImpl.AuthStateListener, View.OnClickListener {
+public class LoginActivity extends AppCompatActivity
+        implements
+        LoginContract.View,
+        AuthRepository.AuthStateListener,
+        View.OnClickListener {
 
     VentasLog log = LogFactory.createInstance().setTag(LoginActivity.class.getSimpleName());
-    AuthRepositoryImpl auth;
+    AuthRepository auth;
     LoginContract.Presenter presenter;
 
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
@@ -55,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements
         this.presenter = LoginFactory.createInstance(LoginContract.Presenter.class).setView(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        auth = AuthRepositoryImpl.getInstance();
+        auth = AuthRepository.newInstance();
         loadItems();
 
     }
@@ -96,7 +99,6 @@ public class LoginActivity extends AppCompatActivity implements
                     showProgressBar(false);
                 });
         }
-
     }
 
     @Override

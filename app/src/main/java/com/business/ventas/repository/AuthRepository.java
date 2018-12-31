@@ -7,7 +7,7 @@ import com.business.ventas.beans.User;
 public interface AuthRepository {
 
     static AuthRepository newInstance(){
-        return new AuthRepositoryImpl1();
+        return new AuthRepositoryImpl();
     }
 
     AuthRepository signInWithEmailAndPassword(String Correo, String password, Context context);
@@ -16,9 +16,9 @@ public interface AuthRepository {
 
     AuthRepository setOnCompleteError(OnCompleteError onCompleteError);
 
-    User getUserSesion(Context context);
+    AuthRepository signOut(Context context);
 
-    void signOut(Context context);
+    User getUserSesion(Context context);
 
     void addAuthStateListener(AuthStateListener authStateListener);
 

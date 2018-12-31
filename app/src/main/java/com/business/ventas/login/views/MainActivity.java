@@ -15,11 +15,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.business.ventas.R;
 import com.business.ventas.beans.User;
-import com.business.ventas.repository.AuthRepositoryImpl;
+import com.business.ventas.repository.AuthRepository;
 import com.business.ventas.requerimiento.views.RequerimientoFragment;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
@@ -36,9 +37,9 @@ public class MainActivity extends AppCompatActivity
         // interfaz pare los fragment
         AppFragment.OnFragmentInteractionListener,
         // interface para la sesion
-        AuthRepositoryImpl.AuthStateListener {
+        AuthRepository.AuthStateListener {
 
-    AuthRepositoryImpl auth = AuthRepositoryImpl.getInstance();
+    AuthRepository auth = AuthRepository.newInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
     ActivityAconKeyDown activityAconKeyDown;
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_home);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -122,7 +122,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void cerrarSesion() {
-        auth.signOut(this);
+        auth.signOut(this).setOnCompleteSuscces(()->{
+
+        }).setOnCompleteError(mensaje -> {
+
+        });
     }
 
     @Override
@@ -149,6 +153,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onAuthStateChanged(boolean state) {
         if (!state) {
+            Toast.makeText(this, "Su sesión a expirado", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

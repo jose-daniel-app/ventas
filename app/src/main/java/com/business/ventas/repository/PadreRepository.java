@@ -118,25 +118,4 @@ public abstract class PadreRepository {
             void onICallRespuesta(String mensajeError);
         }
     }
-
-    public static class PoolExecute<T> {
-        ExecutorService executor;
-        Lista<tarea<T>> tareas = new Lista<>();
-
-        PoolExecute<T> agregarTarea(tarea<T> tarea) {
-            tareas.add(tarea);
-            return this;
-        }
-
-        Lista<T> executarYobtenerResultados() {
-
-            executor = Executors.newFixedThreadPool(tareas.size());
-            tareas.foreach(tarea -> executor.submit(tarea));
-            executor.shutdown();
-            return null;
-        }
-
-        interface tarea<T> extends Callable<T> {
-        }
-    }
 }
