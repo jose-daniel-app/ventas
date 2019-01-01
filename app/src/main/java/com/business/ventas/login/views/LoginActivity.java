@@ -24,7 +24,6 @@ import java.util.regex.Pattern;
 public class LoginActivity extends AppCompatActivity
         implements
         LoginContract.View,
-        AuthRepository.AuthStateListener,
         View.OnClickListener {
 
     VentasLog log = LogFactory.createInstance().setTag(LoginActivity.class.getSimpleName());
@@ -93,6 +92,9 @@ public class LoginActivity extends AppCompatActivity
                 .setOnCompleteSuscces(() -> {
                     Toast.makeText(this, "Se inicio correctamente la session", Toast.LENGTH_LONG).show();
                     showProgressBar(false);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 })
                 .setOnCompleteError(mensjae -> {
                     Toast.makeText(this, mensjae, Toast.LENGTH_LONG).show();
@@ -105,28 +107,6 @@ public class LoginActivity extends AppCompatActivity
     public void showProgressBar(Boolean show) {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        auth.addAuthStateListener(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        auth.removeAuthStateListener(this);
-    }
-
-    @Override
-    public void onAuthStateChanged(boolean state) {
-        if (state) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-    }
-
 
     //validacion correo//
     public boolean validarCorreo() {

@@ -38,9 +38,7 @@ public class MainActivity extends AppCompatActivity
         implements
         NavigationView.OnNavigationItemSelectedListener,
         // interfaz pare los fragment
-        AppFragment.OnFragmentInteractionListener,
-        // interface para la sesion
-        AuthRepository.AuthStateListener {
+        AppFragment.OnFragmentInteractionListener{
 
     AuthRepository auth = AuthRepository.newInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
@@ -133,23 +131,13 @@ public class MainActivity extends AppCompatActivity
         mostrarProgresBar(true);
         auth.signOut(this).setOnCompleteSuscces(()->{
             mostrarProgresBar(false);
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }).setOnCompleteError(mensaje -> {
             Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
             mostrarProgresBar(false);
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //ocutarRealativeLayout(true);
-        auth.addAuthStateListener(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        auth.removeAuthStateListener(this);
     }
 
     public void setActivityAconKeyDown(ActivityAconKeyDown activityAconKeyDown) {
@@ -158,17 +146,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Fragment faFragment) {
-    }
-
-    @Override
-    public void onAuthStateChanged(boolean state) {
-        //ocutarRealativeLayout(false);
-        if (!state) {
-            //Toast.makeText(this, "Su sesión a expirado", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
     }
 
     @Override
