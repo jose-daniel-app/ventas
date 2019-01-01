@@ -13,8 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.business.ventas.R;
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         // interface para la sesion
         AuthRepository.AuthStateListener {
 
-    AuthRepository auth = AuthRepository.getInstance();
+    AuthRepository auth = AuthRepository.newInstance();
     VentasLog log = LogFactory.createInstance().setTag(MainActivity.class.getSimpleName());
 
     ActivityAconKeyDown activityAconKeyDown;
@@ -47,6 +51,9 @@ public class MainActivity extends AppCompatActivity
     TextView txtNombre;
     TextView txtCorreo;
     ImageView imageViewAvatar;
+
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.title_home);
 
+        progressBar = findViewById(R.id.progressBar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -122,12 +130,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void cerrarSesion() {
-        auth.signOut(this);
+        mostrarProgresBar(true);
+        auth.signOut(this).setOnCompleteSuscces(()->{
+            mostrarProgresBar(false);
+        }).setOnCompleteError(mensaje -> {
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+            mostrarProgresBar(false);
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        //ocutarRealativeLayout(true);
         auth.addAuthStateListener(this);
     }
 
@@ -145,10 +160,11 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Fragment faFragment) {
     }
 
-
     @Override
     public void onAuthStateChanged(boolean state) {
+        //ocutarRealativeLayout(false);
         if (!state) {
+            //Toast.makeText(this, "Su sesión a expirado", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -197,6 +213,10 @@ public class MainActivity extends AppCompatActivity
 
     public interface ActivityAconKeyDown {
         void onKeyDown(int keyCode, KeyEvent event);
+    }
+
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
     }
 
 }

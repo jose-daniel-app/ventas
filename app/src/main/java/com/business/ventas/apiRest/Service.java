@@ -27,6 +27,10 @@ public interface Service {
     Call<JsonObject> conseguirUsuarioRegistrado();
 
     @Headers({"Accept: application/json"})
+    @GET(Constants.URL_CERRAR_SESSION)
+    Call<JsonObject> cerrarSession();
+
+    @Headers({"Accept: application/json"})
     @GET(Constants.URL_LISTA_CLIENTES)
     Call<JsonObject> listarClientes(@Query("fields") String fields/*, @Query("filters") String filters*/);
 

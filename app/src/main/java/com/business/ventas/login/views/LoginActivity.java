@@ -21,8 +21,11 @@ import com.business.ventas.utils.VentasLog;
 
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity implements
-        LoginContract.View, AuthRepository.AuthStateListener, View.OnClickListener {
+public class LoginActivity extends AppCompatActivity
+        implements
+        LoginContract.View,
+        AuthRepository.AuthStateListener,
+        View.OnClickListener {
 
     VentasLog log = LogFactory.createInstance().setTag(LoginActivity.class.getSimpleName());
     AuthRepository auth;
@@ -55,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements
         this.presenter = LoginFactory.createInstance(LoginContract.Presenter.class).setView(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        auth = AuthRepository.getInstance();
+        auth = AuthRepository.newInstance();
         loadItems();
 
     }
@@ -95,9 +98,7 @@ public class LoginActivity extends AppCompatActivity implements
                     Toast.makeText(this, mensjae, Toast.LENGTH_LONG).show();
                     showProgressBar(false);
                 });
-
         }
-
     }
 
     @Override

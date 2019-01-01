@@ -9,7 +9,9 @@ public interface UserRepository extends IpadreRepository {
 
     void loginSesion(String correo, String password, Respond<User> listener, Context context);
 
-    boolean conseguirUsuarioRegistrado(Context context);
+    void conseguirUsuarioRegistrado(Context context,RespuestaSucces<String> succes, RespuestaError error);
+
+    void cerrarSeesion(Context context,RespuestaSucces<String> succes, RespuestaError error);
 
     interface Respond<T> {
         void succes(T obj);
