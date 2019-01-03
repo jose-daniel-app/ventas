@@ -21,14 +21,13 @@ import java.util.List;
 public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteViewAdapter.Holderview> {
     private VentasLog log = LogFactory.createInstance().setTag(ComprobanteViewAdapter.class.getSimpleName());
     private List<Comprobante> productlistAdap;
-    private ComprobanteFragment fragment;
     private OnSelectCardListener onSelectCardListener;
 
-    public static ComprobanteViewAdapter newInstance(){
+    public static ComprobanteViewAdapter newInstance() {
         return new ComprobanteViewAdapter();
     }
 
-    public Builder config(){
+    public Builder config() {
         return new Builder(this);
     }
 
@@ -56,11 +55,9 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
     }
 
     public void setfilter(List<Comprobante> listcomprobante) {
-
         productlistAdap = new ArrayList<>();
         productlistAdap.addAll(listcomprobante);
         notifyDataSetChanged();
-
     }
 
     class Holderview extends RecyclerView.ViewHolder {
@@ -88,7 +85,6 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
         void onClickCard(Comprobante comprobante);
     }
 
-
     public class Builder {
         ComprobanteViewAdapter comprobanteViewAdapter;
 
@@ -98,11 +94,6 @@ public class ComprobanteViewAdapter extends RecyclerView.Adapter<ComprobanteView
 
         public Builder setProductlistAdap(List<Comprobante> productlistAdap) {
             this.comprobanteViewAdapter.productlistAdap = productlistAdap;
-            return this;
-        }
-
-        public Builder setFragment(ComprobanteFragment fragment) {
-            this.comprobanteViewAdapter.fragment = fragment;
             return this;
         }
 
