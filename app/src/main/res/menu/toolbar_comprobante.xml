@@ -40,16 +40,19 @@
             <item
                 android:id="@+id/ic_Dia"
                 android:title="@string/ic_Día"
+                android:icon="@drawable/ic_icon_today_black"
                 app:showAsAction="collapseActionView" />
             <item
-                android:id="@+id/ic_Fecha"
+                android:id="@+id/ic_Semana"
                 android:orderInCategory="100"
                 android:title="@string/ic_Semana"
+                android:icon="@drawable/ic_icon_semana_black"
                 app:showAsAction="collapseActionView" />
             <item
-                android:id="@+id/action_settings"
+                android:id="@+id/ic_Mes"
                 android:orderInCategory="100"
                 android:title="@string/ic_Mes"
+                android:icon="@drawable/ic_icon_mes_black"
                 app:showAsAction="collapseActionView" />
 
         </menu>

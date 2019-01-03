@@ -17,9 +17,12 @@ import com.business.ventas.beans.Orden;
 import com.business.ventas.ordenes.contracts.OrdenesContract;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Fechas;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.OrdenesViewAdapter;
+
 import java.util.List;
 
 
@@ -37,6 +40,7 @@ public class OrdenesFragment extends AppFragment
 
     ProgressBar progressBar;
 
+    private List<Orden> ordenes;
 
     public OrdenesFragment() {
 
@@ -83,6 +87,20 @@ public class OrdenesFragment extends AppFragment
 
 
     private boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.ic_Dia:
+                adapter.setfilter(new Lista<>(ordenes)
+                        .filtrar(orden -> Fechas.esFechaDelDiaActual(orden.getFechaEntrega())));
+                break;
+            case R.id.ic_Semana:
+                adapter.setfilter(new Lista<>(ordenes)
+                        .filtrar(orden -> Fechas.esFechaDeLaSemana(orden.getFechaEntrega())));
+                break;
+            case R.id.ic_Mes:
+                adapter.setfilter(new Lista<>(ordenes)
+                        .filtrar(orden -> Fechas.esFechaDelMes(orden.getFechaEntrega())));
+                break;
+        }
         return true;
     }
 
@@ -108,6 +126,7 @@ public class OrdenesFragment extends AppFragment
     public void mostrarOrdenes(List<Orden> ordenes) {
         adapter = new OrdenesViewAdapter(ordenes, this);
         recyclerViewOrden.setAdapter(adapter);
+        this.ordenes = ordenes;
         mostrarProgresBar(false);
     }
 

@@ -80,7 +80,7 @@ public class DocumentoCompletadoFragment extends AppFragment {
     }
 
     private Lista<Producto> listaProducto() {
-        return new Lista<Producto>(sharedProductos.listarProducto()).filtar(p -> p.getCantidad() > 0);
+        return new Lista<Producto>(sharedProductos.listarProducto()).filtrar(p -> p.getCantidad() > 0);
     }
 
 }

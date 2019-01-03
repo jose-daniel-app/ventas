@@ -23,7 +23,7 @@ public class Lista<T> extends ArrayList<T> {
         return this;
     }
 
-    public Lista<T> filtar(Filtar<T> filter) {
+    public Lista<T> filtrar(Filtar<T> filter) {
         Lista<T> lista = new Lista<>();
         ListIterator<T> iterar = super.listIterator();
         while (iterar.hasNext()) {

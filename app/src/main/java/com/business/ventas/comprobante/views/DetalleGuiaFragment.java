@@ -120,7 +120,7 @@ public class DetalleGuiaFragment extends AppFragment implements DetalleGuiaContr
 
     private Lista<Producto> listaProducos() {
         return new Lista<Producto>(SharedPreferenceProductos.getInstance().setActivity(getActivity()).listarProducto())
-                .filtar(p -> p.getCantidad() > 0);
+                .filtrar(p -> p.getCantidad() > 0);
     }
 
     @Override
