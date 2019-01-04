@@ -21,7 +21,24 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_menu"
-        app:menu="@menu/activity_referencia_drawer" />
+        app:menu="@menu/activity_referencia_drawer" >
+
+        <LinearLayout
+            android:padding="5dp"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textSize="15sp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:gravity="bottom"
+                android:text="Versión 1.0.1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
 
