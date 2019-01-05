@@ -19,6 +19,7 @@ import com.business.ventas.ordenes.contracts.ClienteContract;
 import com.business.ventas.search.SearchToolbar;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ClienteViewAdapter;
@@ -35,7 +36,7 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     ClienteViewAdapter adapter;
     SearchToolbar searchToolbar;
     ProgressBar progressBar;
-
+    private List<Cliente> clientes;
     ClienteContract.Presenter presenter;
 
     public ClienteFragment() {
@@ -76,6 +77,7 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
         switch (menuItem.getItemId()) {
             case R.id.ic_search:
                 searchToolbar.openSearchToolbar();
+
                 break;
         }
         return true;
@@ -83,6 +85,8 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
 
     public void onQueryTextSubmit(String query) {
         Toast.makeText(getActivity(), "User Query: " + query, Toast.LENGTH_SHORT).show();
+
+
     }
 
     public void mostrarProgresBar(Boolean estado) {
@@ -92,6 +96,12 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     @Override
     public void onQueryTextChange(String editable) {
         // textView.setText(editable);
+
+            adapter.setfilter(new Lista<>(clientes)
+                    .filtrar(cliente -> cliente.getNombre().toLowerCase().startsWith(editable.toLowerCase())));
+
+
+
     }
 
     @Override
@@ -103,6 +113,7 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     @Override
     public void mostrarListaClientes(List<Cliente> clientes) {
         adapter = new ClienteViewAdapter(clientes, this::clienteSeleccionado);
+        this.clientes = clientes;
         listaclientes.setAdapter(adapter);
         mostrarProgresBar(false);
     }
@@ -110,6 +121,7 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     private void clienteSeleccionado(Cliente cliente){
         log.info("cliente %s ", cliente.toString());
         getMainActivity().newFragmentHandler().changeFragment(ProductosFragment.newInstance().setCliente(cliente));
+
     }
 
     @Override

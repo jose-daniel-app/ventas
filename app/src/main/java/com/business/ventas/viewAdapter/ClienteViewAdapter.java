@@ -57,10 +57,10 @@ public class ClienteViewAdapter extends RecyclerView.Adapter<ClienteViewAdapter.
         return productlistAdap.size();
     }
 
-    public void setfilter(List<Cliente> listcliente) {
+    public void setfilter(List<Cliente> clientes) {
 
         productlistAdap = new ArrayList<>();
-        productlistAdap.addAll(listcliente);
+        productlistAdap.addAll(clientes);
         notifyDataSetChanged();
 
     }

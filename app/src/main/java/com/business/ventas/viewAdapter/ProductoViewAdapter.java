@@ -123,9 +123,9 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         return productlistAdap.size();
     }
 
-    public void setfilter(Lista<Producto> listProducto) {
+    public void setfilter(Lista<Producto> productos) {
         productlistAdap = new Lista<>();
-        productlistAdap.addAll(listProducto);
+        productlistAdap.addAll(productos);
         notifyDataSetChanged();
     }
 

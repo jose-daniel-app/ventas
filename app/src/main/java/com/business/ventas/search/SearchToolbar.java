@@ -70,16 +70,20 @@ public class SearchToolbar implements View.OnClickListener {
                 closeSearchToolbar();
             }
         });
-        searchEditText.setOnKeyListener((view1, i, keyEvent) -> {
-            if(keyEvent.getAction() == KeyEvent.ACTION_UP){
-                log.info("de apreto el back");
-                closeSearchToolbar();
-            }
-            return false;
-        });
+/*
+            searchEditText.setOnKeyListener((view1, i, keyEvent) -> {
+                if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                    log.info("de apreto el back");
 
+                    closeSearchToolbar();
+
+                }
+                return false;
+            });
+*/
 
         openKeyboard();
+
 
         /**  jb user Type krna shuru ho to mic to hide kr k clear btn ho show krna hy,*/
         searchEditText.addTextChangedListener(new TextWatcher() {
