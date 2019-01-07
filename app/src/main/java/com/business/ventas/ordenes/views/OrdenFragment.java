@@ -24,6 +24,7 @@ import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
@@ -31,11 +32,13 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
+    FloatingActionMenu fabMenu;
     FloatingActionButton item1;
     TextView txtTotal;
     TextView txtNameCliene;
     ProgressBar progressBar;
     LinearLayout linearLayout;
+
 
     private OrdenContract.Presenter presenter;
     private String codigoDeOrden;
@@ -64,6 +67,8 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         navigationView.setCheckedItem(R.id.nav_ordenes);
         listViewItem = view.findViewById(R.id.listViewItem);
+        fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
+        fabMenu.setIconAnimated(false);
         item1 = view.findViewById(R.id.item1);
         progressBar = view.findViewById(R.id.progressBar);
         linearLayout = view.findViewById(R.id.linearLayout);

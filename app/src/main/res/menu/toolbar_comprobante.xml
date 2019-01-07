@@ -10,21 +10,21 @@
         app:showAsAction="always">
         <menu>
             <item
-                android:id="@+id/ic_tipo1"
+                android:id="@+id/ic_Guia"
                 android:title="Gui"
                 app:showAsAction="collapseActionView" />
             <item
-                android:id="@+id/ic_tipo2"
+                android:id="@+id/ic_Factura"
                 android:orderInCategory="100"
                 android:title="Factura"
                 app:showAsAction="collapseActionView" />
             <item
-                android:id="@+id/ic_tipo3"
+                android:id="@+id/ic_Boleta"
                 android:orderInCategory="100"
                 android:title="Boleta"
                 app:showAsAction="collapseActionView" />
             <item
-                android:id="@+id/ic_tipo4"
+                android:id="@+id/ic_Nota_Ventas"
                 android:orderInCategory="100"
                 android:title="Nota de ventas"
                 app:showAsAction="collapseActionView" />

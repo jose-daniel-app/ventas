@@ -151,7 +151,6 @@
                         android:layout_height="wrap_content"
                         android:text="S/ 2000" />
 
-
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -168,6 +167,7 @@
             android:elevation="4dp"
             app:menu_colorNormal="@color/primary"
             app:menu_colorPressed="@color/primary_light"
+            app:menu_icon="@drawable/ic_motor_white"
             app:fab_size="mini">
 
             <com.github.clans.fab.FloatingActionButton
