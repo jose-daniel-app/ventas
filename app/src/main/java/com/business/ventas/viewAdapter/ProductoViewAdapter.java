@@ -58,7 +58,13 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
         holderview.txtStock.setText(productlistAdap.get(position).getStock() + "");
         holderview.txtCodigo.setText(productlistAdap.get(position).getItemCode());
-        Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
+
+        if(productlistAdap.get(position).getPathImg() != null){
+            Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
+        }else{
+            holderview.img.setImageResource(R.drawable.ic_photo_black_24dp);
+        }
+
         holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() + "");
 
         holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
