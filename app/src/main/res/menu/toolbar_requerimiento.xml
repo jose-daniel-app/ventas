@@ -30,31 +30,19 @@
             <item
                 android:id="@+id/ic_Dia"
                 android:title="@string/ic_Día"
-<<<<<<< HEAD
-                android:icon="@drawable/ic_24_hours_delivery"
-=======
                 android:icon="@drawable/ic_icon_today_black"
->>>>>>> origin/master
                 app:showAsAction="collapseActionView" />
             <item
                 android:id="@+id/ic_Semana"
                 android:orderInCategory="100"
                 android:title="@string/ic_Semana"
-<<<<<<< HEAD
-                android:icon="@drawable/ic_calendar_week_page"
-=======
                 android:icon="@drawable/ic_icon_semana_black"
->>>>>>> origin/master
                 app:showAsAction="collapseActionView" />
             <item
                 android:id="@+id/ic_Mes"
                 android:orderInCategory="100"
                 android:title="@string/ic_Mes"
-<<<<<<< HEAD
-                android:icon="@drawable/ic_month_icon"
-=======
                 android:icon="@drawable/ic_icon_mes_black"
->>>>>>> origin/master
                 app:showAsAction="collapseActionView" />
 
         </menu>
