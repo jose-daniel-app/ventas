@@ -19,4 +19,8 @@
     <item name="ic_motor_white" type="drawable">@drawable/ic_motorcycle_white_24dp</item>
     <item name="ic_elimiar_white" type="drawable">@drawable/ic_delete_white_24dp</item>
 
+    <item name="ic_icon_today_black" type="drawable">@drawable/ic_today_black_24dp</item>
+    <item name="ic_icon_semana_black" type="drawable">@drawable/ic_date_range_black_24dp</item>
+    <item name="ic_icon_mes_black" type="drawable">@drawable/ic_round_calendar_today_24px</item>
+
 </resources>

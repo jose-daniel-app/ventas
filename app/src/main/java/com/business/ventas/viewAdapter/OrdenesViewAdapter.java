@@ -38,13 +38,22 @@ public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
-        holderview.v_codigo.setText(ordenes.get(position).getCodigo());
+        //holderview.v_codigo.setText(ordenes.get(position).getCodigo());
         holderview.v_direcion.setText(ordenes.get(position).getDirecionCliente());
         holderview.v_nombre.setText(ordenes.get(position).getNombreCliente());
+
+        holderview.txtCodPar1.setText(ordenes.get(position).getCodigo().split("-")[0] +"-");
+        holderview.txtCodPar2.setText(ordenes.get(position).getCodigo().split("-")[1].substring(0,2));
+        holderview.txtCodPar3.setText(ordenes.get(position).getCodigo().split("-")[1].substring(
+                ordenes.get(position).getCodigo().split("-")[1].length() - 3,
+                ordenes.get(position).getCodigo().split("-")[1].length()
+        ));
+
         holderview.itemView.setOnClickListener(view -> {
             log.info("seselecciono el codigo codigio %s", ordenes.get(position).getCodigo());
             fragment.getMainActivity().newFragmentHandler().changeFragment(OrdenFragment.newInstance(ordenes.get(position).getCodigo()));
         });
+
     }
 
     /*private void onclick(View view) {
@@ -71,13 +80,22 @@ public class OrdenesViewAdapter extends RecyclerView.Adapter<OrdenesViewAdapter.
         TextView v_direcion;
         CardView itemCarview;
 
+        TextView txtCodPar1;
+        TextView txtCodPar2;
+        TextView txtCodPar3;
+
         Holderview(View itemview) {
 
             super(itemview);
             itemCarview = itemview.findViewById(R.id.cardViewIdruta);
-            v_codigo = itemview.findViewById(R.id.txtCodigoOrden);
+            //v_codigo = itemview.findViewById(R.id.txtCodigoOrden);
             v_direcion = itemview.findViewById(R.id.txtDireccion);
             v_nombre = itemview.findViewById(R.id.txtNombreCliente);
+
+            txtCodPar1 = itemview.findViewById(R.id.txtCodParte1);
+            txtCodPar2 = itemview.findViewById(R.id.txtCodParte2);
+            txtCodPar3 = itemview.findViewById(R.id.txtCodParte3);
+
         }
     }
 

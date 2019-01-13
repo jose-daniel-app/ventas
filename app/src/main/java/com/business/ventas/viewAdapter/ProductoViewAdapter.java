@@ -87,7 +87,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
     }
 
     public Lista<Producto> obtenerProductosElegidos() {
-        return productlistAdap.filtar(producto -> producto.getCantidad() > 0);
+        return productlistAdap.filtrar(producto -> producto.getCantidad() > 0);
     }
 
 
@@ -123,9 +123,9 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         return productlistAdap.size();
     }
 
-    public void setfilter(Lista<Producto> listProducto) {
+    public void setfilter(Lista<Producto> productos) {
         productlistAdap = new Lista<>();
-        productlistAdap.addAll(listProducto);
+        productlistAdap.addAll(productos);
         notifyDataSetChanged();
     }
 

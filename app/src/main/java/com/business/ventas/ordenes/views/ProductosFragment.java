@@ -46,6 +46,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     FloatingActionButton floatingActionButton;
     FloatingActionMenu fabMenu;
     ProgressBar progressBar;
+    private List<Producto> productos;
 
     // parametro.
     private Cliente cliente;
@@ -106,6 +107,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
             orden.setProductos(productos);
             presenter.crearNuevaOrden(orden);
             mostrarProgresBar(true);
+            //searchToolbar.closeSearchToolbar();
         } else {
             mensajeToast("No se a seleccionado ningun producto.");
         }
@@ -123,6 +125,9 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     @Override
     public void onQueryTextChange(String editable) {
         // textView.setText(editable);
+        adapter.setfilter(new Lista<>(productos)
+                .filtrar(producto -> producto.getNombre().toLowerCase().startsWith(editable.toLowerCase())));
+
     }
 
     public void mostrarProgresBar(Boolean estado) {
@@ -143,6 +148,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
                 .setProductlistAdap(new Lista<>(productos))
                 .build();
         recyclerView.setAdapter(adapter);
+        this.productos = productos;
         mostrarProgresBar(false);
     }
 

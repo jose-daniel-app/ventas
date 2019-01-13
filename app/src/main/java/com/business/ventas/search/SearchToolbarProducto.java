@@ -63,14 +63,14 @@ public class SearchToolbarProducto implements View.OnClickListener {
         searchEditText.setText(null);
         searchEditText.requestFocus();
         openKeyboard();
-
+/*
         searchEditText.setOnKeyListener((view1, i, keyEvent) -> {
             if(keyEvent.getAction() == KeyEvent.ACTION_UP){
                 closeSearchToolbar();
             }
             return false;
         });
-
+*/
         /**  jb user Type krna shuru ho to mic to hide kr k clear btn ho show krna hy,*/
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -119,18 +119,18 @@ public class SearchToolbarProducto implements View.OnClickListener {
 
     /* Close the tooolbar:
      * jb toolbar close ho to searchLayout hide ho jaey aur keyboar b close ho jaey*/
-    private void closeSearchToolbar() {
+    public void closeSearchToolbar() {
         searchLayout.setVisibility(View.GONE);
         closeKeyboard();
     }
 
 
-    private void openKeyboard() {
+    public void openKeyboard() {
         imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
-    private void closeKeyboard() {
+    public void closeKeyboard() {
         imm.hideSoftInputFromWindow(arrowBackBtn.getWindowToken(), 0);
     }
 

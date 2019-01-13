@@ -19,6 +19,7 @@ import com.business.ventas.comprobante.contracts.DetalleGuiaContract;
 import com.business.ventas.login.views.MainActivity;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
@@ -37,7 +38,7 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
     ComprobanteViewAdapter adapter;
     ProgressBar progressBar;
 
-
+    private Lista<Comprobante> comprobantes;
     private ComprobanteContract.Presenter presenter;
 
     public ComprobanteFragment() {
@@ -86,6 +87,26 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.ic_Dia:
+                adapter.setfilter(comprobantes
+                        .filtrar(comprobante -> Fechas.esFechaDelDiaActual(comprobante.getFechaPublicacion())));
+                break;
+            case R.id.ic_Semana:
+                adapter.setfilter(comprobantes
+                        .filtrar(comprobante -> Fechas.esFechaDeLaSemana(comprobante.getFechaPublicacion())));
+                break;
+            case R.id.ic_Mes:
+                adapter.setfilter(comprobantes
+                        .filtrar(comprobante -> Fechas.esFechaDelMes(comprobante.getFechaPublicacion())));
+                break;
+            case R.id.ic_Guia:
+                adapter.setfilter(comprobantes.filtrar(comprobante -> comprobante.tipoDecomprobante() == Comprobante.GUIA));
+                break;
+            case R.id.ic_Factura:
+                adapter.setfilter(comprobantes.filtrar(comprobante -> comprobante.tipoDecomprobante() == Comprobante.FACTURA));
+                break;
+        }
         return true;
     }
 
@@ -99,13 +120,12 @@ public class ComprobanteFragment extends AppFragment implements OnSearchToolbarQ
 
     @Override
     public void mostrarComprovantes(Lista<Comprobante> comprobantes) {
-        comprobantes.foreach(p -> log.info(p.toString()));
         mostrarProgresBar(false);
         adapter = ComprobanteViewAdapter.newInstance().config()
-                .setFragment(this)
                 .setProductlistAdap(comprobantes)
                 .setOnSelectCardListener(this::onClickCard)
                 .build();
+        this.comprobantes = comprobantes;
         listacomprobantes.setAdapter(adapter);
     }
 
