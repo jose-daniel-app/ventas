@@ -40,7 +40,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     ProductoViewAdapter adapter;
 
     SearchToolbarProducto searchToolbar;
-    private SharedPreferenceProductos sharedProductos;
     ProductosContract.Presenter presenter;
 
     FloatingActionButton floatingActionButton;
@@ -62,7 +61,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
                 .setView(this);
 
         View view = inflater.inflate(R.layout.fragment_productos, container, false);
-        sharedProductos = SharedPreferenceProductos.getInstance().setActivity(getActivity());
         loadComponents(view);
         toolbar.setTitle(R.string.title_producto);
         navigationView.setCheckedItem(R.id.nav_ordenes);
@@ -127,7 +125,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         // textView.setText(editable);
         adapter.setfilter(new Lista<>(productos)
                 .filtrar(producto -> producto.getNombre().toLowerCase().startsWith(editable.toLowerCase())));
-
     }
 
     public void mostrarProgresBar(Boolean estado) {

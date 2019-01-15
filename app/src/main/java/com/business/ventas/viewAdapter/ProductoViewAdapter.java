@@ -67,12 +67,25 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() + "");
 
-        holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
+        /*holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
             if (isFocus)
                 holderview.txtCantidad.setText("");
-        });
+        });*/
 
-        holderview.txtCantidad.addTextChangedListener(new ViewTextHandler(productlistAdap.get(position)));
+        holderview.txtCantidad.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int cantidad = Numeros.getCantidad(editable.toString());
+                productlistAdap.get(position).setCantidad(cantidad);
+                productlistAdap.get(position).actualizarPrecioCantidad();
+                log.info("cantidad %d del codigo: %s", productlistAdap.get(position).getCantidad(), productlistAdap.get(position).getItemCode());
+                //holderview.txtCantidad.setText();
+            }
+        });
 
         holderview.cardviewMas.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
@@ -89,7 +102,6 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
                 holderview.txtCantidad.setText((cantidad - 1) + "");
             }
         });
-
     }
 
     public Lista<Producto> obtenerProductosElegidos() {
@@ -111,7 +123,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         @Override
         public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-            log.info("cantidad s: " + s.toString());
+            log.info("codigo: %s", producto.getItemCode());
             int cantidad = Numeros.getCantidad(s.toString());
             producto.setCantidad(cantidad);
             producto.actualizarPrecioCantidad();
@@ -120,7 +132,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         @Override
         public void afterTextChanged(Editable editable) {
-
+            log.info("afterTextChanged : "+editable.toString());
         }
     }
 
