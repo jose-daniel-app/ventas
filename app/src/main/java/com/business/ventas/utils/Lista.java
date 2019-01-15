@@ -1,14 +1,10 @@
 package com.business.ventas.utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
 public class Lista<T> extends ArrayList<T> {
-
-    Filtar filter;
-    Foreach foreach;
 
     public Lista() {
         super();
@@ -35,15 +31,15 @@ public class Lista<T> extends ArrayList<T> {
         return lista;
     }
 
-    public Lista<T> editarItemDelaLista(Foreach<T> iterador) {
-        Lista<T> lista = new Lista<>();
+    public T buscar(Buscar<T> buscar) {
         ListIterator<T> iterar = super.listIterator();
         while (iterar.hasNext()) {
             T t = iterar.next();
-            iterador.iterar(t);
-            lista.add(t);
+            if (buscar.iterar(t)) {
+                return t;
+            }
         }
-        return lista;
+        return null;
     }
 
     public Lista<T> foreach(Foreach<T> foreach) {
@@ -63,5 +59,11 @@ public class Lista<T> extends ArrayList<T> {
     public interface Foreach<T> {
         void iterar(T item);
     }
+
+    @FunctionalInterface
+    public interface Buscar<T> {
+        boolean iterar(T item);
+    }
+
 
 }

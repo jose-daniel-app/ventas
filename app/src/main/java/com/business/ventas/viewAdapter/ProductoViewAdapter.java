@@ -31,6 +31,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
     private VentasLog log = LogFactory.createInstance().setTag(ProductoViewAdapter.class.getSimpleName());
     private Lista<Producto> productlistAdap;
     private Activity activity;
+    private EventoProductoAgregado eventoProductoAgregado;
 
     public static ProductoViewAdapter newInstance() {
         return new ProductoViewAdapter();
@@ -67,39 +68,36 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() + "");
 
-        /*holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
-            if (isFocus)
-                holderview.txtCantidad.setText("");
-        });*/
-
-        holderview.txtCantidad.addTextChangedListener(new TextWatcher(){
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int cantidad = Numeros.getCantidad(editable.toString());
-                productlistAdap.get(position).setCantidad(cantidad);
-                productlistAdap.get(position).actualizarPrecioCantidad();
-                log.info("cantidad %d del codigo: %s", productlistAdap.get(position).getCantidad(), productlistAdap.get(position).getItemCode());
-                //holderview.txtCantidad.setText();
+        holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
+            if (!isFocus){
+                //holderview.txtCantidad.setText("");
             }
+            productlistAdap.get(position).setCantidad(Numeros.getCantidad(holderview.txtCantidad.getText().toString()));
+            log.info("codigo %s, cantidad %d, focus %b",
+                    productlistAdap.get(position).getItemCode(),
+                    productlistAdap.get(position).getCantidad(),
+                    isFocus
+            );
+
         });
+
+        /*holderview.txtCantidad.addTextChangedListener(new ViewTextHandler(
+            productlistAdap.get(position),this.eventoProductoAgregado
+        ));*/
 
         holderview.cardviewMas.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
             productlistAdap.get(position).setCantidad(cantidad + 1);
-            productlistAdap.get(position).actualizarPrecioCantidad();
             holderview.txtCantidad.setText((cantidad + 1) + "");
+            this.eventoProductoAgregado.onProductoAgregado(productlistAdap.get(position));
         });
 
         holderview.cardviewMenos.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
             if (cantidad > 0) {
                 productlistAdap.get(position).setCantidad(cantidad - 1);
-                productlistAdap.get(position).actualizarPrecioCantidad();
                 holderview.txtCantidad.setText((cantidad - 1) + "");
+                this.eventoProductoAgregado.onProductoAgregado(productlistAdap.get(position));
             }
         });
     }
@@ -111,9 +109,13 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
     private class ViewTextHandler implements TextWatcher {
         Producto producto;
+        EventoProductoAgregado evento;
 
-        public ViewTextHandler(Producto producto) {
+        private boolean _ignore = false;
+
+        public ViewTextHandler(Producto producto, EventoProductoAgregado evento) {
             this.producto = producto;
+            this.evento = evento;
         }
 
         @Override
@@ -122,17 +124,19 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
         }
 
         @Override
-        public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-            log.info("codigo: %s", producto.getItemCode());
-            int cantidad = Numeros.getCantidad(s.toString());
-            producto.setCantidad(cantidad);
-            producto.actualizarPrecioCantidad();
-            log.info("precio es: " + producto.getPrecioCantidad());
-        }
+        public void onTextChanged(CharSequence s, int i, int i1, int i2) {}
 
         @Override
         public void afterTextChanged(Editable editable) {
-            log.info("afterTextChanged : "+editable.toString());
+            if(_ignore) return;
+            _ignore = true;
+            int cantidad = Numeros.getCantidad(editable.toString());
+            if(cantidad>0){
+                producto.setCantidad(cantidad);
+                log.info("codigo %s, cantidad %d", producto.getItemCode(), producto.getCantidad());
+                evento.onProductoAgregado(producto);
+            }
+            _ignore = false;
         }
     }
 
@@ -186,8 +190,18 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
             return this;
         }
 
+        public BuildAdapter setEventoProductoAgregado(EventoProductoAgregado eventoProductoAgregado){
+            this.productoViewAdapter.eventoProductoAgregado = eventoProductoAgregado;
+            return this;
+        }
+
         public ProductoViewAdapter build() {
             return this.productoViewAdapter;
         }
+    }
+
+    @FunctionalInterface
+    public interface EventoProductoAgregado {
+        void onProductoAgregado(Producto producto);
     }
 }

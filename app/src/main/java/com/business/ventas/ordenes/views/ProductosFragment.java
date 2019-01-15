@@ -45,7 +45,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     FloatingActionButton floatingActionButton;
     FloatingActionMenu fabMenu;
     ProgressBar progressBar;
-    private List<Producto> productos;
+    private Lista<Producto> productos;
 
     // parametro.
     private Cliente cliente;
@@ -95,8 +95,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     }
 
     private void clickItemButon(View view) {
-        Lista<Producto> productos = adapter.obtenerProductosElegidos();
-
         if (productos.size() > 0) {
             Orden orden = new Orden();
             orden.setNombreCliente(cliente.getNombre());
@@ -105,7 +103,6 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
             orden.setProductos(productos);
             presenter.crearNuevaOrden(orden);
             mostrarProgresBar(true);
-            //searchToolbar.closeSearchToolbar();
         } else {
             mensajeToast("No se a seleccionado ningun producto.");
         }
@@ -141,12 +138,19 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     @Override
     public void cargarProductos(List<Producto> productos) {
         adapter = ProductoViewAdapter.newInstance().config()
-                .setActivity(getActivity())
-                .setProductlistAdap(new Lista<>(productos))
-                .build();
+            .setActivity(getActivity())
+            .setProductlistAdap(new Lista<>(productos))
+            .setEventoProductoAgregado(this::productoSeleccionado)
+            .build();
         recyclerView.setAdapter(adapter);
-        this.productos = productos;
+        this.productos = new Lista<Producto>(productos);
         mostrarProgresBar(false);
+    }
+
+    private void productoSeleccionado(Producto producto){
+        Producto p  = productos.buscar(item -> item.getItemCode().equals(producto.getItemCode()));
+        p.setCantidad(producto.getCantidad());
+        p.actualizarPrecioCantidad();
     }
 
     public ProductosFragment setCliente(Cliente cliente) {
