@@ -56,88 +56,35 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ProductoViewAdapter.Holderview holderview, final int position) {
 
-        holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
-        holderview.txtStock.setText(productlistAdap.get(position).getStock() + "");
-        holderview.txtCodigo.setText(productlistAdap.get(position).getItemCode());
+        Producto producto = productlistAdap.get(position);
 
-        if(productlistAdap.get(position).getPathImg() != null){
-            Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
+        holderview.txtNombre.setText(producto.getNombre());
+        holderview.txtStock.setText(producto.getStock() + "");
+        holderview.txtCodigo.setText(producto.getItemCode());
+
+        if(producto.getPathImg() != null){
+            Glide.with(activity).load(producto.getPathImg()).into(holderview.img);
         }else{
             holderview.img.setImageResource(R.drawable.ic_photo_black_24dp);
         }
 
-        holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() + "");
-
-        holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
-            if (!isFocus){
-                //holderview.txtCantidad.setText("");
-            }
-            productlistAdap.get(position).setCantidad(Numeros.getCantidad(holderview.txtCantidad.getText().toString()));
-            log.info("codigo %s, cantidad %d, focus %b",
-                    productlistAdap.get(position).getItemCode(),
-                    productlistAdap.get(position).getCantidad(),
-                    isFocus
-            );
-
-        });
-
-        /*holderview.txtCantidad.addTextChangedListener(new ViewTextHandler(
-            productlistAdap.get(position),this.eventoProductoAgregado
-        ));*/
+        holderview.txtCantidad.setText(producto.getCantidad() + "");
 
         holderview.cardviewMas.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
-            productlistAdap.get(position).setCantidad(cantidad + 1);
             holderview.txtCantidad.setText((cantidad + 1) + "");
-            this.eventoProductoAgregado.onProductoAgregado(productlistAdap.get(position));
         });
 
         holderview.cardviewMenos.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
             if (cantidad > 0) {
-                productlistAdap.get(position).setCantidad(cantidad - 1);
                 holderview.txtCantidad.setText((cantidad - 1) + "");
-                this.eventoProductoAgregado.onProductoAgregado(productlistAdap.get(position));
             }
         });
     }
 
     public Lista<Producto> obtenerProductosElegidos() {
         return productlistAdap.filtrar(producto -> producto.getCantidad() > 0);
-    }
-
-
-    private class ViewTextHandler implements TextWatcher {
-        Producto producto;
-        EventoProductoAgregado evento;
-
-        private boolean _ignore = false;
-
-        public ViewTextHandler(Producto producto, EventoProductoAgregado evento) {
-            this.producto = producto;
-            this.evento = evento;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int i, int i1, int i2) {}
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            if(_ignore) return;
-            _ignore = true;
-            int cantidad = Numeros.getCantidad(editable.toString());
-            if(cantidad>0){
-                producto.setCantidad(cantidad);
-                log.info("codigo %s, cantidad %d", producto.getItemCode(), producto.getCantidad());
-                evento.onProductoAgregado(producto);
-            }
-            _ignore = false;
-        }
     }
 
     @Override
@@ -170,6 +117,27 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
             cardviewMas = itemView.findViewById(R.id.cardviewMas);
             cardviewMenos = itemView.findViewById(R.id.cardviewMenos);
             txtCantidad = itemview.findViewById(R.id.txtCantidad);
+
+            txtCantidad.addTextChangedListener(new TextWatcher(){
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    int cantidad = Numeros.getCantidad(txtCantidad.getText().toString());
+                        Producto p = productlistAdap.get(getAdapterPosition());
+                        p.setCantidad(cantidad);
+                        log.info("codigo %s, cantidad %d", p.getItemCode(), p.getCantidad());
+                        eventoProductoAgregado.onProductoAgregado(p);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
     }
 
