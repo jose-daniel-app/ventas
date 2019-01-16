@@ -95,12 +95,13 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
     }
 
     private void clickItemButon(View view) {
-        if (productos.size() > 0) {
+        Lista<Producto> productosElejidos = this.productos.filtrar(p-> p.getCantidad()> 0);
+        if (productosElejidos.size() > 0) {
             Orden orden = new Orden();
             orden.setNombreCliente(cliente.getNombre());
             orden.setTerritorio(cliente.getDireccion());
             orden.setFechaEntrega(new Date());
-            orden.setProductos(productos);
+            orden.setProductos(productosElejidos);
             presenter.crearNuevaOrden(orden);
             mostrarProgresBar(true);
         } else {
@@ -143,7 +144,7 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
             .setEventoProductoAgregado(this::productoSeleccionado)
             .build();
         recyclerView.setAdapter(adapter);
-        this.productos = new Lista<Producto>(productos);
+        this.productos = new Lista<>(productos);
         mostrarProgresBar(false);
     }
 
