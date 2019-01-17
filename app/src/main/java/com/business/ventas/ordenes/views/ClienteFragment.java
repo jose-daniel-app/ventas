@@ -2,6 +2,7 @@ package com.business.ventas.ordenes.views;
 
 import android.os.Bundle;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.business.ventas.ordenes.contracts.ClienteContract;
 import com.business.ventas.search.SearchToolbar;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.DialogFullScreenProductos;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
@@ -121,6 +123,9 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     private void clienteSeleccionado(Cliente cliente){
         log.info("cliente %s ", cliente.toString());
         getMainActivity().newFragmentHandler().changeFragment(ProductosFragment.newInstance().setCliente(cliente));
+        //DialogFullScreenProductos dialog = new DialogFullScreenProductos();
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //dialog.show(ft, "dialog");
 
     }
 
