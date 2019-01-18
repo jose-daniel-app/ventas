@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.beans.Cliente;
 import com.business.ventas.ordenes.contracts.ClienteContract;
+import com.business.ventas.ordenes.contracts.DialogProductosContract;
 import com.business.ventas.search.SearchToolbar;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
@@ -95,12 +96,8 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
     @Override
     public void onQueryTextChange(String editable) {
         // textView.setText(editable);
-
             adapter.setfilter(new Lista<>(clientes)
                     .filtrar(cliente -> cliente.getNombre().toLowerCase().startsWith(editable.toLowerCase())));
-
-
-
     }
 
     @Override
@@ -123,7 +120,6 @@ public class ClienteFragment extends AppFragment implements OnSearchToolbarQuery
         //DialogFullScreenProductos dialog = new DialogFullScreenProductos();
         //FragmentTransaction ft = getFragmentManager().beginTransaction();
         //dialog.show(ft, "dialog");
-
     }
 
     @Override

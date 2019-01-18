@@ -23,11 +23,36 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
+    <RelativeLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- YOUR CUSTOM VIEWS HERE -->
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <!-- YOUR CUSTOM VIEWS HERE -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="true" />
+
+        </FrameLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
 </android.support.design.widget.CoordinatorLayout>

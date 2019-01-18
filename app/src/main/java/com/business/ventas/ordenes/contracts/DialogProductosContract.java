@@ -1,6 +1,8 @@
 package com.business.ventas.ordenes.contracts;
 
 import com.business.ventas.beans.Producto;
+import com.business.ventas.ordenes.interactors.DialogProductosInteractor;
+import com.business.ventas.ordenes.presenters.DialogProductosPresenter;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.PadreInteractor;
 import com.business.ventas.utils.PadrePresenter;
@@ -13,9 +15,9 @@ public interface DialogProductosContract {
 
     static <T> T createInstance(Class<T> clas) {
         if (clas.getSimpleName().equalsIgnoreCase(PRESENTERS))
-            return null;//(T) new OrdenesPresenter();
+            return (T)new DialogProductosPresenter();
         else if (clas.getSimpleName().equalsIgnoreCase(INTERACTOR))
-            return null;//(T)new OrdenesInteractor();
+            return (T)new DialogProductosInteractor();
         return null;
     }
 
@@ -28,7 +30,7 @@ public interface DialogProductosContract {
     }
 
     interface Interactor extends PadreInteractor<Interactor, Presenter> {
-
+        void solicitarProductos();
     }
 
 }

@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -42,6 +44,7 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
     private OrdenContract.Presenter presenter;
     private String codigoDeOrden;
+    private Orden orden;
 
     public OrdenFragment() {
     }
@@ -67,6 +70,7 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
         toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
         navigationView.setCheckedItem(R.id.nav_ordenes);
         listViewItem = view.findViewById(R.id.listViewItem);
+        listViewItem.setOnItemClickListener(this::clickItemListView);
         fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
         fabMenu.setIconAnimated(false);
         item1 = view.findViewById(R.id.item1);
@@ -75,6 +79,19 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
         txtNameCliene = view.findViewById(R.id.txtNameCliene);
         txtTotal = view.findViewById(R.id.txtTotal);
         item1.setOnClickListener(this::clickItem);
+    }
+
+    private void clickItemListView(AdapterView<?> adapterView, View view, int i, long l) {
+
+        DialogFullScreenProductos dialog = DialogFullScreenProductos.getBuilder()
+                .setOrden(this.orden)
+                .setOnActualizarOrden(orden -> {
+
+                })
+                .Build();
+
+        dialog.show(getFragmentManager().beginTransaction(),
+                DialogFullScreenProductos.class.getSimpleName());
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
@@ -89,16 +106,16 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
     private void mostrarMensajeConfirmacion() {
         new DialogoConfimacion(getFragmentManager())
-                .setMensaje("¿Eliminar la orden?")
-                .setDescripcionCancelar("NO")
-                .setDescripcionConfirmar("SI")
-                .setAccionConfirmar(() -> {
-                    Orden ordenEli = new Orden();
-                    ordenEli.setCodigo(codigoDeOrden);
-                    presenter.solicitarEliminarOrden(ordenEli);
-                    mostrarProgresBar(true);
-                })
-                .show();
+            .setMensaje("¿Eliminar la orden?")
+            .setDescripcionCancelar("NO")
+            .setDescripcionConfirmar("SI")
+            .setAccionConfirmar(() -> {
+                Orden ordenEli = new Orden();
+                ordenEli.setCodigo(codigoDeOrden);
+                presenter.solicitarEliminarOrden(ordenEli);
+                mostrarProgresBar(true);
+            })
+            .show();
     }
 
     private void clickItem(View view) {
@@ -144,6 +161,7 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
     @Override
     public void mostrarDetalleOrden(Orden orden) {
+        this.orden = orden;
         txtTotal.setText("s/ " + orden.getTotalGeneral());
         txtNameCliene.setText(orden.getNombreCliente());
         adapter = new ItemPedidosBaseAdapter(getMainActivity(), R.layout.view_item_pedido, orden.getProductos());

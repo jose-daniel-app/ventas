@@ -5,14 +5,43 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Orden;
+import com.business.ventas.beans.Producto;
+import com.business.ventas.ordenes.contracts.DialogProductosContract;
+import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
+import com.business.ventas.viewAdapter.ProductoViewAdapter;
 
-public class DialogFullScreenProductos extends DialogFragment {
+public class DialogFullScreenProductos extends DialogFragment implements DialogProductosContract.View {
+
+    VentasLog log = LogFactory.createInstance().setTag(DialogFullScreenProductos.class.getSimpleName());
+
+    private Lista<Producto> productos;
+    private DialogProductosContract.Presenter presenter;
+    private ProgressBar progressBar;
+    private FrameLayout frameLayout;
+    private RecyclerView recyclerView;
+    private ProductoViewAdapter adapter;
+    private Orden orden;
+    private EventoActualizarOrden evento;
+
+    public DialogFullScreenProductos() {
+    }
+
+    public static DialogProductosBuilder getBuilder(){
+        return new DialogProductosBuilderImpl(new DialogFullScreenProductos());
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,12 +56,48 @@ public class DialogFullScreenProductos extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_full_screen_productos, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
+        progressBar = view.findViewById(R.id.progressBar);
+        frameLayout = view.findViewById(R.id.frameLayout);
+        recyclerView = view.findViewById(R.id.RecyclerView);
+        recyclerView.setLayoutManager(this.getTipoDedisenio());
+
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(vista -> {
             this.getDialog().cancel();
         });
         toolbar.setTitle(R.string.title_producto);
+
+        this.presenter = this.instanciarPresenter();
+        this.solicitarLosProductos(this.presenter);
+
         return view;
+    }
+
+    private RecyclerView.LayoutManager getTipoDedisenio(){
+        return new GridLayoutManager(getActivity(), 2);
+    }
+
+    private void solicitarLosProductos(DialogProductosContract.Presenter presenter) {
+        presenter.solicitarProductos();
+        this.mostrarProgresBar(true);
+    }
+
+    private DialogProductosContract.Presenter instanciarPresenter() {
+        return DialogProductosContract.createInstance(DialogProductosContract.Presenter.class)
+                .setContext(getContext())
+                .setView(this);
+    }
+
+    public Orden getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Orden orden) {
+        this.orden = orden;
+    }
+
+    public void setOnActualizarOrden(EventoActualizarOrden evento) {
+        this.evento = evento;
     }
 
     @Override
@@ -45,4 +110,65 @@ public class DialogFullScreenProductos extends DialogFragment {
             dialog.getWindow().setLayout(width, height);
         }
     }
+
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
+        frameLayout.setVisibility(estado ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void cargarProductos(Lista<Producto> productos) {
+        this.productos = productos;
+        this.adapter = ProductoViewAdapter.newInstance().config()
+            .setActivity(getActivity())
+            .setProductlistAdap(this.productos)
+            .setEventoProductoAgregado(p->{})
+            .build();
+        recyclerView.setAdapter(adapter);
+        this.mostrarProgresBar(false);
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+        log.error(mensaje);
+        this.mostrarProgresBar(false);
+    }
+
+    @FunctionalInterface
+    public interface EventoActualizarOrden {
+        void onOrdenUpdate(Orden orden);
+    }
+
+    public interface DialogProductosBuilder {
+        DialogProductosBuilder setOrden(Orden orden);
+        DialogProductosBuilder setOnActualizarOrden(EventoActualizarOrden evento);
+        DialogFullScreenProductos Build();
+    }
+
+    private static class DialogProductosBuilderImpl implements DialogProductosBuilder {
+
+        private DialogFullScreenProductos dfsp;
+
+        public DialogProductosBuilderImpl(DialogFullScreenProductos dfsp) {
+            this.dfsp = dfsp;
+        }
+
+        @Override
+        public DialogProductosBuilder setOnActualizarOrden(EventoActualizarOrden evento) {
+            this.dfsp.evento = evento;
+            return this;
+        }
+
+        @Override
+        public DialogProductosBuilder setOrden(Orden orden) {
+            this.dfsp.orden = orden;
+            return this;
+        }
+
+        @Override
+        public DialogFullScreenProductos Build() {
+            return this.dfsp;
+        }
+    }
+
 }
