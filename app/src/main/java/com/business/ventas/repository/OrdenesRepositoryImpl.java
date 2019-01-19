@@ -118,7 +118,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
             listaJson.add(item);
         });
         object.add("items", listaJson);
-        log.info("frmato json a enviar %s",object.toString());
+
         getService(context).crearOrden(object).enqueue(
             new PadreRepository.CallRespuesta().listenRespuesta(responseOk -> {
                 JsonObject data = responseOk.body().get("data").getAsJsonObject();
@@ -152,8 +152,27 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
         getService(context).eliminarOrden(orden.getCodigo()).enqueue(new PadreRepository.CallRespuesta().listenRespuesta(respOk -> {
             String message = respOk.body().get("message").getAsString();
             succes.onRespuestaSucces(message);
-
         }).listenError(error::onRespuestaError));
+    }
+
+    @Override
+    public void actualizarOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error) {
+
+        JsonObject object = new JsonObject();
+        JsonArray listaJson = new JsonArray();
+        orden.getProductos().foreach(producto -> {
+            JsonObject item = new JsonObject();
+            item.addProperty("item_code", producto.getItemCode());
+            item.addProperty("qty", producto.getCantidad());
+            item.addProperty("warehouse", producto.getAlmacen());
+            listaJson.add(item);
+        });
+        object.add("items", listaJson);
+
+        getService(context).actualizarOrden(orden.getCodigo(),object).enqueue(
+            new PadreRepository.CallRespuesta().listenRespuesta(resp -> {
+                succes.onRespuestaSucces(orden);
+            }).listenError(error::onRespuestaError));
     }
 
     @Override

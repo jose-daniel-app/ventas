@@ -9,6 +9,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -78,6 +79,10 @@ public interface Service {
     @Headers({"Accept: application/json"})
     @GET(Constants.URL_OBTENER_ALMACEN)
     Call<JsonObject> obtenerAlmacen(@Query("fields") String fields, @Query("filters") String filters);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @PUT(Constants.URL_UPDATE_ORDEN)
+    Call<JsonObject> actualizarOrden(@Path("codigo") String codigo,@Body JsonObject jsonObject);
 
      class User {
         public User(String usr, String pwd) {

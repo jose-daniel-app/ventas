@@ -2,6 +2,7 @@ package com.business.ventas.ordenes.presenters;
 
 import android.content.Context;
 
+import com.business.ventas.beans.Orden;
 import com.business.ventas.ordenes.contracts.DialogProductosContract;
 
 public class DialogProductosPresenter implements DialogProductosContract.Presenter {
@@ -39,7 +40,13 @@ public class DialogProductosPresenter implements DialogProductosContract.Present
     }
 
     @Override
+    public void solicitarActualizarOrden(Orden orden) {
+        this.interactor.solicitarActualizarOrden(orden);
+    }
+
+    @Override
     public DialogProductosContract.View getView() {
         return this.view;
     }
+
 }

@@ -86,7 +86,8 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
         DialogFullScreenProductos dialog = DialogFullScreenProductos.getBuilder()
                 .setOrden(this.orden)
                 .setOnActualizarOrden(orden -> {
-
+                    mensajeToast("se actualizo Orden %s",orden.getCodigo());
+                    this.mostrarDetalleOrden(orden);
                 })
                 .Build();
 

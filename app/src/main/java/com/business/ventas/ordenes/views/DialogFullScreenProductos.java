@@ -24,6 +24,7 @@ import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ProductoViewAdapter;
+import android.support.design.widget.FloatingActionButton;
 
 public class DialogFullScreenProductos extends DialogFragment implements SearchToolbarProducto.OnSearchToolbarQueryTextListner, DialogProductosContract.View {
 
@@ -34,6 +35,7 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
     private ProgressBar progressBar;
     private FrameLayout frameLayout;
     private RecyclerView recyclerView;
+    private FloatingActionButton floatingActionButton;
     private ProductoViewAdapter adapter;
     private SearchToolbarProducto searchToolbar;
     private Orden orden;
@@ -62,6 +64,8 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         progressBar = view.findViewById(R.id.progressBar);
         frameLayout = view.findViewById(R.id.frameLayout);
+        floatingActionButton = view.findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(this::clickACtualizar);
         recyclerView = view.findViewById(R.id.RecyclerView);
         recyclerView.setLayoutManager(this.getTipoDedisenio());
 
@@ -70,13 +74,21 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
         toolbar.setNavigationOnClickListener(vista -> {
             this.getDialog().cancel();
         });
+
         toolbar.setOnMenuItemClickListener(this::clickBuscar);
+
         toolbar.setTitle(R.string.title_producto);
 
         this.presenter = this.instanciarPresenter();
         this.solicitarLosProductos(this.presenter);
 
         return view;
+    }
+
+    private void clickACtualizar(View view) {
+        this.orden.setProductos(this.productos.filtrar(p -> p.getCantidad()>0));
+        this.presenter.solicitarActualizarOrden(this.orden);
+        this.mostrarProgresBar(true);
     }
 
     private boolean clickBuscar(MenuItem menuItem) {
@@ -172,6 +184,14 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
     @Override
     public void onQueryTextChange(String editable) {
 
+    }
+
+    @Override
+    public void respuestaActualizarOrden(Orden orden) {
+        this.mostrarProgresBar(false);
+        this.evento.onOrdenUpdate(orden);
+        log.info("se actualizo la orden");
+        this.getDialog().cancel();
     }
 
     @FunctionalInterface

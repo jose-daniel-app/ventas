@@ -21,4 +21,6 @@ public interface OrdenesRepository extends IpadreRepository {
 
     void eliminarOrden(Context context, Orden orden, RespuestaSucces<String> succes, RespuestaError error);
 
+    void actualizarOrden(Context context, Orden orden, RespuestaSucces<Orden> succes, RespuestaError error);
+
 }
