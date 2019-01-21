@@ -129,6 +129,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
                     int cantidad = Numeros.getCantidad(txtCantidad.getText().toString());
                         Producto p = productlistAdap.get(getAdapterPosition());
                         p.setCantidad(cantidad);
+                        p.actualizarPrecioCantidad();
                         log.info("codigo %s, cantidad %d", p.getItemCode(), p.getCantidad());
                         eventoProductoAgregado.onProductoAgregado(p);
                 }

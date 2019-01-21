@@ -121,7 +121,10 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
                 .setProductlistAdap(productos)
                 .setEventoProductoAgregado(p1->{
                     this.productos.foreach(p2 ->{
-                        if(p1.getItemCode().equals(p2.getItemCode())) p2.setCantidad(p1.getCantidad());
+                        if(p1.getItemCode().equals(p2.getItemCode())){
+                            p2.setCantidad(p1.getCantidad());
+                            p2.actualizarPrecioCantidad();
+                        }
                     });
                 }).build();
     }

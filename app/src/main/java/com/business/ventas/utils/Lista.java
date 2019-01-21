@@ -1,6 +1,7 @@
 package com.business.ventas.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -50,6 +51,11 @@ public class Lista<T> extends ArrayList<T> {
         return this;
     }
 
+    public Lista<T> ordenar(Ordenar<T> ordenar){
+        Collections.sort(this, ordenar::comparar);
+        return this;
+    }
+
     @FunctionalInterface
     public interface Filtar<T> {
         boolean iterar(T item);
@@ -63,6 +69,10 @@ public class Lista<T> extends ArrayList<T> {
     @FunctionalInterface
     public interface Buscar<T> {
         boolean iterar(T item);
+    }
+
+    public interface Ordenar<T> {
+        int comparar(T t1, T t2);
     }
 
 
