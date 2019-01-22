@@ -2,10 +2,12 @@ package com.business.ventas.viewAdapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
     private Lista<Producto> productlistAdap;
     private Activity activity;
     private EventoProductoAgregado eventoProductoAgregado;
+    private int focusPosicion = 0;
 
     public static ProductoViewAdapter newInstance() {
         return new ProductoViewAdapter();
@@ -81,6 +84,11 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
                 holderview.txtCantidad.setText((cantidad - 1) + "");
             }
         });
+
+        if(this.focusPosicion == position) {
+            holderview.txtCantidad.requestFocus();
+        }
+
     }
 
     public Lista<Producto> obtenerProductosElegidos() {
@@ -156,6 +164,11 @@ public class ProductoViewAdapter extends RecyclerView.Adapter<ProductoViewAdapte
 
         public BuildAdapter setActivity(Activity activity) {
             this.productoViewAdapter.activity = activity;
+            return this;
+        }
+
+        public BuildAdapter setFocusPosicion(int focusPosicion){
+            this.productoViewAdapter.focusPosicion = focusPosicion;
             return this;
         }
 

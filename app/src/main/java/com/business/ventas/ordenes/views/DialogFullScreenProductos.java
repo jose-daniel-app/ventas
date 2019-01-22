@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ProductoViewAdapter;
+
 import android.support.design.widget.FloatingActionButton;
 
 public class DialogFullScreenProductos extends DialogFragment implements SearchToolbarProducto.OnSearchToolbarQueryTextListner, DialogProductosContract.View {
@@ -31,6 +33,7 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
     VentasLog log = LogFactory.createInstance().setTag(DialogFullScreenProductos.class.getSimpleName());
 
     private Lista<Producto> productos;
+    private Producto productoElegido;
     private DialogProductosContract.Presenter presenter;
     private ProgressBar progressBar;
     private FrameLayout frameLayout;
@@ -44,7 +47,7 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
     public DialogFullScreenProductos() {
     }
 
-    public static DialogProductosBuilder getBuilder(){
+    public static DialogProductosBuilder getBuilder() {
         return new DialogProductosBuilderImpl(new DialogFullScreenProductos());
     }
 
@@ -86,7 +89,7 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
     }
 
     private void clickACtualizar(View view) {
-        this.orden.setProductos(this.productos.filtrar(p -> p.getCantidad()>0));
+        this.orden.setProductos(this.productos.filtrar(p -> p.getCantidad() > 0));
         this.presenter.solicitarActualizarOrden(this.orden);
         this.mostrarProgresBar(true);
     }
@@ -100,7 +103,8 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
         return true;
     }
 
-    private RecyclerView.LayoutManager getTipoDedisenio(){
+    private RecyclerView.LayoutManager getTipoDedisenio() {
+        //RecyclerView.SmoothScroller smoothScroller = new Grid
         return new GridLayoutManager(getActivity(), 2);
     }
 
@@ -115,13 +119,14 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
                 .setView(this);
     }
 
-    private ProductoViewAdapter instanciarProductoViewAdapter(Lista<Producto> productos){
+    private ProductoViewAdapter instanciarProductoViewAdapter(Lista<Producto> productos, int posicion) {
         return ProductoViewAdapter.newInstance().config()
-            .setActivity(getActivity())
+                .setActivity(getActivity())
+                .setFocusPosicion(posicion)
                 .setProductlistAdap(productos)
-                .setEventoProductoAgregado(p1->{
-                    this.productos.foreach(p2 ->{
-                        if(p1.getItemCode().equals(p2.getItemCode())){
+                .setEventoProductoAgregado(p1 -> {
+                    this.productos.foreach(p2 -> {
+                        if (p1.getItemCode().equals(p2.getItemCode())) {
                             p2.setCantidad(p1.getCantidad());
                             p2.actualizarPrecioCantidad();
                         }
@@ -129,11 +134,11 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
                 }).build();
     }
 
-    private Lista<Producto> cambiarLasCantidadesSegunOrden(Orden orden, Lista<Producto> productos){
+    private Lista<Producto> cambiarLasCantidadesSegunOrden(Orden orden, Lista<Producto> productos) {
         return productos.foreach(p1 -> {
-           orden.getProductos().foreach(p2 -> {
-               if(p1.getItemCode().equals(p2.getItemCode())) p1.setCantidad(p2.getCantidad());
-           });
+            orden.getProductos().foreach(p2 -> {
+                if (p1.getItemCode().equals(p2.getItemCode())) p1.setCantidad(p2.getCantidad());
+            });
         });
     }
 
@@ -168,9 +173,21 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
     @Override
     public void cargarProductos(Lista<Producto> productos) {
         this.productos = productos;
-        this.adapter = this.instanciarProductoViewAdapter(cambiarLasCantidadesSegunOrden(this.orden, this.productos));
+        int posicion = this.obtenerPosicion(this.productoElegido);
+        this.adapter = this.instanciarProductoViewAdapter(cambiarLasCantidadesSegunOrden(this.orden, this.productos), posicion);
         this.recyclerView.setAdapter(adapter);
+        this.recyclerView.scrollToPosition(posicion);
         this.mostrarProgresBar(false);
+    }
+
+    private int obtenerPosicion(Producto p) {
+        for (int i = 0; i < this.productos.size(); i++) {
+            Producto producto = this.productos.get(i);
+            if (producto.getItemCode().equals(p.getItemCode())) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -204,7 +221,11 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
 
     public interface DialogProductosBuilder {
         DialogProductosBuilder setOrden(Orden orden);
+
+        DialogProductosBuilder setProductoElegido(Producto productoElegido);
+
         DialogProductosBuilder setOnActualizarOrden(EventoActualizarOrden evento);
+
         DialogFullScreenProductos Build();
     }
 
@@ -225,6 +246,12 @@ public class DialogFullScreenProductos extends DialogFragment implements SearchT
         @Override
         public DialogProductosBuilder setOrden(Orden orden) {
             this.dfsp.orden = orden;
+            return this;
+        }
+
+        @Override
+        public DialogProductosBuilder setProductoElegido(Producto productoElegido) {
+            this.dfsp.productoElegido = productoElegido;
             return this;
         }
 

@@ -84,19 +84,16 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
     }
 
     private void clickItemListView(AdapterView<?> adapterView, View view, int i, long l) {
-
-        DialogFullScreenProductos.getBuilder()
+        DialogFullScreenProductos dialog = DialogFullScreenProductos.getBuilder()
             .setOrden(this.orden)
+            .setProductoElegido(this.orden.getProductos().get(i))
             .setOnActualizarOrden(orden -> {
                 mensajeToast("Se actualizo la orden %s", orden.getCodigo());
                 this.presenter.solicitarDetalleOrden(orden.getCodigo());
                 this.mostrarProgresBar(true);
-            })
-            .Build()
-            .show(
-                getFragmentManager().beginTransaction(),
-                DialogFullScreenProductos.class.getSimpleName()
-            );
+            }).Build();
+
+        dialog.show(getFragmentManager().beginTransaction(), DialogFullScreenProductos.class.getSimpleName());
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
