@@ -88,6 +88,10 @@ public interface Service {
     @GET(Constants.URL_LISTA_REQUERIMIENTOS)
     Call<JsonObject> listarRequerimientos(@Query("fields") String fields);
 
+    @Headers({"Accept: application/json"})
+    @GET(Constants.URL_DETALLE_REQUERIMIENTO)
+    Call<JsonObject> obtenerDetalleRequerimiento(@Path("codigo") String codigo);
+
      class User {
         public User(String usr, String pwd) {
             this.usr = usr;

@@ -1,6 +1,8 @@
 package com.business.ventas.beans;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Requerimiento {
 
@@ -9,6 +11,7 @@ public class Requerimiento {
     private Date scheduleDate;
     private Date transactionDate;
     private String title;
+    private List<Producto> items = new ArrayList<>();
 
     public Requerimiento() {
 
@@ -54,6 +57,14 @@ public class Requerimiento {
         this.scheduleDate = scheduleDate;
     }
 
+    public List<Producto> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Producto> items) {
+        this.items = items;
+    }
+
     @Override
     public String toString() {
         return "Requerimiento{" +
@@ -62,6 +73,7 @@ public class Requerimiento {
                 ", scheduleDate=" + scheduleDate +
                 ", transactionDate=" + transactionDate +
                 ", title='" + title + '\'' +
+                ", items=" + items.size() +
                 '}';
     }
 }

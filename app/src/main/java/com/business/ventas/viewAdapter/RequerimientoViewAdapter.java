@@ -44,10 +44,10 @@ public class RequerimientoViewAdapter extends RecyclerView.Adapter<Requerimiento
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
 
-        holderview.v_codigo.setText(productlistAdap.get(position).getName());
+        holderview.v_codigo.setText(productlistAdap.get(position).getTitle());
         holderview.v_fecha_pedido.setText(Fechas.dateAsString(productlistAdap.get(position).getTransactionDate()));
         holderview.v_fecha_entrega.setText(Fechas.dateAsString(productlistAdap.get(position).getScheduleDate()));
-        //holderview.v_ruta.setText(productlistAdap.get(position).getRuta());
+        holderview.v_ruta.setText(productlistAdap.get(position).getName());
 
         holderview.itemView.setOnClickListener(view -> {
             listener.onClickCard(productlistAdap.get(position));

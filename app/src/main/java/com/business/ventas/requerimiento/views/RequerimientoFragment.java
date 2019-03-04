@@ -10,28 +10,30 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.business.ventas.R;
 import com.business.ventas.beans.Requerimiento;
+import com.business.ventas.requerimiento.contracts.RequerimientoContract;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.RequerimientoViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class RequerimientoFragment extends AppFragment implements OnSearchToolbarQueryTextListner {
+public class RequerimientoFragment extends AppFragment implements OnSearchToolbarQueryTextListner, RequerimientoContract.View {
 
     VentasLog log = LogFactory.createInstance().setTag(RequerimientoFragment.class.getSimpleName());
 
     RecyclerView listarequerimientos;
-    List<Requerimiento> productlists = new ArrayList<>();
     RequerimientoViewAdapter adapter;
 
     FloatingActionButton floatingActionButtonAgregar;
+    ProgressBar progressBar;
+    RequerimientoContract.Presenter presenter;
 
     public RequerimientoFragment() {
     }
@@ -49,6 +51,9 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
      //   toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
+        presenter = RequerimientoContract.newPresenter().setContext(getContext()).setView(this);
+        presenter.solicitarRequerimientos();
+        mostrarProgresBar(true);
         return view;
     }
 
@@ -56,40 +61,25 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
 
         floatingActionButtonAgregar = view.findViewById(R.id.fbAgregarRuta);
         floatingActionButtonAgregar.setOnClickListener(this::btnCrearRequerimiento);
-
-        if (productlists.size() == 0) {
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-            productlists.add(new Requerimiento());
-        }
+        progressBar = view.findViewById(R.id.progressBar);
 
         listarequerimientos = view.findViewById(R.id.listaReq);
         listarequerimientos.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listarequerimientos.setLayoutManager(linearLayoutManager);
 
-        adapter = RequerimientoViewAdapter.newInstance().config()
-                .setFragment(this)
-                .setProductlistAdap(productlists)
-                .setListener(this::clickCard)
-                .build();
-
-        listarequerimientos.setAdapter(adapter);
     }
 
     private void clickCard(Requerimiento requerimiento) {
-        getMainActivity().newFragmentHandler().changeFragment(DetalleFragment.newInstance());
+        getMainActivity().newFragmentHandler().changeFragment(DetalleFragment.newInstance().setRequerimiento(requerimiento));
     }
 
     private void btnCrearRequerimiento(View view) {
         getMainActivity().newFragmentHandler().changeFragment(RutaFragment.newInstance());
+    }
+
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -105,5 +95,22 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
     public void onQueryTextChange(String editable) {
     }
 
+    @Override
+    public void mostrarLosRequerimientos(List<Requerimiento> requerimientos) {
+        adapter = RequerimientoViewAdapter.newInstance().config()
+                .setFragment(this)
+                .setProductlistAdap(requerimientos)
+                .setListener(this::clickCard)
+                .build();
+
+        listarequerimientos.setAdapter(adapter);
+        mostrarProgresBar(false);
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+        log.info(mensaje);
+        mostrarProgresBar(false);
+    }
 }
 

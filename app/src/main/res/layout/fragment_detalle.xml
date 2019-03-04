@@ -236,6 +236,15 @@
             app:fab_colorNormal="@color/primary"
             app:fab_size="mini" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
