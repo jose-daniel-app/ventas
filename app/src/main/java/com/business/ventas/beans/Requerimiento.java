@@ -1,52 +1,67 @@
 package com.business.ventas.beans;
 
+import java.util.Date;
+
 public class Requerimiento {
 
-    private String Codigo;
-    private String fecha_pedido;
-    private String fecha_entrega;
-    private String ruta;
+    private String name;
+    private String status;
+    private Date scheduleDate;
+    private Date transactionDate;
+    private String title;
 
     public Requerimiento() {
 
     }
 
-    public Requerimiento(String codigo, String fecha_pedido, String fecha_entrega, String ruta) {
-        Codigo = codigo;
-        this.fecha_pedido = fecha_pedido;
-        this.fecha_entrega = fecha_entrega;
-        this.ruta = ruta;
+    public String getName() {
+        return name;
     }
 
-    public String getCodigo() {
-        return Codigo;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCodigo(String codigo) {
-        Codigo = codigo;
+    public String getStatus() {
+        return status;
     }
 
-    public String getFecha_pedido() {
-        return fecha_pedido;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setFecha_pedido(String fecha_pedido) {
-        this.fecha_pedido = fecha_pedido;
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 
-    public String getFecha_entrega() {
-        return fecha_entrega;
+    public void setTransactionDate(Date transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
-    public void setFecha_entrega(String fecha_entrega) {
-        this.fecha_entrega = fecha_entrega;
+    public String getTitle() {
+        return title;
     }
 
-    public String getRuta() {
-        return ruta;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
+    public Date getScheduleDate() {
+        return scheduleDate;
+    }
+
+    public void setScheduleDate(Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Requerimiento{" +
+                "name='" + name + '\'' +
+                ", status='" + status + '\'' +
+                ", scheduleDate=" + scheduleDate +
+                ", transactionDate=" + transactionDate +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

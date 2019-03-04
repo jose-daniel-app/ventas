@@ -58,16 +58,16 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
         floatingActionButtonAgregar.setOnClickListener(this::btnCrearRequerimiento);
 
         if (productlists.size() == 0) {
-            productlists.add(new Requerimiento("R003QW ", "10/10/2018 10:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R004QW ", "10/10/2018 10:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R005QW ", "10/10/2018 12:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R006QW ", "10/10/2018 13:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R007QW ", "10/10/2018 14:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R008QW ", "10/10/2018 15:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R009QW ", "10/10/2018 16:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R010QW ", "10/10/2018 17:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R011QW ", "10/10/2018 18:10:23", "10/10/2018 20:10:23", "RT0467"));
-            productlists.add(new Requerimiento("R012QW ", "10/10/2018 19:10:23", "10/10/2018 20:10:23", "RT0467"));
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
+            productlists.add(new Requerimiento());
         }
 
         listarequerimientos = view.findViewById(R.id.listaReq);

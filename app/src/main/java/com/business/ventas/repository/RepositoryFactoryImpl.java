@@ -35,4 +35,9 @@ public class RepositoryFactoryImpl extends RepositoryFactory {
     public AlmacenRepository getAlmacenRepository() {
         return new AlmacenRepositoryImpl();
     }
+
+    @Override
+    public RequerimientosRepository getRequerimientosRepository() {
+        return new RequerimientosRepositoryImpl();
+    }
 }

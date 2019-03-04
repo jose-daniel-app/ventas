@@ -84,6 +84,10 @@ public interface Service {
     @PUT(Constants.URL_UPDATE_ORDEN)
     Call<JsonObject> actualizarOrden(@Path("codigo") String codigo,@Body JsonObject jsonObject);
 
+    @Headers({"Accept: application/json"})
+    @GET(Constants.URL_LISTA_REQUERIMIENTOS)
+    Call<JsonObject> listarRequerimientos(@Query("fields") String fields);
+
      class User {
         public User(String usr, String pwd) {
             this.usr = usr;

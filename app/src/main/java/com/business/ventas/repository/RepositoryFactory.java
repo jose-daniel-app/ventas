@@ -18,6 +18,8 @@ public abstract class RepositoryFactory {
 
     public abstract AlmacenRepository getAlmacenRepository();
 
+    public abstract RequerimientosRepository getRequerimientosRepository();
+
     public static RepositoryFactory getFactory(int type) {
         switch (type) {
             case API_REST:
