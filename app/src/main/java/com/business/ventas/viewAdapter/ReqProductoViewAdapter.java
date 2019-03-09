@@ -29,6 +29,7 @@ public class ReqProductoViewAdapter extends RecyclerView.Adapter<ReqProductoView
     private VentasLog log = LogFactory.createInstance().setTag(ReqProductoViewAdapter.class.getSimpleName());
     private List<Producto> productlistAdap;
     private Activity activity;
+    private int focusPosicion = 0;
 
     public static ReqProductoViewAdapter newInstance() {
         return new ReqProductoViewAdapter();
@@ -53,34 +54,42 @@ public class ReqProductoViewAdapter extends RecyclerView.Adapter<ReqProductoView
     @Override
         public void onBindViewHolder(@NonNull ReqProductoViewAdapter.Holderview holderview, final int position) {
 
-        holderview.txtNombre.setText(productlistAdap.get(position).getNombre());
-        //holderview.txtStock.setText(productlistAdap.get(position).getStock()+"");
-        holderview.txtCodigo.setText(productlistAdap.get(position).getItemCode());
-        Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
-        holderview.txtCantidad.setText(productlistAdap.get(position).getCantidad() +"");
+        Producto producto = productlistAdap.get(position);
+
+        holderview.txtNombre.setText(producto.getNombre());
+        holderview.txtCodigo.setText(producto.getItemCode());
+        //Glide.with(activity).load(productlistAdap.get(position).getPathImg()).into(holderview.img);
+
+        if(producto.getPathImg() != null){
+            Glide.with(activity).load(producto.getPathImg()).into(holderview.img);
+        }else{
+            holderview.img.setImageResource(R.drawable.ic_photo_black_24dp);
+        }
+
+        holderview.txtCantidad.setText(producto.getCantidad() +"");
 
         holderview.txtCantidad.setOnFocusChangeListener((view, isFocus) -> {
             if (isFocus)
                 holderview.txtCantidad.setText("");
         });
 
-        holderview.txtCantidad.addTextChangedListener(new ViewTextHandler(productlistAdap.get(position)));
+        holderview.txtCantidad.addTextChangedListener(new ViewTextHandler(producto));
 
         holderview.cardviewMas.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
-            productlistAdap.get(position).setCantidad(cantidad + 1);
-            productlistAdap.get(position).actualizarPrecioCantidad();
             holderview.txtCantidad.setText((cantidad + 1) + "");
         });
 
         holderview.cardviewMenos.setOnClickListener(view -> {
             int cantidad = Numeros.getCantidad(holderview.txtCantidad.getText().toString());
-            if (cantidad > 0){
-                productlistAdap.get(position).setCantidad(cantidad - 1);
-                productlistAdap.get(position).actualizarPrecioCantidad();
+            if (cantidad > 0) {
                 holderview.txtCantidad.setText((cantidad - 1) + "");
             }
         });
+
+        if(this.focusPosicion == position) {
+            holderview.txtCantidad.requestFocus();
+        }
 
     }
 
@@ -141,6 +150,28 @@ public class ReqProductoViewAdapter extends RecyclerView.Adapter<ReqProductoView
             cardviewMas = itemView.findViewById(R.id.cardviewMas);
             cardviewMenos = itemView.findViewById(R.id.cardviewMenos);
             txtCantidad = itemview.findViewById(R.id.txtCantidad);
+
+            txtCantidad.addTextChangedListener(new TextWatcher(){
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    int cantidad = Numeros.getCantidad(txtCantidad.getText().toString());
+                    Producto p = productlistAdap.get(getAdapterPosition());
+                    p.setCantidad(cantidad);
+                    p.actualizarPrecioCantidad();
+                    log.info("codigo %s, cantidad %d", p.getItemCode(), p.getCantidad());
+                    //eventoProductoAgregado.onProductoAgregado(p);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         }
     }
 

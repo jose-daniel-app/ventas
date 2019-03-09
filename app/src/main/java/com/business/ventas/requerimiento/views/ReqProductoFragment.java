@@ -75,7 +75,6 @@ public class ReqProductoFragment extends AppFragment implements
         recyclerView.setLayoutManager(mGridLayoutManager);
         floatingActionButonContinuar = view.findViewById(R.id.floatingActionButonContinuar);
         floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
-
     }
 
     private void clickBtnContinuar(View view) {

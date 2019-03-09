@@ -71,6 +71,7 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
     }
 
     private void clickCard(Requerimiento requerimiento) {
+        log.info(requerimiento.toString());
         getMainActivity().newFragmentHandler().changeFragment(DetalleFragment.newInstance().setRequerimiento(requerimiento));
     }
 

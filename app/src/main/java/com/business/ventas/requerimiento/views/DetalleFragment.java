@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.requerimiento.contracts.DetalleContract;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
@@ -29,6 +31,10 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
     DetalleContract.Presenter presenter;
     ProgressBar progressBar;
     Requerimiento requerimiento;
+    TextView txtCodigoRequerimiento;
+    TextView txtTitulo;
+    TextView txtFechaEmision;
+    TextView txtFechaEntrega;
 
     VentasLog log = LogFactory.createInstance().setTag(DetalleFragment.class.getSimpleName());
 
@@ -44,7 +50,8 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
 
         loadComponents(view);
         this.presenter = DetalleContract.newPresenter().setContext(getContext()).setView(this);
-        this.presenter.solicitarDetalleRequerimiento(requerimiento);
+        log.info(this.requerimiento.toString());
+        this.presenter.solicitarDetalleRequerimiento(this.requerimiento);
         this.mostrarProgresBar(true);
         return view;
     }
@@ -58,6 +65,10 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
     private void loadComponents(View view) {
         listViewItem = view.findViewById(R.id.listViewItem);
         progressBar = view.findViewById(R.id.progressBar);
+        txtCodigoRequerimiento = view.findViewById(R.id.txtCodigoRequerimiento);
+        txtTitulo = view.findViewById(R.id.txtTitulo);
+        txtFechaEmision = view.findViewById(R.id.txtFechaEmision);
+        txtFechaEntrega = view.findViewById(R.id.txtFechaEntrega);
     }
 
     public static DetalleFragment newInstance() {
@@ -70,7 +81,12 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
 
     @Override
     public void mostrarRequerimiento(Requerimiento requerimiento) {
-        log.info("este es la cantidad d%",requerimiento.getItems().size());
+
+        txtCodigoRequerimiento.setText(requerimiento.getName());
+        txtTitulo.setText(requerimiento.getTitle());
+        txtFechaEmision.setText(Fechas.darFormatoALaFecha("dd/MM/yyyy",requerimiento.getTransactionDate()));
+        txtFechaEntrega.setText(Fechas.darFormatoALaFecha("dd/MM/yyyy",requerimiento.getScheduleDate()));
+
         adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, requerimiento.getItems());
         listViewItem.setAdapter(adapter);
         this.mostrarProgresBar(false);

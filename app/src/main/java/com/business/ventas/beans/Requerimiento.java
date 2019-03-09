@@ -11,6 +11,8 @@ public class Requerimiento {
     private Date scheduleDate;
     private Date transactionDate;
     private String title;
+    private String warehouse;
+    private String company;
     private List<Producto> items = new ArrayList<>();
 
     public Requerimiento() {
@@ -65,6 +67,22 @@ public class Requerimiento {
         this.items = items;
     }
 
+    public String getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     @Override
     public String toString() {
         return "Requerimiento{" +
@@ -73,6 +91,8 @@ public class Requerimiento {
                 ", scheduleDate=" + scheduleDate +
                 ", transactionDate=" + transactionDate +
                 ", title='" + title + '\'' +
+                ", warehouse='" + warehouse + '\'' +
+                ", company='" + company + '\'' +
                 ", items=" + items.size() +
                 '}';
     }

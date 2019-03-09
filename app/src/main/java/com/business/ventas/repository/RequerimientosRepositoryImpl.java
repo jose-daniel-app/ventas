@@ -21,7 +21,7 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
     @Override
     public void listarRequerimientos(Context context, RespuestaSucces<List<Requerimiento>> succes, RespuestaError error) {
         log.info("solicitando la listarRequerimientos al api rest");
-        String columnas = "\"status,name,transaction_date,title,schedule_date\"";
+        String columnas = "\"status,name,transaction_date,title,schedule_date,company\"";
         getService(context).listarRequerimientos(columnas).enqueue(new PadreRepository.CallRespuesta().listenRespuesta(resp -> {
 
             Lista<Requerimiento> lista = new Lista<>();
@@ -32,6 +32,7 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
                 rq.setTitle(getString(item.get("title")));
                 rq.setTransactionDate(Fechas.asDate(getString(item.get("transaction_date"))));
                 rq.setScheduleDate(Fechas.asDate(getString(item.get("schedule_date"))));
+                rq.setCompany(getString(item.get("company")));
                 lista.agregar(rq);
             });
             succes.onRespuestaSucces(lista);
@@ -41,9 +42,12 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
 
     @Override
     public void obtenerRequerimiento(Context context, Requerimiento requerimiento, RespuestaSucces<Requerimiento> succes, RespuestaError error) {
-        getService(context).listarRequerimientos(requerimiento.getName())
+        getService(context).obtenerDetalleRequerimiento(requerimiento.getName())
                 .enqueue(new PadreRepository.CallRespuesta().listenRespuesta(resp -> {
+
                     JsonObject data = resp.body().get("data").getAsJsonObject();
+                    //requerimiento.setWarehouse(getString(data.get("warehouse")));
+
                     List<Producto> lista = new ArrayList<>();
                     recorrerLista(data.get("items").getAsJsonArray().iterator(), (item) -> {
                         Producto itemRq = new Producto();
@@ -54,6 +58,7 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
                         lista.add(itemRq);
                     });
                     requerimiento.setItems(lista);
+                    succes.onRespuestaSucces(requerimiento);
                 })
                 .listenError(error::onRespuestaError));
     }
