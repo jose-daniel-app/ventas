@@ -46,17 +46,17 @@
                                 android:layout_weight="0.3"
                                 android:gravity="center_vertical"
                                 android:paddingLeft="8dp"
-                                android:text="Ruta"
+                                android:text="Codigo"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/txtCodigoRequerimiento"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"
                                 android:gravity="right|center_vertical"
                                 android:paddingRight="8dp"
-                                android:text="RT00MT123"
                                 android:textSize="15sp"
                                 tools:ignore="RtlHardcoded" />
 
@@ -74,17 +74,17 @@
                                 android:layout_weight="0.3"
                                 android:gravity="center_vertical"
                                 android:paddingLeft="8dp"
-                                android:text="Dirección"
+                                android:text="titulo"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/txtTitulo"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"
                                 android:gravity="right|center_vertical"
                                 android:paddingRight="8dp"
-                                android:text="SMP, urb Los cedros de naranjal, Mz B Tl 19"
                                 android:textSize="15sp"
                                 tools:ignore="RtlHardcoded" />
 
@@ -107,12 +107,12 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/txtFechaEmision"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"
                                 android:gravity="right|center_vertical"
                                 android:paddingRight="8dp"
-                                android:text="Lunes 18 de diciembre del 2018"
                                 android:textSize="15sp"
                                 tools:ignore="RtlHardcoded" />
 
@@ -135,12 +135,12 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/txtFechaEntrega"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"
                                 android:gravity="right|center_vertical"
                                 android:paddingRight="8dp"
-                                android:text="Lunes 27 de diciembre del 2018"
                                 android:textSize="15sp"
                                 tools:ignore="RtlHardcoded" />
 
@@ -236,6 +236,15 @@
             app:fab_colorNormal="@color/primary"
             app:fab_size="mini" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -18,10 +18,12 @@ import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Orden;
+import com.business.ventas.beans.Producto;
 import com.business.ventas.comprobante.views.DetalleGuiaFragment;
 import com.business.ventas.ordenes.contracts.OrdenContract;
 import com.business.ventas.utils.AppFragment;
 import com.business.ventas.utils.DialogoConfimacion;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
@@ -82,17 +84,16 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
     }
 
     private void clickItemListView(AdapterView<?> adapterView, View view, int i, long l) {
-
         DialogFullScreenProductos dialog = DialogFullScreenProductos.getBuilder()
-                .setOrden(this.orden)
-                .setOnActualizarOrden(orden -> {
-                    mensajeToast("se actualizo Orden %s",orden.getCodigo());
-                    this.mostrarDetalleOrden(orden);
-                })
-                .Build();
+            .setOrden(this.orden)
+            .setProductoElegido(this.orden.getProductos().get(i))
+            .setOnActualizarOrden(orden -> {
+                mensajeToast("Se actualizo la orden %s", orden.getCodigo());
+                this.presenter.solicitarDetalleOrden(orden.getCodigo());
+                this.mostrarProgresBar(true);
+            }).Build();
 
-        dialog.show(getFragmentManager().beginTransaction(),
-                DialogFullScreenProductos.class.getSimpleName());
+        dialog.show(getFragmentManager().beginTransaction(), DialogFullScreenProductos.class.getSimpleName());
     }
 
     private boolean onMenuItemClick(MenuItem menuItem) {
@@ -107,16 +108,16 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
 
     private void mostrarMensajeConfirmacion() {
         new DialogoConfimacion(getFragmentManager())
-            .setMensaje("¿Eliminar la orden?")
-            .setDescripcionCancelar("NO")
-            .setDescripcionConfirmar("SI")
-            .setAccionConfirmar(() -> {
-                Orden ordenEli = new Orden();
-                ordenEli.setCodigo(codigoDeOrden);
-                presenter.solicitarEliminarOrden(ordenEli);
-                mostrarProgresBar(true);
-            })
-            .show();
+                .setMensaje("¿Eliminar la orden?")
+                .setDescripcionCancelar("NO")
+                .setDescripcionConfirmar("SI")
+                .setAccionConfirmar(() -> {
+                    Orden ordenEli = new Orden();
+                    ordenEli.setCodigo(codigoDeOrden);
+                    presenter.solicitarEliminarOrden(ordenEli);
+                    mostrarProgresBar(true);
+                })
+                .show();
     }
 
     private void clickItem(View view) {
@@ -165,7 +166,8 @@ public class OrdenFragment extends AppFragment implements OrdenContract.View {
         this.orden = orden;
         txtTotal.setText("s/ " + orden.getTotalGeneral());
         txtNameCliene.setText(orden.getNombreCliente());
-        adapter = new ItemPedidosBaseAdapter(getMainActivity(), R.layout.view_item_pedido, orden.getProductos());
+        adapter = new ItemPedidosBaseAdapter(getMainActivity(), R.layout.view_item_pedido,
+                orden.getProductos().ordenar((p1,p2) -> Integer.valueOf(p1.getCantidad()).compareTo(p2.getCantidad())));
         listViewItem.setAdapter(adapter);
         mostrarProgresBar(false);
     }

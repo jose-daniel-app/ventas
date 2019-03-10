@@ -82,7 +82,7 @@ public abstract class PadreRepository {
 
         @Override
         public void onFailure(Call<JsonObject> call, Throwable t) {
-            log.info(t.getMessage());
+            log.info(t.getMessage(),t);
             if (this.iCallRespuestaError != null)
                 iCallRespuestaError.onICallRespuesta(t.getMessage());
         }

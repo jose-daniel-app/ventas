@@ -7,20 +7,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
+import com.business.ventas.beans.Requerimiento;
+import com.business.ventas.requerimiento.contracts.DetalleContract;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.Lista;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ItemPedidosBaseAdapter;
 
 import java.util.List;
 
 
-public class DetalleFragment extends AppFragment {
+public class DetalleFragment extends AppFragment implements DetalleContract.View {
 
     ListView listViewItem;
     ItemPedidosBaseAdapter adapter;
+    DetalleContract.Presenter presenter;
+    ProgressBar progressBar;
+    Requerimiento requerimiento;
+    TextView txtCodigoRequerimiento;
+    TextView txtTitulo;
+    TextView txtFechaEmision;
+    TextView txtFechaEntrega;
+
+    VentasLog log = LogFactory.createInstance().setTag(DetalleFragment.class.getSimpleName());
 
     public DetalleFragment() {
     }
@@ -33,47 +49,52 @@ public class DetalleFragment extends AppFragment {
         toolbar.getMenu().clear();
 
         loadComponents(view);
-
-        adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, listaProducos());
-        listViewItem.setAdapter(adapter);
+        this.presenter = DetalleContract.newPresenter().setContext(getContext()).setView(this);
+        log.info(this.requerimiento.toString());
+        this.presenter.solicitarDetalleRequerimiento(this.requerimiento);
+        this.mostrarProgresBar(true);
         return view;
     }
 
-    private List<Producto> listaProducos() {
-        return new Lista<Producto>()
-            .agregar(new Producto().config()
-                .setNombre("Bizcocho especial x12")
-                .setCantidad(3).setPrecioUnitario(5.0)
-                .actualizarPrecioCantidad()
-                .build())
-            .agregar(new Producto().config()
-                .setNombre("Keke ingles x12")
-                .setCantidad(2).setPrecioUnitario(2.0)
-                .actualizarPrecioCantidad()
-                .build())
-            .agregar(new Producto().config()
-                .setNombre("Empanada x20")
-                .setCantidad(6).setPrecioUnitario(5.0)
-                .actualizarPrecioCantidad()
-                .build())
-            .agregar(new Producto().config()
-                .setNombre("Empanada x40")
-                .setCantidad(6).setPrecioUnitario(5.0)
-                .actualizarPrecioCantidad()
-                .build())
-            .agregar(new Producto().config()
-                .setNombre("Empanada x50")
-                .setCantidad(6).setPrecioUnitario(5.0)
-                .actualizarPrecioCantidad()
-                .build());
+    public DetalleFragment setRequerimiento(Requerimiento requerimiento) {
+        this.requerimiento = requerimiento;
+        return this;
     }
+
 
     private void loadComponents(View view) {
         listViewItem = view.findViewById(R.id.listViewItem);
+        progressBar = view.findViewById(R.id.progressBar);
+        txtCodigoRequerimiento = view.findViewById(R.id.txtCodigoRequerimiento);
+        txtTitulo = view.findViewById(R.id.txtTitulo);
+        txtFechaEmision = view.findViewById(R.id.txtFechaEmision);
+        txtFechaEntrega = view.findViewById(R.id.txtFechaEntrega);
     }
 
     public static DetalleFragment newInstance() {
         return new DetalleFragment();
     }
 
+    public void mostrarProgresBar(Boolean estado) {
+        progressBar.setVisibility(estado ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void mostrarRequerimiento(Requerimiento requerimiento) {
+
+        txtCodigoRequerimiento.setText(requerimiento.getName());
+        txtTitulo.setText(requerimiento.getTitle());
+        txtFechaEmision.setText(Fechas.darFormatoALaFecha("dd/MM/yyyy",requerimiento.getTransactionDate()));
+        txtFechaEntrega.setText(Fechas.darFormatoALaFecha("dd/MM/yyyy",requerimiento.getScheduleDate()));
+
+        adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, requerimiento.getItems());
+        listViewItem.setAdapter(adapter);
+        this.mostrarProgresBar(false);
+    }
+
+    @Override
+    public void errorRespuesta(String mensaje) {
+        log.info(mensaje);
+        this.mostrarProgresBar(false);
+    }
 }

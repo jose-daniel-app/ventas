@@ -61,6 +61,7 @@ public class ItemPedidosBaseAdapter extends ArrayAdapter<Producto> {
         viewHolder.txtCantidad.setText(p.getCantidad() + "");
         viewHolder.txtDescripcion.setText(p.getNombre() + "");
         viewHolder.txtPrecio.setText(p.getPrecioUnitario() + "");
+        p.actualizarPrecioCantidad();
         viewHolder.txtImporte.setText(p.getPrecioCantidad() + "");
 
         return view;

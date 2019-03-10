@@ -40,7 +40,7 @@ public class OrdenesFragment extends AppFragment
 
     ProgressBar progressBar;
 
-    private List<Orden> ordenes;
+    private Lista<Orden> ordenes;
 
     public OrdenesFragment() {
 
@@ -124,9 +124,9 @@ public class OrdenesFragment extends AppFragment
 
     @Override
     public void mostrarOrdenes(List<Orden> ordenes) {
+        this.ordenes = new Lista<>(ordenes).ordenar((p1,p2) -> p1.getCodigo().compareTo(p2.getCodigo()));
         adapter = new OrdenesViewAdapter(ordenes, this);
         recyclerViewOrden.setAdapter(adapter);
-        this.ordenes = ordenes;
         mostrarProgresBar(false);
     }
 
