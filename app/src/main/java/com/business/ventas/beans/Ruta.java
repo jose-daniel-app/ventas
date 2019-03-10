@@ -57,4 +57,15 @@ public class Ruta {
     public void setCompany(String company) {
         this.company = company;
     }
+
+    @Override
+    public String toString() {
+        return "Ruta{" +
+                "codRuta='" + codRuta + '\'' +
+                ", dirRuta='" + dirRuta + '\'' +
+                ", company='" + company + '\'' +
+                ", provincia='" + provincia + '\'' +
+                ", distrito='" + distrito + '\'' +
+                '}';
+    }
 }

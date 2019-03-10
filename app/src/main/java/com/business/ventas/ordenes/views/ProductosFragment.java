@@ -88,13 +88,13 @@ public class ProductosFragment extends AppFragment implements OnSearchToolbarQue
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
         floatingActionButton = view.findViewById(R.id.menu_item);
-        floatingActionButton.setOnClickListener(this::clickItemButon);
+        floatingActionButton.setOnClickListener(this::crearOrden);
 
         fabMenu = view.findViewById(R.id.floatingActionButonContinuar);
         fabMenu.setIconAnimated(false);
     }
 
-    private void clickItemButon(View view) {
+    private void crearOrden(View view) {
         Lista<Producto> productosElejidos = this.productos.filtrar(p-> p.getCantidad()> 0);
         if (productosElejidos.size() > 0) {
             Orden orden = new Orden();

@@ -14,6 +14,7 @@ public class Requerimiento {
     private String warehouse;
     private String company;
     private List<Producto> items = new ArrayList<>();
+    private Ruta ruta;
 
     public Requerimiento() {
 
@@ -81,6 +82,14 @@ public class Requerimiento {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public Ruta getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(Ruta ruta) {
+        this.ruta = ruta;
     }
 
     @Override

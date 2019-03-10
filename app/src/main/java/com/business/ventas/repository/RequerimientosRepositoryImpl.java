@@ -62,4 +62,16 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
                 })
                 .listenError(error::onRespuestaError));
     }
+
+    @Override
+    public void crearRequerimiento(Context context, Requerimiento requerimiento, RespuestaSucces<Requerimiento> succes, RespuestaError error) {
+        JsonObject object = new JsonObject();
+
+        getService(context).crearRequerimiento(object).enqueue(
+                new PadreRepository.CallRespuesta().listenRespuesta(responseOk -> { 
+                    succes.onRespuestaSucces(requerimiento);
+                })
+                .listenError(error::onRespuestaError)
+        );
+    }
 }

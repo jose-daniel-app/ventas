@@ -13,16 +13,19 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.business.ventas.R;
+import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.beans.Ruta;
 import com.business.ventas.requerimiento.contracts.RutaContract;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.RutaViewAdapter;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTextListner, RutaContract.View {
@@ -69,10 +72,15 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
         recyclerViewRutas.setLayoutManager(linearLayoutManager);
     }
 
-    private void clickCardViewRuta(String codigoRuta) {
+    private void clickCardViewRuta(Ruta ruta) {
         DatePickerFragment newFragment = DatePickerFragment.newInstance().configEvent(fecha -> {
-            log.info("La fecha es: " + fecha + " codigoRuta: " + codigoRuta);
-            getMainActivity().newFragmentHandler().changeFragment(ReqProductoFragment.newInstance());
+            log.info("La fecha es: " + Fechas.darFormatoALaFecha("yyyy-MM-dd HH:mm:ss",fecha) + " ruta =>: " + ruta.toString());
+            Requerimiento requerimiento = new Requerimiento();
+            requerimiento.setTransactionDate(new Date());
+            requerimiento.setScheduleDate(fecha);
+
+            getMainActivity().newFragmentHandler()
+                    .changeFragment(ReqProductoFragment.newInstance().setRequerimiento(requerimiento));
         });
         newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
     }

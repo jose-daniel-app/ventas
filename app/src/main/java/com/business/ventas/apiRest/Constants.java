@@ -20,4 +20,5 @@ public class Constants {
     public static final String URL_CERRAR_SESSION = "/api/method/logout";
     public static final String URL_LISTA_REQUERIMIENTOS = "/api/resource/Material Request";
     public static final String URL_DETALLE_REQUERIMIENTO = "/api/resource/Material Request/{codigo}";
+    public static final String URL_CREAR_REQUERIMIENTO = "/api/resource/Material Request";
 }

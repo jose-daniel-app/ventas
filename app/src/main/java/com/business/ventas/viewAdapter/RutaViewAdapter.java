@@ -1,24 +1,24 @@
 package com.business.ventas.viewAdapter;
 
 
-        import android.content.Context;
-        import android.support.annotation.NonNull;
-        import android.support.v7.widget.CardView;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import com.business.ventas.R;
-        import com.business.ventas.beans.Ruta;
-        import com.business.ventas.utils.LogFactory;
-        import com.business.ventas.utils.VentasLog;
-        import com.business.ventas.requerimiento.views.RutaFragment;
+import com.business.ventas.R;
+import com.business.ventas.beans.Ruta;
+import com.business.ventas.utils.LogFactory;
+import com.business.ventas.utils.VentasLog;
+import com.business.ventas.requerimiento.views.RutaFragment;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holderview> {
@@ -31,11 +31,11 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
         this.productlistAdap = productlist;
         this.fragment = fragment;
     }*/
-    public static RutaViewAdapter newInstance(){
+    public static RutaViewAdapter newInstance() {
         return new RutaViewAdapter();
     }
 
-    public RutaViewBuild config(){
+    public RutaViewBuild config() {
         //TODO
         return new RutaViewBuild(this);
     }
@@ -48,13 +48,15 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
 
     @Override
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
+        Ruta ruta = productlistAdap.get(position);
 
-        holderview.v_codRuta.setText(productlistAdap.get(position).getCodRuta());
-        holderview.v_dirRuta.setText(productlistAdap.get(position).getDirRuta());
-        holderview.v_provincia.setText(productlistAdap.get(position).getCompany());
+        holderview.v_codRuta.setText(ruta.getCodRuta());
+        holderview.v_dirRuta.setText(ruta.getDirRuta());
+        holderview.v_provincia.setText(ruta.getCompany());
+
         //holderview.v_distrito.setText(productlistAdap.get(position).getDistrito());
         holderview.itemView.setOnClickListener(view -> {
-            listener.onSelectItem(productlistAdap.get(position).getCodRuta());
+            listener.onSelectItem(ruta);
         });
 
     }
@@ -95,7 +97,7 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
     }
 
     public interface ListenerItem {
-        void onSelectItem(String codigoRuta);
+        void onSelectItem(Ruta ruta);
     }
 
     public class RutaViewBuild {
@@ -105,22 +107,23 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
         public RutaViewBuild(RutaViewAdapter rutaViewAdapter) {
             this.rutaViewAdapter = rutaViewAdapter;
         }
-        public RutaViewBuild setListenerItem(ListenerItem listener){
+
+        public RutaViewBuild setListenerItem(ListenerItem listener) {
             this.rutaViewAdapter.listener = listener;
             return this;
         }
 
-        public RutaViewBuild setFragment(RutaFragment context){
-            this.rutaViewAdapter.fragment  = context;
+        public RutaViewBuild setFragment(RutaFragment context) {
+            this.rutaViewAdapter.fragment = context;
             return this;
         }
 
-        public RutaViewBuild setListaRuta(List<Ruta> productlistAdap){
+        public RutaViewBuild setListaRuta(List<Ruta> productlistAdap) {
             this.rutaViewAdapter.productlistAdap = productlistAdap;
             return this;
         }
 
-        public RutaViewAdapter build(){
+        public RutaViewAdapter build() {
             return rutaViewAdapter;
         }
     }

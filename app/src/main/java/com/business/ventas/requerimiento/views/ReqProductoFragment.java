@@ -14,10 +14,12 @@ import android.widget.ProgressBar;
 
 import com.business.ventas.R;
 import com.business.ventas.beans.Producto;
+import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.requerimiento.contracts.ReqProductoContract;
 import com.business.ventas.search.SearchToolbarProducto;
 import com.business.ventas.search.SearchToolbarProducto.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.ReqProductoViewAdapter;
@@ -34,8 +36,10 @@ public class ReqProductoFragment extends AppFragment implements
     SearchToolbarProducto searchToolbar;
     FloatingActionButton floatingActionButonContinuar;
     ProgressBar progressBar;
-
+    Requerimiento requerimiento;
     ReqProductoContract.Presenter presenter;
+
+    private Lista<Producto> productos;
 
     public ReqProductoFragment() {
     }
@@ -78,11 +82,7 @@ public class ReqProductoFragment extends AppFragment implements
     }
 
     private void clickBtnContinuar(View view) {
-        /*new MaterialDialog.Builder(getActivity())
-                .title(R.string.mensaje_compra)
-                .positiveText(R.string.mensaje_ok).onPositive((dialog, which)->{ onButtonPressed(this); })
-                .negativeText(R.string.mensaje_cancelar)
-                .show();*/
+        log.info("");
     }
 
     public static ReqProductoFragment newInstance() {
@@ -96,6 +96,11 @@ public class ReqProductoFragment extends AppFragment implements
 
     public ReqProductoFragment setToolbar(Toolbar toolbar) {
         this.toolbar = toolbar;
+        return this;
+    }
+
+    public ReqProductoFragment setRequerimiento(Requerimiento requerimiento) {
+        this.requerimiento = requerimiento;
         return this;
     }
 
@@ -116,9 +121,10 @@ public class ReqProductoFragment extends AppFragment implements
     @Override
     public void cargarProductos(List<Producto> productos) {
         log.info("la cantidad es: %d", productos.size());
+        this.productos = new Lista<>(productos);
         adapter = new ReqProductoViewAdapter().config()
             .setActivity(getActivity())
-            .setProductlistAdap(productos)
+            .setProductlistAdap(this.productos)
             .build();
         recyclerView.setAdapter(adapter);
         mostrarProgresBar(false);

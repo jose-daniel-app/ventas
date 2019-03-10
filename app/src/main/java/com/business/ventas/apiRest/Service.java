@@ -92,6 +92,10 @@ public interface Service {
     @GET(Constants.URL_DETALLE_REQUERIMIENTO)
     Call<JsonObject> obtenerDetalleRequerimiento(@Path("codigo") String codigo);
 
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST(Constants.URL_CREAR_REQUERIMIENTO)
+    Call<JsonObject> crearRequerimiento(@Body JsonObject jsonObject);
+
      class User {
         public User(String usr, String pwd) {
             this.usr = usr;
