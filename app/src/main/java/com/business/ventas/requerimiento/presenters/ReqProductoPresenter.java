@@ -2,6 +2,7 @@ package com.business.ventas.requerimiento.presenters;
 
 import android.content.Context;
 
+import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.requerimiento.contracts.ReqProductoContract;
 
 public class ReqProductoPresenter implements ReqProductoContract.Presenter {
@@ -41,5 +42,10 @@ public class ReqProductoPresenter implements ReqProductoContract.Presenter {
     @Override
     public ReqProductoContract.View getView() {
         return this.view;
+    }
+
+    @Override
+    public void crearRequerimiento(Requerimiento requerimiento) {
+        this.interactor.crearRequerimiento(requerimiento);
     }
 }

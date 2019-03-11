@@ -29,6 +29,7 @@ public class ReqProductoViewAdapter extends RecyclerView.Adapter<ReqProductoView
     private VentasLog log = LogFactory.createInstance().setTag(ReqProductoViewAdapter.class.getSimpleName());
     private List<Producto> productlistAdap;
     private Activity activity;
+    private EventoProductoAgregado eventoProductoAgregado;
     private int focusPosicion = 0;
 
     public static ReqProductoViewAdapter newInstance() {
@@ -164,7 +165,7 @@ public class ReqProductoViewAdapter extends RecyclerView.Adapter<ReqProductoView
                     p.setCantidad(cantidad);
                     p.actualizarPrecioCantidad();
                     log.info("codigo %s, cantidad %d", p.getItemCode(), p.getCantidad());
-                    //eventoProductoAgregado.onProductoAgregado(p);
+                    eventoProductoAgregado.onProductoAgregado(p);
                 }
 
                 @Override
@@ -191,8 +192,18 @@ public class ReqProductoViewAdapter extends RecyclerView.Adapter<ReqProductoView
             return this;
         }
 
+        public BuildAdapter setEventoProductoAgregado(EventoProductoAgregado eventoProductoAgregado){
+            this.productoViewAdapter.eventoProductoAgregado = eventoProductoAgregado;
+            return this;
+        }
+
         public ReqProductoViewAdapter build(){
             return this.productoViewAdapter;
         }
+    }
+
+    @FunctionalInterface
+    public interface EventoProductoAgregado {
+        void onProductoAgregado(Producto producto);
     }
 }

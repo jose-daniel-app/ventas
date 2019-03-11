@@ -1,7 +1,9 @@
 package com.business.ventas.requerimiento.interactors;
 
+import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.repository.ProductosRepository;
 import com.business.ventas.repository.RepositoryFactory;
+import com.business.ventas.repository.RequerimientosRepository;
 import com.business.ventas.requerimiento.contracts.ReqProductoContract;
 
 public class ReqProductoInteractor implements ReqProductoContract.Interactor {
@@ -10,6 +12,7 @@ public class ReqProductoInteractor implements ReqProductoContract.Interactor {
 
     RepositoryFactory factory = RepositoryFactory.getFactory(RepositoryFactory.API_REST);
     ProductosRepository _producto = factory.getProductosRepository();
+    RequerimientosRepository _requerimiento = factory.getRequerimientosRepository();
 
     @Override
     public void solicitarProductos() {
@@ -22,5 +25,14 @@ public class ReqProductoInteractor implements ReqProductoContract.Interactor {
     public ReqProductoContract.Interactor setPresenter(ReqProductoContract.Presenter presenter) {
         this.presenter = presenter;
         return this;
+    }
+
+    @Override
+    public void crearRequerimiento(Requerimiento requerimiento) {
+        this._requerimiento.crearRequerimiento(
+            this.presenter.getContext(), requerimiento,
+            this.presenter.getView()::respuesDeCrearRequerimiento,
+            this.presenter.getView()::errorRespuesta
+        );
     }
 }

@@ -78,11 +78,18 @@ public class ReqProductoFragment extends AppFragment implements
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(mGridLayoutManager);
         floatingActionButonContinuar = view.findViewById(R.id.floatingActionButonContinuar);
-        floatingActionButonContinuar.setOnClickListener(this::clickBtnContinuar);
+        floatingActionButonContinuar.setOnClickListener(this::crearRequerimineto);
     }
 
-    private void clickBtnContinuar(View view) {
-        log.info("");
+    private void crearRequerimineto(View view) {
+        Lista<Producto> productosElejidos = this.productos.filtrar(p-> p.getCantidad()> 0);
+        if (productosElejidos.size() > 0) {
+            this.requerimiento.setItems(productosElejidos);
+            this.presenter.crearRequerimiento(this.requerimiento);
+            this.mostrarProgresBar(true);
+        }else {
+            mensajeToast("No se a seleccionado ningun producto.");
+        }
     }
 
     public static ReqProductoFragment newInstance() {
@@ -102,6 +109,13 @@ public class ReqProductoFragment extends AppFragment implements
     public ReqProductoFragment setRequerimiento(Requerimiento requerimiento) {
         this.requerimiento = requerimiento;
         return this;
+    }
+
+    private void productoSeleccionado(Producto producto){
+        Producto p  = productos
+                .buscar(item -> item.getItemCode().equals(producto.getItemCode()));
+        p.setCantidad(producto.getCantidad());
+        p.actualizarPrecioCantidad();
     }
 
     @Override
@@ -125,6 +139,7 @@ public class ReqProductoFragment extends AppFragment implements
         adapter = new ReqProductoViewAdapter().config()
             .setActivity(getActivity())
             .setProductlistAdap(this.productos)
+            .setEventoProductoAgregado(this::productoSeleccionado)
             .build();
         recyclerView.setAdapter(adapter);
         mostrarProgresBar(false);
@@ -134,5 +149,11 @@ public class ReqProductoFragment extends AppFragment implements
     public void errorRespuesta(String mensaje) {
         log.info(mensaje);
         mostrarProgresBar(false);
+    }
+
+    @Override
+    public void respuesDeCrearRequerimiento(Requerimiento requerimiento) {
+        this.mostrarProgresBar(false);
+        mensajeToast("Se cree el requerimiento");
     }
 }

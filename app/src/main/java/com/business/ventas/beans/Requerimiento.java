@@ -102,7 +102,8 @@ public class Requerimiento {
                 ", title='" + title + '\'' +
                 ", warehouse='" + warehouse + '\'' +
                 ", company='" + company + '\'' +
-                ", items=" + items.size() +
+                ", items=" + items +
+                ", ruta=" + ruta +
                 '}';
     }
 }

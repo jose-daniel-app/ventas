@@ -74,11 +74,10 @@ public class RutaFragment extends AppFragment implements OnSearchToolbarQueryTex
 
     private void clickCardViewRuta(Ruta ruta) {
         DatePickerFragment newFragment = DatePickerFragment.newInstance().configEvent(fecha -> {
-            log.info("La fecha es: " + Fechas.darFormatoALaFecha("yyyy-MM-dd HH:mm:ss",fecha) + " ruta =>: " + ruta.toString());
             Requerimiento requerimiento = new Requerimiento();
             requerimiento.setTransactionDate(new Date());
             requerimiento.setScheduleDate(fecha);
-
+            requerimiento.setRuta(ruta);
             getMainActivity().newFragmentHandler()
                     .changeFragment(ReqProductoFragment.newInstance().setRequerimiento(requerimiento));
         });
