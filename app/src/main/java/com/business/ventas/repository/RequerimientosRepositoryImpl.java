@@ -2,13 +2,13 @@ package com.business.ventas.repository;
 
 import android.content.Context;
 
-import com.business.ventas.beans.ItemRequerimiento;
 import com.business.ventas.beans.Producto;
 import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -60,18 +60,72 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
                     requerimiento.setItems(lista);
                     succes.onRespuestaSucces(requerimiento);
                 })
-                .listenError(error::onRespuestaError));
+                        .listenError(error::onRespuestaError));
     }
 
     @Override
     public void crearRequerimiento(Context context, Requerimiento requerimiento, RespuestaSucces<Requerimiento> succes, RespuestaError error) {
         JsonObject object = new JsonObject();
+        object.addProperty("transaction_date",
+                Fechas.darFormatoALaFecha("yyyy-MM-dd", requerimiento.getTransactionDate()));
+        object.addProperty("schedule_date",
+                Fechas.darFormatoALaFecha("yyyy-MM-dd", requerimiento.getScheduleDate()));
+        object.addProperty("company", requerimiento.getRuta().getCompany());
+
+        JsonArray listaJson = new JsonArray();
+        new Lista<Producto>(requerimiento.getItems()).foreach(producto -> {
+            JsonObject item = new JsonObject();
+            item.addProperty("item_code", producto.getItemCode());
+            item.addProperty("qty", producto.getCantidad());
+            listaJson.add(item);
+        });
+        object.add("items", listaJson);
 
         getService(context).crearRequerimiento(object).enqueue(
-                new PadreRepository.CallRespuesta().listenRespuesta(responseOk -> { 
-                    succes.onRespuestaSucces(requerimiento);
+                new PadreRepository.CallRespuesta().listenRespuesta(responseOk -> {
+
+                    JsonObject data = responseOk.body().get("data").getAsJsonObject();
+                    Requerimiento rq = new Requerimiento();
+                    rq.setName(getString(data.get("name")));
+                    rq.setStatus(getString(data.get("status")));
+                    rq.setTitle(getString(data.get("title")));
+                    rq.setTransactionDate(Fechas.asDate(getString(data.get("transaction_date"))));
+                    rq.setScheduleDate(Fechas.asDate(getString(data.get("schedule_date"))));
+                    rq.setCompany(getString(data.get("company")));
+                    Lista<Producto> productos = new Lista<>();
+
+                    recorrerLista(data.get("items").getAsJsonArray().iterator(), (item) -> {
+                        Producto producto = new Producto();
+                        producto.setItemCode(getString(item.get("item_code")));
+                        producto.setCantidad(getInt(item.get("qty")));
+                        producto.setPrecioUnitario(getDouble(item.get("rate")));
+                        producto.setNombre(getString(item.get("description")));
+                        //producto.setPrecioCantidad(getDouble(item.get("base_amount")));
+                        productos.add(producto);
+                    });
+                    rq.setItems(productos);
+                    succes.onRespuestaSucces(rq);
                 })
-                .listenError(error::onRespuestaError)
+                        .listenError(error::onRespuestaError)
         );
+    }
+
+    @Override
+    public void actualizarRequerimiento(Context context, Requerimiento requerimiento, RespuestaSucces<Requerimiento> succes, RespuestaError error) {
+
+        JsonObject object = new JsonObject();
+        JsonArray listaJson = new JsonArray();
+        new Lista<Producto>(requerimiento.getItems()).foreach(producto -> {
+            JsonObject item = new JsonObject();
+            item.addProperty("item_code", producto.getItemCode());
+            item.addProperty("qty", producto.getCantidad());
+            listaJson.add(item);
+        });
+        object.add("items", listaJson);
+
+        getService(context).actualizarRequerimiento(requerimiento.getName(), object).enqueue(
+                new PadreRepository.CallRespuesta().listenRespuesta(resp -> {
+                    succes.onRespuestaSucces(requerimiento);
+                }).listenError(error::onRespuestaError));
     }
 }

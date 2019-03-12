@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -69,6 +70,22 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
         txtTitulo = view.findViewById(R.id.txtTitulo);
         txtFechaEmision = view.findViewById(R.id.txtFechaEmision);
         txtFechaEntrega = view.findViewById(R.id.txtFechaEntrega);
+
+        listViewItem.setOnItemClickListener(this::clickItemListView);
+    }
+
+    private void clickItemListView(AdapterView<?> adapterView, View view, int i, long l) {
+        DialogFullScreenProductos dialog = DialogFullScreenProductos.getBuilder()
+                .setRequerimiento(this.requerimiento)
+                .setProductoElegido(this.requerimiento.getItems().get(i))
+                .setOnActualizarRequerimiento(rq -> {
+                    mensajeToast("Se actualizo la orden %s", rq.getName());
+                    this.presenter.solicitarDetalleRequerimiento(rq);
+                    this.mostrarProgresBar(true);
+                }).Build();
+
+        dialog.show(getFragmentManager().beginTransaction(),
+                DialogFullScreenProductos.class.getSimpleName());
     }
 
     public static DetalleFragment newInstance() {
@@ -94,6 +111,7 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
 
     @Override
     public void errorRespuesta(String mensaje) {
+        mensajeToast(mensaje);
         log.info(mensaje);
         this.mostrarProgresBar(false);
     }

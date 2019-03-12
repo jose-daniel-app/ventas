@@ -154,6 +154,9 @@ public class ReqProductoFragment extends AppFragment implements
     @Override
     public void respuesDeCrearRequerimiento(Requerimiento requerimiento) {
         this.mostrarProgresBar(false);
-        mensajeToast("Se cree el requerimiento");
+        mensajeToast("Se cree el requerimiento " + requerimiento.getName());
+        getMainActivity().newFragmentHandler()
+                .changeFragment(DetalleFragment.newInstance()
+                .setRequerimiento(requerimiento));
     }
 }

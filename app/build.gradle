@@ -6,8 +6,8 @@ android {
         applicationId "com.business.ventas"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.0.8"
+        versionCode 5
+        versionName "1.0.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

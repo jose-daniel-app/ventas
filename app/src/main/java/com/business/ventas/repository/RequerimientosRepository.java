@@ -14,4 +14,6 @@ public interface RequerimientosRepository extends IpadreRepository {
     void obtenerRequerimiento(Context context, Requerimiento requerimiento, RespuestaSucces<Requerimiento> succes, RespuestaError error);
 
     void crearRequerimiento(Context context, Requerimiento requerimiento, RespuestaSucces<Requerimiento> succes, RespuestaError error);
+
+    void actualizarRequerimiento(Context context, Requerimiento requerimiento, RespuestaSucces<Requerimiento> succes, RespuestaError error);
 }
