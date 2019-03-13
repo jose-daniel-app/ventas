@@ -34,6 +34,7 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
     Requerimiento requerimiento;
     TextView txtCodigoRequerimiento;
     TextView txtTitulo;
+    TextView txtRuta;
     TextView txtFechaEmision;
     TextView txtFechaEntrega;
 
@@ -70,7 +71,7 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
         txtTitulo = view.findViewById(R.id.txtTitulo);
         txtFechaEmision = view.findViewById(R.id.txtFechaEmision);
         txtFechaEntrega = view.findViewById(R.id.txtFechaEntrega);
-
+        txtRuta = view.findViewById(R.id.txtRuta);
         listViewItem.setOnItemClickListener(this::clickItemListView);
     }
 
@@ -103,7 +104,7 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
         txtTitulo.setText(requerimiento.getTitle());
         txtFechaEmision.setText(Fechas.darFormatoALaFecha("dd/MM/yyyy",requerimiento.getTransactionDate()));
         txtFechaEntrega.setText(Fechas.darFormatoALaFecha("dd/MM/yyyy",requerimiento.getScheduleDate()));
-
+        txtRuta.setText(requerimiento.getRuta().getCodRuta());
         adapter = new ItemPedidosBaseAdapter(getActivity(), R.layout.view_item_pedido, requerimiento.getItems());
         listViewItem.setAdapter(adapter);
         this.mostrarProgresBar(false);

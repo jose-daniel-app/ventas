@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.business.ventas.beans.Producto;
 import com.business.ventas.beans.Requerimiento;
+import com.business.ventas.beans.Ruta;
 import com.business.ventas.utils.Fechas;
 import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
@@ -55,8 +56,10 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
                         itemRq.setNombre(getString(item.get("item_name")));
                         itemRq.setPrecioUnitario(getDouble(item.get("rate")));
                         itemRq.setCantidad(getInt(item.get("qty")));
+                        itemRq.setAlmacen(getString(item.get("warehouse")));
                         lista.add(itemRq);
                     });
+                    requerimiento.setRuta(new Ruta(){{setCodRuta(lista.get(0).getAlmacen());}});
                     requerimiento.setItems(lista);
                     succes.onRespuestaSucces(requerimiento);
                 })
@@ -77,8 +80,10 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
             JsonObject item = new JsonObject();
             item.addProperty("item_code", producto.getItemCode());
             item.addProperty("qty", producto.getCantidad());
+            item.addProperty("warehouse", requerimiento.getRuta().getCodRuta());
             listaJson.add(item);
         });
+        log.info("el almacen que se esta enviando %s",requerimiento.getRuta().getDirRuta());
         object.add("items", listaJson);
 
         getService(context).crearRequerimiento(object).enqueue(

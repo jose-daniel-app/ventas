@@ -21,7 +21,7 @@ public class RutaRepositoryImpl extends PadreRepository implements RutaRepositor
 
     @Override
     public RutaRepository listarRutas(Context context) {
-        getService(context).listarRutas("\"warehouse_name,company\"").enqueue(new Callback<JsonObject>() {
+        getService(context).listarRutas("\"warehouse_name,name,company\"").enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.code() == SUCCES) {
@@ -32,12 +32,13 @@ public class RutaRepositoryImpl extends PadreRepository implements RutaRepositor
                         Ruta ruta = new Ruta();
                         ruta.setDirRuta(obj.get("warehouse_name").isJsonNull() ? null : obj.get("warehouse_name").getAsString());
                         ruta.setCompany(obj.get("company").isJsonNull() ? null : obj.get("company").getAsString());
+                        ruta.setCodRuta(obj.get("name").isJsonNull() ? null : obj.get("name").getAsString());
                         rutas.add(ruta);
                     }
                     succes.onRespuestaSucces(rutas);
 
                 } else {
-                    error.onRespuestaError("error codigo: " + response.code());
+                    error.onRespuestaError("error codigo: " +  response.code());
                 }
             }
 

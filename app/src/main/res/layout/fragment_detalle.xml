@@ -46,7 +46,7 @@
                                 android:layout_weight="0.3"
                                 android:gravity="center_vertical"
                                 android:paddingLeft="8dp"
-                                android:text="Codigo"
+                                android:text="Código"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -74,12 +74,40 @@
                                 android:layout_weight="0.3"
                                 android:gravity="center_vertical"
                                 android:paddingLeft="8dp"
-                                android:text="titulo"
+                                android:text="Título"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/txtTitulo"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.7"
+                                android:gravity="right|center_vertical"
+                                android:paddingRight="8dp"
+                                android:textSize="15sp"
+                                tools:ignore="RtlHardcoded" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingBottom="5dp"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="8dp"
+                                android:text="Almacén"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtRuta"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"

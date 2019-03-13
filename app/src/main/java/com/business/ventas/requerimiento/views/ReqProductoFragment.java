@@ -149,6 +149,7 @@ public class ReqProductoFragment extends AppFragment implements
     public void errorRespuesta(String mensaje) {
         log.info(mensaje);
         mostrarProgresBar(false);
+        mensajeToast(mensaje);
     }
 
     @Override

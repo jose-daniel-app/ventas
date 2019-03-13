@@ -50,7 +50,7 @@ public class RutaViewAdapter extends RecyclerView.Adapter<RutaViewAdapter.Holder
     public void onBindViewHolder(@NonNull Holderview holderview, final int position) {
         Ruta ruta = productlistAdap.get(position);
 
-        holderview.v_codRuta.setText(ruta.getCodRuta());
+        //holderview.v_codRuta.setText(ruta.getCodRuta());
         holderview.v_dirRuta.setText(ruta.getDirRuta());
         holderview.v_provincia.setText(ruta.getCompany());
 

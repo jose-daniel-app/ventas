@@ -32,7 +32,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="0.3"
             android:gravity="center"
-            android:text="Codigo"
+            android:text=""
             android:textSize="25dp"
             android:textStyle="bold"
             tools:ignore="MissingConstraints"
