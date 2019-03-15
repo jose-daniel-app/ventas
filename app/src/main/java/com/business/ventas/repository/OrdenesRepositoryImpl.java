@@ -41,7 +41,7 @@ public class OrdenesRepositoryImpl extends PadreRepository implements OrdenesRep
                                 orden.setNombreCliente(json.get("customer_name").isJsonNull() ? null : json.get("customer_name").getAsString());
                                 orden.setDirecionCliente(json.get("address_display").isJsonNull() ? null : json.get("address_display")
                                         .getAsString().replaceAll("<br>", " "));
-                                orden.setFechaEntrega(json.get("customer_name").isJsonNull() ? null : Fechas.asDate(json.get("delivery_date").getAsString()));
+                                orden.setFechaEntrega(json.get("delivery_date").isJsonNull() ? null : Fechas.asDate(json.get("delivery_date").getAsString()));
                                 ordenes.add(orden);
                             }
                             succes.onRespuestaSucces(ordenes);

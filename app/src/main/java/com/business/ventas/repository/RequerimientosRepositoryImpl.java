@@ -124,6 +124,7 @@ public class RequerimientosRepositoryImpl extends PadreRepository implements Req
             JsonObject item = new JsonObject();
             item.addProperty("item_code", producto.getItemCode());
             item.addProperty("qty", producto.getCantidad());
+            item.addProperty("warehouse", requerimiento.getRuta().getCodRuta());
             listaJson.add(item);
         });
         object.add("items", listaJson);

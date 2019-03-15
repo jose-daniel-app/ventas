@@ -107,7 +107,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/txtRuta"
+                                android:id="@+id/txtAlmacen"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.7"
@@ -250,7 +250,7 @@
 
         <!-- </ScrollView> -->
 
-        <android.support.design.widget.FloatingActionButton
+        <!-- <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButonContinuar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -262,7 +262,7 @@
             android:src="@drawable/ic_check_white"
             android:theme="@style/FabTheme"
             app:fab_colorNormal="@color/primary"
-            app:fab_size="mini" />
+            app:fab_size="mini" /> -->
 
         <ProgressBar
             android:id="@+id/progressBar"

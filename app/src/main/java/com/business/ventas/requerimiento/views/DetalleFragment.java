@@ -71,7 +71,7 @@ public class DetalleFragment extends AppFragment implements DetalleContract.View
         txtTitulo = view.findViewById(R.id.txtTitulo);
         txtFechaEmision = view.findViewById(R.id.txtFechaEmision);
         txtFechaEntrega = view.findViewById(R.id.txtFechaEntrega);
-        txtRuta = view.findViewById(R.id.txtRuta);
+        txtRuta = view.findViewById(R.id.txtAlmacen);
         listViewItem.setOnItemClickListener(this::clickItemListView);
     }
 

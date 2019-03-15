@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -17,6 +18,8 @@ import com.business.ventas.beans.Requerimiento;
 import com.business.ventas.requerimiento.contracts.RequerimientoContract;
 import com.business.ventas.search.SearchToolbar.OnSearchToolbarQueryTextListner;
 import com.business.ventas.utils.AppFragment;
+import com.business.ventas.utils.Fechas;
+import com.business.ventas.utils.Lista;
 import com.business.ventas.utils.LogFactory;
 import com.business.ventas.utils.VentasLog;
 import com.business.ventas.viewAdapter.RequerimientoViewAdapter;
@@ -33,6 +36,7 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
 
     FloatingActionButton floatingActionButtonAgregar;
     ProgressBar progressBar;
+    private Lista<Requerimiento> requerimientos;
     RequerimientoContract.Presenter presenter;
 
     public RequerimientoFragment() {
@@ -50,6 +54,7 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
         navigationView.setCheckedItem(R.id.nav_requerimiento);
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.toolbar_requerimiento);
+        toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
      //   toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_date_range));
         presenter = RequerimientoContract.newPresenter().setContext(getContext()).setView(this);
         presenter.solicitarRequerimientos();
@@ -68,6 +73,24 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         listarequerimientos.setLayoutManager(linearLayoutManager);
 
+    }
+
+    private boolean onMenuItemClick(MenuItem menuItem){
+        switch (menuItem.getItemId()) {
+            case R.id.ic_Dia:
+                adapter.setfilter(this.requerimientos
+                        .filtrar(rq -> Fechas.esFechaDelDiaActual(rq.getScheduleDate())));
+                break;
+            case R.id.ic_Semana:
+                adapter.setfilter(this.requerimientos
+                        .filtrar(rq -> Fechas.esFechaDeLaSemana(rq.getScheduleDate())));
+                break;
+            case R.id.ic_Mes:
+                adapter.setfilter(this.requerimientos
+                        .filtrar(rq -> Fechas.esFechaDelMes(rq.getScheduleDate())));
+                break;
+        }
+        return true;
     }
 
     private void clickCard(Requerimiento requerimiento) {
@@ -98,9 +121,10 @@ public class RequerimientoFragment extends AppFragment implements OnSearchToolba
 
     @Override
     public void mostrarLosRequerimientos(List<Requerimiento> requerimientos) {
+        this.requerimientos = new Lista<>(requerimientos);
         adapter = RequerimientoViewAdapter.newInstance().config()
                 .setFragment(this)
-                .setProductlistAdap(requerimientos)
+                .setProductlistAdap(this.requerimientos)
                 .setListener(this::clickCard)
                 .build();
 
